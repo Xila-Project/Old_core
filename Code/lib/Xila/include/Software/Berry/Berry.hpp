@@ -12,12 +12,12 @@
 
 #include "Xila.hpp"
 
-extern "C"
-{
-#include "Virtual_machine/berry.h"
-}
-
 using namespace Xila;
+
+// - Forward declaration
+
+typedef struct bvm bvm;
+typedef int (*bntvfunc)(bvm*);
 
 /// @brief Berry class
 class Berry_Class : public Software_Type
@@ -59,7 +59,8 @@ class Berry_Class : public Software_Type
 static class Berry_Handle_Class : public Software_Handle_Type
 {
 public:
-    Berry_Handle_Class() : Software_Handle_Type("Berry"){};
+    Berry_Handle_Class() : Software_Handle_Type("Berry"){
+    };
 
     void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
     {

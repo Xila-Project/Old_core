@@ -13,8 +13,14 @@
 Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
     Log_Verbose("Drawer", "Drawer created");
+}
+
+void Shell_Class::Drawer_Class::Set_Interface()
+{
+    using namespace Graphics_Types;
 
     Window.Create(Shell_Pointer);
+    Window.Set_Minimize_Button_Hidden(true);
 
     Log_Verbose("Drawer", "Drawer window created");
 
@@ -31,50 +37,57 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
 
     {
         Object_Type Container;
-        Button_Type Icon;
         Graphics_Types::Label_Type Label;
         Static_String_Class<Default_Software_Name_Length> Name;
 
-        for (Byte_Type i = 0; i < Softwares.Get_Handle_Count(); i++)
+        uint8_t Handle_Count = Softwares.Get_Handle_Count();
+
+        for (Byte_Type i = 0; i < Handle_Count; i++)
         {
+            Log_Verbose("Drawer", "%p : %p", &Shell_Handle, Softwares.Get_Handle(i));
+            Log_Verbose("Drawer", "i = %d", i);
             if (&Shell_Handle != Softwares.Get_Handle(i))
             {
+                Log_Verbose("Drawer", "Adding software to drawer i = %d", i);
+
                 Log_Verbose("Drawer", "Adding software to drawer");
 
                 Container.Create(Window.Get_Body());
-                Container.Set_Size(10 * 8, 9 * 8);
+                Container.Set_Size(10 * 8, 11 * 8);
                 Container.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
                 Container.Set_Style_Pad_All(0, 0);
                 Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
-                Icon.Create(Container);
-                Icon.Set_Size(32, 32);
-                Icon.Set_Alignment(Alignment_Type::Top_Middle);
-                Icon.Add_Flag(Flag_Type::Event_Bubble);
-                Icon.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+                Log_Trace();
 
-                Label.Create(Container);
-                Label.Set_Size(Percentage(100), 32);
+                Softwares.Get_Handle(i)->Get_Name(Name);
+
+                // - Set software icon (color according to it's name)
+
+                Log_Trace();
+
+                Shell_Pointer->Get_Software_Icon(Container, Name);
+
+                Log_Trace();
+
+                // - Set software label
+
+                Label.Create(Container, Name, Percentage(100));
                 Label.Set_Alignment(Alignment_Type::Bottom_Middle);
                 Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
                 Label.Add_Flag(Flag_Type::Event_Bubble);
-                Softwares.Get_Handle(i)->Get_Name(Name);
-                Label.Set_Text(Name);
-                Label.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+                Label.Set_Style_Text_Alignment(Text_Alignment_Type::Center, 0);
 
                 Container.Clear_Pointer();
-                Icon.Clear_Pointer();
                 Label.Clear_Pointer();
             }
         }
-
-        Log_Verbose("Drawer", "Adding software to drawer");
     }
 }
 
 Shell_Class::Drawer_Class::~Drawer_Class()
 {
-    Window.Delete();
+    Close();
 }
 
 void Shell_Class::Drawer_Class::Execute_Instruction(const Instruction_Type &Instruction)
@@ -99,19 +112,23 @@ void Shell_Class::Drawer_Class::Execute_Instruction(const Instruction_Type &Inst
     }
 }
 
-void Shell_Class::Drawer_Class::Open(Shell_Class *Shell_Pointer)
+void Shell_Class::Drawer_Class::Open()
 {
-    if (!Is_Openned(Shell_Pointer))
-        Shell_Pointer->Drawer_Pointer = new Drawer_Class(Shell_Pointer);
+    Log_Verbose("Drawer", "Opening drawer");
+    using namespace Graphics_Types;
+    if (!Is_Openned())
+        Set_Interface();
+    else
+        Window.Set_State(Window_State_Type::Maximized);
 }
 
-void Shell_Class::Drawer_Class::Close(Shell_Class *Shell_Pointer)
+void Shell_Class::Drawer_Class::Close()
 {
-    delete Shell_Pointer->Drawer_Pointer;
-    Shell_Pointer->Drawer_Pointer = NULL;
+    if (Is_Openned())
+        Window.Delete();
 }
 
-bool Shell_Class::Drawer_Class::Is_Openned(Shell_Class *Shell_Pointer)
+bool Shell_Class::Drawer_Class::Is_Openned()
 {
-    return Shell_Pointer->Drawer_Pointer != NULL;
+    return Window.Is_Valid();
 }

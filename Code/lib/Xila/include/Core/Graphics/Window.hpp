@@ -74,6 +74,8 @@ namespace Xila_Namespace
 
             // - - Getters
 
+            void Set_Minimize_Button_Hidden(bool Hidden);
+
             /// @brief Get the state of the window.
             /// @return State of the window.
             Window_State_Type Get_State();

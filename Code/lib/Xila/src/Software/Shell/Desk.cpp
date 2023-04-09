@@ -15,72 +15,45 @@
 
 Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
+}
+
+void Shell_Class::Desk_Class::Set_Interface()
+{
+    using namespace Graphics_Types;
+
     // Window
-    Shell_Pointer->Screen.Load();
-    Window.Create(Shell_Pointer->Screen);
-    Task_Type::Delay_Static(100);
-    Log_Verbose("Desk", "Desk window created : %p", Window.Get_Pointer());
+    Window.Create(Shell_Pointer);
+    Window.Set_Minimize_Button_Hidden(true);
     Window.Set_Title("Desk");
 
-    // Grid for icons
-    const Coordinate_Type Grid_Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-    const Coordinate_Type Grid_Row_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-
     // Create grid
+    Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
+    // Window.Get_Body().Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
+    Window.Get_Body().Set_Style_Flex_Cross_Place(Flex_Alignment_Type::Center, 0);
+    Window.Get_Body().Set_Style_Pad_Bottom(10, 0);
+
     Desk_Grid.Create(Window.Get_Body());
+
     Desk_Grid.Set_Style_Pad_All(10, 0);
     Desk_Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
-    Desk_Grid.Set_Size(Percentage(100), Percentage(100));
-    Desk_Grid.Set_Grid_Descriptor_Array(Grid_Column_Descriptor, Grid_Row_Descriptor);
-    Desk_Grid.Move_Background();
+    Desk_Grid.Set_Flex_Flow(Flex_Flow_Type::Column_Wrap);
+    Desk_Grid.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Start, Flex_Alignment_Type::Start);
 
-    // - Desk icons
-    {
-        Graphics_Types::Label_Type Label;
-        Object_Type Icon;
-
-        for (uint8_t i = 0; i < 17; i++)
-        {
-            Icon.Create(Desk_Grid);
-            Icon.Set_Size(40, 40);
-
-            Label.Create(Desk_Grid);
-            Label.Set_Text_Format("Item", i);
-            Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
-
-            if (i == 15)
-            {
-                Icon.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 1, Grid_Alignment_Type::Start, 3, 1);
-                Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 1, Grid_Alignment_Type::End, 3, 1);
-            }
-            else if (i == 16)
-            {
-                Icon.Set_Grid_Cell(Grid_Alignment_Type::Center, 4, 1, Grid_Alignment_Type::Start, 3, 1);
-                Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 4, 1, Grid_Alignment_Type::End, 3, 1);
-            }
-            else
-            {
-                Icon.Set_Grid_Cell(Grid_Alignment_Type::Center, (i % 5), 1, Grid_Alignment_Type::Start, i / 5, 1);
-                Label.Set_Grid_Cell(Grid_Alignment_Type::Center, (i % 5), 1, Grid_Alignment_Type::End, i / 5, 1);
-            }
-
-            Icon.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
-            Label.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
-
-            Icon.Clear_Pointer();
-            Label.Clear_Pointer();
-        }
-    }
+    Desk_Grid.Set_Flex_Grow(1);
+    Desk_Grid.Set_Width(Percentage(100));
 
     // - Dock
-    Dock.Create(Desk_Grid);
+    Dock.Create(Window.Get_Body());
+    Dock.Set_Size(Percentage(60), 7 * 8);
+
     // - - Dock's style
-    Dock.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 3, Grid_Alignment_Type::Stretch, 3, 1);
     Dock.Set_Style_Pad_Bottom(0, 0);
     Dock.Set_Style_Pad_Top(0, 0);
     Dock.Set_Style_Pad_Left(10, 0);
     Dock.Set_Style_Pad_Right(10, 0);
-    Dock.Set_Style_Shadow_Width(20, 0);
+
+    // Dock.Set_Style_Shadow_Width(20, 0);   // TODO : Fix shadow width -> crash
+
     Dock.Set_Style_Shadow_Color(Color_Type::White, 0);
     Dock.Set_Style_Background_Color(Color_Type::Grey[8], 0);
     Dock.Set_Style_Radius(8, 0);
@@ -107,11 +80,10 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Menu_Button_Part_Style.Set_Outline_Width(0);
     Menu_Button_Part_Style.Set_Border_Width(0);
 
-
     static Style_Type Menu_Button_Part_Pressed_Style;
     Menu_Button_Part_Pressed_Style.Initialize();
     Menu_Button_Part_Pressed_Style.Set_Background_Color(Color_Type::White);
-    Menu_Button_Part_Pressed_Style.Set_Shadow_Width(15);
+    // Menu_Button_Part_Pressed_Style.Set_Shadow_Width(15);
     Menu_Button_Part_Pressed_Style.Set_Shadow_Color(Color_Type::White);
 
     {
@@ -213,9 +185,38 @@ void Shell_Class::Desk_Class::Set_Background_Color(Color_Type Color)
 
 void Shell_Class::Desk_Class::Refresh()
 {
-    Log_Trace();
 
-    // TODO : Refresh desk icons and dock software
+    // - Desk icons
+//    {
+//        Object_Type Container;
+//        Graphics_Types::Label_Type Label;
+//        Graphics_Types::Label_Type Icon;
+//
+//        for (uint8_t i = 0; i < 6; i++)
+//        {
+//            Container.Create(Desk_Grid);
+//            Container.Set_Size(10 * 8, 9 * 8);
+//            Container.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+//            Container.Set_Style_Pad_All(0, 0);
+//            Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+//
+//            Icon.Create(Container, LV_SYMBOL_DIRECTORY, 5 * 8, 5 * 8);
+//            Icon.Set_Style_Text_Font(&lv_font_montserrat_34, 0);
+//            Icon.Set_Alignment(Alignment_Type::Center);
+//            Icon.Add_Flag(Flag_Type::Event_Bubble);
+//
+//            Label.Create(Container, "Item", Percentage(100));
+//            Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
+//            Label.Set_Alignment(Alignment_Type::Bottom_Middle);
+//            Label.Add_Flag(Flag_Type::Event_Bubble);
+//            Label.Set_Style_Text_Alignment(Text_Alignment_Type::Center, 0);
+//
+//            Icon.Clear_Pointer();
+//            Label.Clear_Pointer();
+//            Container.Clear_Pointer();
+//        }
+//    }
+
     // Delete grid items except the dock.
 
     // - If the dock is hidden, do nothing.
@@ -226,32 +227,37 @@ void Shell_Class::Desk_Class::Refresh()
     // - Refresh dock software list.
 
     // If there are too many buttons, delete some.
-    while (Dock_List.Get_Child_Count() > Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User() - 1))
+
+    uint8_t User_Softwares_Count = Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User());
+    while (Dock_List.Get_Child_Count() > User_Softwares_Count - 1)
     {
         Dock_List.Get_Child(Dock_List.Get_Child_Count() - 1).Delete();
     }
+
     // If there is not enough buttons, create more.
     {
         Button_Type Button;
-        while (Dock_List.Get_Child_Count() < Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User() - 1))
+        while (Dock_List.Get_Child_Count() < User_Softwares_Count - 1)
         {
             Log_Verbose("Shell", "Shell pointer : %p", Shell_Pointer);
-            Button.Create(Dock_List, " ", 40, 40, Shell_Pointer); // Adding a space to force the button to create a label.
+            Button.Create(Dock_List, " ", 5 * 8, 5 * 8, Shell_Pointer); // Adding a space to force the button to create a label.
             Button.Set_Style_Border_Width(0, 0);
         }
     }
+
     // - - Set dock software icons.
     {
         Graphics_Types::Label_Type Label;
         const Software_Type *Software_Pointer;
         Static_String_Type<24> Name;
 
-        for (uint8_t i = 0; i < Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User()); i++)
+        for (uint8_t i = 0; i < User_Softwares_Count; i++)
         {
             Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
             if (Software_Pointer != Shell_Pointer)
             {
                 Software_Pointer->Get_Handle()->Get_Name(Name);
+
                 Name.Set_Character(2, '\0');
 
                 Label = Dock_List.Get_Child(i);
@@ -261,7 +267,6 @@ void Shell_Class::Desk_Class::Refresh()
         }
     }
 }
-
 
 void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instruction)
 {
@@ -275,7 +280,7 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
             if (Instruction.Graphics.Get_Object() == Menu_Button)
             {
                 Log_Verbose("Shell", "Menu button clicked");
-                Shell_Class::Drawer_Class::Open(Shell_Pointer);
+                Shell_Pointer->Drawer.Open();
             }
             else
             {

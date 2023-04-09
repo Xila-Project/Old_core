@@ -10,6 +10,7 @@
 
 #include "Core/Graphics/List.hpp"
 #include "Core/Graphics/Graphics.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
@@ -42,24 +43,25 @@ void List_Class::Create(Object_Class Parent_Object)
     }
 }
 
-Button_Class List_Class::Add_Button(const char *Icon, const char *Text)
+Object_Type List_Class::Add_Button(const char *Icon, const char *Text)
 {
     lv_obj_t *Button_Pointer;
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         Button_Pointer = lv_list_add_btn(Get_Pointer(), Icon, Text);
+
     }
-    return Button_Type(Object_Type(Button_Pointer));
+    return Object_Type(Button_Pointer);
 }
 
-Label_Class List_Class::Add_Text(const char *Text)
+Object_Type List_Class::Add_Text(const char *Text)
 {
     lv_obj_t *Label_Pointer;
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         Label_Pointer = lv_list_add_text(Get_Pointer(), Text);
     }
-    return List_Class(Object_Type(Label_Pointer));
+    return Object_Type(Label_Pointer);
 }
 
 // ------------------------------------------------------------------------- //

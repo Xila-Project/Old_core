@@ -165,7 +165,7 @@ namespace Xila_Namespace
         void Set_Size(Coordinate_Type Value);
 
         // - - - - Text
-        void Set_Text_Alignment(Text::Alignment_Type Alignment);
+        void Set_Text_Alignment(Graphics_Types::Text_Alignment_Type Alignment);
         void Set_Text_Color(Color_Type Color);
         void Set_Text_Decor(Text::Decor_Type Decor);
         void Set_Text_Font(Font_Type *Font);

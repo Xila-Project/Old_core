@@ -17,31 +17,35 @@
 
 namespace Xila_Namespace
 {
-    /// @brief List class.
-    typedef class List_Class : public Object_Class
-    {
-    public:
-        // - Methods
+    namespace Graphics_Types
+    { 
+        /// @brief List class.
+        typedef class List_Class : public Object_Class
+        {
+        public:
+            // - Methods
 
-        // - - Constructors / destructors
-        List_Class();
-        List_Class(const Object_Class &Object_To_Copy);
+            // - - Constructors / destructors
+            List_Class();
+            List_Class(const Object_Class &Object_To_Copy);
 
-        // - - Manipulation
-        virtual void Create(Object_Class Parent_Object) override;
+            // - - Manipulation
+            virtual void Create(Object_Class Parent_Object) override;
 
-        Graphics_Types::Label_Class Add_Text(const char *Text);
-        Button_Class Add_Button(const char *Icon, const char *Text);
+            Object_Type Add_Text(const char *Text);
+            Object_Type Add_Button(const char *Icon, const char *Text);
 
-        // - - Setters
-        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            // - - Setters
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-        // - - Getters
-        const char *Get_Button_Text(Button_Class &Button);
+            // - - Getters
+            const char *Get_Button_Text(Button_Class &Button);
 
-        // - Attributes
-        static const Graphics_Types::Class_Type& Class;
-    } List_Type;
+            // - Attributes
+            static const Graphics_Types::Class_Type &Class;
+        } List_Type;
+
+    } // namespace Graphics_Types
 }
 
 #endif

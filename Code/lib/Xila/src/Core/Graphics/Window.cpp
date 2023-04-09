@@ -47,11 +47,8 @@ Window_Class::Window_Class() : Object_Class()
 
 Window_Class::Window_Class(const Object_Class &Object_To_Copy)
 {
-    if (Object_To_Copy.Get_User_Data() != NULL && Object_To_Copy.Is_Valid())
-    {
-        Set_Pointer(Object_To_Copy.Get_Pointer());
+    if (Object_To_Copy.Get_User_Data() != NULL && Object_To_Copy.Is_Valid() && Set_Pointer(Object_To_Copy.Get_Pointer()))
         Data = static_cast<Data_Type *>(Object_To_Copy.Get_User_Data());
-    }
 }
 
 // - - Manipulation
@@ -82,7 +79,7 @@ void Window_Class::Create(const Software_Type *Owner_Software)
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         this->LVGL_Object_Pointer = lv_obj_create(User_Screen.Get_Pointer());
-        if (this->LVGL_Object_Pointer == NULL)
+        if (!Is_Valid())
             return;
 
         this->LVGL_Object_Pointer->class_p = &Window_Class::Class; // Set the custom class.
@@ -98,22 +95,24 @@ void Window_Class::Create(const Software_Type *Owner_Software)
 
 void Window_Class::Create(Object_Class Parent_Object)
 {
-    if (Parent_Object.Is_Valid())
+    if (!Parent_Object.Is_Valid())
+        return;
+
     {
-        {
-            Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-            this->LVGL_Object_Pointer = lv_obj_create(Parent_Object.Get_Pointer());
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_obj_create(Parent_Object.Get_Pointer());
 
-            if (this->LVGL_Object_Pointer == NULL)
-                return;
+        if (this->LVGL_Object_Pointer == NULL)
+            return;
 
-            this->LVGL_Object_Pointer->class_p = &Window_Class::Class; // Set the custom class.
-        }
-        Data = new Data_Type;
-        Set_User_Data(Data);
-        Data->Owner_Software = NULL;
-        this->Set_Interface();
+        this->LVGL_Object_Pointer->class_p = &Window_Class::Class; // Set the custom class.
     }
+
+    Data = new Data_Type;
+    Set_User_Data(Data);
+    Data->Owner_Software = NULL;
+
+    this->Set_Interface();
 }
 
 void Window_Class::Delete()
@@ -134,7 +133,6 @@ void Window_Class::Set_Interface()
 
     if (!this->Is_Valid() || this->Data == NULL)
         return;
-    
 
     this->Set_Size(Percentage(100), Percentage(100));
     this->Set_Flex_Flow(Flex_Flow_Type::Column);
@@ -172,7 +170,7 @@ void Window_Class::Set_Interface()
     Data->Minimize_Button.Set_Style_Radius(8, 0);
     Data->Minimize_Button.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
     Data->Minimize_Button.Set_Style_Shadow_Width(0, 0);
-   Data->Minimize_Button.Add_Event(Event_Callback, Event_Code_Type::Clicked, this);
+    Data->Minimize_Button.Add_Event(Event_Callback, Event_Code_Type::Clicked, this);
 
     // - Middle title.
     Data->Title_Label.Create(Data->Header);
@@ -180,15 +178,11 @@ void Window_Class::Set_Interface()
     Data->Title_Label.Set_Alignment(Alignment_Type::Center);
     Data->Title_Label.Set_Style_Text_Color(Color_Type::White, 0);
 
-
-
     // - Body.
     Data->Body.Create(*this);
     Data->Body.Set_Style_Pad_All(0, 0);
     Data->Body.Set_Width(Percentage(100));
     Data->Body.Set_Flex_Grow(1);
-
-
 
     Task_Class::Delay_Static(100);
 }
@@ -279,13 +273,24 @@ const Software_Type *Window_Class::Get_Owner_Software() const
     return Data->Owner_Software;
 }
 
-void Window_Class::Event_Callback(lv_event_t* Event)
+void Window_Class::Set_Minimize_Button_Hidden(bool Hidden)
+{
+    if (Data == NULL || !Data->Minimize_Button.Is_Valid())
+        return;
+
+    if (Hidden)
+        Data->Minimize_Button.Add_Flag(Flag_Type::Hidden);
+    else
+        Data->Minimize_Button.Clear_Flag(Flag_Type::Hidden);
+}
+
+void Window_Class::Event_Callback(lv_event_t *Event)
 {
     Log_Trace();
     if (lv_event_get_code(Event) == LV_EVENT_CLICKED)
     {
         Log_Trace();
-        Window_Type* Window = static_cast<Window_Type*>(lv_event_get_user_data(Event));
+        Window_Type *Window = static_cast<Window_Type *>(lv_event_get_user_data(Event));
 
         Log_Verbose("Win", "Window event callback, pointer : %p", Window);
 
@@ -295,7 +300,7 @@ void Window_Class::Event_Callback(lv_event_t* Event)
         {
             Log_Trace();
 
-            Softwares.Close(const_cast<Software_Type*>(Window->Data->Owner_Software));  // TODO : Move to shell.
+            Window->Delete();
         }
         else if (lv_event_get_target(Event) == Window->Data->Minimize_Button.Get_Pointer())
         {
@@ -304,5 +309,4 @@ void Window_Class::Event_Callback(lv_event_t* Event)
             Window->Set_State(Window_State_Type::Minimized);
         }
     }
-
 }

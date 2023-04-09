@@ -28,6 +28,8 @@ class File_Manager_Class : public Software_Type
     void Main_Task_Function() override;
     void Execute_Instruction(Instruction_Type Instruction);
 
+    void Set_Interface();
+
     void Refresh();
 
     void Enable_Selection_Mode(bool Multiple);
@@ -53,21 +55,21 @@ class File_Manager_Class : public Software_Type
     Object_Type Grid;
     Object_Type Flexbox;
     Graphics_Types::Text_Area_Type Path_Text_Area;
-    List_Type List;
-    Button_Type Parent_Folder_Button;
-    Button_Type Home_Folder_Button;
-    Button_Type Root_Folder_Button;
-    Button_Type Refresh_Button;
-    Button_Type New_Folder_Button;
-    Button_Type New_File_Button;
-    Button_Type Select_Button;
-    Button_Type Deselect_Button;
-    Button_Type Delete_Button;
-    Button_Type Rename_Button;
-    Button_Type Copy_Button;
-    Button_Type Cut_Button;
-    Button_Type Paste_Button;
-    Button_Type Details_Button;
+    Graphics_Types::List_Type List;
+    Object_Type Parent_Folder_Button;
+    Object_Type Home_Folder_Button;
+    Object_Type Root_Folder_Button;
+    Object_Type Refresh_Button;
+    Object_Type New_Folder_Button;
+    Object_Type New_File_Button;
+    Object_Type Select_Button;
+    Object_Type Deselect_Button;
+    Object_Type Delete_Button;
+    Object_Type Rename_Button;
+    Object_Type Copy_Button;
+    Object_Type Cut_Button;
+    Object_Type Paste_Button;
+    Object_Type Details_Button;
 
     Graphics_Types::Dialog_Type Details_Dialog;
     Table_Type Details_Table;

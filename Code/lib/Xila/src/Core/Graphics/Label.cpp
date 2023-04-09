@@ -90,9 +90,9 @@ void Label_Class::Set_Text(const char *Text)
 
 void Label_Class::Set_Text_Format(const char *Format, ...)
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     va_list Arguments;
     va_start(Arguments, Format);
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_label_set_text_fmt(Get_Pointer(), Format, Arguments);
     va_end(Arguments);
 }
@@ -140,7 +140,7 @@ bool Label_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
         return false;
     }
     Object_Type Object(LVGL_Object_Pointer);
-    if (!Object.Check_Class(&lv_label_class))
+    if (!Object.Check_Class(&Class))
     {
         return false;
     }

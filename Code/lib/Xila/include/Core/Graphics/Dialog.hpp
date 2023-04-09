@@ -14,7 +14,9 @@ namespace Xila_Namespace
         {
         public:
             // - Methods
-                
+            
+            Dialog_Class();
+            Dialog_Class(const Object_Class &Object_To_Copy);
 
             virtual void Create(const Software_Type* Owner_Software) override;
             virtual void Create(Object_Class Parent_Object) override;

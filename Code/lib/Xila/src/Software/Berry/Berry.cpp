@@ -9,16 +9,27 @@
 
 #include "Software/Berry/Berry.hpp"
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
+#include "berry.h"
+#include "be_repl.h"
+#include "be_vm.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#ifdef __cplusplus 
+}
+#endif
+
 bool Berry_Class::Softwares_Handles_Loaded = false;
 
-Berry_Class::Berry_Class(const Accounts_Types::User_Type* Owner_User) : Software_Type(&Berry_Handle, Owner_User), Window()
+Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User) : Software_Type(&Berry_Handle, Owner_User), Window()
 {
     Window.Create(this);
 
     if (this->Get_Handle() == &Berry_Handle && !Softwares_Handles_Loaded)
         Load_Softwares_Handles();
-
-        
 
     Virtual_Machine_Create();
 }
@@ -38,7 +49,6 @@ void Berry_Class::Execute_Instruction(const Instruction_Type &Instruction)
         {
             delete this;
         }
-        
     }
 }
 
@@ -48,7 +58,6 @@ void Berry_Class::Main_Task_Function()
 
     if (this->Get_Handle() == &Berry_Handle)
     {
-
     }
     else
     {
@@ -102,7 +111,7 @@ void Berry_Class::Load_Softwares_Handles()
     Softwares_Folder.Rewind_Directory();
 
     File_Type Software_Folder = Softwares_Folder.Open_Next_File();
-    
+
     while (Software_Folder)
     {
         if (!Software_Folder.Is_Directory())
@@ -118,7 +127,7 @@ void Berry_Class::Load_Softwares_Handles()
 
         if (strcmp(Software_Manifest["Type"] | "", "Software") != 0)
             continue;
-        
+
         if (strcmp(Software_Manifest["Format"] | "", "Berry") != 0)
             continue;
 

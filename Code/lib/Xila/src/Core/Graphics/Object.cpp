@@ -134,7 +134,7 @@ void Object_Class::Swap(Object_Class Object_To_Swap_With)
     lv_obj_swap(Get_Pointer(), Object_To_Swap_With.Get_Pointer());
 }
 
-void Object_Class::Add_Event(lv_event_cb_t Event_Callback, Event_Code_Type Event_Code, void* User_Data)
+void Object_Class::Add_Event(lv_event_cb_t Event_Callback, Event_Code_Type Event_Code, void *User_Data)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_obj_add_event_cb(Get_Pointer(), Event_Callback, (lv_event_code_t)Event_Code, User_Data); // Use user data pointer to store argument of the event.
@@ -196,11 +196,24 @@ bool Object_Class::Has_Class(const Class_Type *Class_To_Check) const
 
 bool Object_Class::Check_Class(const Class_Type *Class_To_Check) const
 {
+    if (Class_To_Check == NULL)
+    {
+        Log_Verbose("Object", "Class to check is NULL");
+        return false;
+    }
+    
     return (this->Get_Class() == Class_To_Check);
 }
 
 const Class_Type *Object_Class::Get_Class() const
 {
+    if (!Is_Valid())
+    {
+        Log_Verbose("Object", "Object is not valid");
+        return NULL;
+    }
+
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_class(Get_Pointer());
 }
 
@@ -844,10 +857,10 @@ void Object_Class::Set_Style_Shadow_Width(Coordinate_Type Width, Style_Selector_
     lv_obj_set_style_shadow_width(Get_Pointer(), Width, Style_Selector);
 }
 
-void Object_Class::Set_Style_Text_Alignment(Text::Alignment_Type Text_Alignment, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Text_Alignment(Text_Alignment_Type Text_Alignment, Style_Selector_Type Style_Selector)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_set_style_text_align(Get_Pointer(), Text_Alignment, Style_Selector);
+    lv_obj_set_style_text_align(Get_Pointer(), static_cast<lv_text_align_t>(Text_Alignment), Style_Selector);
 }
 
 void Object_Class::Set_Style_Text_Color(Color_Type Color, Style_Selector_Type Style_Selector)
@@ -862,7 +875,7 @@ void Object_Class::Set_Style_Text_Decor(Text::Decor_Type Text_Decor, Style_Selec
     lv_obj_set_style_text_decor(Get_Pointer(), Text_Decor, Style_Selector);
 }
 
-void Object_Class::Set_Style_Text_Font(Font_Type *Font, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Text_Font(const Font_Type *Font, Style_Selector_Type Style_Selector)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_obj_set_style_text_font(Get_Pointer(), Font, Style_Selector);
@@ -1571,10 +1584,10 @@ Coordinate_Type Object_Class::Get_Style_Shadow_Width(Part_Type Part)
     return lv_obj_get_style_shadow_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Text::Alignment_Type Object_Class::Get_Style_Text_Alignment(Part_Type Part)
+Text_Alignment_Type Object_Class::Get_Style_Text_Alignment(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_obj_get_style_text_align(Get_Pointer(), static_cast<uint32_t>(Part));
+    return static_cast<Text_Alignment_Type>(lv_obj_get_style_text_align(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Text_Color(Part_Type Part)

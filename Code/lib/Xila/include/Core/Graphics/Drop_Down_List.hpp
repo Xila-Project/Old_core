@@ -47,7 +47,7 @@ namespace Xila_Namespace
         void Set_Selected_Highlight(bool Enabled);
 
         // - - Getters
-        List_Class Get_List();
+        Graphics_Types::List_Type Get_List();
         const char *Get_Text();
         const char *Get_Options();
         uint16_t Get_Selected_Option();

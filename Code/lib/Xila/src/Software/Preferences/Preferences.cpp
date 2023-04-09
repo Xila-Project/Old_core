@@ -865,7 +865,9 @@ void Preferences_Class::Refresh_Softwares()
     memset(Software_Name, '\0', sizeof(Software_Name));
     Static_String_Type<Default_Software_Name_Length> Software_Name_String;
 
-    for (uint8_t i = 0; i < Softwares.Get_Handle_Count(); i++)
+    uint8_t Handle_Count = Softwares.Get_Handle_Count();
+
+    for (uint8_t i = 0; i < Handle_Count; i++)
     {
         Softwares.Get_Handle(i)->Get_Name(Software_Name_String);
         strlcat(Software_Name, Software_Name_String, sizeof(Software_Name));

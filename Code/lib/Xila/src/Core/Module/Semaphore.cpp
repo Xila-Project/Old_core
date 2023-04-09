@@ -25,7 +25,6 @@ Semaphore_Class::Semaphore_Class() : Semaphore_Handle(NULL)
 
 Semaphore_Class::Semaphore_Class(const Semaphore_Class& Semaphore_To_Copy) : Semaphore_Handle(Semaphore_To_Copy.Semaphore_Handle)
 {
-    Log_Verbose("Semaphore", "Semaphore copied");
 }
 
 Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
@@ -48,7 +47,6 @@ Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, 
         break;
     case Type_Type::Recursive_Mutex:
         Semaphore_Handle = xSemaphoreCreateRecursiveMutex();
-        Log_Verbose("Semaphore", "Recursive mutex created");
         break;
     default:
         return Result_Type::Error;

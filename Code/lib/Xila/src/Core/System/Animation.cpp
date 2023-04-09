@@ -22,8 +22,6 @@ void System_Class::Start_Load_Animation(Object_Type* Logo, Graphics_Types::Anima
   Object_Type Background;
 
   Background.Create(Object_Type(lv_scr_act()));
-  Log_Trace();
-  Log_Verbose("System", "Background ptr : %p", Background.Get_Pointer());
   Background.Set_Size(Percentage(100), Percentage(100));
   Background.Set_Style_Background_Color(Color_Type::Black, 0);
   Background.Set_Style_Pad_All(0, 0);

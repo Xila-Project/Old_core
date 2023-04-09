@@ -12,8 +12,17 @@
 
 File_Manager_Class::File_Manager_Class(const Accounts_Types::User_Type* Owner_User) : Software_Class(&File_Manager_Handle, Owner_User)
 {
+    Log_Verbose("File manager", "File manager software initialization");
+}
+
+void File_Manager_Class::Set_Interface()
+{
+    Log_Verbose("File manager", "File manager software interface initialization");
+
     Window.Create(this);
     Window.Set_Title("File manager");
+
+    Log_Trace();
 
     Grid.Create(Window);
     const Coordinate_Type Column_Descriptor[] = {LV_GRID_FR(1), 140, LV_GRID_TEMPLATE_LAST};
@@ -23,16 +32,25 @@ File_Manager_Class::File_Manager_Class(const Accounts_Types::User_Type* Owner_Us
     Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
     Grid.Set_Style_Pad_All(0, 0);
 
+
+    Log_Trace();
+
     Flexbox.Create(Grid);
     Flexbox.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 1, Grid_Alignment_Type::Stretch, 1, 1);
     Flexbox.Set_Flex_Flow(Flex_Flow_Type::Column_Wrap);
     Flexbox.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
     Flexbox.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Start, Flex_Alignment_Type::Start);
 
+
+    Log_Trace();
+
     Path_Text_Area.Create(Grid);
     Path_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 2, Grid_Alignment_Type::Stretch, 0, 1);
     Path_Text_Area.Set_Text("/");
     Path_Text_Area.Set_One_Line(true);
+
+
+    Log_Trace();
 
     List.Create(Grid);
     List.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 1, Grid_Alignment_Type::Stretch, 1, 1);
@@ -40,8 +58,15 @@ File_Manager_Class::File_Manager_Class(const Accounts_Types::User_Type* Owner_Us
     List.Set_Style_Border_Side(Border_Side_Type::Left, 0);
     List.Set_Style_Pad_All(0, 0);
 
+
+    Log_Trace();
+
     List.Add_Text("Browse");
+
     Parent_Folder_Button = List.Add_Button(LV_SYMBOL_UP, "Parent");
+    
+    Log_Verbose("File manager", "Parent folder button: %p", Parent_Folder_Button.Get_Pointer());
+
     Parent_Folder_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Refresh_Button = List.Add_Button(LV_SYMBOL_REFRESH, "Refresh");
     Refresh_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
@@ -50,11 +75,17 @@ File_Manager_Class::File_Manager_Class(const Accounts_Types::User_Type* Owner_Us
     Root_Folder_Button = List.Add_Button(LV_SYMBOL_DRIVE, "Root");
     Root_Folder_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
+
+    Log_Trace();
+
     List.Add_Text("Create");
     New_Folder_Button = List.Add_Button(LV_SYMBOL_DIRECTORY, "New folder");
     New_Folder_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     New_File_Button = List.Add_Button(LV_SYMBOL_FILE, "New file");
     New_File_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
+
+
+    Log_Trace();
 
     List.Add_Text("Selection");
     Select_Button = List.Add_Button(LV_SYMBOL_OK, "Select");
@@ -75,13 +106,22 @@ File_Manager_Class::File_Manager_Class(const Accounts_Types::User_Type* Owner_Us
     Details_Button = List.Add_Button(LV_SYMBOL_EYE_OPEN, "Details");
     Details_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
+
+    Log_Trace();
+
     Details_Dialog.Create(Window);
     Details_Dialog.Set_Title("Details");
+
+
+    Log_Trace();
 
     Details_Table.Create(Details_Dialog);
     Details_Table.Set_Size(Percentage(100), Percentage(100));
     Details_Table.Set_Alignment(Alignment_Type::Center);
     Details_Table.Add_Flag(Flag_Type::Hidden);
+
+
+    Log_Trace();
 
     this->Refresh();
 }
@@ -98,7 +138,10 @@ File_Manager_Class::~File_Manager_Class()
 
 void File_Manager_Class::Main_Task_Function()
 {
+    Set_Interface();
+
     uint32_t Next_Refresh = 0;
+
     while (1)
     {
         if (this->Instruction_Available())
@@ -119,6 +162,8 @@ void File_Manager_Class::Main_Task_Function()
 
 void File_Manager_Class::Refresh()
 {
+    Log_Verbose("File manager", "Refresh");
+
     File_Type Folder = Drive.Open(Path_Text_Area.Get_Text());
 
     Folder.read();

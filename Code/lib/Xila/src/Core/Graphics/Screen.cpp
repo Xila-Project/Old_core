@@ -62,6 +62,7 @@ void Screen_Class::Create(const Software_Type *Owner_Software)
         {
             
             Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+            
             this->LVGL_Object_Pointer = lv_obj_create(NULL);
             
             Log_Trace();

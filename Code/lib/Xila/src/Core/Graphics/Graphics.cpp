@@ -100,7 +100,7 @@ void Graphics_Class::Task_Function()
 
 void Graphics_Class::Execute_Instruction(Instruction_Type Instruction)
 {
-    // TODO : Move this in shell instead 
+    // TODO : Move this in shell instead
     if (Instruction.Get_Sender() == this)
     {
         switch (Instruction.Graphics.Get_Code())
@@ -117,8 +117,8 @@ void Graphics_Class::Execute_Instruction(Instruction_Type Instruction)
         {
             Window_Type Window = Instruction.Graphics.Get_Object();
             if (Window.Is_Valid())
-                Softwares.Close(const_cast<Software_Type*>(Window.Get_Owner_Software()));
-                break;
+                Softwares.Close(const_cast<Software_Type *>(Window.Get_Owner_Software()));
+            break;
         }
         }
     }
@@ -130,12 +130,15 @@ void Graphics_Class::Event_Handler(lv_event_t *Event)
     static Object_Type Object;
 
     Instruction.Set_Sender(&Graphics);
-    Instruction.Set_Receiver((Module_Class *)lv_event_get_user_data(Event));
-
-    Instruction.Graphics.Set_Code(static_cast<Event_Code_Type>(lv_event_get_code(Event)));
 
     Object.Clear_Pointer();
-    Object.Set_Pointer(lv_event_get_current_target(Event));
+
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        Instruction.Set_Receiver((Module_Class *)lv_event_get_user_data(Event));
+        Instruction.Graphics.Set_Code(static_cast<Event_Code_Type>(lv_event_get_code(Event)));
+        Object.Set_Pointer(lv_event_get_current_target(Event));
+    }
 
     Instruction.Graphics.Set_Object(Object);
 

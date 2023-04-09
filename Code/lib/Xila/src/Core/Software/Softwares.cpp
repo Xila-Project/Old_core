@@ -183,9 +183,12 @@ uint8_t Softwares_Class::Get_Count()
 
 uint8_t Softwares_Class::Get_Handle_Count()
 {
+    Log_Verbose("Softwares", "Handle list size : %d", Software_Handle_Class::List.size());
+
     uint8_t i = 0;
     for (auto Software_Handle_Pointer : Software_Handle_Class::List)
     {
+        Log_Verbose("Softwares", "Handle ptr %u : %p", i, Software_Handle_Pointer);
         if (Software_Handle_Pointer == NULL)
             break;
         else

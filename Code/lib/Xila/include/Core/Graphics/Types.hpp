@@ -173,6 +173,16 @@ namespace Xila_Namespace
 
     namespace Graphics_Types
     {
+
+        enum class Text_Alignment_Type
+        {
+
+            Automatic = LV_TEXT_ALIGN_AUTO, /**< Align text auto*/
+            Left = LV_TEXT_ALIGN_LEFT,      /**< Align text to left*/
+            Center = LV_TEXT_ALIGN_CENTER,  /**< Align text to center*/
+            Right = LV_TEXT_ALIGN_RIGHT,    /**< Align text to right*/
+        };
+
         /// @brief Class type to define hertiage betweens types.
         typedef lv_obj_class_t Class_Type;
 
@@ -241,7 +251,7 @@ namespace Xila_Namespace
             Last_Event = _LV_EVENT_LAST,
 
             // - - Window events
-            Minimize,  
+            Minimize,
             Close,
 
         };
@@ -278,7 +288,6 @@ namespace Xila_Namespace
             Colow_Wheel,
             Dialog,
             Drop_Down_List,
-            
 
         };
     }
@@ -286,8 +295,6 @@ namespace Xila_Namespace
     class Types_Class
     {
     public:
- 
-
         // - Types
 
         /// @brief Text font type
@@ -361,19 +368,6 @@ namespace Xila_Namespace
 
             /// @brief Text decor type.
             typedef lv_text_decor_t Decor_Type;
-
-            /// @brief Text alignment enumeration.
-            enum Alignment_Enumeration
-            {
-
-                Automatic = LV_TEXT_ALIGN_AUTO, /**< Align text auto*/
-                Left = LV_TEXT_ALIGN_LEFT,      /**< Align text to left*/
-                Center = LV_TEXT_ALIGN_CENTER,  /**< Align text to center*/
-                Right = LV_TEXT_ALIGN_RIGHT,    /**< Align text to right*/
-            };
-
-            /// @brief Text alignment type.
-            typedef lv_text_align_t Alignment_Type;
         };
 
         class Dither_Mode
@@ -391,8 +385,6 @@ namespace Xila_Namespace
             };
         };
     };
-
-    
 
 }
 

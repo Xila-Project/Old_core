@@ -224,6 +224,5 @@ void Task_Class::Delete_Module_Tasks(Module_Type* Module)
 
 Size_Type Task_Class::Get_Lowest_Free_Stack()
 {
-    Log_Verbose("Task", "Task handle %X", Task_Handle);
     return uxTaskGetStackHighWaterMark(Task_Handle);
 }

@@ -6,6 +6,9 @@
 ** https://github.com/Skiars/berry/blob/master/LICENSE
 ********************************************************************/
 #include "Software/Berry/Berry.hpp"
+#include "berry.h"
+#include "be_mem.h"
+#include "be_sys.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -206,12 +209,15 @@ int be_isexist(const char *path)
 
 char *be_getcwd(char *buf, size_t size)
 {
-    return Buffer;
+    // TODO
+    return buf;
 }
 
 int be_chdir(const char *path)
 {
-    return f_chdir(path);
+    // TODO 
+    return 0;
+    //return f_chdir(path);
 }
 
 int be_mkdir(const char *path)
@@ -224,16 +230,15 @@ int be_unlink(const char *filename)
     return false;
 }
 
-int be_dirfirst(bdirinfo *info, const char *path)
+int be_dirfirst(bdirinfo *info, const char *Path)
 {
     File_Type* Directory = new File_Type;
     *Directory = Drive.Open(Path);
+    File_Type* File = new File_Type;
     if (*Directory)
     {
         Directory->Rewind_Directory();
-
-        File_Type* File = new File_Type;
-        File = Directory->Open_Next_File();
+        *File = Directory->Open_Next_File();
         if (*File)
         {
             info->dir = Directory;
@@ -258,14 +263,20 @@ int be_dirnext(bdirinfo *info)
     {
         info->file = new File_Type;
     }
-    *(File_Type*)info->file = info->(File_Type*)dir->Open_Next_File();
+    File_Type* Directory = (File_Type*)info->dir;
+    *(File_Type*)info->file = Directory->Open_Next_File();
+    
     if (*(File_Type*)info->file)
     {
         return false;
     }
-    delete info->file;
+    
+    delete (File_Type*)info->file;
     info->file = NULL;
-    info->name = info->(File_Type*)file->Get_Name();
+
+    File_Type* File = (File_Type*)info->file; 
+
+    info->name = File->Get_Name();
     return true;
 }
 
@@ -275,10 +286,11 @@ int be_dirclose(bdirinfo *info)
     {
         if (*(File_Type*)info->dir)
         {
-            info->(File_Type*)dir->Close();
+            File_Type* Directory = (File_Type*)info->dir;
+            Directory->Close();
         }
-        delete info->dir;
-        delete info->file;
+        delete (File_Type*)info->dir;
+        delete (File_Type*)info->file;
         info->dir = NULL;
         info->file = NULL;
         

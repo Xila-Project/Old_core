@@ -12,6 +12,7 @@
 #include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
 // ------------------------------------------------------------------------- //
 //
@@ -569,10 +570,10 @@ void Style_Class::Set_Size(Coordinate_Type Value)
     lv_style_set_size(&LVGL_Style, Value);
 }
 
-void Style_Class::Set_Text_Alignment(Text::Alignment_Type Text_Alignment)
+void Style_Class::Set_Text_Alignment(Text_Alignment_Type Text_Alignment)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_style_set_text_align(&LVGL_Style, Text_Alignment);
+    lv_style_set_text_align(&LVGL_Style, static_cast<lv_text_align_t>(Text_Alignment));
 }
 
 void Style_Class::Set_Text_Color(Color_Type Color)

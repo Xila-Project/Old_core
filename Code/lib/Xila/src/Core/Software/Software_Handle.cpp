@@ -1,4 +1,3 @@
-///
 /// @file Software_Handle.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
@@ -6,7 +5,6 @@
 /// @date 11-07-2021
 ///
 /// @copyright Copyright (c) 2021
-///
 
 #include "Core/Software/Software_Handle.hpp"
 #include "Core/Log/Log.hpp"
@@ -35,7 +33,7 @@ Software_Handle_Class::Software_Handle_Class(const char* Name)
 {
   for (auto& Software_Handle_Pointer : List)
   {
-    if (Software_Handle_Pointer == nullptr)
+    if (Software_Handle_Pointer == NULL)
     {
       Software_Handle_Pointer = this;
       break;

@@ -70,6 +70,8 @@ class Shell_Class : public Software_Type
         // - Attributes
         Graphics_Types::Window_Type Window;
 
+        void Set_Interface();
+
     private:
         // - Methods
 
@@ -94,28 +96,30 @@ class Shell_Class : public Software_Type
     {
     public:
         // - Methods
-        static void Open(Shell_Class *Shell_Pointer);
-        static void Close(Shell_Class *Shell_Pointer);
-        static bool Is_Openned(Shell_Class *Shell_Pointer);
+        void Open();
+        void Close();
+        bool Is_Openned();
+
+        void Set_Interface();
 
         void Execute_Instruction(const Instruction_Type &Instruction);
 
         // - Attributes
         Graphics_Types::Window_Type Window;
 
+        Drawer_Class(Shell_Class *Shell_Pointer);
+        ~Drawer_Class();
+
     private:
         // - Methods
 
         // - - Constructors / destructor
 
-        Drawer_Class(Shell_Class *Shell_Pointer);
-        ~Drawer_Class();
-
         // - Attributes
 
         Shell_Class *Shell_Pointer;
 
-    } *Drawer_Pointer;
+    } Drawer;
 
     /// @brief Login class
     class Login_Class
@@ -216,10 +220,13 @@ class Shell_Class : public Software_Type
 
     // - - Others
 
+    void Get_Software_Icon(const Object_Type&, const String_Type&) const;
     void Execute_Instruction(Instruction_Type Instruction);
     void Main_Task_Function() override;
     void Refresh_Overlay();
 
+    /// @brief Check for opened softwares.
+    
     // - - Registry
     Result_Type Save_Registry();
     Result_Type Create_Registry();
@@ -235,7 +242,6 @@ static class Shell_Handle_Class : public Software_Handle_Type
 public:
     Shell_Handle_Class() : Software_Handle_Type("Shell")
     {
-        log_printf("Test", "Test");
     };
 
     void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
@@ -243,6 +249,6 @@ public:
         new Shell_Class(Owner_User);
     };
 
-} Shell_Handle;
+} Shell_Handle; 
 
 #endif

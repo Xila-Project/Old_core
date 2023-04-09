@@ -285,10 +285,10 @@ namespace Xila_Namespace
         void Set_Style_Shadow_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
 
         // - - - - Text
-        void Set_Style_Text_Alignment(Text::Alignment_Type Alignment, Style_Selector_Type Style_Selector);
+        void Set_Style_Text_Alignment(Graphics_Types::Text_Alignment_Type Alignment, Style_Selector_Type Style_Selector);
         void Set_Style_Text_Color(Color_Type Color, Style_Selector_Type Style_Selector);
         void Set_Style_Text_Decor(Text::Decor_Type Decor, Style_Selector_Type Style_Selector);
-        void Set_Style_Text_Font(Font_Type *Font, Style_Selector_Type Style_Selector);
+        void Set_Style_Text_Font(const Font_Type *Font, Style_Selector_Type Style_Selector);
         void Set_Style_Text_Letter_Space(Coordinate_Type Letter_Space, Style_Selector_Type Style_Selector);
         void Set_Style_Text_Line_Space(Coordinate_Type Line_Space, Style_Selector_Type Style_Selector);
         void Set_Style_Text_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
@@ -452,7 +452,7 @@ namespace Xila_Namespace
         Coordinate_Type Get_Style_Shadow_Width(Part_Type Part);
 
         // - - - Text
-        Text::Alignment_Type Get_Style_Text_Alignment(Part_Type Part);
+        Graphics_Types::Text_Alignment_Type Get_Style_Text_Alignment(Part_Type Part);
         Color_Type Get_Style_Text_Color(Part_Type Part);
         Color_Type Get_Style_Text_Color_Filtered(Part_Type Part);
         Text::Decor_Type Get_Style_Text_Decor(Part_Type Part);

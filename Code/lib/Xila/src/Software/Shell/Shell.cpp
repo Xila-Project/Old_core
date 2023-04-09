@@ -16,22 +16,41 @@ Shell_Class::Shell_Class(const Accounts_Types::User_Type *Owner_User)
     : Software_Class(&Shell_Handle, Owner_User),
       Desk(this),
       Screen(this),
+      Drawer(this),
       Installer_Pointer(NULL),
-      Login_Pointer(NULL),
-      Drawer_Pointer(NULL)
+      Login_Pointer(NULL)
 {
+}
+
+/// @brief Shell destructor.
+Shell_Class::~Shell_Class()
+{
+    Log_Verbose("Shell", "Shell destructor");
+    this->Save_Registry();
+    Login_Class::Close(this);
+    Installer_Class::Close(this);
+}
+
+/// @brief Shell main task.
+void Shell_Class::Main_Task_Function()
+{
+    uint32_t Next_Refresh = 0;
+
     // - Registry
     if (this->Load_Registry() != Result_Type::Success)
     {
         this->Create_Registry();
     }
 
+    Screen.Load();
+
     // - Keyboard
     Keyboard.Create(Screen);
     Keyboard.Remove_Text_Area();
 
     // - Overlay
-    Overlay.Create(Screen);
+    Overlay.Create(Graphics.Get_Top_Layer());
+    Overlay.Move_Foreground();
     Overlay.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
     Overlay.Set_Size(18 * 8, 32);
     Overlay.Set_Alignment(Alignment_Type::Top_Right);
@@ -60,22 +79,8 @@ Shell_Class::Shell_Class(const Accounts_Types::User_Type *Owner_User)
     Clock_Label.Set_Text("00:00");
     Clock_Label.Set_Style_Text_Color(Color_Type::White, 0);
 
-    Screen.Load();
-}
+    Desk.Set_Interface();
 
-/// @brief Shell destructor.
-Shell_Class::~Shell_Class()
-{
-    this->Save_Registry();
-    Drawer_Class::Close(this);
-    Login_Class::Close(this);
-    Installer_Class::Close(this);
-}
-
-/// @brief Shell main task.
-void Shell_Class::Main_Task_Function()
-{
-    uint32_t Next_Refresh = 0;
     while (1)
     {
         if (this->Instruction_Available())
@@ -84,26 +89,22 @@ void Shell_Class::Main_Task_Function()
         }
         else
         {
-            if (this->Get_Owner_User()->Get_State() == Accounts_Types::User_State_Type::Locked)
+            if (this->Get_Owner_User()->Get_State() != Accounts_Types::User_State_Type::Logged || Desk.Window.Get_State() != Graphics_Types::Window_State_Type::Maximized)
             {
-                if (Desk.Window.Get_State() != Graphics_Types::Window_State_Type::Minimized)
-                {
-                    Desk.Window.Set_State(Graphics_Types::Window_State_Type::Minimized);
-                }
+                Main_Task.Delay(100);
             }
+
             else if (System.Get_Up_Time_Milliseconds() > Next_Refresh)
             {
                 Refresh_Overlay();
                 Next_Refresh = System.Get_Up_Time_Milliseconds() + 5000;
             }
-
+         
             Main_Task.Delay(40);
         }
     }
 }
 
-/// @brief
-/// @param Instruction
 void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
 {
     if (Instruction.Get_Sender() == &Softwares)
@@ -117,13 +118,11 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
         return;
     }
 
-    if (Drawer_Class::Is_Openned(this))
+    if (Drawer.Is_Openned())
     {
-        if (Drawer_Pointer->Window.Get_State() == Graphics_Types::Window_State_Type::Maximized)
-        {
-            Drawer_Pointer->Execute_Instruction(Instruction);
-            return;
-        }
+        Log_Verbose("Shell", "Instruction received");
+        Drawer.Execute_Instruction(Instruction);
+        return;
     }
     if (Installer_Class::Is_Openned(this))
     {
@@ -236,6 +235,8 @@ Result_Type Shell_Class::Save_Registry()
 /// @brief Refresh the header overlay.
 void Shell_Class::Refresh_Overlay()
 {
+    static char Clock_Text[6] = "00:00";
+
     using namespace Xila::Graphics_Types;
 
     // - Refresh clock
@@ -243,9 +244,31 @@ void Shell_Class::Refresh_Overlay()
 
     Log_Verbose("Shell", "Refreshing overlay : %u : %u", Current_Time.Get_Hours(), Current_Time.Get_Minutes());
 
-    Clock_Label.Set_Text_Format("%d:%d", 15, 59);
+    if (Current_Time.Get_Hours() < 10)
+    {
+        Clock_Text[0] = '0';
+        Clock_Text[1] = '0' + Current_Time.Get_Hours();
+    }
+    else
+    {
+        Clock_Text[0] = '0' + Current_Time.Get_Hours() / 10;
+        Clock_Text[1] = '0' + Current_Time.Get_Hours() % 10;
+    }
 
+    Clock_Text[2] = ':';
 
+    if (Current_Time.Get_Minutes() < 10)
+    {
+        Clock_Text[3] = '0';
+        Clock_Text[4] = '0' + Current_Time.Get_Minutes();
+    }
+    else
+    {
+        Clock_Text[3] = '0' + Current_Time.Get_Minutes() / 10;
+        Clock_Text[4] = '0' + Current_Time.Get_Minutes() % 10;
+    }
+
+    Clock_Label.Set_Text(Clock_Text);
 
     {
         Label_Type WiFi_Label = Label_Type(WiFi_Button.Get_Child(0)); // Casting
@@ -325,4 +348,28 @@ void Shell_Class::Refresh_Overlay()
             Sound_Label.Set_Text(LV_SYMBOL_MUTE);
         }
     }
+}
+
+void Shell_Class::Get_Software_Icon(const Object_Type &Parent_Object, const String_Type &Name) const
+{
+    Button_Type Icon;
+
+    char Icon_Characters[] = {Name.Get_Character(0), Name.Get_Character(1), 0};
+    Icon.Create(Parent_Object, Icon_Characters, 5*8, 5*8);
+    Icon.Set_Style_Text_Font(&lv_font_montserrat_24, 0);
+
+    Icon.Add_Flag(Flag_Type::Event_Bubble);
+    Icon.Set_Alignment(Alignment_Type::Top_Middle);
+
+    // - Color
+
+    Byte_Type Color[3] = {0, 0, 0};
+
+    for (uint8_t i = 0; i < Name.Get_Length(); i++)
+        Color[i % 3] = ((Natural_Type)Color[i % 3] + (Natural_Type)Name.Get_Character(i)) % 255;
+
+    if (((Icon_Characters[0] + Icon_Characters[1]) % 2) == 0)
+        Icon.Set_Style_Background_Color(Color_Type(Color[0], Color[1], Color[2]), 0);
+    else
+        Icon.Set_Style_Background_Color(Color_Type(Color[2], Color[1], Color[0]), 0);
 }
