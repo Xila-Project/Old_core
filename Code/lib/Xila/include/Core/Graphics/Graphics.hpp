@@ -105,7 +105,6 @@ namespace Xila_Namespace
         // - Attributes
         Semaphore_Type Semaphore;
 
-        Graphics_Types::Keyboard_Type Keyboard;        
         
         Task_Class Task;
 

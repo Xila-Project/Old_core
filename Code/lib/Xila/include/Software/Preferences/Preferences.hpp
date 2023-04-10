@@ -75,7 +75,7 @@ class Preferences_Class : public Software_Type
     Graphics_Types::Text_Area_Type Wireless_WiFi_Password_Text_Area;
 
     Button_Type Wireless_Network_Apply_Button;
-    Checkbox_Type Wireless_Network_DHCP_Checkbox;
+    Graphics_Types::Checkbox_Type Wireless_Network_DHCP_Checkbox;
     Graphics_Types::Text_Area_Type Wireless_Network_Local_IP_Text_Area;
     Graphics_Types::Text_Area_Type Wireless_Network_Gateway_IP_Text_Area;
     Graphics_Types::Text_Area_Type Wireless_Network_Subnet_Mask_Text_Area;

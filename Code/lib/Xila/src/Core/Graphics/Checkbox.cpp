@@ -10,6 +10,7 @@
 
 #include "Core/Graphics/Checkbox.hpp"
 #include "Core/Graphics/Graphics.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;

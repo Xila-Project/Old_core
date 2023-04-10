@@ -13,6 +13,7 @@
 
 namespace Xila_Namespace
 {
+    typedef class Graphics_Class Graphics_Type;
 
     // - Forward declarations
 
@@ -20,6 +21,7 @@ namespace Xila_Namespace
 
     class Object_Class;
     typedef Object_Class Object_Type;
+
     namespace Graphics_Types
     {
         enum class Event_Code_Type : Byte_Type;
@@ -48,18 +50,33 @@ namespace Xila_Namespace
             // - Methods
             // - - Constructor
             Graphics_Class();
+
+            // - - Getters
+
+            /// @brief Get the code of a graphics event.
+            /// @return Code of the instruction.
+            Graphics_Types::Event_Code_Type Get_Code() const;
+
+            /// @brief Get the original target of a graphics event.
+            /// @return Target of the instruction.
+            Object_Type Get_Target() const;
+            
+            /// @brief Get the current target of a graphics event.
+            /// @return Current target of the instruction.
+            Object_Type Get_Current_Target() const;
+        private:
             // - - Setters
             void Set_Code(Graphics_Types::Event_Code_Type Code);
-            void Set_Object(Object_Type Object);
-            // - - Getters
-            Graphics_Types::Event_Code_Type Get_Code() const;
-            Object_Type Get_Object() const;
+            void Set_Target_Pointer(Object_Type Object);
+            void Set_Current_Target_Pointer(Object_Type Object);
 
-        private:
             // - Attributes
             Graphics_Types::Event_Code_Type Code;
 
-            void *Object_Pointer;
+            void* Target_Pointer;
+            void* Current_Target_Pointer;
+
+            friend class Xila_Namespace::Graphics_Class;
         } Graphics_Type;
 
         /// @brief Software instruction arguments.

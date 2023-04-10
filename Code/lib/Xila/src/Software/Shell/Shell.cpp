@@ -62,15 +62,15 @@ void Shell_Class::Main_Task_Function()
     Status_Buttons_Style.Set_Pad_All(0);
     Status_Buttons_Style.Set_Shadow_Width(0);
 
-    WiFi_Button.Create(Overlay, LV_SYMBOL_WIFI, 24, 24, this);
+    WiFi_Button.Create(Overlay, " ", 24, 24, this);
     WiFi_Button.Add_Style(Status_Buttons_Style, 0);
     WiFi_Button.Get_Child(0).Set_Style_Text_Color(Color_Type::White, 0);
 
-    Sound_Button.Create(Overlay, LV_SYMBOL_VOLUME_MAX, 24, 24, this);
+    Sound_Button.Create(Overlay, " ", 24, 24, this);
     Sound_Button.Add_Style(Status_Buttons_Style, 0);
     Sound_Button.Get_Child(0).Set_Style_Text_Color(Color_Type::White, 0);
 
-    Battery_Button.Create(Overlay, LV_SYMBOL_BATTERY_FULL, 24, 24, this);
+    Battery_Button.Create(Overlay, " ", 24, 24, this);
     Battery_Button.Add_Style(Status_Buttons_Style, 0);
     Battery_Button.Get_Child(0).Set_Style_Text_Color(Color_Type::White, 0);
 
@@ -89,7 +89,7 @@ void Shell_Class::Main_Task_Function()
         }
         else
         {
-            if (this->Get_Owner_User()->Get_State() != Accounts_Types::User_State_Type::Logged || Desk.Window.Get_State() != Graphics_Types::Window_State_Type::Maximized)
+            if (this->Get_Owner_User()->Get_State() != Accounts_Types::User_State_Type::Logged)
             {
                 Main_Task.Delay(100);
             }
@@ -97,6 +97,9 @@ void Shell_Class::Main_Task_Function()
             else if (System.Get_Up_Time_Milliseconds() > Next_Refresh)
             {
                 Refresh_Overlay();
+
+                Desk.Refresh();
+
                 Next_Refresh = System.Get_Up_Time_Milliseconds() + 5000;
             }
          
@@ -242,8 +245,6 @@ void Shell_Class::Refresh_Overlay()
     // - Refresh clock
     static Time_Type Current_Time = System.Get_Time();
 
-    Log_Verbose("Shell", "Refreshing overlay : %u : %u", Current_Time.Get_Hours(), Current_Time.Get_Minutes());
-
     if (Current_Time.Get_Hours() < 10)
     {
         Clock_Text[0] = '0';
@@ -350,16 +351,33 @@ void Shell_Class::Refresh_Overlay()
     }
 }
 
-void Shell_Class::Get_Software_Icon(const Object_Type &Parent_Object, const String_Type &Name) const
+void Shell_Class::Get_Software_Icon(Object_Type& Icon_Container, const String_Type &Name)
 {
-    Button_Type Icon;
+    using namespace Xila::Graphics_Types;
+
+    if (!Icon_Container.Is_Valid())
+    {
+        Log_Verbose("Shell", "Invalid icon label.");
+        return;
+    }
+
+    Label_Type Icon_Label = Label_Type(Icon_Container.Get_Child(0));
+
+    if (!Icon_Label.Is_Valid())
+    {
+        Log_Verbose("Shell", "Invalid icon label.");
+        return;
+    }
+    
+    Icon_Container.Set_Size(5*8, 5*8);
+    Icon_Container.Set_Style_Radius(5, 0);
+    Icon_Container.Set_Style_Pad_All(0, 0);
 
     char Icon_Characters[] = {Name.Get_Character(0), Name.Get_Character(1), 0};
-    Icon.Create(Parent_Object, Icon_Characters, 5*8, 5*8);
-    Icon.Set_Style_Text_Font(&lv_font_montserrat_24, 0);
-
-    Icon.Add_Flag(Flag_Type::Event_Bubble);
-    Icon.Set_Alignment(Alignment_Type::Top_Middle);
+    Icon_Label.Set_Text(Icon_Characters);
+    Icon_Label.Set_Style_Text_Font(&lv_font_montserrat_20, 0);
+    Icon_Label.Add_Flag(Flag_Type::Event_Bubble);
+    Icon_Label.Set_Alignment(Alignment_Type::Center);
 
     // - Color
 
@@ -369,7 +387,7 @@ void Shell_Class::Get_Software_Icon(const Object_Type &Parent_Object, const Stri
         Color[i % 3] = ((Natural_Type)Color[i % 3] + (Natural_Type)Name.Get_Character(i)) % 255;
 
     if (((Icon_Characters[0] + Icon_Characters[1]) % 2) == 0)
-        Icon.Set_Style_Background_Color(Color_Type(Color[0], Color[1], Color[2]), 0);
+        Icon_Container.Set_Style_Background_Color(Color_Type(Color[0], Color[1], Color[2]), 0);
     else
-        Icon.Set_Style_Background_Color(Color_Type(Color[2], Color[1], Color[0]), 0);
+        Icon_Container.Set_Style_Background_Color(Color_Type(Color[2], Color[1], Color[0]), 0);
 }

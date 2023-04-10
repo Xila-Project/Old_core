@@ -1021,7 +1021,7 @@ Object_Class Object_Class::Get_Child(uint16_t Index)
 
 /// @brief Get the number of children objects of an object.
 /// @return The number of children objects.
-uint32_t Object_Class::Get_Child_Count()
+Size_Type Object_Class::Get_Child_Count()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_child_cnt(Get_Pointer());

@@ -15,35 +15,40 @@
 
 namespace Xila_Namespace
 {
-    typedef class Checkbox_Class : public Object_Class
+
+    namespace Graphics_Types
     {
-    public:
-        // - Types
-
-        typedef enum Draw_Part_Enumeration
+        /// @brief Checkbox class.
+        typedef class Checkbox_Class : public Object_Class
         {
-            Box = LV_CHECKBOX_DRAW_PART_BOX,
-        } Draw_Part_Type;
+        public:
+            // - Types
 
-        // - Methods
-        Checkbox_Class();
-        Checkbox_Class(const Object_Class &Object_To_Copy);
+            typedef enum Draw_Part_Enumeration
+            {
+                Box = LV_CHECKBOX_DRAW_PART_BOX,
+            } Draw_Part_Type;
 
-        virtual void Create(Object_Class Parent_Object) override;
-        // - - Setters.
+            // - Methods
+            Checkbox_Class();
+            Checkbox_Class(const Object_Class &Object_To_Copy);
 
-        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            virtual void Create(Object_Class Parent_Object) override;
+            // - - Setters.
 
-        void Set_Text(const char *Text);
-        void Set_Text_Static(const char *Text);
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-        // - - Getters.
-        const char *Get_Text();
-    
-        // - Attributes
-        static const Graphics_Types::Class_Type& Class;
-        
-    } Checkbox_Type;
+            void Set_Text(const char *Text);
+            void Set_Text_Static(const char *Text);
+
+            // - - Getters.
+            const char *Get_Text();
+
+            // - Attributes
+            static const Graphics_Types::Class_Type &Class;
+
+        } Checkbox_Type;
+    } // namespace Graphics_Types
 }
 
 #endif

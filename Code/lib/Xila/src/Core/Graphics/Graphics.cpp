@@ -72,7 +72,6 @@ Result_Type Graphics_Class::Stop()
         lv_deinit();
     }
 
-    Keyboard.Delete();
     Task.Delete();
 
     return Result_Type::Success;
@@ -108,14 +107,14 @@ void Graphics_Class::Execute_Instruction(Instruction_Type Instruction)
         case Event_Code_Type::Minimize:
         {
 
-            Window_Type Window = Instruction.Graphics.Get_Object();
+            Window_Type Window = Instruction.Graphics.Get_Target();
             if (Window.Is_Valid())
                 Window.Set_State(Window_State_Type::Minimized);
             break;
         }
         case Event_Code_Type::Close:
         {
-            Window_Type Window = Instruction.Graphics.Get_Object();
+            Window_Type Window = Instruction.Graphics.Get_Target();
             if (Window.Is_Valid())
                 Softwares.Close(const_cast<Software_Type *>(Window.Get_Owner_Software()));
             break;
@@ -127,20 +126,15 @@ void Graphics_Class::Execute_Instruction(Instruction_Type Instruction)
 void Graphics_Class::Event_Handler(lv_event_t *Event)
 {
     static Instruction_Type Instruction;
-    static Object_Type Object;
-
     Instruction.Set_Sender(&Graphics);
-
-    Object.Clear_Pointer();
 
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         Instruction.Set_Receiver((Module_Class *)lv_event_get_user_data(Event));
         Instruction.Graphics.Set_Code(static_cast<Event_Code_Type>(lv_event_get_code(Event)));
-        Object.Set_Pointer(lv_event_get_current_target(Event));
+        Instruction.Graphics.Set_Target_Pointer(Object_Type(lv_event_get_target(Event)));
+        Instruction.Graphics.Set_Current_Target_Pointer(Object_Type(lv_event_get_current_target(Event)));
     }
-
-    Instruction.Graphics.Set_Object(Object);
 
     Instruction.Get_Receiver()->Send_Instruction(Instruction);
 }

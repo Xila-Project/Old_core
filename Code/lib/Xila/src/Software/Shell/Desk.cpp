@@ -28,7 +28,6 @@ void Shell_Class::Desk_Class::Set_Interface()
 
     // Create grid
     Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
-    // Window.Get_Body().Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
     Window.Get_Body().Set_Style_Flex_Cross_Place(Flex_Alignment_Type::Center, 0);
     Window.Get_Body().Set_Style_Pad_Bottom(10, 0);
 
@@ -187,35 +186,35 @@ void Shell_Class::Desk_Class::Refresh()
 {
 
     // - Desk icons
-//    {
-//        Object_Type Container;
-//        Graphics_Types::Label_Type Label;
-//        Graphics_Types::Label_Type Icon;
-//
-//        for (uint8_t i = 0; i < 6; i++)
-//        {
-//            Container.Create(Desk_Grid);
-//            Container.Set_Size(10 * 8, 9 * 8);
-//            Container.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
-//            Container.Set_Style_Pad_All(0, 0);
-//            Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
-//
-//            Icon.Create(Container, LV_SYMBOL_DIRECTORY, 5 * 8, 5 * 8);
-//            Icon.Set_Style_Text_Font(&lv_font_montserrat_34, 0);
-//            Icon.Set_Alignment(Alignment_Type::Center);
-//            Icon.Add_Flag(Flag_Type::Event_Bubble);
-//
-//            Label.Create(Container, "Item", Percentage(100));
-//            Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
-//            Label.Set_Alignment(Alignment_Type::Bottom_Middle);
-//            Label.Add_Flag(Flag_Type::Event_Bubble);
-//            Label.Set_Style_Text_Alignment(Text_Alignment_Type::Center, 0);
-//
-//            Icon.Clear_Pointer();
-//            Label.Clear_Pointer();
-//            Container.Clear_Pointer();
-//        }
-//    }
+    //    {
+    //        Object_Type Container;
+    //        Graphics_Types::Label_Type Label;
+    //        Graphics_Types::Label_Type Icon;
+    //
+    //        for (uint8_t i = 0; i < 6; i++)
+    //        {
+    //            Container.Create(Desk_Grid);
+    //            Container.Set_Size(10 * 8, 9 * 8);
+    //            Container.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+    //            Container.Set_Style_Pad_All(0, 0);
+    //            Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+    //
+    //            Icon.Create(Container, LV_SYMBOL_DIRECTORY, 5 * 8, 5 * 8);
+    //            Icon.Set_Style_Text_Font(&lv_font_montserrat_34, 0);
+    //            Icon.Set_Alignment(Alignment_Type::Center);
+    //            Icon.Add_Flag(Flag_Type::Event_Bubble);
+    //
+    //            Label.Create(Container, "Item", Percentage(100));
+    //            Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
+    //            Label.Set_Alignment(Alignment_Type::Bottom_Middle);
+    //            Label.Add_Flag(Flag_Type::Event_Bubble);
+    //            Label.Set_Style_Text_Alignment(Text_Alignment_Type::Center, 0);
+    //
+    //            Icon.Clear_Pointer();
+    //            Label.Clear_Pointer();
+    //            Container.Clear_Pointer();
+    //        }
+    //    }
 
     // Delete grid items except the dock.
 
@@ -229,40 +228,48 @@ void Shell_Class::Desk_Class::Refresh()
     // If there are too many buttons, delete some.
 
     uint8_t User_Softwares_Count = Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User());
-    while (Dock_List.Get_Child_Count() > User_Softwares_Count - 1)
+    while (Dock_List.Get_Child_Count() > (User_Softwares_Count - 1))
     {
         Dock_List.Get_Child(Dock_List.Get_Child_Count() - 1).Delete();
     }
 
-    // If there is not enough buttons, create more.
+    // If there is not enough icons, create more.
     {
-        Button_Type Button;
-        while (Dock_List.Get_Child_Count() < User_Softwares_Count - 1)
+        Object_Type Icon_Container;
+        Graphics_Types::Label_Type Icon_Label;
+        while (Dock_List.Get_Child_Count() < (User_Softwares_Count - 1))
         {
             Log_Verbose("Shell", "Shell pointer : %p", Shell_Pointer);
-            Button.Create(Dock_List, " ", 5 * 8, 5 * 8, Shell_Pointer); // Adding a space to force the button to create a label.
-            Button.Set_Style_Border_Width(0, 0);
+
+            Icon_Container.Create(Dock_List);
+            Icon_Label.Create(Icon_Container);
+            Icon_Container.Set_Alignment(Alignment_Type::Top_Middle);
+            Icon_Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+
+            Icon_Container.Clear_Pointer();
+            Icon_Label.Clear_Pointer();
         }
     }
 
     // - - Set dock software icons.
     {
-        Graphics_Types::Label_Type Label;
+        Object_Type Icon_Container;
         const Software_Type *Software_Pointer;
         Static_String_Type<24> Name;
 
+        uint8_t j = 0;
         for (uint8_t i = 0; i < User_Softwares_Count; i++)
         {
             Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
             if (Software_Pointer != Shell_Pointer)
             {
+                Icon_Container = Dock_List.Get_Child(j++); // Get the icon container and increment the counter (after).
+
                 Software_Pointer->Get_Handle()->Get_Name(Name);
 
-                Name.Set_Character(2, '\0');
+                Shell_Class::Get_Software_Icon(Icon_Container, Name);
 
-                Label = Dock_List.Get_Child(i);
-                Label.Set_Text(Name);
-                Label.Clear_Pointer();
+                Icon_Container.Clear_Pointer();
             }
         }
     }
@@ -277,30 +284,59 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
         {
         case Event_Code_Type::Clicked:
         {
-            if (Instruction.Graphics.Get_Object() == Menu_Button)
+            if (Instruction.Graphics.Get_Current_Target() == Menu_Button)
             {
                 Log_Verbose("Shell", "Menu button clicked");
                 Shell_Pointer->Drawer.Open();
             }
             else
             {
+                Log_Verbose("Shell", "Dock's button clicked");
+
+                Object_Type Target = Instruction.Graphics.Get_Current_Target();
+
+                Size_Type Dock_List_Child_Count = Dock_List.Get_Child_Count();
+
+                Log_Verbose("Shell", "Dock list child count : %d", Dock_List_Child_Count);
+
                 // Check if dock button is pressed
-                for (uint8_t i = 0; i < Dock_List.Get_Child_Count(); i++)
+                for (uint8_t i = 0; i < Dock_List_Child_Count; i++)
                 {
                     // If one of the dock button is pressed, maximize the windows of corresponding software.
-                    if (Desk_Grid.Get_Child(i) == Instruction.Graphics.Get_Object())
+                    if (Dock_List.Get_Child(i) == Target)
                     {
-                        const Software_Type *Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
-                        // Iterate through all children windows of the parent window.
-                        for (uint8_t j = 0; j < Window.Get_Child_Count(); j++)
-                        {
-                            Window_Type Child_Window = Window.Get_Child(j);
-                            // If the window is valid and owned by the software, maximize it.
-                            if (Child_Window && (Child_Window.Get_Owner_Software() == Software_Pointer))
+                        Log_Verbose("Shell", "Find button %d clicked !", i);
+
+                        uint8_t User_Softwares_Count = Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User());
+
+                        // - Counting the number of shell to skip.
+                        const Software_Type *Software_Pointer = NULL;
+                        for (uint8_t j = 0; j < User_Softwares_Count; j++)
+                        { // - Skip shell instance.
+                            if (Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), j) == Shell_Pointer)
                             {
-                                Child_Window.Set_State(Window_State_Type::Maximized);
+                                i++;
+                                j++;
                             }
+
+                            if (j == i)
+                            {
+                                Log_Verbose("Shell", "Software %u found !", j);
+                                Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), j);
+                                break;
+                            };
                         }
+
+                        // - Maximize all the window of the software.
+                        Size_Type Screen_Child_Count = Shell_Pointer->Screen.Get_Child_Count();
+                        for (uint8_t j = 0; j < Screen_Child_Count; j++)
+                        {
+                            Window_Type Child_Window = Shell_Pointer->Screen.Get_Child(j);
+                            if (Child_Window.Is_Valid() && (Child_Window.Get_Owner_Software() == Software_Pointer))
+                                Child_Window.Set_State(Window_State_Type::Maximized);
+                        }
+
+                        break;
                     }
                 }
             }

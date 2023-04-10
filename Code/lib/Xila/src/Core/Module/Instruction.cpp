@@ -10,6 +10,8 @@
 
 #include "Core/Module/Instruction.hpp"
 
+#include "Core/Graphics/Graphics.hpp"
+
 #include "Core/Core.hpp"
 
 using namespace Xila_Namespace;
@@ -52,27 +54,40 @@ void Instruction_Class::Set_Receiver(Module_Class *Receiver)
 
 // - - Constructor
 
-Instruction_Class::Graphics_Class::Graphics_Class() : Object_Pointer(NULL)
+Instruction_Class::Graphics_Class::Graphics_Class() : Target_Pointer(NULL)
 {
 }
+
+// - - Setters
 
 void Instruction_Class::Graphics_Class::Set_Code(Graphics_Types::Event_Code_Type Code)
 {
     this->Code = Code;
 }
 
-void Instruction_Class::Graphics_Class::Set_Object(Object_Type Object)
+void Instruction_Class::Graphics_Class::Set_Target_Pointer(Object_Type Object)
 {
-    Object_Pointer = Object.Get_Pointer();
+    Target_Pointer = Object.Get_Pointer();
 }
+
+void Instruction_Class::Graphics_Class::Set_Current_Target_Pointer(Object_Type Object)
+{
+    Current_Target_Pointer = Object.Get_Pointer();
+}
+
+// - - Getters
 
 Graphics_Types::Event_Code_Type Instruction_Class::Graphics_Class::Get_Code() const
 {
     return Code;
 }
 
-Object_Type Instruction_Class::Graphics_Class::Get_Object() const
+Object_Type Instruction_Class::Graphics_Class::Get_Target() const
 {
-    Object_Type Object(static_cast<lv_obj_t *>(Object_Pointer));
-    return Object;
+    return Object_Type(static_cast<lv_obj_t *>(Target_Pointer));
+}
+
+Object_Type Instruction_Class::Graphics_Class::Get_Current_Target() const
+{
+    return Object_Type(static_cast<lv_obj_t *>(Current_Target_Pointer));
 }

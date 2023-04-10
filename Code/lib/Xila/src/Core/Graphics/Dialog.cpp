@@ -89,6 +89,7 @@ void Dialog_Class::Create(Object_Class Parent_Object)
         
     this->Set_Interface();
     this->Set_Size(Percentage(75), Percentage(75));
+    this->Set_Alignment(Alignment_Type::Center);
 }
 
 bool Dialog_Class::Is_Overlay()

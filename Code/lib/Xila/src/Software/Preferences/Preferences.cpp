@@ -621,7 +621,7 @@ void Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
     }
     else if (Instruction.Get_Sender() == &Graphics)
     {
-        if (Instruction.Graphics.Get_Object() == Tabs)
+        if (Instruction.Graphics.Get_Target() == Tabs)
         {
             if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Clicked)
             {
@@ -676,14 +676,14 @@ void Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
 
 void Preferences_Class::Execute_Users_Instruction(const Instruction_Type &Instruction)
 {
-    if (Instruction.Graphics.Get_Object() == Users_Add_User_Button)
+    if (Instruction.Graphics.Get_Target() == Users_Add_User_Button)
     {
         if (Accounts.Create(Users_Add_User_Name_Text_Area.Get_Text(), Users_Add_User_Password_Text_Area.Get_Text()) != Result_Type::Success)
         {
             // TODO : Display error message
         }
     }
-    else if (Instruction.Graphics.Get_Object() == Users_Delete_User_Button)
+    else if (Instruction.Graphics.Get_Target() == Users_Delete_User_Button)
     {
         // TODO :
         //if (Accounts.Delete(Users_Delete_User_Name_Text_Area.Get_Text()) != Result_Type::Success)
@@ -691,7 +691,7 @@ void Preferences_Class::Execute_Users_Instruction(const Instruction_Type &Instru
         //    // TODO : Display error message
         //}
     }
-    else if (Instruction.Graphics.Get_Object() == Users_Apply_Button)
+    else if (Instruction.Graphics.Get_Target() == Users_Apply_Button)
     {
         if (strcmp(Users_Your_Account_New_Name_Text_Area.Get_Text(), "") != 0)
         {
@@ -716,7 +716,7 @@ void Preferences_Class::Execute_Users_Instruction(const Instruction_Type &Instru
             Users_Your_Account_Password_Text_Area.Set_Text("");
         }
     }
-    else if (Instruction.Graphics.Get_Object() == Users_Delete_Your_Account_Button)
+    else if (Instruction.Graphics.Get_Target() == Users_Delete_Your_Account_Button)
     {
         Static_String_Type<24> Name;
         this->Get_Owner_User()->Get_Name(Name);
@@ -730,7 +730,7 @@ void Preferences_Class::Execute_Users_Instruction(const Instruction_Type &Instru
 
 void Preferences_Class::Execute_Personal_Instruction(const Instruction_Type &Instruction)
 {
-    if (Instruction.Graphics.Get_Object() == Personnal_Style_Apply_Button)
+    if (Instruction.Graphics.Get_Target() == Personnal_Style_Apply_Button)
     {
         // TODO : Send instruction to Shell to change style.
         // Shell_Pointer->Desk.Set_Foreground_Color(Personnal_Style_Foreground_Button.Get_Style_Background_Color(Part_Type::Main));
@@ -740,7 +740,7 @@ void Preferences_Class::Execute_Personal_Instruction(const Instruction_Type &Ins
 
 void Preferences_Class::Execute_Softwares_Instruction(const Instruction_Type &Instruction)
 {
-    if (Instruction.Graphics.Get_Object() == Softwares_Delete_Button)
+    if (Instruction.Graphics.Get_Target() == Softwares_Delete_Button)
     {
         // TODO
     }
@@ -748,7 +748,7 @@ void Preferences_Class::Execute_Softwares_Instruction(const Instruction_Type &In
 
 void Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Instruction)
 {
-    if (Instruction.Graphics.Get_Object() == Wireless_WiFi_Switch)
+    if (Instruction.Graphics.Get_Target() == Wireless_WiFi_Switch)
     {
         if (Wireless_WiFi_Switch.Has_State(Graphics_Types::State_Type::Checked))
         {
@@ -760,15 +760,15 @@ void Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Ins
         }
         Refresh_Wireless();
     }
-    else if (Instruction.Graphics.Get_Object() == Wireless_WiFi_Refresh_Button)
+    else if (Instruction.Graphics.Get_Target() == Wireless_WiFi_Refresh_Button)
     {
         Refresh_Wireless();
     }
-    else if (Instruction.Graphics.Get_Object() == Wireless_WiFi_Informations_Button)
+    else if (Instruction.Graphics.Get_Target() == Wireless_WiFi_Informations_Button)
     {
         // TODO
     }
-    else if (Instruction.Graphics.Get_Object() == Wireless_WiFi_Connect_Button)
+    else if (Instruction.Graphics.Get_Target() == Wireless_WiFi_Connect_Button)
     {
         Static_String_Type<32> SSID;
         Wireless_WiFi_Access_Point_Roller.Get_Selected_String(SSID);
@@ -779,19 +779,19 @@ void Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Ins
 
 void Preferences_Class::Execute_Hardware_Instruction(const Instruction_Type &Instruction)
 {
-    if (Instruction.Graphics.Get_Object() == Hardware_Display_Brightness_Slider)
+    if (Instruction.Graphics.Get_Target() == Hardware_Display_Brightness_Slider)
     {
         Display.Set_Brightness(Hardware_Display_Brightness_Slider.Get_Value());
     }
-    else if (Instruction.Graphics.Get_Object() == Hardware_Display_Calibrate_Button)
+    else if (Instruction.Graphics.Get_Target() == Hardware_Display_Calibrate_Button)
     {
         Display.Calibrate();
     }
-    else if (Instruction.Graphics.Get_Object() == Hardware_Sound_Volume_Slider)
+    else if (Instruction.Graphics.Get_Target() == Hardware_Sound_Volume_Slider)
     {
         Sound.Set_Volume(Hardware_Sound_Volume_Slider.Get_Value());
     }
-    else if (Instruction.Graphics.Get_Object() == Hardware_Energy_Apply_Button)
+    else if (Instruction.Graphics.Get_Target() == Hardware_Energy_Apply_Button)
     {
         switch (Hardware_Energy_Standby_Roller.Get_Selected())
         {
@@ -1012,7 +1012,7 @@ void Preferences_Class::Refresh_Wireless()
 
 void Preferences_Class::Execute_System_Instruction(const Instruction_Type &Instruction)
 {
-    if (Instruction.Graphics.Get_Object() == System_Device_Apply_Button)
+    if (Instruction.Graphics.Get_Target() == System_Device_Apply_Button)
     {
         if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Clicked)
         {
@@ -1020,7 +1020,7 @@ void Preferences_Class::Execute_System_Instruction(const Instruction_Type &Instr
             System.Set_Device_Name(Temporary_String);
         }
     }
-    else if (Instruction.Graphics.Get_Object() == System_Time_Apply_Button)
+    else if (Instruction.Graphics.Get_Target() == System_Time_Apply_Button)
     {
         if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Clicked)
         {
@@ -1029,14 +1029,14 @@ void Preferences_Class::Execute_System_Instruction(const Instruction_Type &Instr
             // TODO : System.Set_Time_Zone(..);
         }
     }
-    else if (Instruction.Graphics.Get_Object() == System_Time_Minus_Button)
+    else if (Instruction.Graphics.Get_Target() == System_Time_Minus_Button)
     {
         if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Short_Clicked || Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Long_Pressed_Repeat)
         {
             System_Time_Daylight_Offset_Spinbox.Decrement();
         }
     }
-    else if (Instruction.Graphics.Get_Object() == System_Time_Plus_Button)
+    else if (Instruction.Graphics.Get_Target() == System_Time_Plus_Button)
     {
         if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Short_Clicked || Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Long_Pressed_Repeat)
         {

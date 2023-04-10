@@ -72,11 +72,9 @@ class Shell_Class : public Software_Type
 
         void Set_Interface();
 
-    private:
-        // - Methods
-
         void Refresh();
 
+    private:
         // - Attributes
 
         // - - Parent window
@@ -220,7 +218,7 @@ class Shell_Class : public Software_Type
 
     // - - Others
 
-    void Get_Software_Icon(const Object_Type&, const String_Type&) const;
+    static void Get_Software_Icon(Object_Type&, const String_Type&);
     void Execute_Instruction(Instruction_Type Instruction);
     void Main_Task_Function() override;
     void Refresh_Overlay();

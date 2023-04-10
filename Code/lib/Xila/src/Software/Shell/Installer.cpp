@@ -124,7 +124,7 @@ void Shell_Class::Installer_Class::Execute_Instruction(const Instruction_Type &I
 {
     if (Instruction.Get_Sender() == &Graphics)
     {
-        if (Instruction.Graphics.Get_Object() == Create_Account_Button)
+        if (Instruction.Graphics.Get_Target() == Create_Account_Button)
         {
             Accounts.Create(Username_Text_Area.Get_Text(), Password_Text_Area.Get_Text());
             Shell_Class::Login_Class::Open(this->Shell_Pointer);

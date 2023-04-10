@@ -327,7 +327,7 @@ namespace Xila_Namespace
 
         // Family relationship.
         Object_Class Get_Parent();
-        uint32_t Get_Child_Count();
+        Size_Type Get_Child_Count();
         Object_Class Get_Child(uint16_t Index);
 
         // - - Style

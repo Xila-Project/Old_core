@@ -46,7 +46,7 @@ class File_Manager_Class : public Software_Type
     void Create_Folder();
 
     // -- Attributes
-    char Buffer[256];
+    Static_String_Type<256> Buffer;
 
     bool Cut;
 
@@ -73,6 +73,8 @@ class File_Manager_Class : public Software_Type
 
     Graphics_Types::Dialog_Type Details_Dialog;
     Table_Type Details_Table;
+
+    Graphics_Types::Keyboard_Type Keyboard;
 
     friend class File_Manager_Handle_Class;
 };

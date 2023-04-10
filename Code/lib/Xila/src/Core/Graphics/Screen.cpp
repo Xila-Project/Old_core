@@ -56,31 +56,25 @@ Screen_Class::Screen_Class(const Object_Class &Object_To_Copy)
 
 void Screen_Class::Create(const Software_Type *Owner_Software)
 {
-    Log_Trace();
+
     if (Owner_Software != NULL)
     {
         {
-            
+
             Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-            
+
             this->LVGL_Object_Pointer = lv_obj_create(NULL);
-            
-            Log_Trace();
-            
+
             if (this->LVGL_Object_Pointer == NULL)
             {
-                Log_Trace();
+
                 return;
             }
 
             this->LVGL_Object_Pointer->class_p = &Screen_Class::Class;
         }
 
-        Log_Trace();
-
         this->Set_User_Data(const_cast<Software_Type *>(Owner_Software));
-
-        Log_Trace();
 
         this->List.push_back(this);
     }
@@ -112,7 +106,6 @@ bool Screen_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 
     Object_Type Object(LVGL_Object_Pointer);
 
-
     if (!Object.Check_Class(&Screen_Class::Class))
         return false;
 
@@ -133,10 +126,10 @@ Screen_Type Screen_Class::Get_User_Screen(const Accounts_Types::User_Type *User)
 
     Software_Type *Owner_Software;
 
-    for (auto& Screen : List)
+    for (auto &Screen : List)
     {
         Owner_Software = static_cast<Software_Type *>(Screen->Get_User_Data());
-     
+
         if (Owner_Software != NULL && Owner_Software->Get_Owner_User() == User)
             return *Screen;
     }

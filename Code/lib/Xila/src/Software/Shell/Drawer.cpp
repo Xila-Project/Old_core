@@ -36,8 +36,8 @@ void Shell_Class::Drawer_Class::Set_Interface()
     Log_Trace();
 
     {
-        Object_Type Container;
-        Graphics_Types::Label_Type Label;
+        Object_Type Container, Icon_Container;
+        Graphics_Types::Label_Type Icon_Label, Label;
         Static_String_Class<Default_Software_Name_Length> Name;
 
         uint8_t Handle_Count = Softwares.Get_Handle_Count();
@@ -66,7 +66,11 @@ void Shell_Class::Drawer_Class::Set_Interface()
 
                 Log_Trace();
 
-                Shell_Pointer->Get_Software_Icon(Container, Name);
+                Icon_Container.Create(Container);
+                Icon_Container.Set_Alignment(Alignment_Type::Top_Middle);
+                Icon_Container.Add_Flag(Flag_Type::Event_Bubble);
+                Icon_Label.Create(Icon_Container);
+                Shell_Pointer->Get_Software_Icon(Icon_Container, Name);
 
                 Log_Trace();
 
@@ -78,6 +82,8 @@ void Shell_Class::Drawer_Class::Set_Interface()
                 Label.Add_Flag(Flag_Type::Event_Bubble);
                 Label.Set_Style_Text_Alignment(Text_Alignment_Type::Center, 0);
 
+                Icon_Container.Clear_Pointer();
+                Icon_Label.Clear_Pointer();
                 Container.Clear_Pointer();
                 Label.Clear_Pointer();
             }
@@ -97,15 +103,20 @@ void Shell_Class::Drawer_Class::Execute_Instruction(const Instruction_Type &Inst
         switch (Instruction.Graphics.Get_Code())
         {
         case Graphics_Types::Event_Code_Type::Clicked:
-            for (uint8_t i = 0; i < Window.Get_Body().Get_Child_Count(); i++)
+        {
+            Object_Type Target = Instruction.Graphics.Get_Current_Target(); // Get icon container
+            Size_Type Child_Count = Window.Get_Body().Get_Child_Count();
+            for (uint8_t i = 0; i < Child_Count; i++)
             {
-                if (Instruction.Graphics.Get_Object() == Window.Get_Body().Get_Child(i))
+                if (Target == Window.Get_Body().Get_Child(i))
                 {
                     Softwares.Get_Handle(i)->Create_Instance(Shell_Pointer->Get_Owner_User());
+                    Close();
                     break;
                 }
             }
-            break;
+        }
+        break;
         default:
             break;
         }
@@ -116,6 +127,7 @@ void Shell_Class::Drawer_Class::Open()
 {
     Log_Verbose("Drawer", "Opening drawer");
     using namespace Graphics_Types;
+
     if (!Is_Openned())
         Set_Interface();
     else

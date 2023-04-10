@@ -73,23 +73,23 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type &Instr
         switch (Instruction.Graphics.Get_Code())
         {
         case Graphics_Types::Event_Code_Type::Focused:
-            if (Instruction.Graphics.Get_Object() == Name_Input)
+            if (Instruction.Graphics.Get_Target() == Name_Input)
             {
                 Shell_Pointer->Keyboard.Set_Text_Area(Name_Input);
             }
-            else if (Instruction.Graphics.Get_Object() == Password_Input)
+            else if (Instruction.Graphics.Get_Target() == Password_Input)
             {
                 Shell_Pointer->Keyboard.Set_Text_Area(Password_Input);
             }
             break;
         case Graphics_Types::Event_Code_Type::Defocused:
-            if ((Instruction.Graphics.Get_Object() == Name_Input) || (Instruction.Graphics.Get_Object() == Password_Input))
+            if ((Instruction.Graphics.Get_Target() == Name_Input) || (Instruction.Graphics.Get_Target() == Password_Input))
             {
                 Shell_Pointer->Keyboard.Remove_Text_Area();
             }
             break;
         case Graphics_Types::Event_Code_Type::Clicked:
-            if (Instruction.Graphics.Get_Object() == Login_Button)
+            if (Instruction.Graphics.Get_Target() == Login_Button)
             {
                 if (Accounts.Login(Name_Input.Get_Text(), Password_Input.Get_Text()) == Result_Type::Success)
                 {
