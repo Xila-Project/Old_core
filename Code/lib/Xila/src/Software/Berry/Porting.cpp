@@ -18,7 +18,8 @@
 
 BERRY_API void be_writebuffer(const char *buffer, size_t length)
 {
-    Log.Print(buffer);
+    strlcat(Prompt_String, buffer, (80 + 1) * 24 + 1);
+    // Log.Print(buffer);
     // be_fwrite(stdout, buffer, length);
 }
 

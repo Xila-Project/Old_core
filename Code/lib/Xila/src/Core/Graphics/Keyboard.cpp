@@ -130,7 +130,5 @@ void Keyboard_Class::Remove_Text_Area(bool Hide)
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_keyboard_set_textarea(Get_Pointer(), NULL);
     if (Hide)
-    {
         this->Add_Flag(Flag_Type::Hidden);
-    }
 }

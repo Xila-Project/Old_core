@@ -61,6 +61,7 @@ namespace Xila_Namespace
         Static_String_Type<Default_Software_Name_Length> Name; // used to identify the software,
 
         friend class Softwares_Class;
+        friend class Software_Class;
     } Software_Handle_Type;
 
 

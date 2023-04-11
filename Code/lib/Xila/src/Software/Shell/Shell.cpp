@@ -53,7 +53,7 @@ void Shell_Class::Main_Task_Function()
     Overlay.Move_Foreground();
     Overlay.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
     Overlay.Set_Size(18 * 8, 32);
-    Overlay.Set_Alignment(Alignment_Type::Top_Right);
+    Overlay.Set_Alignment(Alignment_Type::Top_Right, -4, 0);
     Overlay.Set_Flex_Flow(Flex_Flow_Type::Row);
     Overlay.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
     Overlay.Set_Style_Pad_All(0, 0);
@@ -309,6 +309,8 @@ void Shell_Class::Refresh_Overlay()
         if (!Battery_Label.Is_Valid())
         {
         }
+        Battery_Label.Set_Text(LV_SYMBOL_BATTERY_2);
+        /*
         else if (Power.Get_Charge_Level() >= 85)
         {
             Battery_Label.Set_Text(LV_SYMBOL_BATTERY_FULL);
@@ -328,7 +330,7 @@ void Shell_Class::Refresh_Overlay()
         else
         {
             Battery_Label.Set_Text(LV_SYMBOL_BATTERY_EMPTY);
-        }
+        }*/
     }
     {
         Label_Type Sound_Label = Label_Type(Sound_Button.Get_Child(0)); // Casting

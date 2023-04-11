@@ -79,7 +79,7 @@ namespace Xila_Namespace
         /// @param Data Data to pass to the task.
         /// @param Priority Task priority.
         /// @return Result_Type::Success if the task has been created, Result_Type::Error otherwise.
-        Result_Type Create(Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Task_Priority_Type Priority);
+        Result_Type Create(Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Task_Priority_Type Priority = Task_Priority_Type::Normal);
 
         /// @brief Suspend the task.
         void Suspend();

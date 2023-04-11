@@ -9,25 +9,24 @@
 
 #include "Software/Berry/Berry.hpp"
 
-#ifdef __cplusplus
 extern "C"
 {
-#endif
 #include "berry.h"
 #include "be_repl.h"
 #include "be_vm.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef __cplusplus
 }
-#endif
+
+char* Prompt_String;
 
 bool Berry_Class::Softwares_Handles_Loaded = false;
 
-Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User) : Software_Type(&Berry_Handle, Owner_User), Window()
+Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User)
+    : Software_Type(&Berry_Handle, Owner_User, 8 * 1024),
+      Input_String(NULL)
 {
-    Serial.begin(115200);
 }
 
 Berry_Class::~Berry_Class()
@@ -50,11 +49,27 @@ void Berry_Class::Execute_Instruction(const Instruction_Type &Instruction)
     {
         if (Instruction.Get_Sender() == &Graphics)
         {
-            if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Clicked)
+            switch (Instruction.Graphics.Get_Code())
             {
-               
-            }
+            case Graphics_Types::Event_Code_Type::Clicked:
+                break;
 
+            case Graphics_Types::Event_Code_Type::Focused:
+                if (Instruction.Graphics.Get_Target() == Input_Text_Area)
+                    Keyboard.Set_Text_Area(Input_Text_Area);
+                break;
+            case Graphics_Types::Event_Code_Type::Defocused:
+                if (Instruction.Graphics.Get_Target() == Input_Text_Area)
+                    Keyboard.Remove_Text_Area();
+                break;
+            case Graphics_Types::Event_Code_Type::Ready:
+                if (Instruction.Graphics.Get_Target() == Keyboard)
+                {
+                    strlcpy(Input_String, Input_Text_Area.Get_Text(), 80 + 1);
+                    Input_Text_Area.Set_Text("");
+                }   
+                break;
+            }
         }
     }
 }
@@ -76,10 +91,7 @@ void Berry_Class::Main_Task_Function()
 
         Log_Verbose("Berry", "Starting REPL");
 
-        if (REPL() != Result_Type::Success)
-        {
-            // TODO : Add dialog
-        }
+        REPL();
     }
     // - Other
     else
@@ -195,35 +207,5 @@ Result_Type Berry_Class::Call(Integer_Type Argument_Count)
     Byte_Type Error = be_pcall(Virtual_Machine, Argument_Count);
     if (Error != BE_OK)
         return Result_Type::Error;
-    return Result_Type::Success;
-}
-
-Result_Type Berry_Class::REPL()
-{
-    // - Set interface
-
-    Window.Set_Title("Berry");
-    Window.Set_Flex_Flow(Flex_Flow_Type::Column);
-
-    Prompt_Label_Text = new char[(80 + 1) * 24 + 1];
-
-    memset(Prompt_Label_Text, 0, (80 + 1) * 24 + 1);
-
-    Prompt_Label.Create(Window.Get_Body());
-    Prompt_Label.Set_Width(Percentage(100));
-    Prompt_Label.Set_Flex_Grow(1);
-    Prompt_Label.Set_Text_Static(Prompt_Label_Text);
-
-    Input_Text_Area.Create(Window.Get_Body());
-    Input_Text_Area.Set_Size(Percentage(100), 40);
-
-
-
-//    Byte_Type Error = be_repl(Virtual_Machine, 
-//    [](Berry_Class* Berry, const char* Prompt) -> char* {return Berry->Get_Line(Prompt);},
-//    [](Berry_Class* Berry, const char* Line) -> void {Berry->Free_Line(Line);});
-
- //   if (Error != BE_OK)
- //       return Result_Type::Error;
     return Result_Type::Success;
 }

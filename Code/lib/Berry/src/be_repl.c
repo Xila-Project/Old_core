@@ -13,7 +13,7 @@
 
 #if BE_USE_SCRIPT_COMPILER
 
-static int try_return(bvm *vm, const char *line)
+static int REPL_Try_Return(bvm *vm, const char *line)
 {
     int res, idx;
     line = be_pushfstring(vm, "return (%s)", line);
@@ -23,7 +23,7 @@ static int try_return(bvm *vm, const char *line)
     return res;
 }
 
-static bbool is_multline(bvm *vm)
+static bbool REPL_Is_Multiline(bvm *vm)
 {
     const char *msg = be_tostring(vm, -1);
     size_t len = strlen(msg);
@@ -35,7 +35,7 @@ static bbool is_multline(bvm *vm)
 
 static int compile(bvm *vm, char *line, breadline getl, bfreeline freel)
 {
-    int res = try_return(vm, line);
+    int res = REPL_Try_Return(vm, line);
     if (be_getexcept(vm, res) == BE_SYNTAX_ERROR) {
         be_pop(vm, 2); /* pop exception values */
         be_pushstring(vm, line);
@@ -45,7 +45,7 @@ static int compile(bvm *vm, char *line, breadline getl, bfreeline freel)
             int idx = be_absindex(vm, -1); /* get the source text absolute index */
             /* compile source line */
             res = be_loadbuffer(vm, "stdin", src, strlen(src));
-            if (!res || !is_multline(vm)) {
+            if (!res || !REPL_Is_Multiline(vm)) {
                 be_remove(vm, idx); /* remove source code */
                 return res;
             }
@@ -62,7 +62,7 @@ static int compile(bvm *vm, char *line, breadline getl, bfreeline freel)
     return res;
 }
 
-static int call_script(bvm *vm)
+static int REPL_Call_Script(bvm *vm)
 {
     int res = be_pcall(vm, 0); /* call the main function */
     switch (res) { 
@@ -93,7 +93,7 @@ BERRY_API int be_repl(bvm *vm, breadline getline, bfreeline freeline)
         if (res) {
             be_dumpexcept(vm);
         } else { /* compiled successfully */
-            res = call_script(vm);
+            res = REPL_Call_Script(vm);
             if (res) {
                 return res == BE_EXIT ? be_toindex(vm, -1) : res;
             }

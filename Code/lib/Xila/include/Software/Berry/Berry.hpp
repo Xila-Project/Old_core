@@ -42,69 +42,30 @@ class Berry_Class : public Software_Type
     Result_Type Virtual_Machine_Load_File(const char *Path);
     Result_Type Virtual_Machine_Load_String(const char *String);
     Result_Type Call(Integer_Type);
-    Result_Type REPL();
-
-    void Free_Line(char *Pointer)
-    {
-        Pointer[0] = '\0';  // Mark the buffer as empty
-    }
-
-    char *Get_Line(const char *Prompt)
-    {
-        static Instruction_Type Instruction;
-        if (Instruction_Available())
-        {
-            Instruction = Get_Instruction();
-            Execute_Instruction(Instruction);
-        }
-
-        Serial.write(Prompt);
-        Serial.flush();
-
-        char *Buffer = (char *)malloc(256 * sizeof(char));
-
-        memset(Buffer, 0, 256 * sizeof(char));
-
-        for (uint16_t i = 0; i < 256; i++)
-        {
-            while (!Serial.available())
-            {
-                vTaskDelay(10);
-            }
-
-            switch (Serial.peek())
-            {
-            case '\n':
-                i = 256;
-                break;
-
-            default:
-                Buffer[i] = Serial.read();
-                Serial.write(Buffer[i]);
-                Serial.flush();
-                break;
-            }
-        }
-
-        Serial.read();
-        Serial.println();
-
-        return Buffer;
-    }
+    
+    // - - - - REPL
+    void REPL();
+    int REPL_Run();
+    int REPL_Try_Return(const char* line);
+    bool REPL_Is_Multiline();
+    int REPL_Compile(char* line);
+    int REPL_Call_Script();
+    void REPL_Free_Line(char *);
+    char *REPL_Get_Line(const char *);
 
     // - - - Softwares
     void Load_Softwares_Handles();
 
     // - Attributes
 
+    char* Input_String;
+
     bvm *Virtual_Machine;
 
-    char* Input_Text[2];
-
+    Graphics_Types::Keyboard_Type Keyboard;
     Graphics_Types::Text_Area_Type Input_Text_Area;
     Graphics_Types::Label_Type Prompt_Label;
-
-    char* Prompt_Label_Text;
+    Object_Type Prompt_Container;
 
     static bool Softwares_Handles_Loaded;
 
@@ -113,6 +74,8 @@ class Berry_Class : public Software_Type
     friend class Berry_Handle_Class;
     friend class Berry_Softwares_Handle_Class;
 };
+
+extern char* Prompt_String;
 
 static class Berry_Handle_Class : public Software_Handle_Type
 {

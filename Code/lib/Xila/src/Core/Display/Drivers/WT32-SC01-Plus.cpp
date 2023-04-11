@@ -55,13 +55,13 @@ public:
       cfg.pin_cs = -1;
       cfg.pin_rst = 4;
       cfg.pin_busy = -1;
-      cfg.memory_width = 320;
-      cfg.memory_height = 480;
-      cfg.panel_width = 320;
-      cfg.panel_height = 480;
+      cfg.memory_width = Display_Vertical_Definition;
+      cfg.memory_height = Display_Horizontal_Definition;
+      cfg.panel_width = Display_Vertical_Definition;
+      cfg.panel_height = Display_Horizontal_Definition;
       cfg.offset_x = 0;
       cfg.offset_y = 0;
-      cfg.offset_rotation = 0;
+      cfg.offset_rotation = 1;
       cfg.dummy_read_pixel = 8;
       cfg.dummy_read_bits = 1;
       cfg.readable = true;
@@ -78,7 +78,7 @@ public:
       cfg.pin_bl = 45;
       cfg.invert = false;
       cfg.freq = 44100;
-      cfg.pwm_channel = 7;
+      cfg.pwm_channel = 0;
 
       _light_instance.config(cfg);
       _panel_instance.setLight(&_light_instance);
@@ -86,15 +86,19 @@ public:
 
     {
       auto cfg = _touch_instance.config();
-      cfg.i2c_port = 1;
+      cfg.i2c_port = 0;
       cfg.i2c_addr = 0x38;
       cfg.pin_sda = 6;
       cfg.pin_scl = 5;
       cfg.freq = 400000;
+
       cfg.x_min = 0;
       cfg.x_max = 319;
       cfg.y_min = 0;
       cfg.y_max = 479;
+      cfg.pin_int = 7;
+      cfg.bus_shared = false;
+      cfg.offset_rotation = 0;
 
       _touch_instance.config(cfg);
       _panel_instance.setTouch(&_touch_instance);
@@ -111,10 +115,10 @@ Result_Type Display_Class::Initialize()
         return Result_Type::Error;
     }
 
-    if (Driver.width() < Driver.height())
-    {
-        Driver.setRotation(Driver.getRotation() ^ 1);
-    }
+  //  if (Driver.width() < Driver.height())
+  //  {
+  //      Driver.setRotation(Driver.getRotation() ^ 1);
+  //  }
 
     //Driver.setTextSize((std::max(Driver.width(), Driver.height()) + 255) >> 8);
 //
@@ -169,7 +173,7 @@ void Display_Class::Output_Flush(lv_disp_drv_t *Display_Driver_Interface, const 
     if (Driver.getStartCount() == 0)
         Driver.endWrite();
     
-    Driver.pushImageDMA(Area->x1, Area->y1, Area->x2 - Area->x1 + 1, Area->y2 - Area->y1 + 1, (lgfx::swap565_t*)&Buffer->full);
+    Driver.pushImageDMA(Area->x1, Area->y1, Area->x2 - Area->x1 + 1, Area->y2 - Area->y1 + 1, (lgfx::rgb565_t*)&Buffer->full);
 
     lv_disp_flush_ready(Display_Driver_Interface);
 }

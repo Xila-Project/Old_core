@@ -141,7 +141,7 @@ void Window_Class::Set_Interface()
 
     // - Left buttons.
     Data->Close_Button.Create(Data->Header, "", 24, 24);
-    Data->Close_Button.Set_Alignment(Alignment_Type::Middle_Left);
+    Data->Close_Button.Set_Alignment(Alignment_Type::Middle_Left, 4, 0);
     Data->Close_Button.Set_Style_Border_Color(Color_Type::Red[5], 0);
     Data->Close_Button.Set_Style_Border_Width(4, 0);
     Data->Close_Button.Set_Style_Radius(8, 0);
@@ -151,7 +151,7 @@ void Window_Class::Set_Interface()
 
     Data->Minimize_Button.Create(Data->Header);
     Data->Minimize_Button.Set_Size(24, 24);
-    Data->Minimize_Button.Set_Alignment(Data->Close_Button, Alignment_Type::Out_Right_Middle, 4, 0);
+    Data->Minimize_Button.Set_Alignment(Data->Close_Button, Alignment_Type::Out_Right_Middle, 8, 0);
     Data->Minimize_Button.Set_Style_Border_Color(Color_Type::Yellow[5], 0);
     Data->Minimize_Button.Set_Style_Border_Width(4, 0);
     Data->Minimize_Button.Set_Style_Radius(8, 0);
