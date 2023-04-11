@@ -7,4 +7,6 @@ Preferences are a way to configure the behavior of the software. They are stored
 ## 📖 Description
 
 
-##
+## API reference
+
+```{eval-rst}

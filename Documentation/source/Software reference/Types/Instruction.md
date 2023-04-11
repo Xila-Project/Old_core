@@ -4,7 +4,7 @@ Here you will find a full description of the `Instruction_Type`.
 
 ## Description
 
-To allow modules and software to communicate with each other, Xila uses Queue systems. These allow you to send and receive data asynchronously. In order to have a standard format during this communication, the `Instruction_Type` type has been defined.
+To allow `Modules` and `Software` to communicate with each other, Xila uses `Queue` systems. These allow you to send and receive data asynchronously. In order to have a standard format during this communication, the `Instruction_Type` type has been defined.
 
 ## Example
 
