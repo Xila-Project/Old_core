@@ -5,6 +5,7 @@ Here you will find a full description of the `Berry` software.
 ## Table of contents
 
 ```{toctree}
+:maxdepth:  1
 Libraries/List
 Syntax
 ```

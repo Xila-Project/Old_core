@@ -51,7 +51,7 @@ Result_Type Power_Class::Start()
 
     return Result_Type::Success;
 
-    return Task.Create(Task_Start_Function, "Power module", 8 * 1024, this, Task_Type::Priority_Type::System);;
+    return Task.Create(Task_Start_Function, "Power module", 8 * 1024, this, Task_Priority_Type::System);;
 }
 
 void Power_Class::Task_Start_Function(void* Instance_Pointer)

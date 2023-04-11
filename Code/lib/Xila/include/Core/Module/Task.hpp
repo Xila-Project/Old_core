@@ -10,6 +10,17 @@ namespace Xila_Namespace
 
     typedef class Module_Class Module_Type;
 
+    enum class Task_Priority_Type
+    {
+        Idle = 0,
+        Background,
+        Low,
+        Normal,
+        High,
+        System,
+        Driver
+    };
+
     typedef class Task_Class
     {
     public:
@@ -18,17 +29,6 @@ namespace Xila_Namespace
         // - Types
 
         typedef void Task_Function(void *);
-
-        enum class Priority_Type
-        {
-            Idle = 0,
-            Background,
-            Low,
-            Normal,
-            High,
-            System,
-            Driver
-        };
 
         enum class State_Type
         {
@@ -53,7 +53,7 @@ namespace Xila_Namespace
         /// @param Data
         /// @param Priority
         Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name,
-                   Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Priority_Type::Normal);
+                   Size_Type Stack_Size, void *Data = NULL, Task_Priority_Type Priority = Task_Priority_Type::Normal);
 
         /// @brief Construct a Task_Class.
         /// @param Owner_Module Task owner module.
@@ -79,7 +79,7 @@ namespace Xila_Namespace
         /// @param Data Data to pass to the task.
         /// @param Priority Task priority.
         /// @return Result_Type::Success if the task has been created, Result_Type::Error otherwise.
-        Result_Type Create(Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority);
+        Result_Type Create(Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Task_Priority_Type Priority);
 
         /// @brief Suspend the task.
         void Suspend();
@@ -91,7 +91,7 @@ namespace Xila_Namespace
         void Delete();
 
         /// @brief Delay the task and `Feed_Watchdog`.
-        /// @param Delay_In_Millisecond Delay in milliseconds. 
+        /// @param Delay_In_Millisecond Delay in milliseconds.
         void Delay(uint32_t Delay_In_Millisecond);
 
         /// @brief Delay the task (static method).
@@ -118,9 +118,8 @@ namespace Xila_Namespace
         /// @brief Resume all tasks.
         static void Delete_Module_Tasks(Module_Class *Module);
 
-
         /// @brief Set the task priority.
-        Result_Type Set_Priority(Priority_Type Priority);
+        Result_Type Set_Priority(Task_Priority_Type Priority);
 
         /// @brief Get the task state.
         /// @return Task state.
@@ -128,7 +127,7 @@ namespace Xila_Namespace
 
         /// @brief Get the task priority.
         /// @return Task priority.
-        Priority_Type Get_Priority();
+        Task_Priority_Type Get_Priority();
 
         /// @brief Get the task owner module.
         /// @return Task owner module.
@@ -156,7 +155,8 @@ namespace Xila_Namespace
 
         /// @brief Task watchdog timeout (time when the task is considered as frozen).
         uint32_t Watchdog_Timeout;
-        
+
+        /// @brief
         TickType_t Previous_Wake_Time;
 
         /// @brief Task owner module.

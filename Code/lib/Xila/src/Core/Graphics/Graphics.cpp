@@ -59,7 +59,7 @@ Result_Type Graphics_Class::Start()
     }
 
     // - Create task
-    Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Type::Priority_Type::System);
+    Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Priority_Type::System);
 
     return Result_Type::Success;
 }

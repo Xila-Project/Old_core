@@ -246,7 +246,7 @@ void System_Class::Start()
     Power.Deep_Sleep();
   }
 
-  if (Task.Create(Task_Start_Function, "System task", 8 * 1024, this, Task_Type::Priority_Type::System) != Result_Type::Success)
+  if (Task.Create(Task_Start_Function, "System task", 8 * 1024, this, Task_Priority_Type::System) != Result_Type::Success)
   {
     Log_Error("System", "Failed to create system task.");
     return;

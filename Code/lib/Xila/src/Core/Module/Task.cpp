@@ -28,7 +28,7 @@ Task_Class::Task_Class(Module_Class *Owner_Module) : Owner_Module(Owner_Module),
     
 }
 
-Task_Class::Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority) : Owner_Module(Owner_Module), Task_Handle(NULL)
+Task_Class::Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Task_Priority_Type Priority) : Owner_Module(Owner_Module), Task_Handle(NULL)
 {
     Create(Task_Function, Name, Stack_Size, Data, Priority);
 }
@@ -44,14 +44,14 @@ Task_Class::~Task_Class()
 
 // - - Manipulaton
 
-Result_Type Task_Class::Create(Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority)
+Result_Type Task_Class::Create(Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Task_Priority_Type Priority)
 {
     // Not ideal but it's the only way to allocate static vector.
     List.reserve(40);
 
-    if ((Priority > Priority_Type::Idle) || (Priority <= Priority_Type::Driver))
+    if ((Priority > Task_Priority_Type::Idle) || (Priority <= Task_Priority_Type::Driver))
     {
-        Priority = Priority_Type::Normal;
+        Priority = Task_Priority_Type::Normal;
     }
 
     if (this->Get_State() != State_Type::Invalid)
@@ -178,14 +178,14 @@ Task_Class::State_Type Task_Class::Get_State()
     return (State_Type)eTaskGetState(Task_Handle);
 }
 
-Task_Class::Priority_Type Task_Class::Get_Priority()
+Task_Priority_Type Task_Class::Get_Priority()
 {
-    return (Priority_Type)uxTaskPriorityGet(Task_Handle);
+    return (Task_Priority_Type)uxTaskPriorityGet(Task_Handle);
 }
 
-Result_Type Task_Class::Set_Priority(Priority_Type Priority)
+Result_Type Task_Class::Set_Priority(Task_Priority_Type Priority)
 {
-    if ((Priority > Priority_Type::Idle) && (Priority < Priority_Type::System))
+    if ((Priority > Task_Priority_Type::Idle) && (Priority < Task_Priority_Type::System))
     {
         return Result_Type::Invalid_Argument;
     }
