@@ -34,7 +34,7 @@ public:
   WT32_SC01_Plus_Driver_Class(void) {
     {
       auto cfg = _bus_instance.config();
-      cfg.freq_write = 40000000;
+      cfg.freq_write = 20000000;
       cfg.pin_wr = 47;
       cfg.pin_rd = -1;
       cfg.pin_rs = 0;
@@ -92,9 +92,9 @@ public:
       cfg.pin_scl = 5;
       cfg.freq = 400000;
       cfg.x_min = 0;
-      cfg.x_max = 320;
+      cfg.x_max = 319;
       cfg.y_min = 0;
-      cfg.y_max = 480;
+      cfg.y_max = 479;
 
       _touch_instance.config(cfg);
       _panel_instance.setTouch(&_touch_instance);
@@ -166,16 +166,10 @@ uint8_t Display_Class::Get_Brightness()
 
 void Display_Class::Output_Flush(lv_disp_drv_t *Display_Driver_Interface, const lv_area_t *Area, lv_color_t *Buffer)
 {
-    static uint32_t Width, Height;
-
-    Width = (Area->x2 - Area->x1 + 1);
-    Height = (Area->y2 - Area->y1 + 1);
-
-    Driver.startWrite();
-    Driver.setAddrWindow(Area->x1, Area->y1, Width, Height);
-    // tft.pushColors((uint16_t *)&color_p->full, w * h, true);
-    Driver.writePixels((lgfx::rgb565_t *)&Buffer->full, Width * Height);
-    Driver.endWrite();
+    if (Driver.getStartCount() == 0)
+        Driver.endWrite();
+    
+    Driver.pushImageDMA(Area->x1, Area->y1, Area->x2 - Area->x1 + 1, Area->y2 - Area->y1 + 1, (lgfx::swap565_t*)&Buffer->full);
 
     lv_disp_flush_ready(Display_Driver_Interface);
 }
@@ -192,18 +186,19 @@ uint16_t Display_Class::Get_Vertical_Definition()
 
 void Display_Class::Input_Read(lv_indev_drv_t *Input_Device_Driver_Interface, lv_indev_data_t *Data)
 {
-    static int32_t Input_X, Input_Y;
+    static uint16_t Touch_X, Touch_Y;
 
-    if (Driver.getTouch(&Input_X, &Input_Y))
+    bool Touched = Driver.getTouch(&Touch_X, &Touch_Y);
+
+    if (!Touched)
     {
-        Data->state = LV_INDEV_STATE_PR;
-        /*Set the coordinates*/
-        Data->point.x = Input_X;
-        Data->point.y = Input_Y;
+        Data->state = LV_INDEV_STATE_REL;
     }
     else
     {
-        Data->state = LV_INDEV_STATE_REL;
+        Data->state = LV_INDEV_STATE_PR;
+        Data->point.x = Touch_X;
+        Data->point.y = Touch_Y;
     }
 }
 
