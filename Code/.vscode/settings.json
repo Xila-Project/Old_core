@@ -325,7 +325,13 @@
     "typeinfo": "cpp",
     "lv_arc.h": "c",
     "berry_conf.h": "c",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "be_constobj.h": "c",
+    "be_string.h": "c",
+    "be_map.h": "c",
+    "be_class.h": "c",
+    "be_module.h": "c",
+    "be_list.h": "c"
   },
   "commentTranslate.source": "intellsmi.deepl-translate-deepl"
 }

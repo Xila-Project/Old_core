@@ -18,6 +18,7 @@ using namespace Xila;
 typedef struct bvm bvm;
 typedef int (*bntvfunc)(bvm *);
 
+class Berry_Softwares_Handle_Class;
 
 /// @brief Berry class
 class Berry_Class : public Software_Type
@@ -26,6 +27,7 @@ class Berry_Class : public Software_Type
 
     // - - Constructors / destructor
     Berry_Class(const Accounts_Types::User_Type *Owner_User);
+    Berry_Class(const Accounts_Types::User_Type* Owner_User, const Berry_Softwares_Handle_Class* Handle);
     ~Berry_Class();
 
     // - - Task
@@ -96,8 +98,10 @@ public:
 
     void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
     {
-        new Berry_Class(Owner_User);
+        new Berry_Class(Owner_User, this);
     }
 };
+
+static Berry_Softwares_Handle_Class Test_Handle("Test");
 
 #endif

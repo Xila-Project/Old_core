@@ -9,6 +9,8 @@
 
 #include "Software/Berry/Berry.hpp"
 
+
+
 extern "C"
 {
 #include "berry.h"
@@ -19,12 +21,18 @@ extern "C"
 #include <string.h>
 }
 
-char* Prompt_String;
+char *Prompt_String;
 
 bool Berry_Class::Softwares_Handles_Loaded = false;
 
 Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User)
     : Software_Type(&Berry_Handle, Owner_User, 8 * 1024),
+      Input_String(NULL)
+{
+}
+
+Berry_Class::Berry_Class(const Accounts_Types::User_Type* Owner_User, const Berry_Softwares_Handle_Class* Handle)
+    : Software_Type(Handle, Owner_User, 8 * 1024),
       Input_String(NULL)
 {
 }
@@ -67,7 +75,7 @@ void Berry_Class::Execute_Instruction(const Instruction_Type &Instruction)
                 {
                     strlcpy(Input_String, Input_Text_Area.Get_Text(), 80 + 1);
                     Input_Text_Area.Set_Text("");
-                }   
+                }
                 break;
             }
         }
@@ -96,18 +104,61 @@ void Berry_Class::Main_Task_Function()
     // - Other
     else
     {
-        Static_String_Type<32> Name;
-        this->Get_Handle()->Get_Name(Name);
+        Log_Verbose("Berry", "Starting custom software")
 
-        Window.Set_Title(Name);
+            //   Static_String_Type<32> Name;
+            //   this->Get_Handle()->Get_Name(Name);
+            //
+            //   Window.Set_Title(Name);
+            //
+            //   Static_String_Type<64> Path;
+            //   Path = Software_Directory_Path;
+            //   Path += "/";
+            //   Path += Name;
+            //   Path += ".Xrf";
 
-        Static_String_Type<64> Path;
-        Path = Software_Directory_Path;
-        Path += "/";
-        Path += Name;
-        Path += ".Xrf";
-        if (Virtual_Machine_Load_File(Path) != Result_Type::Success)
+        Window.Set_Title("Berry");
+        Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
+
+        char Prompt_String_Local[(80 + 1) * 24 + 1];
+        char Input_String[80 + 1];
+
+        Prompt_String = Prompt_String_Local;
+        this->Input_String = Input_String;
+
+        memset(Prompt_String, 0, (80 + 1) * 24 + 1);
+        memset(this->Input_String, 0, 80 + 1);
+
+        Prompt_Container.Create(Window.Get_Body());
+        Prompt_Container.Set_Width(Percentage(100));
+        Prompt_Container.Set_Flex_Grow(1);
+        Prompt_Container.Set_Style_Pad_All(0, 0);
+        Prompt_Container.Clear_Flag(Flag_Type::Scroll_Elastic); // - Remove, very annoying.
+
+        Prompt_Label.Create(Prompt_Container);
+        Prompt_Label.Set_Width(Percentage(100));
+        Prompt_Label.Set_Text_Static(Prompt_String_Local);
+
+        Input_Text_Area.Create(Window.Get_Body());
+        Input_Text_Area.Set_Size(Percentage(100), 40);
+        Input_Text_Area.Add_Event(this, Graphics_Types::Event_Code_Type::Focused);
+        Input_Text_Area.Add_Event(this, Graphics_Types::Event_Code_Type::Defocused);
+        Input_Text_Area.Set_Placeholder_Text(">_");
+        Input_Text_Area.Set_Maximum_Length(80);
+        Input_Text_Area.Set_One_Line(true);
+
+        Keyboard.Create(Window.Get_Body());
+        Keyboard.Remove_Text_Area();
+        Keyboard.Set_Pop_Overs(true);
+        Keyboard.Add_Event(this, Graphics_Types::Event_Code_Type::Ready);
+
+        Prompt_Label.Delete();
+        Input_Text_Area.Delete();
+
+
+        if (Virtual_Machine_Load_File("/test.be") != Result_Type::Success)
         {
+            Log_Verbose("Berry", "Failed to load file");
             // TODO : Add dialog to show the error.
             delete this;
         }
@@ -116,6 +167,10 @@ void Berry_Class::Main_Task_Function()
         {
             // TODO : Add dialog
         }
+
+
+        Prompt_String = NULL;
+        this->Input_String = NULL;
     }
 
     delete this;

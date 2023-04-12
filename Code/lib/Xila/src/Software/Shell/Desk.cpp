@@ -13,7 +13,8 @@
 
 // - Constructor
 
-Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
+Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer)
+    : Shell_Pointer(Shell_Pointer)
 {
 }
 
@@ -283,7 +284,6 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
         switch (Instruction.Graphics.Get_Code())
         {
         case Event_Code_Type::Clicked:
-        {
             if (Instruction.Graphics.Get_Current_Target() == Menu_Button)
             {
                 Log_Verbose("Shell", "Menu button clicked");
@@ -305,6 +305,7 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
                     // If one of the dock button is pressed, maximize the windows of corresponding software.
                     if (Dock_List.Get_Child(i) == Target)
                     {
+
                         Log_Verbose("Shell", "Find button %d clicked !", i);
 
                         uint8_t User_Softwares_Count = Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User());
@@ -336,12 +337,11 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
                                 Child_Window.Set_State(Window_State_Type::Maximized);
                         }
 
-                        break;
+                        break; // Break the for loop.
                     }
                 }
             }
-        }
-        break;
+            break;
         default:
             break;
         }

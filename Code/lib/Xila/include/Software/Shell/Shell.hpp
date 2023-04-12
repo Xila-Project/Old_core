@@ -77,7 +77,8 @@ class Shell_Class : public Software_Type
     private:
         // - Attributes
 
-        // - - Parent window
+        // - - Parent window      
+
         Object_Type Desk_Grid;
         Object_Type Dock;
         Object_Type Menu_Button;

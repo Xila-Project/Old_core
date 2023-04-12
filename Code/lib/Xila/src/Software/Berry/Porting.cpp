@@ -19,12 +19,19 @@
 BERRY_API void be_writebuffer(const char *buffer, size_t length)
 {
     strlcat(Prompt_String, buffer, (80 + 1) * 24 + 1);
-    // Log.Print(buffer);
+    Log.Print(buffer);
     // be_fwrite(stdout, buffer, length);
 }
 
 BERRY_API char *be_readstring(char *buffer, size_t size)
 {
+    strlcat(Prompt_String, buffer, (80 + 1) * 24 + 1);
+    Log.Print(buffer);
+    while (true)
+    {
+        Task_Type::Delay_Static(100);
+    }
+    
     return NULL;
 
     // return be_fgets(stdin, buffer, (int)size);
@@ -32,6 +39,8 @@ BERRY_API char *be_readstring(char *buffer, size_t size)
 
 void *be_fopen(const char *filename, const char *modes)
 {
+    Log_Verbose("Berry", "Opening file: %s", filename);
+    Log_Verbose("Berry", "Opening file with mode: %c", modes);
     File_Type *File = new File_Type;
     switch (modes[0])
     {
@@ -59,6 +68,7 @@ void *be_fopen(const char *filename, const char *modes)
 
 int be_fclose(void *hfile)
 {
+    Log_Verbose("Berry", "Closing file");
     if (hfile == NULL || hfile == stdout || hfile == stderr || hfile == stdin)
     {
         return false;
@@ -94,6 +104,7 @@ size_t be_fwrite(void *hfile, const void *buffer, size_t length)
 
 size_t be_fread(void *hfile, void *buffer, size_t length)
 {
+    Log_Verbose("Berry", "Reading file");
     if (hfile == NULL || hfile == stdout || hfile == stderr || hfile == stdin)
     {
         return 0;
