@@ -19,8 +19,9 @@ extern "C"
 #include "be_constobj.h"
 #include <string.h>
 #include <ctype.h>
-#include "Software/Berry/be_const_strtab_def.h"
 }
+
+#include "Xila.hpp"
 
 int m_Hello(bvm *vm)
 {

@@ -1,11 +1,4 @@
-
-extern "C"
-{
-    #include "be_constobj.h"
-}
-
-#include "Test.hpp"
-
+#include "be_constobj.h"
 
 static be_define_const_map_slots(Test_class_map) {
     { be_const_key(init, 1), be_const_func(m_init) },

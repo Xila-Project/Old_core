@@ -3,7 +3,7 @@
 
 ## Description
 
-In order to do without the `cstring` library which is tedious while minimizing the memory footprint of the management of character strings, Xila implements classes allowing to manipulate character strings in a simple and efficient way.
+In order to do without the `cstring` library which is tedious to use while minimizing the memory footprint of the management of character strings, Xila implements classes allowing to manipulate character strings in a simple and efficient way.
 
 ::::{tab-set}
 :::{tab-item} String_Type
@@ -29,8 +29,6 @@ Similar to `String_Type`, `Static_String_Type` (inherited from `String_Type`) is
 ```cpp
 
 ```
-
-
 
 ## API reference
 

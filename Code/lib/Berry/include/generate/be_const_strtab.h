@@ -1,4 +1,5 @@
 extern const bcstring be_const_str_;
+extern const bcstring be_const_str_Hello;
 extern const bcstring be_const_str__X21_X3D;
 extern const bcstring be_const_str__X28_X29;
 extern const bcstring be_const_str__X2B;
@@ -6,6 +7,7 @@ extern const bcstring be_const_str__X2E_X2E;
 extern const bcstring be_const_str__X2Elen;
 extern const bcstring be_const_str__X2Ep;
 extern const bcstring be_const_str__X2Esize;
+extern const bcstring be_const_str__X2Etest_var;
 extern const bcstring be_const_str__X3D_X3D;
 extern const bcstring be_const_str___iterator__;
 extern const bcstring be_const_str___lower__;
