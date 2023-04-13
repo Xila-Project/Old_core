@@ -44,9 +44,9 @@ void Shell_Class::Drawer_Class::Set_Interface()
 
         for (Byte_Type i = 0; i < Handle_Count; i++)
         {
-            Log_Verbose("Drawer", "%p : %p", &Shell_Handle, Softwares.Get_Handle(i));
+            // Log_Verbose("Drawer", "%p : %p", &Shell_Handle, Softwares.Get_Handle(i));
             Log_Verbose("Drawer", "i = %d", i);
-            if (&Shell_Handle != Softwares.Get_Handle(i))
+            if (Shell_Pointer->Get_Handle() != Softwares.Get_Handle(i))
             {
                 Log_Verbose("Drawer", "Adding software to drawer i = %d", i);
 

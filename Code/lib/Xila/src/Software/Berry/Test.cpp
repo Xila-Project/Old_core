@@ -25,6 +25,7 @@ extern "C"
 
 int m_Hello(bvm *vm)
 {
+  
     Log_Verbose("Berry", "Hello World from Test class!");
     be_return_nil(vm);
 }
@@ -41,4 +42,14 @@ class Test_class (scope: global, name: bytes) {
     init, func(m_init)
     Hello, func(m_Hello)
 }
+
+module Test (scope: global) {
+    Test, class(Test_class)
+}
 @const_object_info_end */
+
+extern "C"
+{
+#include "generate/be_fixed_Test_class.h"
+#include "generate/be_fixed_Test.h"
+}

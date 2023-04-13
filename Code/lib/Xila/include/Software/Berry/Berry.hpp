@@ -11,6 +11,8 @@
 
 #include "Xila.hpp"
 
+#include "Test.hpp"
+
 using namespace Xila;
 
 // - Forward declaration

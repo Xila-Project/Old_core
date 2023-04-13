@@ -331,7 +331,11 @@
     "be_map.h": "c",
     "be_class.h": "c",
     "be_module.h": "c",
-    "be_list.h": "c"
+    "be_list.h": "c",
+    "be_fixed_test_class.h": "c"
   },
-  "commentTranslate.source": "intellsmi.deepl-translate-deepl"
+  "commentTranslate.source": "intellsmi.deepl-translate-deepl",
+  "cSpell.words": [
+    "Snappable"
+  ]
 }

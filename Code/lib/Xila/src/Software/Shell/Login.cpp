@@ -14,11 +14,10 @@ Shell_Class::Login_Class::Login_Class(Shell_Class *Shell_Pointer) : Shell_Pointe
 {
     Dialog.Create(Shell_Pointer);
     Dialog.Set_Title("Login");
-    Dialog.Set_Overlay(true);
     Dialog.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
     Dialog.Get_Body().Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
 
-    Name_Input.Create(Dialog);
+    Name_Input.Create(Dialog.Get_Body());
     Name_Input.Set_Size(Percentage(80), 40);
     Name_Input.Set_Placeholder_Text("Username");
     Name_Input.Set_One_Line(true);
@@ -26,7 +25,7 @@ Shell_Class::Login_Class::Login_Class(Shell_Class *Shell_Pointer) : Shell_Pointe
     Name_Input.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Focused);
     Name_Input.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Defocused);
 
-    Password_Input.Create(Dialog);
+    Password_Input.Create(Dialog.Get_Body());
     Password_Input.Set_Size(Percentage(80), 40);
     Password_Input.Set_Placeholder_Text("Password");
     Password_Input.Set_Password_Mode(true);
@@ -35,13 +34,8 @@ Shell_Class::Login_Class::Login_Class(Shell_Class *Shell_Pointer) : Shell_Pointe
     Password_Input.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Focused);
     Password_Input.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Defocused);
 
-    Login_Button.Create(Dialog);
-    Login_Button.Set_Size(Percentage(50), 40);
+    Login_Button.Create(Dialog.Get_Body(), "Login", Percentage(50), 40);
     Login_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
-
-    Login_Label.Create(Login_Button);
-    Login_Label.Set_Text("Login");
-    Login_Label.Set_Alignment(Alignment_Type::Center);
 }
 
 Shell_Class::Login_Class::~Login_Class()
@@ -75,29 +69,30 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type &Instr
         case Graphics_Types::Event_Code_Type::Focused:
             if (Instruction.Graphics.Get_Target() == Name_Input)
             {
+                Log_Verbose("Shell", "Focused on name input");
                 Shell_Pointer->Keyboard.Set_Text_Area(Name_Input);
             }
             else if (Instruction.Graphics.Get_Target() == Password_Input)
             {
+                Log_Verbose("Shell", "Focused on password input");
                 Shell_Pointer->Keyboard.Set_Text_Area(Password_Input);
             }
             break;
         case Graphics_Types::Event_Code_Type::Defocused:
-            if ((Instruction.Graphics.Get_Target() == Name_Input) || (Instruction.Graphics.Get_Target() == Password_Input))
-            {
-                Shell_Pointer->Keyboard.Remove_Text_Area();
-            }
+            Log_Verbose("Shell", "Defocused on name or password input");
+            Shell_Pointer->Keyboard.Remove_Text_Area();
             break;
         case Graphics_Types::Event_Code_Type::Clicked:
             if (Instruction.Graphics.Get_Target() == Login_Button)
-            {
+            {            
                 if (Accounts.Login(Name_Input.Get_Text(), Password_Input.Get_Text()) == Result_Type::Success)
                 {
-                    Softwares.Open(&Shell_Handle, Accounts.Get_User(Accounts.Find_User(Name_Input.Get_Text())));
+                    Softwares.Open(Shell_Pointer->Get_Handle(), Accounts.Get_User(Accounts.Find_User(Name_Input.Get_Text())));
                 }
                 else
                 {
-                    Dialog.Set_Title("Login failed");
+                    Name_Input.Set_Style_Border_Color(Color_Type::Red[5], 0);
+                    Password_Input.Set_Style_Border_Color(Color_Type::Red[5], 0);
                 }
             }
         }

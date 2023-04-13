@@ -39,29 +39,38 @@ Dialog_Class::Dialog_Class(const Object_Class &Object_To_Copy)
 
 void Dialog_Class::Create(const Software_Type* Owner_Software)
 {
- 
- /*   if (Owner_Software == NULL)
-    {
+    if (Owner_Software == NULL)
         return;
-    }
+    
 
     Screen_Type User_Screen = Screen_Type::Get_User_Screen(Owner_Software->Get_Owner_User());
 
-    if (Parent_Window == NULL)
-    {
+    if (!User_Screen.Is_Valid())
         return;
-    }
 
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->Set_Pointer(lv_obj_create(Parent_Window->Get_Pointer()));
+        this->LVGL_Object_Pointer = lv_obj_create(User_Screen.Get_Pointer());
+        if (!Is_Valid())
+            return;
+       
         this->LVGL_Object_Pointer->class_p = &Dialog_Class::Class;
     }
 
-    this->Owner_Software = Owner_Software;
+    Data = new Data_Type;
+    Set_User_Data(Data);
+    Data->Owner_Software = Owner_Software;
+
     this->Set_Interface();
-    this->Set_Size(Percentage(75), Percentage(75));
-*/
+    this->Set_Size(Percentage(70), Percentage(65));
+    Data->Header.Set_Style_Radius(5, 0);
+    this->Set_Alignment(Alignment_Type::Center);
+    this->Set_Minimize_Button_Hidden(true);
+    this->Set_Style_Radius(5, 0);
+
+    this->Set_Style_Shadow_Opacity(Opacity_Type::Opacity_20_Percent, 0);
+    this->Set_Style_Shadow_Width(50, 0);
+    this->Set_Style_Shadow_Color(Color_Type::White, 0);
 }
 
 void Dialog_Class::Create(Object_Class Parent_Object)
@@ -88,9 +97,12 @@ void Dialog_Class::Create(Object_Class Parent_Object)
     Data->Owner_Software = NULL;
         
     this->Set_Interface();
-    this->Set_Size(Percentage(75), Percentage(75));
+    this->Set_Size(Percentage(65), Percentage(65));
     this->Set_Alignment(Alignment_Type::Center);
+    this->Set_Minimize_Button_Hidden(true);
+    this->Set_Style_Radius(5, 0);
 }
+
 
 bool Dialog_Class::Is_Overlay()
 {
@@ -102,6 +114,7 @@ void Dialog_Class::Set_Overlay(bool Enable)
     if (Enable)
     {
         Overlay.Create(this->Get_Parent());
+        Overlay.Set_Style_Opacity(0, 0);
         Overlay.Set_Size(Percentage(100), Percentage(100));
         Overlay.Move_Foreground();
         Overlay.Add_Flag(Flag_Type::Clickable);

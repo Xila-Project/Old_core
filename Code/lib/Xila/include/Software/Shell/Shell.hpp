@@ -37,13 +37,26 @@ class Shell_Class : public Software_Type
     // - - - Overlay
 
     Style_Type Status_Buttons_Style;
+
+    /// @brief Object containing clock label, battery, sound and wifi status icons.
     Object_Type Overlay;
+
+    /// @brief Battery status button.
     Button_Type Battery_Button;
+
+    /// @brief Wifi status button.
     Button_Type WiFi_Button;
+
+    /// @brief Sound status button.
     Button_Type Sound_Button;
+
+    /// @brief Clock label.
     Graphics_Types::Label_Type Clock_Label;
 
+    /// @brief
     Graphics_Types::Screen_Type Screen; // ! : Must be declared before desk (due to the order of construction) since desk needs screen to create a window.
+   
+    /// @brief Keyboard used by text areas.
     Graphics_Types::Keyboard_Type Keyboard;
 
     /// @brief Desk class
@@ -77,7 +90,7 @@ class Shell_Class : public Software_Type
     private:
         // - Attributes
 
-        // - - Parent window      
+        // - - Parent window
 
         Object_Type Desk_Grid;
         Object_Type Dock;
@@ -219,13 +232,13 @@ class Shell_Class : public Software_Type
 
     // - - Others
 
-    static void Get_Software_Icon(Object_Type&, const String_Type&);
+    static void Get_Software_Icon(Object_Type &, const String_Type &);
     void Execute_Instruction(Instruction_Type Instruction);
     void Main_Task_Function() override;
     void Refresh_Overlay();
 
     /// @brief Check for opened softwares.
-    
+
     // - - Registry
     Result_Type Save_Registry();
     Result_Type Create_Registry();
@@ -239,15 +252,12 @@ class Shell_Class : public Software_Type
 static class Shell_Handle_Class : public Software_Handle_Type
 {
 public:
-    Shell_Handle_Class() : Software_Handle_Type("Shell")
-    {
-    };
+    Shell_Handle_Class() : Software_Handle_Type("Shell"){ Log_Verbose("Shell", "Handle created"); };
 
     void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
     {
         new Shell_Class(Owner_User);
     };
-
-} Shell_Handle; 
+} Shell_Handle;
 
 #endif

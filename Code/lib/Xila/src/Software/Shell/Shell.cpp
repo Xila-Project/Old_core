@@ -123,10 +123,11 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
 
     if (Drawer.Is_Openned())
     {
-        Log_Verbose("Shell", "Instruction received");
         Drawer.Execute_Instruction(Instruction);
         return;
     }
+
+
     if (Installer_Class::Is_Openned(this))
     {
         if (Installer_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized)
@@ -135,10 +136,13 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
             return;
         }
     }
-    if (Login_Class::Is_Openned(this) && (Login_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized))
+
+    if (Login_Class::Is_Openned(this))
     {
+        Log_Verbose("Shell", "Instruction received");
         if (Login_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized)
         {
+            Log_Verbose("Shell", "Instruction received");
             Login_Pointer->Execute_Instruction(Instruction);
             return;
         }

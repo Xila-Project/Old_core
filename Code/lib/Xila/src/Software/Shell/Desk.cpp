@@ -137,24 +137,29 @@ void Shell_Class::Desk_Class::Set_Interface()
     Dock_List.Set_Content_Height(40);
 
     {
-        Static_String_Type<24> User;
+        Static_String_Type<24> User_Name;
 
-        Shell_Pointer->Get_Owner_User()->Get_Name(User);
+        Shell_Pointer->Get_Owner_User()->Get_Name(User_Name);
 
-        if (User == "Xila")
+        // - If current user is the system user (Xila), open login screen or installer.
+        if (User_Name == "Xila")
         {
-            //    Log_Verbose("Shell", "System user detected, opening login screen / installer.");
-            //    File_Type Users_Folder = Drive.Open(Users_Directory_Path);
-            //    if (Users_Folder && Users_Folder.Is_Directory() && (Users_Folder.Count_Items() > 0))
-            //    {
-            //        Shell_Class::Login_Class::Open(Shell_Pointer);
-            //    }
-            //    else
-            //    {
-            //        Shell_Class::Installer_Class::Open(Shell_Pointer);
-            //    }
-            //    // Hide dock since current user is system user (Xila).
-            //    Dock.Add_Flag(Flag_Type::Hidden);
+ //           Log_Verbose("Shell", "System user detected, opening login screen / installer.");
+//
+ //           File_Type Users_Folder = Drive.Open(Users_Directory_Path);
+//
+ //           if (Users_Folder && Users_Folder.Is_Directory() && (Users_Folder.Count_Items() > 0))
+ //           {
+ //               Shell_Class::Login_Class::Open(Shell_Pointer);
+ //           }
+ //           else
+ //           {
+ //               Shell_Class::Installer_Class::Open(Shell_Pointer);
+ //           }
+//
+ //           // Hide dock since current user is system user (Xila).
+ //           Dock.Add_Flag(Flag_Type::Hidden);
+ //           Window.Set_Title("");
         }
     }
 

@@ -1,5 +1,6 @@
 extern const bcstring be_const_str_;
 extern const bcstring be_const_str_Hello;
+extern const bcstring be_const_str_Test;
 extern const bcstring be_const_str__X21_X3D;
 extern const bcstring be_const_str__X28_X29;
 extern const bcstring be_const_str__X2B;

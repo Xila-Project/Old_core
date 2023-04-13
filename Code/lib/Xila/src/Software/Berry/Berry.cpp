@@ -149,7 +149,6 @@ void Berry_Class::Main_Task_Function()
 
         Keyboard.Create(Window.Get_Body());
         Keyboard.Remove_Text_Area();
-        Keyboard.Set_Pop_Overs(true);
         Keyboard.Add_Event(this, Graphics_Types::Event_Code_Type::Ready);
 
         Prompt_Label.Delete();

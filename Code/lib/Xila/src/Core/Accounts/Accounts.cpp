@@ -457,25 +457,15 @@ Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Che
 /// @return Result_Type
 Result_Type Accounts_Class::Login(const String_Type &Name, const String_Type &Password, bool Lock_Other_User)
 {
-  if (Name == "Xila")
-  {
+  if (Name == "Xila" || (Check_Credentials(Name, Password) != Result_Type::Success))
     return Result_Type::Error;
-  }
-
-  // Check credentials
-  if (Check_Credentials(Name, Password) != Result_Type::Success)
-  {
-    return Result_Type::Error;
-  }
 
   User_Type User_To_Log(Name, User_State_Type::Locked);
 
   User_List.push_back(User_To_Log);
 
   if (Lock_Other_User)
-  {
     User_To_Log.Login();
-  }
 
   return Result_Type::Success;
 }

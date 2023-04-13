@@ -37,8 +37,13 @@ void Keyboard_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
-        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_keyboard_create(Parent_Object.Get_Pointer());
+        {
+            Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+            this->LVGL_Object_Pointer = lv_keyboard_create(Parent_Object.Get_Pointer());
+            if (!Is_Valid())
+                return;
+        }
+        this->Set_Pop_Overs(true);
     }
 }
 
@@ -86,7 +91,10 @@ void Keyboard_Class::Set_Text_Area(Text_Area_Class &Text_Area, bool Show)
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_keyboard_set_textarea(Get_Pointer(), Text_Area.Get_Pointer());
     if (Show)
+    {
         this->Clear_Flag(Flag_Type::Hidden);
+        this->Move_Foreground();
+    }
 }
 
 // ------------------------------------------------------------------------- //

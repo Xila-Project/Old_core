@@ -183,7 +183,7 @@ namespace Xila_Namespace
             Right = LV_TEXT_ALIGN_RIGHT,    /**< Align text to right*/
         };
 
-        /// @brief Class type to define hertiage betweens types.
+        /// @brief Class type to define heritage betweens types.
         typedef lv_obj_class_t Class_Type;
 
         enum class Event_Code_Type : uint8_t
@@ -272,23 +272,6 @@ namespace Xila_Namespace
             Custom_3 = LV_STATE_USER_3,
             Custom_4 = LV_STATE_USER_4,
             Any = LV_STATE_ANY
-        };
-
-        enum class Type_Type
-        {
-            Object,
-            Arc,
-            Bar,
-            Button,
-            Button_Matrix,
-            Calendar,
-            Canvas,
-            Chart,
-            Checkbox,
-            Colow_Wheel,
-            Dialog,
-            Drop_Down_List,
-
         };
     }
 

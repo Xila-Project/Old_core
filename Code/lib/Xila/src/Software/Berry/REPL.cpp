@@ -128,6 +128,8 @@ int Berry_Class::REPL_Run()
 
 void Berry_Class::REPL()
 {
+    be_loadmodule(Virtual_Machine, "Test");
+
     // - Set interface
 
     Window.Set_Title("Berry");
@@ -162,7 +164,6 @@ void Berry_Class::REPL()
 
     Keyboard.Create(Window.Get_Body());
     Keyboard.Remove_Text_Area();
-    Keyboard.Set_Pop_Overs(true);
     Keyboard.Add_Event(this, Graphics_Types::Event_Code_Type::Ready);
 
     Byte_Type Error = REPL_Run();

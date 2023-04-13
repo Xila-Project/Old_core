@@ -57,15 +57,9 @@ void Window_Class::Create(const Software_Type *Owner_Software)
 {
 
     if (Owner_Software == NULL)
-    {
         return;
-    }
-
-    Log_Verbose("Win", "Creating window for software : %s ", (const char *)Owner_Software->Get_Owner_User()->Name);
 
     Screen_Type User_Screen = Screen_Type::Get_User_Screen(Owner_Software->Get_Owner_User());
-
-    Log_Verbose("Win", "Found parent win LVGL pointer : %p", User_Screen.Get_Pointer());
 
     if (!User_Screen.Is_Valid())
         return;
@@ -207,17 +201,11 @@ void Window_Class::Set_State(Window_State_Type State)
 Window_State_Type Window_Class::Get_State()
 {
     if (Has_Flag(Flag_Type::Hidden))
-    {
         return Window_State_Type::Minimized;
-    }
     else if (Get_Header().Has_Flag(Flag_Type::Hidden))
-    {
         return Window_State_Type::Full_screen;
-    }
     else
-    {
         return Window_State_Type::Maximized;
-    }
 }
 
 // - - Setters
