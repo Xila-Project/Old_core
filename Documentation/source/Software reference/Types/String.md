@@ -3,7 +3,8 @@
 
 ## Description
 
-In order to do without the `cstring` library which is tedious to use while minimizing the memory footprint of the management of character strings, Xila implements classes allowing to manipulate character strings in a simple and efficient way.
+In order to avoir the `cstring` library which is necessary to reduce the memory footprint of strings, but which is also tedious to use.
+Xila implements classes allowing to manipulate character strings in a simple and efficient way.
 
 ::::{tab-set}
 :::{tab-item} String_Type

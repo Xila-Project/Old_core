@@ -7,7 +7,7 @@ Here you will find a full description of the `Software_Type`.
 `Software_Type` is the base class of all software on Xila. It's derivated from `Module_Type` to allow polymorphism (a Module can use the same API of another module). `Software_Type` is intended to be derived, by the developer, in order implement the methods and attributes used by the software. When an instance of the software is created (see `Software_Handle_Type`), an instance of the class is created. It's also used by Xila to communicate with the software (send `Instruction_Type`). Once the software is closed, this same instance is freed. Xila also uses this API to communicate with the software (send instructions, variables etc.).
 
 :::{important}
-    Declaring variables and functions in the global scope should be **avoided**, unless you know what you are doing. Indeed, the global scope is **shared** between all instances of the software and using global scope could lead to unexpected behavior. In addition, using global scope will reduce the memory available for the whole system (since it's static memory). This also apply to static member variables and functions. That do not apply to `Berry` software, since it's using it's own memory space for each instance. 
+    Declaring variables and functions in the global scope should be **avoided** (except for `Software_Handle_Type`), unless you know what you are doing. Indeed, the global scope is **shared** between all instances of the software and using global scope could lead to unexpected behavior. In addition, using global scope will reduce the memory available for the whole system (since it's static memory). This also apply to static member variables and functions. That do not apply to `Berry` software, since it's using it's own memory space for each instance. 
 :::
 
 :::{note}
@@ -17,10 +17,9 @@ Here you will find a full description of the `Software_Type`.
 ## Example
 
 ```cpp
+    using namespace Xila;
 
-    Xila_Namespace::Software_Handle My_Software_Handle; // See Software_Handle_Type for more information.
-
-    class My_Software : public Xila_Namespace::Software
+    class My_Software_Class : public Software_Type
     {
     public:
 
@@ -76,8 +75,6 @@ Here you will find a full description of the `Software_Type`.
         }
        
     }
-
-    Xila_Namespace::Software_Handle My_Software_Handle("My Software", 44, My_Software::Load);
 ```
 
 ## API reference
