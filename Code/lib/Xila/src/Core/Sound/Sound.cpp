@@ -84,10 +84,6 @@ Result_Type Sound_Class::Load_Registry()
     return Result_Type::Success;
 }
 
-///
-/// @brief Save sound registry.
-///
-/// @return Result_Type
 Result_Type Sound_Class::Save_Registry()
 {
     /*

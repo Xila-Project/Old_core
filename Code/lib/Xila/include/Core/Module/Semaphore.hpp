@@ -76,7 +76,7 @@ namespace Xila_Namespace
         /// @brief Give the Semaphore.
         void Give();
 
-        /// @brief Give the Semaphore from an ISR.
+        /// @brief Give the Semaphore from an Interrupt Service Routine.
         void Give_From_ISR(Integer_Type *Higher_Priority_Task_Woken);
 
         /// @brief Give the Semaphore recursively.

@@ -5,7 +5,6 @@
 /// @date 21-03-2023
 ///
 /// @copyright Copyright (c) 2023
-///
 
 #include "Core/Module/Base_Types.hpp"
 

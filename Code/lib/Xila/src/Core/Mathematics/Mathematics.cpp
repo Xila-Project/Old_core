@@ -1,4 +1,3 @@
-///
 /// @file Mathematics.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief File to declare mathematics methods.
@@ -19,34 +18,34 @@ Mathematics_Type Xila_Namespace::Mathematics;
 static const Mathematics_Types::Rational_Type Pi(355, 113);
 static const Mathematics_Types::Rational_Type Euler(2718281828459045, 1000000000000000);
 
-///
-/// @brief Check if a float is a number.
-///
-/// @param Number
-/// @return true
-/// @return false
+
+
+
+
+
+
 bool Xila_Namespace::Mathematics_Class::Is_NAN(double Number)
 {
     return isnan(Number);
 }
 
-///
-/// @brief Check if a number is infinite.
-///
-/// @param Number
-/// @return true
-/// @return false
+
+
+
+
+
+
 bool Xila_Namespace::Mathematics_Class::Is_Infinite(double Number)
 {
     return isinf(Number);
 }
 
-///
-/// @brief Copy sign from a number to another.
-///
-/// @param Number_1 Origin number.
-/// @param Number_2 Destination number.
-/// @return double New number sign
+
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Copy_Sign(double Number_1, double Number_2)
 {
     return copysign(Number_1, Number_2);
@@ -62,163 +61,163 @@ double Xila_Namespace::Mathematics_Class::Modulo(double Number_1, double Number_
     return fmod(Number_1, Number_2);
 }
 
-///
-/// @brief Convert angle from degrees to radians.
-///
-/// @param Degrees Angle to convert in degrees.
-/// @return double Converted angle in radians.
+
+
+
+
+
 Rational_Type Xila_Namespace::Mathematics_Class::Radians(Rational_Type Degrees)
 {
     using namespace Xila_Namespace::Mathematics_Types;
     return Rational_Type(Pi, Rational_Type(360)) * Degrees;
 }
 
-///
-/// @brief Convert angle from radians to degrees.
-///
-/// @param Radians Angle to convert in radians.
-/// @return double Converted angle in degrees.
+
+
+
+
+
 Rational_Type Xila_Namespace::Mathematics_Class::Degrees(Rational_Type Radians)
 {
     using namespace Xila_Namespace::Mathematics_Types;
     return Radians * Rational_Type(Rational_Type(360), Pi);
 }
 
-///
-/// @brief Calculate the sine of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Sine of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Sine(double Number)
 {
     return sin(Number);
 }
 
-///
-/// @brief Calculate the cosine of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Cosine of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Cosine(double Number)
 {
     return cos(Number);
 }
 
-///
-/// @brief Calculate the tangent of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Tangent of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Tangent(double Number)
 {
     return tan(Number);
 }
 
-///
-/// @brief Calculate the secant of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Secant of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Secant(double Number)
 {
     return 1 / Cosine(Number);
 }
 
-///
-/// @brief Calculate the cosecant of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Cosecant of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Cosecant(double Number)
 {
     return 1 / Sine(Number);
 }
 
-///
-/// @brief Calculate the cotangent of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Cotangent of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Cotangent(double Number)
 {
     return 1 / Tangent(Number);
 }
 
-///
-/// @brief Calculate the arc sine of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Arc sine of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Arc_Sine(double Number)
 {
     return asin(Number);
 }
 
-///
-/// @brief Calculate the arc cosine of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Arc cosine of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Arc_Cosine(double Number)
 {
     return acos(Number);
 }
 
-///
-/// @brief Calculate the arc tangent of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Arc tangent of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Arc_Tangent(double Number)
 {
     return atan(Number);
 }
 
-///
-/// @brief Calculate the arc secant of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Arc secant of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Arc_Secant(double Number)
 {
     return Arc_Cosine(1 / Number);
 }
 
-///
-/// @brief Calculate the arc cosecant of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Arc cosecant of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Arc_Cosecant(double Number)
 {
     return Arc_Sine(1 / Number);
 }
 
-///
-/// @brief Calculate the arc cotangent of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Arc cotangent of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Arc_Cotangent(double Number)
 {
     return static_cast<Long_Real_Type>((Pi / 2) - Arc_Tangent(Number));
 }
 
-///
-/// @brief Calculate the hyperbolic sine of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Hyperbolic sine of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Hyperbolic_Sine(double Number)
 {
     return sinh(Number);
 }
 
-///
-/// @brief Calculate the tangent of a number in radians.
-///
-/// @param Number Number to calculate in radians.
-/// @return double Tangent of the number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::Hyperbolic_Cosine(double Number)
 {
     return cosh(Number);
@@ -321,24 +320,24 @@ uint32_t Xila_Namespace::Mathematics_Class::Random(uint32_t Lower_Bound, uint32_
     return Random(diff) + Lower_Bound;
 }
 
-///
-/// @brief Convert string to a float number.
-///
-/// @param String String to convert.
-/// @return double Converted number.
+
+
+
+
+
 double Xila_Namespace::Mathematics_Class::String_To_Float(const char *String)
 {
     return atof(String);
 }
 
-///
-/// @brief Convert a float number into string.
-///
-/// @param Number Number to convert.
-/// @param Width String buffer size.
-/// @param Precision Float point precision.
-/// @param String String buffer.
-/// @return char* String buffer pointer.
+
+
+
+
+
+
+
+
 char *Xila_Namespace::Mathematics_Class::Float_To_String(double Number, int8_t Width, uint8_t Precision, char *String)
 {
     dtostrf(Number, Width, Precision, String);

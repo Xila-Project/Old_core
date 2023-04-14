@@ -54,7 +54,7 @@ namespace Xila_Namespace
             // - - Getters
 
             /// @brief Get the code of a graphics event.
-            /// @return Code of the instruction.
+            /// @return `Graphics_Types::Event_Code_Type` Code of the instruction.
             Graphics_Types::Event_Code_Type Get_Code() const;
 
             /// @brief Get the original target of a graphics event.
@@ -129,6 +129,8 @@ namespace Xila_Namespace
         } Custom_Type;
 
         // - Arguments anonymous union.
+
+        /// @brief Instruction union of arguments (according to the sender)
         union
         {
             Graphics_Type Graphics;

@@ -35,23 +35,50 @@ namespace Xila_Namespace
         {
         public:
             // - Methods
+
+            /// @brief Default constructor.
             Hash_Class();
+
+            /// @brief Default destructor.
             ~Hash_Class();
 
+            // - - Manipulators
+
+            /// @brief Create a new hash.
+            /// @param Type Type of hash to create.
+            /// @return Result_Type
             Result_Type Create(Message_Digest_Type Type);
+
+            /// @brief Delete the hash.
+            /// @param Result Result of the operation.
             void Delete(Byte_Type *Result);
 
             // - - Getters
 
+            /// @brief Get the type of the hash.
+            /// @return Message_Digest_Type
             Message_Digest_Type Get_Type() const;
+
+            /// @brief Get the size of the hash.
+            /// @return Size_Type
             Size_Type Get_Size() const;
 
             // - - Operations
 
+            /// @brief Add data to the hash.
+            /// @param Data Data to add.
+            /// @param Data_Size Size of the data.
+            /// @return Result_Type
             Result_Type Add(const Byte_Type *Data, Size_Type Data_Size);
+            
+            /// @brief Add a string to the hash.
+            /// @param String String to add.
+            /// @return Result_Type
             Result_Type Add(const String_Type &String);
 
         private:
+            // - Attributes
+
             void *Data;
 
         } Hash_Type;

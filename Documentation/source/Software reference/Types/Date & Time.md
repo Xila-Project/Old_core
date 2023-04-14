@@ -37,8 +37,6 @@ if (Date_1 != Date_2)   // - Check if dates are different.
     // - Always true.
 }
 
-
-
 ```
 
 ## API reference

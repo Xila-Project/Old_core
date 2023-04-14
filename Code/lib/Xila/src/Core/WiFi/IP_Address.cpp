@@ -14,6 +14,11 @@
 
 using namespace Xila_Namespace;
 
+IP_Address_Class::IP_Address_Class() : Is_IPv4(true)
+{
+
+}
+
 IP_Address_Class::IP_Address_Class(const IPAddress& IP_Address)
     : Is_IPv4(true)
 {
@@ -142,7 +147,7 @@ void IP_Address_Class::To(String_Class& String) const
     }
 }
 
-bool IP_Address_Class::Get_IP_Version() const
+bool IP_Address_Class::Is_IP_v4() const
 {
     return Is_IPv4;
 }

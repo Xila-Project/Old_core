@@ -1,4 +1,3 @@
-///
 /// @file File.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
@@ -6,7 +5,6 @@
 /// @date 09-02-2023
 ///
 /// @copyright Copyright (c) 2023
-///
 
 #include "Core/Drive/Drive.hpp"
 

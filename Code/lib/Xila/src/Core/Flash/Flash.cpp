@@ -1,12 +1,10 @@
+/// @file Flash.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1
+/// @date 11-07-2021
 ///
- /// @file Flash.cpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1
- /// @date 11-07-2021
- /// 
- /// @copyright Copyright (c) 2021
- /// 
+/// @copyright Copyright (c) 2021
 
 #include "Core/Flash/Flash.hpp"
 
@@ -16,7 +14,6 @@ using namespace Xila_Namespace;
 using namespace Xila_Namespace::Flash_Types;
 
 Flash_Type Xila_Namespace::Flash;
-
 
 uint32_t Xila_Namespace::Flash_Class::Get_Sketch_Size()
 {
@@ -92,13 +89,11 @@ Result_Type Xila_Namespace::Flash_Class::Set_Boot_Partition(Partition_Subtype_Ty
 
 
 
-///
- /// @brief A method that return the available space of 
- /// 
- /// @return uint32_t Free space in bytes.
+
+
 uint32_t Xila_Namespace::Flash_Class::Get_Sketch_Free_Space()
 {
-    const esp_partition_t* Partition = esp_ota_get_next_update_partition(NULL);
+    const esp_partition_t *Partition = esp_ota_get_next_update_partition(NULL);
     if (!Partition)
     {
         return 0;
@@ -106,20 +101,22 @@ uint32_t Xila_Namespace::Flash_Class::Get_Sketch_Free_Space()
     return Partition->size;
 }
 
-///
- /// @brief A method that return current sketch MD5 checksum.
- /// 
- /// @return String MD5 sketch checksum.
+
+
+
+
 String Xila_Namespace::Flash_Class::Get_Sketch_MD5()
 {
     static String result;
-    if (result.length()) {
+    if (result.length())
+    {
         return result;
     }
     uint32_t lengthLeft = Get_Sketch_Size();
 
     const esp_partition_t *running = esp_ota_get_running_partition();
-    if (!running) {
+    if (!running)
+    {
         log_e("Partition could not be found");
 
         return String();
@@ -127,16 +124,19 @@ String Xila_Namespace::Flash_Class::Get_Sketch_MD5()
     const size_t bufSize = SPI_FLASH_SEC_SIZE;
     std::unique_ptr<uint8_t[]> buf(new uint8_t[bufSize]);
     uint32_t offset = 0;
-    if(!buf.get()) {
+    if (!buf.get())
+    {
         log_e("Not enough memory to allocate buffer");
 
         return String();
     }
     MD5Builder md5;
     md5.begin();
-    while( lengthLeft > 0) {
+    while (lengthLeft > 0)
+    {
         size_t readBytes = (lengthLeft < bufSize) ? lengthLeft : bufSize;
-        if (!ESP.flashRead(running->address + offset, reinterpret_cast<uint32_t*>(buf.get()), (readBytes + 3) & ~3)) {
+        if (!ESP.flashRead(running->address + offset, reinterpret_cast<uint32_t *>(buf.get()), (readBytes + 3) & ~3))
+        {
             log_e("Could not read buffer from flash");
 
             return String();
@@ -150,11 +150,6 @@ String Xila_Namespace::Flash_Class::Get_Sketch_MD5()
     return result;
 }
 
-///
- /// @brief A method that return current sketch size.
- /// 
- /// @param Response 
- /// @return uint32_t 
 uint32_t Xila_Namespace::Flash_Class::Sketch_Size(sketchSize_t Response)
 {
     esp_image_metadata_t data;
@@ -177,10 +172,6 @@ uint32_t Xila_Namespace::Flash_Class::Sketch_Size(sketchSize_t Response)
     }
 }
 
-///
- /// @brief Return flash size.
- /// 
- /// @return uint32_t Flash size in bytes.
 uint32_t Xila_Namespace::Flash_Class::Get_Size()
 {
     esp_image_header_t fhdr;
@@ -191,10 +182,6 @@ uint32_t Xila_Namespace::Flash_Class::Get_Size()
     return Magic_Size(fhdr.spi_size);
 }
 
-///
- /// @brief Return flash read speed.
- /// 
- /// @return uint32_t Flash read speed in bytes / sec.
 uint32_t Xila_Namespace::Flash_Class::Get_Speed()
 {
     esp_image_header_t fhdr;
@@ -205,10 +192,6 @@ uint32_t Xila_Namespace::Flash_Class::Get_Speed()
     return Magic_Speed(fhdr.spi_speed);
 }
 
-///
- /// @brief Return flash mode.
- /// 
- /// @return FlashMode_t Flash mode.
 FlashMode_t Xila_Namespace::Flash_Class::Get_Mode()
 {
     esp_image_header_t fhdr;

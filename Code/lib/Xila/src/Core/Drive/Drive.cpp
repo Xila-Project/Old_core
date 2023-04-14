@@ -1,4 +1,3 @@
-///
 /// @file Drive.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
@@ -6,7 +5,6 @@
 /// @date 28-03-2021
 ///
 /// @copyright Copyright (c) 2021
-///
 
 #include "Core/Drive/Drive.hpp"
 
@@ -15,15 +13,8 @@ using namespace Xila_Namespace::Drive_Types;
 
 Drive_Type Xila_Namespace::Drive;
 
-
 // Custom methods
 
-///
-/// @brief Copy file from two openned file
-///
-/// @param Origin_File File to duplicate
-/// @param Destination_File File to write
-/// @return Result_Type::Success or Result_Type::Error
 Result_Type Drive_Class::Copy(File_Type &Origin_File, File_Type &Destination_File)
 {
     uint8_t Readed_Bytes;

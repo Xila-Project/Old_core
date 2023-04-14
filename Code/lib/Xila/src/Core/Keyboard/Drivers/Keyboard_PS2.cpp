@@ -1,12 +1,10 @@
+/// @file Keyboard_PS2.cpp
+/// @author Alix ANNERAUD (alix@anneraud.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 24-01-2023
 ///
- /// @file Keyboard_PS2.cpp
- /// @author Alix ANNERAUD (alix@anneraud.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 24-01-2023
- /// 
- /// @copyright Copyright (c) 2023
- /// 
+/// @copyright Copyright (c) 2023
 
 #ifdef Xila_Keyboard_Hardware_PS2
 
@@ -19,9 +17,6 @@ using namespace Xila_Namespace::Keyboard_Types;
 
 PS2Keyboard PS2_Keyboard();
 
-///
-/// @brief Construct a new Input_Class::Input_Class object
-///
 Keyboard_Class::Keyboard_Class()
     : Layout(Layout_Type::American),
       Data_Pin(Default_Keyboard_Data_Pin),
@@ -29,9 +24,6 @@ Keyboard_Class::Keyboard_Class()
 {
 }
 
-///
-/// @brief Initialize the communication with the keyboard.
-///
 void Keyboard_Class::Begin()
 {
     switch (Layout)
@@ -57,36 +49,21 @@ void Keyboard_Class::Begin()
     }
 }
 
-///
-/// @brief Read character from the keyboard.
-///
-/// @return unsigned char Input character.
 unsigned char Keyboard_Class::Read()
 {
     return PS2Keyboard::read();
 }
 
-///
-/// @brief Check if any character is availble.
-///
-/// @return uint8_t The amount of character available in the buffer.
 uint8_t Keyboard_Class::Available()
 {
     return PS2Keyboard::available();
 }
 
-///
-/// @brief Read character from the keyboard.
-///
-/// @return uint8_t The amount of character available in the buffer.
 uint8_t Keyboard_Class::Read_Raw()
 {
     return PS2Keyboard::readScanCode();
 }
 
-///
-/// @brief Clear the character buffer.
-///
 void Keyboard_Class::Clear()
 {
     PS2Keyboard::clear();

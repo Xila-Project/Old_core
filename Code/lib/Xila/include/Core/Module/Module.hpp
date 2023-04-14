@@ -11,6 +11,8 @@
 #ifndef Modules_Hpp_Included
 #define Modules_Hpp_Included
 
+// - - Standard libraries
+
 #include <vector>
 
 // - - Base types
@@ -19,7 +21,6 @@
 
 // - - Other types
 
-#include "../Communication/IP_Address.hpp"
 #include "Task.hpp"
 #include "Instruction.hpp"
 #include "Semaphore.hpp"

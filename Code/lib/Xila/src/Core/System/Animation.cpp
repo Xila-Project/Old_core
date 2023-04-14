@@ -1,4 +1,3 @@
-///
 /// @file Animation.cpp
 /// @author Alix ANNERAUD (alix@anneraud.fr)
 /// @brief
@@ -6,7 +5,6 @@
 /// @date 04-03-2023
 ///
 /// @copyright Copyright (c) 2023
-///
 
 #include "Core/System/System.hpp"
 #include "Core/Graphics/Graphics.hpp"

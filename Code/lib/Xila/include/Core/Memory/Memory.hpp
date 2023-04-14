@@ -20,20 +20,43 @@
 
 namespace Xila_Namespace
 {
+    /// @brief Memory management module.
     typedef class Memory_Class : public Module_Class
     {
     public:
         // -- Methods
 
-        uint32_t Get_Heap_Size();
-        uint32_t Get_Free_Heap();
-        uint32_t Get_Minimum_Free_Heap();
-        uint32_t Get_Maximum_Allocated_Heap();
+        /// @brief Get the heap size.
+        /// @return Size_Type
+        Size_Type Get_Heap_Size();
 
-        uint32_t Get_PSRAM_Size();
-        uint32_t Get_Free_PSRAM();
-        uint32_t Get_Minimum_Free_PSRAM();
-        uint32_t Get_Maximum_Allocated_PSRAM();
+        /// @brief Get the free heap.
+        /// @return Size_Type
+        Size_Type Get_Free_Heap();
+
+        /// @brief Get the minimum free heap.
+        /// @return Size_Type
+        Size_Type Get_Minimum_Free_Heap();
+
+        /// @brief Get the maximum allocated heap.
+        /// @return Size_Type
+        Size_Type Get_Maximum_Allocated_Heap();
+
+        /// @brief Get the PSRAM size.
+        /// @return Size_Type
+        Size_Type Get_PSRAM_Size();
+
+        /// @brief Get the free PSRAM.
+        /// @return Size_Type
+        Size_Type Get_Free_PSRAM();
+
+        /// @brief Get the minimum free PSRAM.
+        /// @return Size_Type
+        Size_Type Get_Minimum_Free_PSRAM();
+
+        /// @brief Get the maximum allocated PSRAM.
+        /// @return Size_Type
+        Size_Type Get_Maximum_Allocated_PSRAM();
     } Memory_Type;
 
     extern Memory_Type Memory;

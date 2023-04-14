@@ -1,19 +1,17 @@
+/// @file Keyboard.cpp
+/// @author Alix ANNERAUD (alix@anneraud.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 24-01-2023
 ///
- /// @file Keyboard.cpp
- /// @author Alix ANNERAUD (alix@anneraud.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 24-01-2023
- /// 
- /// @copyright Copyright (c) 2023
- /// 
+/// @copyright Copyright (c) 2023
 
 #include "Core/Keyboard/Keyboard.hpp"
 #include "Core/Drive/Drive.hpp"
 
 // - Constants
 #ifndef Xila_Keyboard_Default_Layout
-    #define Xila_Keyboard_Default_Layout Layout_Type::American
+#define Xila_Keyboard_Default_Layout Layout_Type::American
 #endif
 
 // - Import namespaces
@@ -22,9 +20,9 @@ using namespace Xila_Namespace::Keyboard_Types;
 
 Keyboard_Type Xila_Namespace::Keyboard;
 
-/// @brief Load keyboard registry.
-///
-/// @return Result_Type
+
+
+
 Result_Type Keyboard_Class::Load_Registry()
 {
 
@@ -40,17 +38,17 @@ Result_Type Keyboard_Class::Load_Registry()
     {
         return Result_Type::Error;
     }
-    //Data_Pin = Keyboard_Registry["Data Pin"] | Default_Keyboard_Data_Pin;
-    //Clock_Pin = Keyboard_Registry["Clock Pin"] | Default_Keyboard_Clock_Pin;
-    //Layout = static_cast<Layout_Type>(Keyboard_Registry["Layout"] | static_cast<uint8_t>(Xila_Keyboard_Default_Layout));
+    // Data_Pin = Keyboard_Registry["Data Pin"] | Default_Keyboard_Data_Pin;
+    // Clock_Pin = Keyboard_Registry["Clock Pin"] | Default_Keyboard_Clock_Pin;
+    // Layout = static_cast<Layout_Type>(Keyboard_Registry["Layout"] | static_cast<uint8_t>(Xila_Keyboard_Default_Layout));
 
-    //Begin();
+    // Begin();
     return Result_Type::Success;
 }
 
-/// @brief Save keyboard registry.
-///
-/// @return Result_Type
+
+
+
 Result_Type Keyboard_Class::Save_Registry()
 {
     File_Type Temporary_File = Drive.Open(Registry("Keyboard"), true);
