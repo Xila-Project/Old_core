@@ -17,6 +17,7 @@
 
 namespace Xila_Namespace
 {
+
     /// @brief WiFi types
     namespace WiFi_Types
     {
@@ -214,27 +215,27 @@ namespace Xila_Namespace
 
             /// @brief Get the IP address.
             /// @param IPv6 `true` to get the IPv6 address, `false` to get the IPv4 address.
-            IP_Address_Type Get_IP_Address(bool IPv6 = false);
+            WiFi_Types::IP_Address_Type Get_IP_Address(bool IPv6 = false);
 
             /// @brief Get the subnet mask.
             /// @return Subnet mask.
-            IP_Address_Type Get_Subnet_Mask();
+            WiFi_Types::IP_Address_Type Get_Subnet_Mask();
 
             /// @brief Get the gateway IP address.
             /// @return Gateway IP address.
-            IP_Address_Type Get_Gateway_IP_Address();
+            WiFi_Types::IP_Address_Type Get_Gateway_IP_Address();
 
             /// @brief Get the DNS IP address.
             /// @param Index Index of the DNS IP address to get.
             /// @return DNS IP address.
-            IP_Address_Type Get_DNS_IP_Address(uint8_t Index);
+            WiFi_Types::IP_Address_Type Get_DNS_IP_Address(uint8_t Index);
 
             /// @brief Get the broadcast IP address.
             /// @return Broadcast IP address.
-            IP_Address_Type Get_Broadcast_IP_Address();
+            WiFi_Types::IP_Address_Type Get_Broadcast_IP_Address();
 
         
-            IP_Address_Type Get_Network_ID();
+            WiFi_Types::IP_Address_Type Get_Network_ID();
 
             /// @brief Get the subnet CIDR.
             /// @return Subnet CIDR.
@@ -251,7 +252,7 @@ namespace Xila_Namespace
             /// @param DNS_1_IP_Address First DNS IP address.
             /// @param DNS_2_IP_Address Second DNS IP address.
             /// @return `Result_Type::Success` if the network configuration has been set, `Result_Type::Error` otherwise.
-            Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = static_cast<uint32_t>(0x00000000), IP_Address_Type DNS_2_IP_Address = static_cast<uint32_t>(0x00000000));
+            Result_Type Set_Configuration(WiFi_Types::IP_Address_Type IP_Address, WiFi_Types::IP_Address_Type Subnet_Mask, WiFi_Types::IP_Address_Type Gateway, WiFi_Types::IP_Address_Type DNS_1_IP_Address = static_cast<uint32_t>(0x00000000), WiFi_Types::IP_Address_Type DNS_2_IP_Address = static_cast<uint32_t>(0x00000000));
 
             /// @brief Set the automatic reconnection mode.
             /// @param Enable `true` to enable the automatic reconnection mode, `false` to disable it.
@@ -272,7 +273,7 @@ namespace Xila_Namespace
             /// @brief Network IP version.
             bool IP_v6;
 
-            IP_Address_Type IP_Address, Subnet_Mask, Gateway_IP_Address, DNS_1_IP_Address, DNS_2_IP_Address;
+            WiFi_Types::IP_Address_Type IP_Address, Subnet_Mask, Gateway_IP_Address, DNS_1_IP_Address, DNS_2_IP_Address;
 
             friend class WiFi_Class;
         } Station;
@@ -328,27 +329,27 @@ namespace Xila_Namespace
 
             /// @brief Get the IP address of the access point.
             /// @return IP address of the access point.
-            IP_Address_Type Get_IP_Address();
+            WiFi_Types::IP_Address_Type Get_IP_Address();
 
             /// @brief Get the subnet mask of the access point.
             /// @return Subnet mask of the access point.
-            IP_Address_Class Get_Subnet_Mask();
+            WiFi_Types::IP_Address_Type Get_Subnet_Mask();
 
             /// @brief Get the gateway IP address of the access point.
             /// @return Gateway IP address of the access point.
-            IP_Address_Class Get_Gateway_IP_Address();
+            WiFi_Types::IP_Address_Type Get_Gateway_IP_Address();
 
             /// @brief Get the DHCP lease start IP address.
             /// @return DHCP lease start IP address.            
-            IP_Address_Class Get_DHCP_Start_IP_Address();
+            WiFi_Types::IP_Address_Type Get_DHCP_Start_IP_Address();
 
             /// @brief Get the broadcast IP address.
             /// @return Broadcast IP address.
-            IP_Address_Type Get_Broadcast_IP_Address();
+            WiFi_Types::IP_Address_Type Get_Broadcast_IP_Address();
 
             /// @brief Get the network ID.
             /// @return Network ID.
-            IP_Address_Type Get_Network_ID();
+            WiFi_Types::IP_Address_Type Get_Network_ID();
 
             /// @brief Get the subnet CIDR.
             /// @return Subnet CIDR.
@@ -371,7 +372,7 @@ namespace Xila_Namespace
             /// @param Subnet Subnet mask.
             /// @param DHCP_Lease_Start_IP_Address DHCP lease start IP address.
             /// @return `Result_Type::Success` if the network configuration has been set, `Result_Type::Error` otherwise.
-            Result_Type Set_Configuration(IP_Address_Type Local_IP, IP_Address_Type Gateway, IP_Address_Type Subnet, IP_Address_Type DHCP_Lease_Start_IP_Address = static_cast<uint32_t>(0));
+            Result_Type Set_Configuration(WiFi_Types::IP_Address_Type Local_IP, WiFi_Types::IP_Address_Type Gateway, WiFi_Types::IP_Address_Type Subnet, WiFi_Types::IP_Address_Type DHCP_Lease_Start_IP_Address = static_cast<uint32_t>(0));
 
         private:
             bool IP_v6;
@@ -380,7 +381,7 @@ namespace Xila_Namespace
             bool Hidden;
             uint8_t Maximum_Stations;
 
-            IP_Address_Type IP_Address, Subnet_Mask, Gateway_IP_Address, DHCP_Lease_Start_IP_Address;
+            WiFi_Types::IP_Address_Type IP_Address, Subnet_Mask, Gateway_IP_Address, DHCP_Lease_Start_IP_Address;
 
             friend class WiFi_Class;
 
