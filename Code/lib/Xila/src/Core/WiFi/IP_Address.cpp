@@ -1,4 +1,4 @@
-///
+
  /// @file IP_Address.cpp
  /// @author Alix ANNERAUD (alix@anneraud.fr)
  /// @brief 
@@ -6,13 +6,13 @@
  /// @date 16-02-2023
  /// 
  /// @copyright Copyright (c) 2023
- /// 
 
 #include "Core/Communication/IP_Address.hpp"
 
 #include <WiFi.h>
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::WiFi_Types;
 
 IP_Address_Class::IP_Address_Class() : Is_IPv4(true)
 {
