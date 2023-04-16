@@ -1,6 +1,6 @@
-# Base types
+# Primitive types
 
-Xila provides a set of base types that can be used to create new types. They are stored in the `Xila_Namespace` namespace.
+Xila provides a set of primitive types, which are defined in `Xila` namespace.
 
 ## Description
 
@@ -45,7 +45,7 @@ Xila provides a set of base types that can be used to create new types. They are
 | `Long_Float_Type` | Twice the registers size |
 
 :::{tip}
-    For example on a 32-bit system, a `Float_Type` is a 4 byte floating point number.
+    For example, on a 32-bit system, a `Float_Type` is a 4 byte floating point number.
 :::
 
 ### Other

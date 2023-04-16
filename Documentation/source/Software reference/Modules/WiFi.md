@@ -4,8 +4,15 @@ Here you will find a complete description of the WiFi abstraction layer.
 
 ## Description
 
-Xila provides a WiFi abstraction layer to simplify the use of WiFi modules. It is based on the ESP32 WiFi library for Arduino.
+Xila provides a WiFi abstraction layer to simplify the use of WiFi. It is based on the ESP32 WiFi library for Arduino.
 It's composed of 3 sub-modules: `Station`, `Access Point` and `Scan`.
+
+Here are the types defined in the namespace `WiFi_Types` and used by `WiFi` module.
+
+```{toctree}
+:maxdepth:  1
+WiFi/IP Address
+```
 
 ## Example
 
