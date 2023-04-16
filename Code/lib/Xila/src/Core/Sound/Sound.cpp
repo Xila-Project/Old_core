@@ -12,6 +12,7 @@
     #define Xila_Default_Sound_Volume 255
 #endif
 
+#include "AudioTools.h"
 #include "Core/Sound/Sound.hpp"
 #include "Core/Drive/Drive.hpp"
 #include "Core/Log/Log.hpp"
