@@ -17,6 +17,8 @@
 #include "Core/Drive/Drive.hpp"
 #include "Core/Log/Log.hpp"
 
+I2SStream i2s;
+
 using namespace Xila_Namespace;
 
 Sound_Type Xila_Namespace::Sound;
