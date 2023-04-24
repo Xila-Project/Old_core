@@ -8,7 +8,7 @@ class IPAddress;
 
 namespace Xila_Namespace
 {
-    namespace WiFi_Types
+    namespace Communication_Types
     {
         typedef class IP_Address_Class
         {

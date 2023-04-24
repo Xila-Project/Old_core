@@ -51,9 +51,11 @@ namespace Xila_Namespace
 
             /// @brief Delete the hash.
             /// @param Result Result of the operation.
-            void Delete(Byte_Type *Result);
+            void Delete(Byte_Type *Result = NULL);
 
             // - - Getters
+
+            bool Is_Valid() const;
 
             /// @brief Get the type of the hash.
             /// @return Message_Digest_Type

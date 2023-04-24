@@ -16,7 +16,7 @@ WiFiClass& ESP32_WiFi = WiFi;
 #include "Core/Drive/Drive.hpp"
 
 using namespace Xila_Namespace;
-using namespace Xila_Namespace::WiFi_Types;
+using namespace Xila_Namespace::Communication_Types;
 
 // - Methods
 
@@ -205,6 +205,7 @@ int16_t WiFi_Class::Get_Transmission_Power()
 String_Type& WiFi_Class::Get_Host_Name(String_Type& Host_Name)
 {
     Host_Name = ESP32_WiFi.getHostname();
+    return Host_Name;
 }
 
 void WiFi_Class::Set_Long_Range(bool Enable)
@@ -262,7 +263,7 @@ bool WiFi_Class::Station_Class::Get_Automatic_Reconnection()
     return ESP32_WiFi.getAutoReconnect();
 }
 
-WiFi_Types::Status_Type WiFi_Class::Station_Class::Get_Status(bool Wait_For_Connect, uint32_t Timeout)
+Communication_Types::Status_Type WiFi_Class::Station_Class::Get_Status(bool Wait_For_Connect, uint32_t Timeout)
 {
     if (Wait_For_Connect)
     {
@@ -402,11 +403,13 @@ Result_Type WiFi_Class::Access_Point_Class::Create(const String_Type& SSID, cons
 String_Type& WiFi_Class::Access_Point_Class::Get_SSID(String_Type& SSID)
 {
     SSID = ESP32_WiFi.softAPSSID().c_str();
+    return SSID;
 }
 
 String_Type& WiFi_Class::Access_Point_Class::Get_Password(String_Type& Password)
 {
     Password = this->Password;
+    return Password;
 }
 
 uint8_t WiFi_Class::Access_Point_Class::Get_Channel()
@@ -535,6 +538,7 @@ Result_Type WiFi_Class::Scan_Class::Get_Informations(uint8_t Index, String_Type&
 String_Type& WiFi_Class::Scan_Class::Get_SSID(uint8_t Index, String_Type& SSID)
 {
     SSID = ESP32_WiFi.SSID(Index).c_str();
+    return SSID;
 }
 
 Authentication_Mode_Type WiFi_Class::Scan_Class::Get_Encryption(uint8_t Index)

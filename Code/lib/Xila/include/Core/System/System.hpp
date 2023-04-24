@@ -37,7 +37,7 @@ namespace Xila_Namespace
             Failed_To_Start_Graphics,
             Failed_To_Start_Sound,
             Failed_To_Start_Power,
-            Failed_To_Start_WiFi,
+            Failed_To_Start_Communication,
             Failed_To_Start_Accounts,
             Failed_To_Start_Drive,
             Failed_To_Start_Softwares,

@@ -11,15 +11,24 @@
 #ifndef Communication_Hpp_Included
 #define Communication_Hpp_Included
 
+#include "IP_Address.hpp"
 #include "WiFi.hpp"
-#include "WiFiClient.h"
 
 namespace Xila_Namespace
 {
+   namespace Communication_Types
+   {
+
+   }
+
    typedef class Communication_Class
    {
-      
+   public:
 
+      Result_Type Start();
+      Result_Type Stop();
+
+      Communication_Types::WiFi_Type WiFi;
       
    } Communication_Type;
 

@@ -364,11 +364,11 @@ void System_Class::Load()
 
   // - WiFi
 
-  if (WiFi.Start() != Result_Type::Success)
+  if (Communication.Start() != Result_Type::Success)
   {
-    Panic_Handler(Panic_Type::Failed_To_Start_WiFi);
+    Panic_Handler(Panic_Type::Failed_To_Start_Communication);
   }
-  WiFi.Set_Host_Name(this->Device_Name); // Set hostname
+  Communication.WiFi.Set_Host_Name(this->Device_Name); // Set hostname
 
 
   // - Account
@@ -411,7 +411,7 @@ void System_Class::Shutdown()
   Display.Stop();
   Power.Stop();
   Sound.Stop();
-  WiFi.Stop();
+  Communication.Stop();
   System.Stop();
 
   this->Stop_Load_Animation(&Logo, Animation);
@@ -436,7 +436,7 @@ void System_Class::Restart()
   Display.Stop();
   Power.Stop();
   Sound.Stop();
-  WiFi.Stop();
+  Communication.Stop();
   System.Stop();
 
   this->Stop_Load_Animation(&Logo, Animation);

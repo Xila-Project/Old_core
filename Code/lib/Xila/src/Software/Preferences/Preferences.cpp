@@ -756,7 +756,7 @@ void Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Ins
         }
         else
         {
-            WiFi.Turn_Off();
+            Communication.WiFi.Turn_Off();
         }
         Refresh_Wireless();
     }
@@ -771,9 +771,8 @@ void Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Ins
     else if (Instruction.Graphics.Get_Target() == Wireless_WiFi_Connect_Button)
     {
         Static_String_Type<32> SSID;
-        Wireless_WiFi_Access_Point_Roller.Get_Selected_String(SSID);
-
-        WiFi.Station.Connect(SSID);
+        
+        Communication.WiFi.Station.Connect(Wireless_WiFi_Access_Point_Roller.Get_Selected_String(SSID));
     }
 }
 
@@ -931,13 +930,13 @@ void Preferences_Class::Refresh_Hardware()
 
 void Preferences_Class::Refresh_Wireless()
 {
-    using namespace Xila_Namespace::WiFi_Types;
+    using namespace Xila_Namespace::Communication_Types;
 
     // - WiFi section
 
     {
 
-        if (WiFi.Get_Mode() == Mode_Type::Station)
+        if (Communication.WiFi.Get_Mode() == Mode_Type::Station)
         {
             Wireless_WiFi_Switch.Add_State(Graphics_Types::State_Type::Checked);
             Wireless_WiFi_Access_Point_Roller.Clear_State(Graphics_Types::State_Type::Disabled);
@@ -948,12 +947,12 @@ void Preferences_Class::Refresh_Wireless()
 
             Static_String_Type<32> Connected_SSID;
 
-            if (WiFi.Station.Get_Status() == Status_Type::Connected)
+            if (Communication.WiFi.Station.Get_Status() == Status_Type::Connected)
             {
-                WiFi.Station.Get_SSID(Connected_SSID);
+                Communication.WiFi.Station.Get_SSID(Connected_SSID);
             }
 
-            uint16_t Access_Points_Number = WiFi.Scan.Start(false, true);
+            uint16_t Access_Points_Number = Communication.WiFi.Scan.Start(false, true);
 
             char Networks_List[33 * (Access_Points_Number)];
             Static_String_Type<32> Temporary_SSID;
@@ -962,7 +961,7 @@ void Preferences_Class::Refresh_Wireless()
 
             for (uint8_t i = 0; i < Access_Points_Number; i++)
             {
-                WiFi.Scan.Get_SSID(i, Temporary_SSID);
+                Communication.WiFi.Scan.Get_SSID(i, Temporary_SSID);
                 strlcat(Networks_List, Temporary_SSID, sizeof(Networks_List));
 
                 if (Temporary_SSID == Connected_SSID)
@@ -978,7 +977,7 @@ void Preferences_Class::Refresh_Wireless()
 
             Wireless_WiFi_Access_Point_Roller.Set_Options(Networks_List, Roller_Class::Mode_Type::Normal);
 
-            WiFi.Scan.Delete();
+            Communication.WiFi.Scan.Delete();
         }
         else
         {
@@ -995,15 +994,15 @@ void Preferences_Class::Refresh_Wireless()
 
     {
         Static_String_Type<24> IP_Address;
-        WiFi.Station.Get_IP_Address().To(IP_Address);
+        Communication.WiFi.Station.Get_IP_Address().To(IP_Address);
         Wireless_Network_Local_IP_Text_Area.Set_Text(IP_Address);
-        WiFi.Station.Get_Subnet_Mask().To(IP_Address);
+        Communication.WiFi.Station.Get_Subnet_Mask().To(IP_Address);
         Wireless_Network_Subnet_Mask_Text_Area.Set_Text(IP_Address);
-        WiFi.Station.Get_Gateway_IP_Address().To(IP_Address);
+        Communication.WiFi.Station.Get_Gateway_IP_Address().To(IP_Address);
         Wireless_Network_Gateway_IP_Text_Area.Set_Text(IP_Address);
-        WiFi.Station.Get_DNS_IP_Address(0).To(IP_Address);
+        Communication.WiFi.Station.Get_DNS_IP_Address(0).To(IP_Address);
         Wireless_Network_DNS_1_Text_Area.Set_Text(IP_Address);
-        WiFi.Station.Get_DNS_IP_Address(1).To(IP_Address);
+        Communication.WiFi.Station.Get_DNS_IP_Address(1).To(IP_Address);
         Wireless_Network_DNS_2_Text_Area.Set_Text(IP_Address);
     }
 }

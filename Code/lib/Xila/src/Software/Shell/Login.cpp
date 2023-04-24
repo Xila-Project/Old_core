@@ -84,7 +84,12 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type &Instr
             break;
         case Graphics_Types::Event_Code_Type::Clicked:
             if (Instruction.Graphics.Get_Target() == Login_Button)
-            {            
+            {    
+
+                Accounts.Create("Xila", "Xila1234");
+                
+                    Password_Input.Set_Text("Xila1234");
+
                 if (Accounts.Login(Name_Input.Get_Text(), Password_Input.Get_Text()) == Result_Type::Success)
                 {
                     Softwares.Open(Shell_Pointer->Get_Handle(), Accounts.Get_User(Accounts.Find_User(Name_Input.Get_Text())));

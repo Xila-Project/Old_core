@@ -277,18 +277,18 @@ void Shell_Class::Refresh_Overlay()
 
     {
         Label_Type WiFi_Label = Label_Type(WiFi_Button.Get_Child(0)); // Casting
-        if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Station && WiFi.Station.Get_Status() == WiFi_Types::Status_Type::Connected)
+        if (Communication.WiFi.Get_Mode() == Communication_Types::Mode_Type::Station && Communication.WiFi.Station.Get_Status() == Communication_Types::Status_Type::Connected)
         {
             // - Update WiFi signal strength
             // TODO : Add different WiFi signal strength icons.
             if (!WiFi_Label.Is_Valid())
             {
             }
-            else if (WiFi.Station.Get_RSSI() >= (-120 / 3))
+            else if (Communication.WiFi.Station.Get_RSSI() >= (-120 / 3))
             {
                 WiFi_Label.Set_Text(LV_SYMBOL_WIFI);
             }
-            else if (WiFi.Station.Get_RSSI() >= (-120 * 2 / 3))
+            else if (Communication.WiFi.Station.Get_RSSI() >= (-120 * 2 / 3))
             {
                 WiFi_Label.Set_Text(LV_SYMBOL_WIFI);
             }
@@ -297,7 +297,7 @@ void Shell_Class::Refresh_Overlay()
                 WiFi_Label.Set_Text(LV_SYMBOL_WIFI);
             }
         }
-        else if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Access_Point)
+        else if (Communication.WiFi.Get_Mode() == Communication_Types::Mode_Type::Access_Point)
         {
             WiFi_Label.Set_Text("");
         }

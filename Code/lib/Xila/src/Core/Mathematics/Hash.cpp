@@ -59,29 +59,27 @@ Message_Digest_Type Convert(mbedtls_md_type_t Type)
     }
 }
 
-
 Hash_Class::Hash_Class() : Data(NULL)
 {
 }
 
 Hash_Class::~Hash_Class()
 {
-    if (Data != NULL)
-    {
-        mbedtls_md_free(static_cast<mbedtls_md_context_t*>(Data));
-        delete static_cast<mbedtls_md_context_t*>(Data);
-    }
+   Delete();
 }
 
 Result_Type Hash_Class::Create(Message_Digest_Type Type)
 {
+    if (Is_Valid())
+        return Result_Type::Error;
+
     Data = new mbedtls_md_context_t;
-    mbedtls_md_init(static_cast<mbedtls_md_context_t*>(Data));
-    if (mbedtls_md_setup(static_cast<mbedtls_md_context_t*>(Data), mbedtls_md_info_from_type(Convert(Type)), 0) != 0)
+    mbedtls_md_init(static_cast<mbedtls_md_context_t *>(Data));
+    if (mbedtls_md_setup(static_cast<mbedtls_md_context_t *>(Data), mbedtls_md_info_from_type(Convert(Type)), 0) != 0)
     {
         return Result_Type::Error;
     }
-    if (mbedtls_md_starts(static_cast<mbedtls_md_context_t*>(Data)) != 0)
+    if (mbedtls_md_starts(static_cast<mbedtls_md_context_t *>(Data)) != 0)
     {
         return Result_Type::Error;
     }
@@ -90,31 +88,50 @@ Result_Type Hash_Class::Create(Message_Digest_Type Type)
 
 void Hash_Class::Delete(Byte_Type *Result)
 {
-    mbedtls_md_finish(static_cast<mbedtls_md_context_t*>(Data), Result);
-    mbedtls_md_free(static_cast<mbedtls_md_context_t*>(Data));
-    delete static_cast<mbedtls_md_context_t*>(Data);
+    if (!Is_Valid())
+        return;
+
+    if (Result != NULL)
+        mbedtls_md_finish(static_cast<mbedtls_md_context_t *>(Data), Result);
+    
+    mbedtls_md_free(static_cast<mbedtls_md_context_t *>(Data));
+    delete static_cast<mbedtls_md_context_t *>(Data);
+    Data = NULL;
+}
+
+bool Hash_Class::Is_Valid() const
+{
+    return Data != NULL;
 }
 
 Message_Digest_Type Hash_Class::Get_Type() const
 {
-    return Convert(mbedtls_md_get_type(static_cast<mbedtls_md_context_t*>(Data)->md_info));
+    if (!Is_Valid())
+        return Message_Digest_Type::MD_None;
+
+    return Convert(mbedtls_md_get_type(static_cast<mbedtls_md_context_t *>(Data)->md_info));
 }
 
 Size_Type Hash_Class::Get_Size() const
 {
-    return mbedtls_md_get_size(static_cast<mbedtls_md_context_t*>(Data)->md_info);
+    if (!Is_Valid())
+        return 0;
+
+    return mbedtls_md_get_size(static_cast<mbedtls_md_context_t *>(Data)->md_info);
 }
 
 Result_Type Hash_Class::Add(const Byte_Type *Data, Size_Type Size)
 {
-    if (mbedtls_md_update(static_cast<mbedtls_md_context_t*>(this->Data), Data, Size) == 0)
-    {
-        return Result_Type::Success;
-    }
-    return Result_Type::Error;
+    if (!Is_Valid())
+        return Result_Type::Error;
+
+    if (mbedtls_md_update(static_cast<mbedtls_md_context_t *>(this->Data), Data, Size) != 0)
+        return Result_Type::Error;
+    
+    return Result_Type::Success;
 }
 
 Result_Type Hash_Class::Add(const String_Type &Data)
 {
-    return this->Add((const Byte_Type*)Data, Data.Get_Length());
+    return this->Add((const Byte_Type *)Data, Data.Get_Length());
 }

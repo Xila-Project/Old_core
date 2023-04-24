@@ -12,7 +12,7 @@
 #include <WiFi.h>
 
 using namespace Xila_Namespace;
-using namespace Xila_Namespace::WiFi_Types;
+using namespace Xila_Namespace::Communication_Types;
 
 IP_Address_Class::IP_Address_Class() : Is_IPv4(true)
 {

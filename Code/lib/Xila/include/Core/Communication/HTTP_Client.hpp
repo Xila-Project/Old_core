@@ -11,7 +11,7 @@
 
  namespace Xila_Namespace
  {
-    namespace WiFi_Types
+    namespace Communication_Types
     {
         typedef class HTTPS_Client_Class
         {

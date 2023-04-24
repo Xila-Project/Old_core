@@ -17,11 +17,7 @@
 // - Namespaces
 
 using namespace Xila_Namespace;
-using namespace Xila_Namespace::WiFi_Types;
-
-// - Variables
-
-WiFi_Type Xila_Namespace::WiFi;
+using namespace Xila_Namespace::Communication_Types;
 
 // - Methods
 

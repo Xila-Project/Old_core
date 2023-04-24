@@ -22,7 +22,7 @@ Result_Type Accounts_Class::Start()
 
   User_Type Xila_User("Xila", User_State_Type::Logged);
   User_List.push_back(Xila_User);
-  
+
   {
     Static_String_Type<32> Account_Name;
     for (auto User : User_List)
@@ -202,50 +202,61 @@ Result_Type Accounts_Class::Create(const String_Type &User_Name, const String_Ty
   Temporary_String += "/";
   Temporary_String += User_Name;
 
-  if (Drive.Exists(Temporary_String))
-  {
-    return Result_Type::Error;
-  }
+  Log_Verbose("Accounts", "Creating user %s with password %s", (const char *)User_Name, (const char *)Password);
 
-  char Temporary_Path[30];
-  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s", User_Name);
-  if (Drive.Make_Directory(Temporary_Path) == false)
-  {
-    return Result_Type::Error;
-  }
-  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry", User_Name);
-  if (Drive.Make_Directory(Temporary_Path) == false)
-  {
-    return Result_Type::Error;
-  }
-  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Desk", User_Name);
-  if (Drive.Make_Directory(Temporary_Path) == false)
-  {
-    return Result_Type::Error;
-  }
-  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Images", User_Name);
-  if (Drive.Make_Directory(Temporary_Path) == false)
-  {
-    return Result_Type::Error;
-  }
-  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Musics", User_Name);
-  if (Drive.Make_Directory(Temporary_Path) == false)
-  {
-    return Result_Type::Error;
-  }
-
-  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Document", User_Name);
-  if (Drive.Make_Directory(Temporary_Path) == false)
-  {
-    return Result_Type::Error;
-  }
+  //  if (Drive.Exists(Temporary_String))
+  //  {
+  //    return Result_Type::Error;
+  //  }
+  //
+  //  char Temporary_Path[30];
+  //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s", User_Name);
+  //  if (Drive.Make_Directory(Temporary_Path) == false)
+  //  {
+  //    return Result_Type::Error;
+  //  }
+  //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry", User_Name);
+  //  if (Drive.Make_Directory(Temporary_Path) == false)
+  //  {
+  //    return Result_Type::Error;
+  //  }
+  //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Desk", User_Name);
+  //  if (Drive.Make_Directory(Temporary_Path) == false)
+  //  {
+  //    return Result_Type::Error;
+  //  }
+  //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Images", User_Name);
+  //  if (Drive.Make_Directory(Temporary_Path) == false)
+  //  {
+  //    return Result_Type::Error;
+  //  }
+  //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Musics", User_Name);
+  //  if (Drive.Make_Directory(Temporary_Path) == false)
+  //  {
+  //    return Result_Type::Error;
+  //  }
+  //
+  //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Document", User_Name);
+  //  if (Drive.Make_Directory(Temporary_Path) == false)
+  //  {
+  //    return Result_Type::Error;
+  //  }
 
   uint8_t Hashed_Password[65];
 
   {
     // - Create a salted and peppered password.
     Static_String_Type<69> Salted_Password = Password;
-    this->Salt_Password(Salted_Password, static_cast<char>(Mathematics.Random(0x000000FF)));
+
+    Log_Verbose("Accounts", "Password : %s", (const char *)Salted_Password);
+
+    // char Salt = static_cast<char>(Mathematics.Random(0x000000FF));
+    // Log_Verbose("Accounts", "Salt : %X", Salt);
+
+    this->Salt_Password(Salted_Password, 'w');
+
+    Log_Verbose("Accounts", "Salted password : %s", (const char *)Salted_Password);
+
     // Hash the salted and peppered password.
     if (this->Hash_Password(Salted_Password, Hashed_Password) != Result_Type::Success)
     {
@@ -253,21 +264,24 @@ Result_Type Accounts_Class::Create(const String_Type &User_Name, const String_Ty
     }
     // Add null terminator in order to handle it as a regular character array.
     Hashed_Password[64] = '\0';
+
+    Log_Verbose("Accounts", "Hashed password : %s", (const char *)Hashed_Password);
   }
 
-  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry/User.xrf", User_Name);
-  File_Type Temporary_File = Drive.Open(Temporary_Path, true);
-  StaticJsonDocument<256> User_Registry;
+  //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry/User.xrf", User_Name);
+  //  File_Type Temporary_File = Drive.Open(Temporary_Path, true);
+  //  StaticJsonDocument<256> User_Registry;
+  //
+  //  User_Registry["Registry"] = "User";
+  //  User_Registry["Password"] = (char *)Hashed_Password;
+  //
+  //  if (serializeJson(User_Registry, Temporary_File) == 0)
+  //  {
+  //    Temporary_File.Close();
+  //    return Result_Type::Error;
+  //  }
+  //  Temporary_File.Close();
 
-  User_Registry["Registry"] = "User";
-  User_Registry["Password"] = (char *)Hashed_Password;
-
-  if (serializeJson(User_Registry, Temporary_File) == 0)
-  {
-    Temporary_File.Close();
-    return Result_Type::Error;
-  }
-  Temporary_File.Close();
   return Result_Type::Success;
 }
 
@@ -408,25 +422,25 @@ Result_Type Accounts_Class::Change_Password(const String_Type &Name, const Strin
 Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Check, const String_Type &Password_To_Check)
 {
   using namespace Xila_Namespace::Mathematics_Types;
-  Static_String_Type<48> Temporary_Path;
-  Temporary_Path = Users_Directory_Path;
-  Temporary_Path += "/";
-  Temporary_Path += Username_To_Check;
-  Temporary_Path += "/Registry/User.xrf";
-
-  File_Type Temporary_File = Drive.Open(Temporary_Path);
-  StaticJsonDocument<256> User_Registry;
-  if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
-  {
-    Temporary_File.Close();
-    return Result_Type::Error;
-  }
-  Temporary_File.Close();
-
-  if (strcmp("User", User_Registry["Registry"] | "") != 0)
-  {
-    return Result_Type::Error;
-  }
+//  Static_String_Type<48> Temporary_Path;
+//  Temporary_Path = Users_Directory_Path;
+//  Temporary_Path += "/";
+//  Temporary_Path += Username_To_Check;
+//  Temporary_Path += "/Registry/User.xrf";
+//
+//  File_Type Temporary_File = Drive.Open(Temporary_Path);
+//  StaticJsonDocument<256> User_Registry;
+//  if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
+//  {
+//    Temporary_File.Close();
+//    return Result_Type::Error;
+//  }
+//  Temporary_File.Close();
+//
+//  if (strcmp("User", User_Registry["Registry"] | "") != 0)
+//  {
+//    return Result_Type::Error;
+//  }
 
   uint8_t Hashed_Password[65];
   Static_String_Type<69> Salted_Password; // Nice
@@ -439,11 +453,22 @@ Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Che
     this->Salt_Password(Salted_Password, static_cast<char>(i));
     // Hash password
     this->Hash_Password(Salted_Password, Hashed_Password);
-    // - Check if password is correct
-    if (strcmp(User_Registry["Password"] | "", (const char *)Hashed_Password) == 0)
+
+    Hashed_Password[64] = '\0';
+
+        Log_Verbose("Accounts", "%02X : Hash_Buffer : ", i);
+    for (uint8_t i = 0; i < 64; i++)
     {
-      return Result_Type::Success;
-    }
+     log_printf("%02X ", Hashed_Password[i]);
+   }
+    log_printf("\n");
+
+
+//    // - Check if password is correct
+//    if (strcmp(User_Registry["Password"] | "", (const char *)Hashed_Password) == 0)
+//    {
+//      return Result_Type::Success;
+//    }
   }
 
   return Result_Type::Error;
@@ -457,7 +482,11 @@ Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Che
 /// @return Result_Type
 Result_Type Accounts_Class::Login(const String_Type &Name, const String_Type &Password, bool Lock_Other_User)
 {
-  if (Name == "Xila" || (Check_Credentials(Name, Password) != Result_Type::Success))
+
+  // if (Name == "Xila" || (Check_Credentials(Name, Password) != Result_Type::Success))
+  //   return Result_Type::Error;
+
+  if (Check_Credentials(Name, Password) != Result_Type::Success)
     return Result_Type::Error;
 
   User_Type User_To_Log(Name, User_State_Type::Locked);
@@ -501,6 +530,7 @@ Result_Type Accounts_Type::Hash_Password(const String_Type &Password, uint8_t *H
     return Result_Type::Error;
 
   Hash_Type Hash;
+
   if (Hash.Create(Message_Digest_Type::SHA_512) != Result_Type::Success)
     return Result_Type::Error;
 
@@ -509,14 +539,35 @@ Result_Type Accounts_Type::Hash_Password(const String_Type &Password, uint8_t *H
 
   Hash.Delete(Hash_Buffer);
 
-  // In order to make the password more secure, we hash it 10 times.
-  for (uint8_t i = 0; i < 10; i++)
+  // In order to make the password more secure, we hash it 3 times.
+  for (uint8_t i = 0; i < 3; i++)
   {
+//    Log_Verbose("Accounts", "Hash_Buffer : ");
+//    for (uint8_t i = 0; i < 64; i++)
+//    {
+//      log_printf("%02X ", Hash_Buffer[i]);
+//    }
+//    log_printf("\n");
+
     if (Hash.Create(Message_Digest_Type::SHA_512) != Result_Type::Success)
+    {
+      Hash.Delete();
       return Result_Type::Error;
+    }
+
+//    Log_Verbose("Accounts", "Hash size : %u", Hash.Get_Size());
+
+    if (Hash.Add(Password) != Result_Type::Success)
+    {
+      Hash.Delete();
+      return Result_Type::Error;
+    }
 
     if (Hash.Add(Hash_Buffer, Hash.Get_Size()) != Result_Type::Success)
+    {
+      Hash.Delete();
       return Result_Type::Error;
+    }
 
     Hash.Delete(Hash_Buffer);
   }
