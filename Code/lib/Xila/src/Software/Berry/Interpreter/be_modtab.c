@@ -22,6 +22,7 @@ be_extern_native_module(gc);
 be_extern_native_module(solidify);
 be_extern_native_module(introspect);
 be_extern_native_module(strict);
+be_extern_native_module(test);
 be_extern_native_module(undefined);
 
 /* user-defined modules declare start */
@@ -69,7 +70,7 @@ BERRY_LOCAL const bntvmodule_t* const be_module_table[] = {
 #endif
     &be_native_module(undefined),
     /* user-defined modules register start */
-
+    &be_native_module(test),
     /* user-defined modules register end */
     NULL /* do not remove */
 };

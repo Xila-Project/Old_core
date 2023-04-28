@@ -14,12 +14,16 @@
 extern "C"
 {
 #include "berry.h"
+#include "mapping/be_mapping.h"
 #include "be_repl.h"
 #include "be_vm.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 }
+
+
+//
 
 char *Prompt_String;
 
@@ -29,10 +33,9 @@ Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User)
     : Software_Type(&Berry_Handle, Owner_User, 8 * 1024),
       Input_String(NULL)
 {
-     
 }
 
-Berry_Class::Berry_Class(const Accounts_Types::User_Type* Owner_User, const Berry_Softwares_Handle_Class* Handle)
+Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User, const Berry_Softwares_Handle_Class *Handle)
     : Software_Type(Handle, Owner_User, 8 * 1024),
       Input_String(NULL)
 {
@@ -93,6 +96,7 @@ void Berry_Class::Main_Task_Function()
         Load_Softwares_Handles();
 
     Virtual_Machine_Create();
+    be_set_ctype_func_hanlder(Virtual_Machine, be_call_ctype_func);
 
     // - REPL
     if (this->Get_Handle() == &Berry_Handle)
@@ -118,7 +122,7 @@ void Berry_Class::Main_Task_Function()
             //   Path += Name;
             //   Path += ".Xrf";
 
-        Window.Set_Title("Berry");
+            Window.Set_Title("Berry");
         Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
 
         char Prompt_String_Local[(80 + 1) * 24 + 1];
@@ -155,8 +159,7 @@ void Berry_Class::Main_Task_Function()
         Prompt_Label.Delete();
         Input_Text_Area.Delete();
 
-
-        if (Virtual_Machine_Load_File("/test.be") != Result_Type::Success)
+        if (Virtual_Machine_Load_File("/a.be") != Result_Type::Success)
         {
             Log_Verbose("Berry", "Failed to load file");
             // TODO : Add dialog to show the error.
@@ -167,7 +170,6 @@ void Berry_Class::Main_Task_Function()
         {
             // TODO : Add dialog
         }
-
 
         Prompt_String = NULL;
         this->Input_String = NULL;

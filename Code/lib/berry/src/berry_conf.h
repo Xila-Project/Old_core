@@ -34,7 +34,7 @@
  * numbers.
  * Default: 0
  **/
-#define BE_USE_SINGLE_FLOAT             0
+#define BE_USE_SINGLE_FLOAT             1
 
 /* Macro: BE_BYTES_MAX_SIZE
  * Maximum size in bytes of a `bytes()` object.

@@ -276,4 +276,4 @@ module cb (scope: global) {
     make_cb, func(be_cb_make_cb)
 }
 @const_object_info_end */
-#include "../../berry/generate/be_fixed_cb.h"
+#include "../generate/be_fixed_cb.h"
