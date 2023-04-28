@@ -64,6 +64,7 @@ namespace Xila_Namespace
         int read() override;
         int peek() override;
         void flush() override;
+        size_t readBytes(char*, size_t) override;
 
         // - - File methods
 
@@ -206,30 +207,26 @@ namespace Xila_Namespace
         /// @return `true` if the file exists, `false` otherwise.
         bool Exists(const char *Path);
 
-        /// @brief Check if a file exists.
-        /// @param Path Path of the file.
-        /// @return `true` if the file exists, `false` otherwise.
-        bool Exists(const String &Path);
-
         /// @brief Create a directory.
         /// @param Path Path of the directory.
         /// @return `true` if the directory was created, `false` otherwise.
-        bool Make_Directory(const char *Path);
-
-        /// @brief Create a directory.
-        /// @param Path Path of the directory.
-        /// @return `true` if the directory was created, `false` otherwise.
-        bool Make_Directory(const String &Path);
+        Result_Type Make_Directory(const char *Path);
 
         /// @brief Remove a directory.
         /// @param Path Path of the directory.
         /// @return `true` if the directory was removed, `false` otherwise.
-        bool Remove_Directory(const char *Path);
+        Result_Type Remove_Directory(const char *Path);
 
         /// @brief Remove a directory.
         /// @param Path Path of the directory.
+        /// @param Recursive `true` to remove the directory recursively, `false` otherwise.
         /// @return `true` if the directory was removed, `false` otherwise.
-        bool Remove_Directory(const String &Path);
+        Result_Type Remove_Directory(const char* Path, bool Recursive);
+
+        /// @brief Remove an item.
+        /// @param Path Path of the item.
+        /// @return `true` if the item was removed, `false` otherwise.
+        Result_Type Remove(const char *Path);
 
         /// @brief Open a file / folder.
         /// @param Path Path of the file / folder.
@@ -238,34 +235,16 @@ namespace Xila_Namespace
         /// @return `File_Class` object of the file / folder.
         File_Type Open(const char *Path, bool Write = false, bool Append = false);
       
-        /// @brief Open a file / folder.
-        /// @param Path Path of the file / folder.
-        /// @param Write Open the file in write mode.
-        /// @param Append Open the file in append mode.
-        /// @return `File_Class` object of the file / folder.
-        File_Type Open(const String &Path, bool Write = false, bool Append = false);
-
         /// @brief Remove a file / folder.
         /// @param Path Path of the file / folder.
         /// @return `true` if the file / folder was removed, `false` otherwise.
-        bool Remove(const char *Path);
-
-        /// @brief Remove a file / folder.
-        /// @param Path Path of the file / folder.
-        /// @return `true` if the file / folder was removed, `false` otherwise.
-        bool Remove(const String &Path);
+        Result_Type Remove_File(const char *Path);
 
         /// @brief Rename a file / folder.
         /// @param Path_From Path of the file / folder to rename.
         /// @param Path_To New path of the file / folder.
         /// @return `true` if the file / folder was renamed, `false` otherwise.
-        bool Rename(const char *Path_From, const char *Path_To);
-
-        /// @brief Rename a file / folder.
-        /// @param Path_From Path of the file / folder to rename.
-        /// @param Path_To New path of the file / folder.
-        /// @return `true` if the file / folder was renamed, `false` otherwise.
-        bool Rename(const String &Path_From, const String &Path_To);
+        Result_Type Rename(const char *Path_From, const char *Path_To);
 
         /// @brief Copy a file / folder.
         /// @param Path_From Path of the file / folder to copy.

@@ -29,6 +29,7 @@ Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User)
     : Software_Type(&Berry_Handle, Owner_User, 8 * 1024),
       Input_String(NULL)
 {
+     
 }
 
 Berry_Class::Berry_Class(const Accounts_Types::User_Type* Owner_User, const Berry_Softwares_Handle_Class* Handle)

@@ -17,22 +17,20 @@
 #include "Core/Drive/Drive.hpp"
 #include "Core/Log/Log.hpp"
 
-I2SStream i2s;
-
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Sound_Types;
 
 Sound_Type Xila_Namespace::Sound;
 
-Sound_Class::Sound_Class() : Volume_Stream(I2S_Output_Stream),
-                             Mixer(Volume_Stream, 4)
-{}
+Sound_Class::Sound_Class() : I2S_Output_Stream(),
+                             Volume_Stream(I2S_Output_Stream)//,
+                         //    Mixer(Volume_Stream, 4)
+{
+}
 
 Result_Type Sound_Class::Start()
 {
     Log_Information("Sound", "Starting sound module...");
-
-    this->Set_Volume(Xila_Default_Sound_Volume);
 
     if (this->Load_Registry() != Result_Type::Success)
     {
@@ -43,27 +41,27 @@ Result_Type Sound_Class::Start()
     Configuration.pin_ws = 35;
     Configuration.pin_bck = 36;
     Configuration.pin_data = 37;
-    
-    Configuration.sample_rate = 44100;
-    Configuration.channels = 1;
-    Configuration.bits_per_sample = 16;
+
+  //  Configuration.sample_rate = 44100;
+  //  Configuration.channels = 1;
+  //  Configuration.bits_per_sample = 16;
 
     if (!I2S_Output_Stream.begin(Configuration))
         return Result_Type::Error;
 
     Volume_Stream.begin(Configuration);
-    Volume_Stream.setVolume(1.0);
+    Volume_Stream.setVolume(0.5);
+  //  Mixer.begin();
 
-    Mixer.begin();
-    
+//    Set_Volume(Xila_Default_Sound_Volume);
 
     return Result_Type::Success;
 }
 
 Result_Type Sound_Class::Stop()
 {
-    Mixer.end();
-    Volume_Stream.end();
+   // Mixer.end();
+   // Volume_Stream.end();
     I2S_Output_Stream.end();
 
     return this->Save_Registry();
@@ -140,10 +138,10 @@ Result_Type Sound_Class::Save_Registry()
 
 Byte_Type Sound_Class::Get_Volume()
 {
-    return static_cast<Byte_Type>(std::round(Volume_Stream.volume() * 255));
+   return static_cast<Byte_Type>(Volume_Stream.volume() * 255);
 }
 
-Stream_Type& Sound_Class::Get_Current_Output_Stream()
+Stream_Type &Sound_Class::Get_Current_Output_Stream()
 {
     return I2S_Output_Stream;
 }
@@ -152,5 +150,7 @@ Stream_Type& Sound_Class::Get_Current_Output_Stream()
 
 void Sound_Class::Set_Volume(Byte_Type Volume)
 {
-    Volume_Stream.setVolume(static_cast<float>(Volume) / 255);
+  //  Log_Verbose("Sound", "Set volume: %d", Volume);
+  //  Log_Verbose("Sound", "Set volume res: %f", static_cast<float>(Volume) / 255);
+  //  Volume_Stream.setVolume(static_cast<float>(Volume) / 255);
 }

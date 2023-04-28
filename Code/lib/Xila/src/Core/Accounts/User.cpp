@@ -98,16 +98,22 @@ void User_Class::Lock()
 void User_Class::Login()
 {
   if (State == User_State_Type::Logged)
-  {
     return;
-  }
 
+  // - Lock all other users.
   for (auto& User : Accounts.User_List)
   {
     User.State = User_State_Type::Locked;
   }
 
-  this->State = User_State_Type::Logged;
+  for (auto& User : Accounts.User_List)
+  {
+    if (User == *this)
+    {
+      User.State = User_State_Type::Logged;
+      break;
+    }
+  }
 }
 
 /// @brief Logout from the openned user session and (re)login system account.

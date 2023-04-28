@@ -69,7 +69,9 @@ Result_Type Graphics_Class::Stop()
 
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        #if LV_MEM_CUSTOM == 0
         lv_deinit();
+        #endif
     }
 
     Task.Delete();

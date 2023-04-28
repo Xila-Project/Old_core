@@ -144,8 +144,6 @@ void Shell_Class::Desk_Class::Set_Interface()
         // - If current user is the system user (Xila), open login screen or installer.
         if (User_Name == "Xila")
         {
-            Log_Verbose("Shell", "System user detected, opening login screen / installer.");
-
             File_Type Users_Folder = Drive.Open(Users_Directory_Path);
 
             if (Users_Folder && Users_Folder.Is_Directory() && (Users_Folder.Count_Items() > 0))

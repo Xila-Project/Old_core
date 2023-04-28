@@ -40,7 +40,6 @@ Screen_Class::Screen_Class() : Object_Class()
 
 Screen_Class::Screen_Class(const Software_Type *Owner_Software)
 {
-    Log_Verbose("Screen", "Owner_Software : %p", Owner_Software);
     this->Create(Owner_Software);
 }
 
@@ -48,8 +47,6 @@ Screen_Class::Screen_Class(const Object_Class &Object_To_Copy)
 {
     if (Set_Pointer(Object_To_Copy.Get_Pointer()))
         this->Set_User_Data(Object_To_Copy.Get_User_Data());
-    else
-        Log_Verbose("Screen", "Invalid object");
 }
 
 // - - Manipulation

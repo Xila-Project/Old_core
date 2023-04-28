@@ -50,6 +50,11 @@ void File_Class::flush()
     File.flush();
 }
 
+size_t File_Class::readBytes(char *Buffer, size_t Length)
+{
+    return File.readBytes(Buffer, Length);
+}
+
 Size_Type File_Class::Write(uint8_t Data)
 {
     return File.write(Data);

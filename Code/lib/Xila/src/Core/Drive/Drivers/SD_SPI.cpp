@@ -20,12 +20,11 @@ using namespace Xila_Namespace;
 using namespace Xila_Namespace::Drive_Types;
 
 #ifdef Xila_Board_Hardware_Wireless_Tag_WT32_SC01_Plus
-    SPIClass& SD_SPI = SPI;
+SPIClass &SD_SPI = SPI;
 #endif
 #ifdef Xila_Board_Hardware_Wireless_Tag_WT32_SC01
-    SPIClass& SD_SPI = SPI;
-#endif 
-
+SPIClass &SD_SPI = SPI;
+#endif
 
 /*
 File_Class::File_Class()
@@ -57,11 +56,11 @@ Result_Type Drive_Class::Start()
 {
     Log_Information("Drive", "Start drive module...");
     using namespace Xila_Namespace::Pin_Types;
-    //Pin.Set_Mode(SD_SPI_Clock_Pin, Mode_Type::Input_Pull_Up);
-    //Pin.Set_Mode(SD_SPI_Master_In, Mode_Type::Input_Pull_Up);
-    //Pin.Set_Mode(SD_SPI_Master_Out, Mode_Type::Input_Pull_Up);
-    //Pin.Set_Mode(SD_SPI_Select_Pin, Mode_Type::Input_Pull_Up);
-    
+    // Pin.Set_Mode(SD_SPI_Clock_Pin, Mode_Type::Input_Pull_Up);
+    // Pin.Set_Mode(SD_SPI_Master_In, Mode_Type::Input_Pull_Up);
+    // Pin.Set_Mode(SD_SPI_Master_Out, Mode_Type::Input_Pull_Up);
+    // Pin.Set_Mode(SD_SPI_Select_Pin, Mode_Type::Input_Pull_Up);
+
     SPI.begin(SD_SPI_Clock_Pin, SD_SPI_Master_In, SD_SPI_Master_Out, SD_SPI_Clock_Pin);
     if (!SD.begin(SD_SPI_Select_Pin, SD_SPI, SD_SPI_Frequency) || Get_Type() == Drive_Type_Type::None)
     {
@@ -119,19 +118,12 @@ bool Drive_Class::Exists(const char *Path)
     return SD.exists(Path);
 }
 
-bool Drive_Class::Exists(const String &Path)
+Result_Type Drive_Class::Make_Directory(const char *Path)
 {
-    return SD.exists(Path);
-}
-
-bool Drive_Class::Make_Directory(const char *Path)
-{
-    return SD.mkdir(Path);
-}
-
-bool Drive_Class::Make_Directory(const String &Path)
-{
-    return SD.mkdir(Path);
+    if (SD.mkdir(Path))
+        return Result_Type::Success;
+    
+    return Result_Type::Error;
 }
 
 File_Type Drive_Class::Open(const char *Path, bool Write, bool Append)
@@ -147,97 +139,34 @@ File_Type Drive_Class::Open(const char *Path, bool Write, bool Append)
     return SD.open(Path, FILE_READ);
 }
 
-///
-
-
-
-
-
-File_Type Drive_Class::Open(const String &Path, bool Write, bool Append)
+Result_Type Drive_Class::Remove_File(const char *Path)
 {
-    return Open(Path.c_str(), Write, Append);
+    if (SD.remove(Path))
+        return Result_Type::Success;
+
+    return Result_Type::Error;
 }
 
-
-
-
-
-
-
-bool Drive_Class::Remove(const char *Path)
+Result_Type Drive_Class::Rename(const char *Path_From, const char *Path_To)
 {
-    return SD.remove(Path);
+    if (SD.rename(Path_From, Path_To))
+        return Result_Type::Success;
+
+    return Result_Type::Error;
 }
 
-
-
-
-
-
-
-bool Drive_Class::Remove(const String &Path)
+Result_Type Drive_Class::Remove_Directory(const char *Path)
 {
-    return SD.remove(Path);
+    if (SD.rmdir(Path))
+        return Result_Type::Success;
+
+    return Result_Type::Error;
 }
-
-
-
-
-
-
-
-
-bool Drive_Class::Rename(const char *Path_From, const char *Path_To)
-{
-    return SD.rename(Path_From, Path_To);
-}
-
-
-
-
-
-
-
-
-bool Drive_Class::Rename(const String &Path_From, const String &Path_To)
-{
-    return SD.rename(Path_From, Path_To);
-}
-
-
-
-
-
-
-
-bool Drive_Class::Remove_Directory(const char *Path)
-{
-    return SD.rmdir(Path);
-}
-
-
-
-
-
-
-
-bool Drive_Class::Remove_Directory(const String &Path)
-{
-    return SD.rmdir(Path);
-}
-
-
-
-
 
 uint64_t Drive_Class::Get_Total_Size()
 {
     return SD.totalBytes();
 }
-
-
-
-
 
 uint64_t Drive_Class::Get_Used_Size()
 {

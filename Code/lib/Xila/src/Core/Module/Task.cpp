@@ -49,15 +49,11 @@ Result_Type Task_Class::Create(Function_Type Task_Function, const char *Name, Si
     // Not ideal but it's the only way to allocate static vector.
     List.reserve(40);
 
-    if ((Priority > Task_Priority_Type::Idle) || (Priority <= Task_Priority_Type::Driver))
-    {
-        Priority = Task_Priority_Type::Normal;
-    }
+    if (Priority > Task_Priority_Type::Driver)
+        return Result_Type::Error;
 
     if (this->Get_State() != State_Type::Invalid)
-    {
         return Result_Type::Error;
-    }
 
     if (xTaskCreatePinnedToCore(Task_Function, Name, Stack_Size, Data, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY) != pdPASS)
     {

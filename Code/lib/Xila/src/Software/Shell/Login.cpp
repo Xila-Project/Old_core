@@ -85,10 +85,25 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type &Instr
         case Graphics_Types::Event_Code_Type::Clicked:
             if (Instruction.Graphics.Get_Target() == Login_Button)
             {    
+                Drive.Remove_Directory("/Users/Alix", true);
 
-                Accounts.Create("Xila", "Xila1234");
+                // - Print Users dir content 
+                Log_Verbose("Shell", "Users dir content :");
                 
-                    Password_Input.Set_Text("Xila1234");
+                File_Type Users = Drive.Open("/Users");
+                Users.Rewind_Directory();
+
+                File_Type Item = Users.Open_Next_File();
+                while (Item)
+                {
+                    Log_Verbose("Login", "%s", Item.Get_Name());
+                    Item = Users.Open_Next_File();
+                }                
+
+                Accounts.Create("Alix", "");
+
+                Name_Input.Set_Text("Alix");                
+                Password_Input.Set_Text("");
 
                 if (Accounts.Login(Name_Input.Get_Text(), Password_Input.Get_Text()) == Result_Type::Success)
                 {

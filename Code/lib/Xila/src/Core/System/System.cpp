@@ -11,12 +11,13 @@
 // - Constants
 
 #ifndef Xila_Default_Device_Name
-    #define Xila_Default_Device_Name "Xila"
+#define Xila_Default_Device_Name "Xila"
 #endif
 #ifndef Low_Memory_Threshold
-    #define Low_Memory_Threshold 2000
+#define Low_Memory_Threshold 2000
 #endif
 
+#include <SD.h>
 #include "Core/Core.hpp"
 #include "esp_task_wdt.h"
 #include "Update.h"
@@ -47,7 +48,7 @@ void System_Class::Task_Start_Function(void *Instance_Pointer)
 void System_Class::Task_Function()
 {
   uint32_t Next_Refresh = 0;
-  
+
   this->Load();
 
   while (1)
@@ -59,7 +60,6 @@ void System_Class::Task_Function()
       System.Panic_Handler(Panic_Type::Drive_Failure);
     }
 
-
     // -- Check if running software is not frozen.
     Task_Class::Check_Watchdogs();
 
@@ -70,7 +70,7 @@ void System_Class::Task_Function()
     //}
     // - Check available memory (prevent stack / heap collision)
 
-  
+    Log_Information("System", "Memory usage : %u | PSRAM usage : %u %", Memory.Get_Free_Heap(), Memory.Get_PSRAM_Size() - Memory.Get_Free_PSRAM());
 
     if (Memory.Get_Free_Heap() < Low_Memory_Threshold)
     {
@@ -80,8 +80,6 @@ void System_Class::Task_Function()
     Task.Delay(500);
   }
 }
-
-
 
 /// @brief Update Xila on the MCU.
 ///
@@ -136,7 +134,6 @@ void System_Class::Panic_Handler(Panic_Type Panic_Code)
   Background.Set_Style_Pad_All(0, 0);
   Background.Set_Flex_Flow(Flex_Flow_Type::Column);
   Background.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
-
 
   {
     Object_Type Logo;
@@ -222,7 +219,7 @@ void System_Class::Panic_Handler(Panic_Type Panic_Code)
 
 /// @brief Function that start Xila.
 void System_Class::Start()
-{ 
+{
   Task_Class::Delay_Static(5000);
 
   Log_Information("System", "Starting Xila ...");
@@ -264,7 +261,6 @@ void System_Class::Load()
     Power.Restart();
   }
 
-
   Log_Raw_Line("");
   Log_Raw_Line("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
   Log_Raw_Line("||               __________   __   __  _____   _                              ||");
@@ -275,7 +271,7 @@ void System_Class::Load()
   Log_Raw_Line("||              |___|______|  /_/ \\_\\ |_____| |______| /_/    \\_\\             ||");
   Log_Raw_Line("||                                                                            ||");
   Log_Raw_Line("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-  Log_Raw_Line("> Version : %u.%u.%u build on %s at %s.", Xila_Version_Major, Xila_Version_Minor,Xila_Version_Revision,__DATE__, __TIME__);
+  Log_Raw_Line("> Version : %u.%u.%u build on %s at %s.", Xila_Version_Major, Xila_Version_Minor, Xila_Version_Revision, __DATE__, __TIME__);
   Log_Information("System", "Alix ANNERAUD - MIT Licence");
 
   Log_Information("System", "Starting Xila ...");
@@ -304,56 +300,37 @@ void System_Class::Load()
     Panic_Handler(Panic_Type::Failed_To_Start_Graphics);
   }
 
-  Log_Information("System", "Start load animation ...");
-
-  //Task.Delay(1000);
-
-  Graphics_Types::Animation_Type* Animation = new Graphics_Types::Animation_Type();
+  Graphics_Types::Animation_Type *Animation = new Graphics_Types::Animation_Type();
   Object_Type Logo;
   this->Start_Load_Animation(&Logo, Animation);
 
-  Task.Delay(2000);
-
-  Log_Information("System", "Load animation done.");
-
   // - Check system folders.
 
-  Log_Information("System", "Checking system folders ...");
-
   if (!Drive.Exists(Users_Directory_Path))
-  {
     Drive.Make_Directory(Users_Directory_Path);
-  }
 
   if (!Drive.Exists(Software_Directory_Path))
-  {
     Drive.Make_Directory(Software_Directory_Path);
-  }
 
   if (!Drive.Exists(Users_Directory_Path) || !Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
-  {
     System.Panic_Handler(Panic_Type::Missing_System_Files);
-  }
 
   // - Load system registry
   this->Device_Name = Xila_Default_Device_Name;
 
   if (System.Load_Registry() != Result_Type::Success)
   {
-     if (System.Create_Registry() != Result_Type::Success)
-     {
-       System.Panic_Handler(Panic_Type::Damaged_System_Registry);
-     }
+    if (System.Create_Registry() != Result_Type::Success)
+    {
+      System.Panic_Handler(Panic_Type::Damaged_System_Registry);
+    }
   }
-
   // - Sound
 
   if (Sound.Start() != Result_Type::Success)
   {
     Panic_Handler(Panic_Type::Failed_To_Start_Sound);
   }
-
-  // Sound.Play(Sounds("Startup.wav"));
 
   // - Power
 
@@ -370,29 +347,18 @@ void System_Class::Load()
   }
   Communication.WiFi.Set_Host_Name(this->Device_Name); // Set hostname
 
-
   // - Account
   if (Accounts.Start() != Result_Type::Success)
   {
     Panic_Handler(Panic_Type::Failed_To_Start_Accounts);
   }
 
+  this->Stop_Load_Animation(&Logo, Animation);
+
   if (Softwares.Start() != Result_Type::Success)
   {
     Panic_Handler(Panic_Type::Failed_To_Start_Softwares);
   }
-
-  // - Enable animation
-
-#if Release_Type != Debug
-  Task.Delay_Static(3000);
-#endif
-
-  Task.Delay(500);
-
-  Task.Delay(100);
-
-  this->Stop_Load_Animation(&Logo, Animation);
 }
 
 ///
@@ -400,11 +366,11 @@ void System_Class::Load()
 ///
 void System_Class::Shutdown()
 {
-  Graphics_Types::Animation_Type* Animation = new Graphics_Types::Animation_Type;
+  Graphics_Types::Animation_Type *Animation = new Graphics_Types::Animation_Type;
   Object_Type Logo;
   this->Start_Load_Animation(Logo, Animation);
 
-  //Sound.Play(Sounds("Shutdown.wav"));
+  // Sound.Play(Sounds("Shutdown.wav"));
 
   Task.Delete();
   Softwares.Stop();
@@ -424,11 +390,11 @@ void System_Class::Shutdown()
 ///
 void System_Class::Restart()
 {
-  Graphics_Types::Animation_Type* Animation = new Graphics_Types::Animation_Type;
+  Graphics_Types::Animation_Type *Animation = new Graphics_Types::Animation_Type;
   Object_Type Logo;
   this->Start_Load_Animation(Logo, Animation);
 
-  //Sound.Play(Sounds("Shutdown.wav"));
+  // Sound.Play(Sounds("Shutdown.wav"));
 
   Task.Delete();
 
@@ -443,4 +409,3 @@ void System_Class::Restart()
 
   Power.Restart();
 }
-

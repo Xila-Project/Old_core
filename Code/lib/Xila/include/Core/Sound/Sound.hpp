@@ -15,6 +15,8 @@
 
 #include "AudioTools.h"
 
+#include "File_Player.hpp"
+
 //==============================================================================//
 
 namespace Xila_Namespace
@@ -75,17 +77,17 @@ namespace Xila_Namespace
 
         // - - Operation
 
-    protected:
+ //   protected:
         // - Attributes
 
         /// @brief Output stream.
         Sound_Types::I2S_Stream_Type I2S_Output_Stream;
 
         /// @brief Stream volume.
-        Sound_Types::Volume_Stream_Type Volume_Stream;
+     Sound_Types::Volume_Stream_Type Volume_Stream;
 
         /// @brief Outputs mixer.
-        Sound_Types::Output_Mixer_Type<int16_t> Mixer;
+   //     Sound_Types::Output_Mixer_Type<int16_t> Mixer;
 
 
         /// @brief Custom pin to tone.

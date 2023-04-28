@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#include "Core/Graphics/Tabs.hpp"
+#include "Core/Graphics/Button_Matrix.hpp"
 #include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
@@ -107,12 +107,12 @@ uint16_t Tabs_Class::Get_Tab_Active()
     return lv_tabview_get_tab_act(Get_Pointer());
 }
 
-Button_Class Tabs_Class::Get_Tab_Buttons()
+Button_Matrix_Type Tabs_Class::Get_Tab_Buttons()
 {
     lv_obj_t *Button_Pointer;
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         Button_Pointer = lv_tabview_get_tab_btns(Get_Pointer());
     }
-    return Button_Class(Object_Type(Button_Pointer));
+    return Button_Matrix_Type(Object_Type(Button_Pointer));
 }

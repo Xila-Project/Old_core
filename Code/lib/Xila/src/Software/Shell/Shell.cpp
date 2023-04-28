@@ -83,8 +83,10 @@ void Shell_Class::Main_Task_Function()
 
     while (1)
     {
+        // Log_Verbose("Shell", "Main task");
         if (this->Instruction_Available())
         {
+            //Log_Verbose("Shell", "Instruction received");
             this->Execute_Instruction(Get_Instruction());
         }
         else
@@ -338,21 +340,22 @@ void Shell_Class::Refresh_Overlay()
     }
     {
         Label_Type Sound_Label = Label_Type(Sound_Button.Get_Child(0)); // Casting
-        if (!Sound_Label.Is_Valid())
+        if (Sound_Label.Is_Valid())
         {
-        }
-        // -- Update sound
-        else if (Sound.Get_Volume() >= (255 * 2 / 3))
-        {
-            Sound_Label.Set_Text(LV_SYMBOL_VOLUME_MAX);
-        }
-        else if (Sound.Get_Volume() >= (255 / 3))
-        {
-            Sound_Label.Set_Text(LV_SYMBOL_VOLUME_MID);
-        }
-        else
-        {
-            Sound_Label.Set_Text(LV_SYMBOL_MUTE);
+            // -- Update sound
+            Log_Verbose("Shell", "Sound volume : %d", Sound.Get_Volume());
+            if (Sound.Get_Volume() >= (255 * 2 / 3))
+            {
+                Sound_Label.Set_Text(LV_SYMBOL_VOLUME_MAX);
+            }
+            else if (Sound.Get_Volume() >= (255 / 3))
+            {
+                Sound_Label.Set_Text(LV_SYMBOL_VOLUME_MID);
+            }
+            else
+            {
+                Sound_Label.Set_Text(LV_SYMBOL_MUTE);
+            }
         }
     }
 }

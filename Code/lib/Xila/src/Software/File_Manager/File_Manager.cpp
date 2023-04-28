@@ -517,7 +517,7 @@ void File_Manager_Class::Delete()
                 if (Item.Is_Directory())
                     Drive.Remove_Directory(Buffer);
                 else
-                    Drive.Remove(Buffer);
+                    Drive.Remove_File(Buffer);
             }
 
             // TODO : Add dialog for error.
@@ -601,7 +601,7 @@ void File_Manager_Class::Create_Folder()
             Buffer.Set_Character(Buffer.Get_Length() - 1, i + '0');
             if (!Drive.Exists(Buffer))
             {
-                if (Drive.Make_Directory(Buffer))
+                if (Drive.Make_Directory(Buffer) != Result_Type::Success)
                 {
                     // TODO : Add dialog
                 }

@@ -9,13 +9,14 @@
 #include "Core/System/System.hpp"
 #include "Core/Graphics/Graphics.hpp"
 #include "Core/Log/Log.hpp"
+#include "Core/Sound/Sound.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
 // - Methods
 
-void System_Class::Start_Load_Animation(Object_Type* Logo, Graphics_Types::Animation_Type* Animation)
+void System_Class::Start_Load_Animation(Object_Type *Logo, Graphics_Types::Animation_Type *Animation)
 {
   Object_Type Background;
 
@@ -84,6 +85,21 @@ void System_Class::Start_Load_Animation(Object_Type* Logo, Graphics_Types::Anima
 
 void System_Class::Stop_Load_Animation(Object_Type *Logo, Graphics_Types::Animation_Type *Animation)
 {
+  // - Play startup sound
+  Log_Verbose("System", "Playing startup sound.");
+  File_Type Startup_Sound = Drive.Open("/Xila/Sounds/Startup.wav");
+
+  WAVDecoder WAV_Decoder;
+  Sound_Types::File_Player_Type File_Player(Startup_Sound, Sound.Volume_Stream, WAV_Decoder);
+  File_Player.Start();
+
+  File_Player.Loop();
+
+  while (File_Player.Loop() != 0)
+  {
+    Task.Delay(1);
+  }
+
   if (Animation != NULL)
   {
     delete Animation;
@@ -97,9 +113,8 @@ void System_Class::Stop_Load_Animation(Object_Type *Logo, Graphics_Types::Animat
 void System_Class::Load_Animation_Callback(void *Object, int32_t Value)
 {
   static uint8_t Animated_Part = 2;
-  
-  //Log_Verbose("System", "Load animation callback from : %s", Task_Type(xTaskGetCurrentTaskHandle()).Get_Name());
 
+  // Log_Verbose("System", "Load animation callback from : %s", Task_Type(xTaskGetCurrentTaskHandle()).Get_Name());
 
   if ((Value == 255) || (Value == 64))
   {
@@ -118,43 +133,40 @@ void System_Class::Load_Animation_Callback(void *Object, int32_t Value)
 
   Object_Type Next_Part = static_cast<Object_Type *>(Object)->Get_Child(Animated_Part - 1);
 
- //Next_Part.Set_Style_Shadow_Width(255 + 64 - (Coordinate_Type)Value, 0);
+  // Next_Part.Set_Style_Shadow_Width(255 + 64 - (Coordinate_Type)Value, 0);
 
- // Task_Type::Delay_Static(1000);
+  // Task_Type::Delay_Static(1000);
 
- // Next_Part.Set_Style_Opacity(uint8_t(255 + 64 - Value), 0);
-
-
-
+  // Next_Part.Set_Style_Opacity(uint8_t(255 + 64 - Value), 0);
 
   if ((Animated_Part % 2) == 0)
   {
-    //Next_Part.Set_Style_Shadow_Width(255 + 64 - (Coordinate_Type)Value, 0);
+    // Next_Part.Set_Style_Shadow_Width(255 + 64 - (Coordinate_Type)Value, 0);
     Next_Part.Set_Style_Opacity(uint8_t(255 + 64 - Value), 0);
 
     Object_Type Previous_Part = static_cast<Object_Type *>(Object)->Get_Child(Animated_Part - 2);
 
-    //Previous_Part.Set_Style_Shadow_Width((Coordinate_Type)Value, 0);
+    // Previous_Part.Set_Style_Shadow_Width((Coordinate_Type)Value, 0);
     Previous_Part.Set_Style_Opacity((uint8_t)Value, 0);
   }
   else
   {
-    //Next_Part.Set_Style_Shadow_Width(Value, 0);
+    // Next_Part.Set_Style_Shadow_Width(Value, 0);
     Next_Part.Set_Style_Opacity(Value, 0);
 
     if (Animated_Part == 1)
     {
       Object_Type Previous_Part = static_cast<Object_Type *>(Object)->Get_Child(3);
 
-      //Previous_Part.Set_Style_Shadow_Width(255 + 64 - Value, 0);
+      // Previous_Part.Set_Style_Shadow_Width(255 + 64 - Value, 0);
       Previous_Part.Set_Style_Opacity(uint8_t(255 + 64 - Value), 0);
     }
     else
     {
       Object_Type Previous_Part = static_cast<Object_Type *>(Object)->Get_Child(Animated_Part - 2);
 
-      //Previous_Part.Set_Style_Shadow_Width(255 + 64 - Value, 0);
+      // Previous_Part.Set_Style_Shadow_Width(255 + 64 - Value, 0);
       Previous_Part.Set_Style_Opacity(uint8_t(255 + 64 - Value), 0);
     }
-  }  
+  }
 }

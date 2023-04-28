@@ -27,6 +27,8 @@ class Preferences_Class : public Software_Type
 
     // - - Management
 
+    void Set_Interface();
+
     void Main_Task_Function() override;
     void Execute_Instruction(Instruction_Type Instruction);
 
@@ -55,15 +57,15 @@ class Preferences_Class : public Software_Type
 
     Graphics_Types::Window_Type Window;
     Tabs_Type Tabs;
-    Object_Type Personnal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
+    Object_Type Personal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
 
     Graphics_Types::Keyboard_Type Keyboard;
 
-    // - - Personnal
+    // - - Personal
 
-    Button_Type Personnal_Style_Apply_Button;
-    Button_Type Personnal_Style_Background_Button;
-    Button_Type Personnal_Style_Foreground_Button;
+    Button_Type Personal_Style_Apply_Button;
+    Button_Type Personal_Style_Background_Button;
+    Button_Type Personal_Style_Foreground_Button;
 
     // - - Wireless
 

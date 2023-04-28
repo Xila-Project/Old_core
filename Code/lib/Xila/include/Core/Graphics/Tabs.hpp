@@ -42,7 +42,7 @@ namespace Xila_Namespace
         uint16_t Get_Tab_Count();
 
         Object_Class Get_Content();
-        Button_Class Get_Tab_Buttons();
+        Button_Matrix_Type Get_Tab_Buttons();
 
         uint16_t Get_Animation_Time();
 

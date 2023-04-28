@@ -15,40 +15,8 @@ const Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40
 
 // -- Constructor -- //
 
-Preferences_Class::Preferences_Class(const Accounts_Types::User_Type* Owner_User) : Software_Class(&Preferences_Handle, Owner_User)
+Preferences_Class::Preferences_Class(const Accounts_Types::User_Type *Owner_User) : Software_Class(&Preferences_Handle, Owner_User)
 {
-    Window.Create(this);
-    Window.Set_Title("Preferences");
-
-    Tabs.Create(Window.Get_Body(), Direction_Type::Left, 80);
-    Tabs.Set_Style_Background_Opacity(Opacity_Type::Opacity_0_Percent, 0);
-    Tabs.Add_Event(this, Graphics_Types::Event_Code_Type::Value_Changed);
-
-    {
-        Object_Class Tab_Buttons = Tabs.Get_Tab_Buttons();
-        Tab_Buttons.Set_Style_Background_Color(Color_Type::Grey[2], 0);
-        Tab_Buttons.Set_Style_Text_Color(Color_Type::White, 0);
-        Tab_Buttons.Set_Style_Border_Side(Border_Side_Type::Right, Part_Type::Items | Graphics_Types::State_Type::Checked);
-        Tab_Buttons.Set_Style_Border_Color(Color_Type::White, Part_Type::Items | Graphics_Types::State_Type::Checked);
-        Tab_Buttons.Set_Style_Text_Color(Color_Type::White, Part_Type::Items | Graphics_Types::State_Type::Checked);
-    }
-
-    Personnal_Tab = Tabs.Add_Tab("Personnal");
-    Softwares_Tab = Tabs.Add_Tab("Softwares");
-    Network_Tab = Tabs.Add_Tab("Wireless");
-    Users_Tab = Tabs.Add_Tab("Users");
-    Hardware_Tab = Tabs.Add_Tab("Hardware");
-    System_Tab = Tabs.Add_Tab("System");
-
-    Draw_Personal();
-    Draw_Softwares();
-    Draw_Hardware();
-    Draw_Wireless();
-    Draw_Users();
-    Draw_System();
-
-    Keyboard.Create(Window.Get_Body());
-    Keyboard.Add_Flag(Flag_Type::Hidden);
 }
 
 Preferences_Class::~Preferences_Class()
@@ -57,13 +25,63 @@ Preferences_Class::~Preferences_Class()
     Main_Task.Delete();
 }
 
+void Preferences_Class::Set_Interface()
+{
+    Log_Verbose("Preferences", "Start");
+
+    Window.Create(this);
+    Window.Set_Title("Preferences");
+
+    Tabs.Create(Window.Get_Body(), Direction_Type::Left, 120);
+    Tabs.Set_Size(Percentage(100), Percentage(100));
+    Tabs.Set_Style_Background_Opacity(Opacity_Type::Opacity_0_Percent, 0);
+    Tabs.Add_Event(this, Graphics_Types::Event_Code_Type::Value_Changed);
+
+    {
+        Button_Matrix_Type Tab_Buttons = Tabs.Get_Tab_Buttons();
+        //       Tab_Buttons.Set_Style_Background_Color(Color_Type::Grey[2], 0);
+        //       Tab_Buttons.Set_Style_Text_Color(Color_Type::White, 0);
+        //        Tab_Buttons.Set_Style_Border_Side(Border_Side_Type::Right, Part_Type::Items | Graphics_Types::State_Type::Checked);
+        //        Tab_Buttons.Set_Style_Border_Color(Color_Type::White, Part_Type::Items | Graphics_Types::State_Type::Checked);
+        //        Tab_Buttons.Set_Style_Text_Color(Color_Type::White, Part_Type::Items | Graphics_Types::State_Type::Checked);
+    }
+
+    Personal_Tab = Tabs.Add_Tab("Personal");
+    Softwares_Tab = Tabs.Add_Tab("Softwares");
+    Network_Tab = Tabs.Add_Tab("Wireless");
+    Users_Tab = Tabs.Add_Tab("Users");
+    Hardware_Tab = Tabs.Add_Tab("Hardware");
+    System_Tab = Tabs.Add_Tab("System");
+
+    Log_Verbose("Preferences", "Draw pers");
+    Draw_Personal();
+    Log_Verbose("Preferences", "Draw soft");
+    Draw_Softwares();
+    Log_Verbose("Preferences", "Draw hard");
+    Draw_Hardware();
+    Log_Verbose("Preferences", "Draw wire");
+    Draw_Wireless();
+    Log_Verbose("Preferences", "Draw user");
+    Draw_Users();
+    Log_Verbose("Preferences", "Draw syst");
+   // Draw_System();
+
+    Log_Verbose("Preferences", "Draw done");
+    //  Keyboard.Create(Graphics.Get_Top_Layer());
+    //  Keyboard.Add_Flag(Flag_Type::Hidden);
+
+    Log_Verbose("Preferences", "End");
+}
+
 void Preferences_Class::Main_Task_Function()
 {
+    Set_Interface();
 
     while (true)
     {
         if (this->Instruction_Available())
         {
+            Log_Verbose("Preferences", "Instruction available");
             this->Execute_Instruction(this->Get_Instruction());
         }
         else
@@ -75,9 +93,11 @@ void Preferences_Class::Main_Task_Function()
 
 void Preferences_Class::Draw_Wireless()
 {
-
     Network_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Network_Tab.Set_Style_Pad_All(0, 0);
+    Network_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
+    Network_Tab.Clear_Flag(Flag_Type::Scroll_Momentum);
+
 
     // - Grid layout
     Object_Type Grid;
@@ -186,6 +206,9 @@ void Preferences_Class::Draw_Hardware()
 {
     Hardware_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Hardware_Tab.Set_Style_Pad_All(0, 0);
+    Hardware_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
+    Hardware_Tab.Clear_Flag(Flag_Type::Scroll_Momentum);
+
 
     // - Grid layout
     Object_Type Grid;
@@ -290,6 +313,9 @@ void Preferences_Class::Draw_Users()
 {
     Users_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Users_Tab.Set_Style_Pad_All(0, 0);
+    Users_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
+    Users_Tab.Clear_Flag(Flag_Type::Scroll_Momentum);
+
 
     // - Grid layout
 
@@ -308,7 +334,7 @@ void Preferences_Class::Draw_Users()
         Graphics_Types::Label_Type Title_Label;
         Title_Label.Create(Grid, "Your account");
         Title_Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Your_Account_Section_Row, 1);
-        
+
         Users_Apply_Button.Create(Grid, "Apply", 0, 0, this);
         Users_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Your_Account_Section_Row, 1);
 
@@ -332,7 +358,7 @@ void Preferences_Class::Draw_Users()
         Users_Your_Account_New_Password_Confirmation_Text_Area.Set_Password_Mode(true);
 
         Users_Delete_Your_Account_Button.Create(Grid, "Delete", 0, 0, this);
-        Users_Delete_Your_Account_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 5, 2, Grid_Alignment_Type::Stretch, Your_Account_Section_Row + 5, 1);        
+        Users_Delete_Your_Account_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 5, 2, Grid_Alignment_Type::Stretch, Your_Account_Section_Row + 5, 1);
     }
 
     // - - Other accounts section
@@ -343,10 +369,10 @@ void Preferences_Class::Draw_Users()
         Graphics_Types::Label_Type Title_Label;
         Title_Label.Create(Grid, "Other accounts");
         Title_Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Other_Accounts_Section_Row, 1);
-    
+
         Users_Roller.Create(Grid);
         Users_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Other_Accounts_Section_Row + 1, 2);
-    
+
         Users_Delete_User_Button.Create(Grid, "Delete", 0, 0, this);
         Users_Delete_User_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Other_Accounts_Section_Row + 1, 1);
     }
@@ -359,7 +385,7 @@ void Preferences_Class::Draw_Users()
         Graphics_Types::Label_Type Title_Label;
         Title_Label.Create(Grid, "Add user");
         Title_Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Add_User_Section_Row, 1);
-    
+
         Users_Add_User_Name_Text_Area.Create(Grid);
         Users_Add_User_Name_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Add_User_Section_Row + 1, 1);
         Users_Add_User_Name_Text_Area.Set_Placeholder_Text("Name");
@@ -378,6 +404,9 @@ void Preferences_Class::Draw_Softwares()
 {
     Softwares_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Softwares_Tab.Set_Style_Pad_All(0, 0);
+    Softwares_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
+    Softwares_Tab.Clear_Flag(Flag_Type::Scroll_Momentum);
+
 
     // - Grid layout
 
@@ -415,13 +444,16 @@ void Preferences_Class::Draw_Softwares()
 
 void Preferences_Class::Draw_Personal()
 {
-    Personnal_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
-    Personnal_Tab.Set_Style_Pad_All(0, 0);
+    Personal_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
+    Personal_Tab.Set_Style_Pad_All(0, 0);
+    Personal_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
+    Personal_Tab.Clear_Flag(Flag_Type::Scroll_Momentum);
 
     // - Grid layout
 
     Object_Type Grid;
-    Grid.Create(Personnal_Tab);
+    Grid.Create(Personal_Tab);
+    Grid.Set_Size(Percentage(100), Percentage(100));
     Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
     Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
     Grid.Set_Style_Pad_All(10, 0);
@@ -438,8 +470,8 @@ void Preferences_Class::Draw_Personal()
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Style_Section_Row, 1);
         Label.Clear_Pointer();
 
-        Personnal_Style_Apply_Button.Create(Grid, "Apply", 0, 0, this);
-        Personnal_Style_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Style_Section_Row, 1);
+        Personal_Style_Apply_Button.Create(Grid, "Apply", 0, 0, this);
+        Personal_Style_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Style_Section_Row, 1);
 
         // - - - Color
 
@@ -447,8 +479,8 @@ void Preferences_Class::Draw_Personal()
         Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 3, Grid_Alignment_Type::Center, Style_Section_Row + 1, 1);
         Label.Clear_Pointer();
 
-        Personnal_Style_Background_Button.Create(Grid);
-        Personnal_Style_Background_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 2, Grid_Alignment_Type::Stretch, Style_Section_Row + 1, 1);
+        Personal_Style_Background_Button.Create(Grid);
+        Personal_Style_Background_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 2, Grid_Alignment_Type::Stretch, Style_Section_Row + 1, 1);
 
         // - - - Background
 
@@ -456,8 +488,8 @@ void Preferences_Class::Draw_Personal()
         Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 3, Grid_Alignment_Type::Center, Style_Section_Row + 2, 1);
         Label.Clear_Pointer();
 
-        Personnal_Style_Foreground_Button.Create(Grid);
-        Personnal_Style_Foreground_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 2, Grid_Alignment_Type::Stretch, Style_Section_Row + 2, 1);
+        Personal_Style_Foreground_Button.Create(Grid);
+        Personal_Style_Foreground_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 2, Grid_Alignment_Type::Stretch, Style_Section_Row + 2, 1);
     }
 
     Refresh_Personal();
@@ -467,6 +499,8 @@ void Preferences_Class::Draw_System()
 {
     System_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     System_Tab.Set_Style_Pad_All(0, 0);
+    System_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
+    System_Tab.Clear_Flag(Flag_Type::Scroll_Momentum);
 
     // - Grid layout
 
@@ -523,7 +557,7 @@ void Preferences_Class::Draw_System()
 
         System_Time_Apply_Button.Create(Grid, "Apply", 0, 0, this);
         System_Time_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Time_Section_Row, 1);
-      
+
         // - - - NTP server text area
 
         System_Time_NTP_Server_Text_Area.Create(Grid);
@@ -562,7 +596,6 @@ void Preferences_Class::Draw_System()
 
         System_Time_Minus_Button.Create(Grid, LV_SYMBOL_MINUS, 0, 0, this, Graphics_Types::Event_Code_Type::All);
         System_Time_Minus_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 1, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
-
 
         // - - - UTC offset spinbox
 
@@ -621,56 +654,62 @@ void Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
     }
     else if (Instruction.Get_Sender() == &Graphics)
     {
+        Log_Trace();
         if (Instruction.Graphics.Get_Target() == Tabs)
         {
+            Log_Trace();
             if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Clicked)
             {
+                Log_Verbose("Tabs", "Tab clicked : %u", Tabs.Get_Tab_Active());
                 switch (Tabs.Get_Tab_Active())
                 {
                 case 0:
-                    Refresh_Personal();
+                    // Refresh_Personal();
                     break;
                 case 1:
-                    Refresh_Softwares();
+                    // Refresh_Softwares();
                     break;
                 case 2:
-                    Refresh_Hardware();
+                    // Refresh_Hardware();
                     break;
                 case 3:
-                    Refresh_Wireless();
+                    // Refresh_Wireless();
                     break;
                 case 4:
-                    Refresh_Users();
+                    // Refresh_Users();
                     break;
                 case 5:
-                    Refresh_System();
+                    // Refresh_System();
                     break;
                 }
                 return;
             }
         }
-    }
-    // -
-    switch (Tabs.Get_Tab_Active())
-    {
-    case 0:
-        Execute_Personal_Instruction(Instruction);
-        break;
-    case 1:
-        Execute_Softwares_Instruction(Instruction);
-        break;
-    case 2:
-        Execute_Hardware_Instruction(Instruction);
-        break;
-    case 3:
-        Execute_Wireless_Instruction(Instruction);
-        break;
-    case 4:
-        Execute_Users_Instruction(Instruction);
-        break;
-    case 5:
-        Execute_System_Instruction(Instruction);
-        break;
+        else
+        {
+            // -
+            switch (Tabs.Get_Tab_Active())
+            {
+            case 0:
+                Execute_Personal_Instruction(Instruction);
+                break;
+            case 1:
+                Execute_Softwares_Instruction(Instruction);
+                break;
+            case 2:
+                Execute_Wireless_Instruction(Instruction);
+                break;
+            case 3:
+                Execute_Users_Instruction(Instruction);
+                break;
+            case 4:
+                Execute_Hardware_Instruction(Instruction);
+                break;
+            case 5:
+                Execute_System_Instruction(Instruction);
+                break;
+            }
+        }
     }
 }
 
@@ -686,7 +725,7 @@ void Preferences_Class::Execute_Users_Instruction(const Instruction_Type &Instru
     else if (Instruction.Graphics.Get_Target() == Users_Delete_User_Button)
     {
         // TODO :
-        //if (Accounts.Delete(Users_Delete_User_Name_Text_Area.Get_Text()) != Result_Type::Success)
+        // if (Accounts.Delete(Users_Delete_User_Name_Text_Area.Get_Text()) != Result_Type::Success)
         //{
         //    // TODO : Display error message
         //}
@@ -722,7 +761,7 @@ void Preferences_Class::Execute_Users_Instruction(const Instruction_Type &Instru
         this->Get_Owner_User()->Get_Name(Name);
         if (Accounts.Delete(Name, Users_Your_Account_Password_Text_Area.Get_Text()) != Result_Type::Success)
         {
-                // TODO : Display error message
+            // TODO : Display error message
         }
         Users_Your_Account_Password_Text_Area.Set_Text("");
     }
@@ -730,11 +769,11 @@ void Preferences_Class::Execute_Users_Instruction(const Instruction_Type &Instru
 
 void Preferences_Class::Execute_Personal_Instruction(const Instruction_Type &Instruction)
 {
-    if (Instruction.Graphics.Get_Target() == Personnal_Style_Apply_Button)
+    if (Instruction.Graphics.Get_Target() == Personal_Style_Apply_Button)
     {
         // TODO : Send instruction to Shell to change style.
-        // Shell_Pointer->Desk.Set_Foreground_Color(Personnal_Style_Foreground_Button.Get_Style_Background_Color(Part_Type::Main));
-        // Shell_Pointer->Desk.Set_Background_Color(Personnal_Style_Background_Button.Get_Style_Background_Color(Part_Type::Main));
+        // Shell_Pointer->Desk.Set_Foreground_Color(Personal_Style_Foreground_Button.Get_Style_Background_Color(Part_Type::Main));
+        // Shell_Pointer->Desk.Set_Background_Color(Personal_Style_Background_Button.Get_Style_Background_Color(Part_Type::Main));
     }
 }
 
@@ -771,7 +810,7 @@ void Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Ins
     else if (Instruction.Graphics.Get_Target() == Wireless_WiFi_Connect_Button)
     {
         Static_String_Type<32> SSID;
-        
+
         Communication.WiFi.Station.Connect(Wireless_WiFi_Access_Point_Roller.Get_Selected_String(SSID));
     }
 }
@@ -828,8 +867,8 @@ void Preferences_Class::Execute_Hardware_Instruction(const Instruction_Type &Ins
 void Preferences_Class::Refresh_Personal()
 {
     // TODO : Implement with instruction system
-    // Personnal_Style_Foreground_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Foreground_Color(), 0);
-    // Personnal_Style_Background_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Background_Color(), 0);
+    // Personal_Style_Foreground_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Foreground_Color(), 0);
+    // Personal_Style_Background_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Background_Color(), 0);
 
     /*
     switch (Keyboard.Layout)
@@ -857,10 +896,9 @@ void Preferences_Class::Refresh_Personal()
     }*/
 }
 
-/// @brief Refresh software tab.
 void Preferences_Class::Refresh_Softwares()
 {
-    char Software_Name[Softwares.Get_Handle_Count() * (sizeof(Default_Software_Name_Length) + 1) + 1];
+    char Software_Name[Softwares.Get_Handle_Count() * (Default_Software_Name_Length + 1) + 1];
     memset(Software_Name, '\0', sizeof(Software_Name));
     Static_String_Type<Default_Software_Name_Length> Software_Name_String;
 
@@ -879,7 +917,7 @@ void Preferences_Class::Refresh_Softwares()
     Softwares_Roller.Set_Options(Software_Name, Roller_Type::Mode_Type::Normal);
 }
 
-// -- Hardware -- //
+// - - Hardware
 
 void Preferences_Class::Refresh_Hardware()
 {
@@ -993,17 +1031,17 @@ void Preferences_Class::Refresh_Wireless()
     // - Network section
 
     {
-        Static_String_Type<24> IP_Address;
-        Communication.WiFi.Station.Get_IP_Address().To(IP_Address);
-        Wireless_Network_Local_IP_Text_Area.Set_Text(IP_Address);
-        Communication.WiFi.Station.Get_Subnet_Mask().To(IP_Address);
-        Wireless_Network_Subnet_Mask_Text_Area.Set_Text(IP_Address);
-        Communication.WiFi.Station.Get_Gateway_IP_Address().To(IP_Address);
-        Wireless_Network_Gateway_IP_Text_Area.Set_Text(IP_Address);
-        Communication.WiFi.Station.Get_DNS_IP_Address(0).To(IP_Address);
-        Wireless_Network_DNS_1_Text_Area.Set_Text(IP_Address);
-        Communication.WiFi.Station.Get_DNS_IP_Address(1).To(IP_Address);
-        Wireless_Network_DNS_2_Text_Area.Set_Text(IP_Address);
+        //        Static_String_Type<24> IP_Address;
+        //        Communication.WiFi.Station.Get_IP_Address().To(IP_Address);
+        //        Wireless_Network_Local_IP_Text_Area.Set_Text(IP_Address);
+        //        Communication.WiFi.Station.Get_Subnet_Mask().To(IP_Address);
+        //        Wireless_Network_Subnet_Mask_Text_Area.Set_Text(IP_Address);
+        //        Communication.WiFi.Station.Get_Gateway_IP_Address().To(IP_Address);
+        //        Wireless_Network_Gateway_IP_Text_Area.Set_Text(IP_Address);
+        //        Communication.WiFi.Station.Get_DNS_IP_Address(0).To(IP_Address);
+        //        Wireless_Network_DNS_1_Text_Area.Set_Text(IP_Address);
+        //        Communication.WiFi.Station.Get_DNS_IP_Address(1).To(IP_Address);
+        //        Wireless_Network_DNS_2_Text_Area.Set_Text(IP_Address);
     }
 }
 

@@ -11,9 +11,7 @@
 #include "Software/Shell/Shell.hpp"
 
 Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
-{
-    Log_Verbose("Drawer", "Drawer created");
-}
+{}
 
 void Shell_Class::Drawer_Class::Set_Interface()
 {
@@ -44,38 +42,24 @@ void Shell_Class::Drawer_Class::Set_Interface()
 
         for (Byte_Type i = 0; i < Handle_Count; i++)
         {
-            // Log_Verbose("Drawer", "%p : %p", &Shell_Handle, Softwares.Get_Handle(i));
-            Log_Verbose("Drawer", "i = %d", i);
             if (Shell_Pointer->Get_Handle() != Softwares.Get_Handle(i))
             {
-                Log_Verbose("Drawer", "Adding software to drawer i = %d", i);
-
-                Log_Verbose("Drawer", "Adding software to drawer");
-
                 Container.Create(Window.Get_Body());
                 Container.Set_Size(10 * 8, 11 * 8);
                 Container.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
                 Container.Set_Style_Pad_All(0, 0);
                 Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
-                Log_Trace();
-
                 Softwares.Get_Handle(i)->Get_Name(Name);
 
                 // - Set software icon (color according to it's name)
-
-                Log_Trace();
-
                 Icon_Container.Create(Container);
                 Icon_Container.Set_Alignment(Alignment_Type::Top_Middle);
                 Icon_Container.Add_Flag(Flag_Type::Event_Bubble);
                 Icon_Label.Create(Icon_Container);
                 Shell_Pointer->Get_Software_Icon(Icon_Container, Name);
-
-                Log_Trace();
-
+                
                 // - Set software label
-
                 Label.Create(Container, Name, Percentage(100));
                 Label.Set_Alignment(Alignment_Type::Bottom_Middle);
                 Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
