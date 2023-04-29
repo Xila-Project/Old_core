@@ -1,4 +1,6 @@
 extern const bcstring be_const_str_;
+extern const bcstring be_const_str_Clap;
+extern const bcstring be_const_str_Foo;
 extern const bcstring be_const_str__X21_X3D;
 extern const bcstring be_const_str__X28_X29;
 extern const bcstring be_const_str__X2B;
@@ -12,6 +14,7 @@ extern const bcstring be_const_str___lower__;
 extern const bcstring be_const_str___upper__;
 extern const bcstring be_const_str__buffer;
 extern const bcstring be_const_str__change_buffer;
+extern const bcstring be_const_str__p;
 extern const bcstring be_const_str_abs;
 extern const bcstring be_const_str_acos;
 extern const bcstring be_const_str_add;

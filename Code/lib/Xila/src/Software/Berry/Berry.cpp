@@ -14,7 +14,7 @@
 extern "C"
 {
 #include "berry.h"
-#include "mapping/be_mapping.h"
+#include "be_mapping.h"
 #include "be_repl.h"
 #include "be_vm.h"
 #include <stdio.h>
