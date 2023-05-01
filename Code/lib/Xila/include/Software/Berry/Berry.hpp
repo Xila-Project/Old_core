@@ -9,6 +9,8 @@
 #ifndef Berry_Hpp_Included
 #define Berry_Hpp_Included
 
+#include "be_mapping.h"
+
 #include "Xila.hpp"
 
 #include "Test.hpp"

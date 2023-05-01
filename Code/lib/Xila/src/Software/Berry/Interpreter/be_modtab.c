@@ -22,11 +22,12 @@ be_extern_native_module(gc);
 be_extern_native_module(solidify);
 be_extern_native_module(introspect);
 be_extern_native_module(strict);
-be_extern_native_module(test);
 be_extern_native_module(undefined);
 
 /* user-defined modules declare start */
-
+be_extern_native_module(System);
+be_extern_native_module(Memory);
+be_extern_native_module(Graphics)
 /* user-defined modules declare end */
 
 /* module list declaration */
@@ -70,7 +71,11 @@ BERRY_LOCAL const bntvmodule_t* const be_module_table[] = {
 #endif
     &be_native_module(undefined),
     /* user-defined modules register start */
-    &be_native_module(test),
+    &be_native_module(System),
+
+    &be_native_module(Memory),
+
+    &be_native_module(Graphics),
     /* user-defined modules register end */
     NULL /* do not remove */
 };

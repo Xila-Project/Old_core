@@ -20,6 +20,12 @@
 
 namespace Xila_Namespace
 {
+    namespace Memory_Types
+    {
+        
+    }
+
+
     /// @brief Memory management module.
     typedef class Memory_Class : public Module_Class
     {

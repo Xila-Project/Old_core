@@ -325,6 +325,13 @@ void System_Class::Load()
       System.Panic_Handler(Panic_Type::Damaged_System_Registry);
     }
   }
+
+  {
+    Static_String_Type<64> Device_Name;
+    System.Get_Device_Name(Device_Name);
+    Log_Verbose("System", "Device name : %s", (const char *)Device_Name);
+  }
+
   // - Sound
 
   if (Sound.Start() != Result_Type::Success)
@@ -378,7 +385,6 @@ void System_Class::Shutdown()
   Power.Stop();
   Sound.Stop();
   Communication.Stop();
-  System.Stop();
 
   this->Stop_Load_Animation(&Logo, Animation);
 
@@ -403,7 +409,6 @@ void System_Class::Restart()
   Power.Stop();
   Sound.Stop();
   Communication.Stop();
-  System.Stop();
 
   this->Stop_Load_Animation(&Logo, Animation);
 

@@ -59,7 +59,7 @@ namespace Xila_Namespace
 
         // - - Device
 
-        void Get_Device_Name(String_Type &Device_Name);
+        String_Type& Get_Device_Name(String_Type &Device_Name);
         uint64_t Get_eFuse_MAC();
         uint8_t Get_Chip_Revision();
         const char *Get_Chip_Model();
@@ -89,7 +89,6 @@ namespace Xila_Namespace
         // - - System
 
         void Start();
-        void Stop();
 
         void Shutdown();
         void Restart();

@@ -60,9 +60,10 @@ uint64_t System_Class::Get_eFuse_MAC()
 /// @brief Return device name.
 ///
 /// @return const char* Device name.
-void System_Class::Get_Device_Name(String_Class &Device_Name)
+String_Type& System_Class::Get_Device_Name(String_Class &Device_Name)
 {
     Device_Name = this->Device_Name;
+    return Device_Name;
 }
 
 // - - Setters

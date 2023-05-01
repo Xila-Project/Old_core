@@ -12,7 +12,7 @@
 
 using namespace Xila_Namespace;
 
-bool convertToJson(const String_Type &String, JsonVariant variant)
+bool Xila_Namespace::convertToJson(const String_Type &String, JsonVariant variant)
 {
     return variant.set((const char*)String);
 }
