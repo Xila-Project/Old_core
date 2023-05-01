@@ -93,7 +93,7 @@ Result_Type Power_Class::Stop()
 Result_Type Power_Class::Load_Registry()
 {
     // - Open registry file
-    File_Type Registry_File = Drive.Open(Registry("Power"));
+    Drive_Types::File_Type Registry_File = Drive.Open(Registry("Power"));
 
     // - Load registry
     StaticJsonDocument<256> Power_Registry;
@@ -125,7 +125,7 @@ Result_Type Power_Class::Create_Registry()
     Power_Registry["Registry"] = "Power";
 
     // - Open registry file
-    File_Type Registry_File = Drive.Open(Registry("Power"), true);
+    Drive_Types::File_Type Registry_File = Drive.Open(Registry("Power"), true);
     
     // - Write registry
     if (!Registry_File || (serializeJson(Power_Registry, Registry_File) == 0))
@@ -142,7 +142,7 @@ Result_Type Power_Class::Create_Registry()
 Result_Type Power_Class::Save_Registry()
 {
     // - Open registry file
-    File_Type Registry_File = Drive.Open(Registry("Power"));
+    Drive_Types::File_Type Registry_File = Drive.Open(Registry("Power"));
 
     // - Load registry
     StaticJsonDocument<256> Power_Registry;

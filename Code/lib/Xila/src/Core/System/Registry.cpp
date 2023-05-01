@@ -16,7 +16,7 @@ using namespace Xila_Namespace::System_Types;
 
 Result_Type System_Class::Create_Registry()
 {
-  File_Type Temporary_File = Drive.Open(Registry("System"), true);
+  Drive_Types::File_Type Temporary_File = Drive.Open(Registry("System"), true);
   StaticJsonDocument<512> System_Registry;
   System_Registry["Registry"] = "System";
   System_Registry["Version"]["Major"] = Xila_Version_Major;
@@ -39,7 +39,7 @@ Result_Type System_Class::Create_Registry()
 Result_Type System_Class::Load_Registry()
 {
   Log_Information("System", "Load system registry...");
-  File_Type Temporary_File = Drive.Open((Registry("System")));
+  Drive_Types::File_Type Temporary_File = Drive.Open((Registry("System")));
   StaticJsonDocument<1024> System_Registry;
   if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
   {
@@ -73,7 +73,7 @@ Result_Type System_Class::Load_Registry()
 Result_Type System_Class::Save_Registry()
 {
   // - Open current registry
-  File_Type Temporary_File = Drive.Open(Registry("System"), true);
+  Drive_Types::File_Type Temporary_File = Drive.Open(Registry("System"), true);
   StaticJsonDocument<512> System_Registry;
 
   System_Registry["Device name"] = Device_Name;

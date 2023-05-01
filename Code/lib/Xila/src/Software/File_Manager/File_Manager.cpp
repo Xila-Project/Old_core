@@ -139,7 +139,7 @@ void File_Manager_Class::Refresh()
 
     Log_Verbose("File manager", "Path: %s", Path_Text_Area.Get_Text());
 
-    File_Type Folder = Drive.Open(Path_Text_Area.Get_Text());
+    Drive_Types::File_Type Folder = Drive.Open(Path_Text_Area.Get_Text());
 
     if ((!Folder) || (!Folder.Is_Directory()))
     {
@@ -177,7 +177,7 @@ void File_Manager_Class::Refresh()
     Graphics_Types::Checkbox_Type Checkbox;
     Static_String_Type<32> Item_Name;
 
-    File_Type File;
+    Drive_Types::File_Type File;
 
     for (uint8_t i = 0; i < Item_Count; i++)
     {
@@ -367,7 +367,7 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
 
                             Buffer += &(Checkbox.Get_Text()[sizeof(LV_SYMBOL_DIRECTORY)]); // Skip the first characters (symbol + space)
 
-                            File_Type Item = Drive.Open(Buffer);
+                            Drive_Types::File_Type Item = Drive.Open(Buffer);
 
                             if (!Item || !Item.Is_Directory())
                             {
@@ -433,7 +433,7 @@ void File_Manager_Class::Details()
             Buffer += "/";
             Buffer += Checkbox.Get_Text();
 
-            File_Type Item = Drive.Open(Buffer);
+            Drive_Types::File_Type Item = Drive.Open(Buffer);
 
             if (!Item)
                 return;
@@ -516,7 +516,7 @@ void File_Manager_Class::Delete()
             Buffer += "/";
             Buffer += Checkbox.Get_Text();
 
-            File_Type Item = Drive.Open(Buffer);
+            Drive_Types::File_Type Item = Drive.Open(Buffer);
 
             if (Item)
             {
@@ -576,7 +576,7 @@ void File_Manager_Class::Create_File()
             Buffer.Set_Character(Buffer.Get_Length() - 1, i + '0');
             if (!Drive.Exists(Buffer))
             {
-                File_Type File = Drive.Open(Buffer, true);
+                Drive_Types::File_Type File = Drive.Open(Buffer, true);
                 if (!File)
                 {
                     // TODO : Add dialog

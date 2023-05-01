@@ -172,7 +172,7 @@ Result_Type Shell_Class::Load_Registry()
     Static_String_Type<64> Shell_Registry_Path;
     this->Get_Owner_User()->Get_Home_Folder_Path(Shell_Registry_Path);
     Shell_Registry_Path += "/Shell/Shell.xrf";
-    File_Type Registry_File = Drive.Open(Shell_Registry_Path, true);
+    Drive_Types::File_Type Registry_File = Drive.Open(Shell_Registry_Path, true);
 
     // - Load registry
     StaticJsonDocument<256> Shell_Registry;
@@ -201,7 +201,7 @@ Result_Type Shell_Class::Create_Registry()
     Static_String_Type<64> Shell_Registry_Path;
     this->Get_Owner_User()->Get_Home_Folder_Path(Shell_Registry_Path);
     Shell_Registry_Path += "/Registry/Shell.xrf";
-    File_Type Registry_File = Drive.Open(Shell_Registry_Path, true);
+    Drive_Types::File_Type Registry_File = Drive.Open(Shell_Registry_Path, true);
 
     // - Write registry
     if (!Registry_File || (serializeJson(Shell_Registry, Registry_File) == 0))
@@ -222,7 +222,7 @@ Result_Type Shell_Class::Save_Registry()
     Static_String_Type<64> Shell_Registry_Path;
     this->Get_Owner_User()->Get_Home_Folder_Path(Shell_Registry_Path);
     Shell_Registry_Path += "/Registry/Shell.xrf";
-    File_Type Registry_File = Drive.Open(Shell_Registry_Path, true);
+    Drive_Types::File_Type Registry_File = Drive.Open(Shell_Registry_Path, true);
 
     // - Load registry
     StaticJsonDocument<256> Shell_Registry;

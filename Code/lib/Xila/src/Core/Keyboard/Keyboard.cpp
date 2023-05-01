@@ -26,7 +26,7 @@ Keyboard_Type Xila_Namespace::Keyboard;
 Result_Type Keyboard_Class::Load_Registry()
 {
 
-    File_Type Temporary_File = Drive.Open(Registry("Keyboard"));
+    Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Keyboard"));
     StaticJsonDocument<256> Keyboard_Registry;
     if (deserializeJson(Keyboard_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -51,7 +51,7 @@ Result_Type Keyboard_Class::Load_Registry()
 
 Result_Type Keyboard_Class::Save_Registry()
 {
-    File_Type Temporary_File = Drive.Open(Registry("Keyboard"), true);
+    Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Keyboard"), true);
     StaticJsonDocument<256> Keyboard_Registry;
     Keyboard_Registry["Registry"] = "Keyboard";
     Keyboard_Registry["Data Pin"] = Data_Pin;

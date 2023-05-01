@@ -193,13 +193,13 @@ void Berry_Class::Load_Softwares_Handles()
     if (Softwares_Handles_Loaded)
         return;
 
-    File_Type Softwares_Folder = Drive.Open(Software_Directory_Path);
+    Drive_Types::File_Type Softwares_Folder = Drive.Open(Software_Directory_Path);
     if (!Softwares_Folder)
         return;
 
     Softwares_Folder.Rewind_Directory();
 
-    File_Type Software_Folder = Softwares_Folder.Open_Next_File();
+    Drive_Types::File_Type Software_Folder = Softwares_Folder.Open_Next_File();
 
     while (Software_Folder)
     {
@@ -208,7 +208,7 @@ void Berry_Class::Load_Softwares_Handles()
 
         Static_String_Type<32> Manifest_Path = Software_Folder.Get_Path();
         Manifest_Path += "/Manifest.Xrf";
-        File_Type Manifest_File = Drive.Open(Manifest_Path);
+        Drive_Types::File_Type Manifest_File = Drive.Open(Manifest_Path);
 
         StaticJsonDocument<512> Software_Manifest;
         if (!Manifest_File || deserializeJson(Software_Manifest, Manifest_File) != DeserializationError::Ok)

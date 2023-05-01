@@ -74,9 +74,6 @@ namespace Xila_Namespace
         None
     };
 
-    /// @brief File type.
-    typedef class File_Class File_Type;
-
     /// @brief Null pointer.
     extern void* Null;
 }

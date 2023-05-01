@@ -14,6 +14,7 @@
 #include "../Module/Module.hpp"
 
 #include "../Graphics/Graphics.hpp"
+#include "../Drive/Drive.hpp"
 
 //==============================================================================//
 
@@ -136,7 +137,7 @@ namespace Xila_Namespace
         Result_Type Save_Registry();
         Result_Type Create_Registry();
 
-        Result_Type Upgrade(File_Type Executable_File);
+        Result_Type Upgrade(Drive_Types::File_Type Executable_File);
 
         void Panic_Handler(System_Types::Panic_Type Panic_Code);
 

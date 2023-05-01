@@ -45,7 +45,7 @@ void *be_fopen(const char *filename, const char *modes)
 {
     Log_Verbose("Berry", "Opening file: %s", filename);
     Log_Verbose("Berry", "Opening file with mode: %c", modes);
-    File_Type *File = new File_Type;
+    Drive_Types::File_Type *File = new Drive_Types::File_Type;
     switch (modes[0])
     {
     case 'w':
@@ -78,7 +78,7 @@ int be_fclose(void *hfile)
         return false;
     }
 
-    File_Type* File = (File_Type*)hfile;
+    Drive_Types::File_Type* File = (Drive_Types::File_Type*)hfile;
     if (*File)
     {
         (*File).Close();
@@ -97,7 +97,7 @@ size_t be_fwrite(void *hfile, const void *buffer, size_t length)
     {
         return 0;
     }
-    File_Type* File = (File_Type*)hfile;
+    Drive_Types::File_Type* File = (Drive_Types::File_Type*)hfile;
     if (*File)
     {
         File->Write((const uint8_t*)buffer, length);
@@ -113,7 +113,7 @@ size_t be_fread(void *hfile, void *buffer, size_t length)
     {
         return 0;
     }
-    File_Type* File = (File_Type*)hfile;
+    Drive_Types::File_Type* File = (Drive_Types::File_Type*)hfile;
     if (*File)
     {
         return File->Read((uint8_t*)buffer, length);
@@ -133,7 +133,7 @@ int be_fseek(void *hfile, long offset)
     {
         return false;
     }
-    File_Type* File = (File_Type*)hfile;
+    Drive_Types::File_Type* File = (Drive_Types::File_Type*)hfile;
     if (*File)
     {
         return File->Seek(offset);
@@ -147,7 +147,7 @@ long int be_ftell(void *hfile)
     {
         return 0;
     }
-    File_Type* File = (File_Type*)hfile;
+    Drive_Types::File_Type* File = (Drive_Types::File_Type*)hfile;
     if (*File)
     {
         return File->Get_Position();
@@ -161,7 +161,7 @@ long int be_fflush(void *hfile)
     {
         return false;
     }
-    File_Type* File = (File_Type*)hfile;
+    Drive_Types::File_Type* File = (Drive_Types::File_Type*)hfile;
     if (*File)
     {
         File->Flush();
@@ -176,7 +176,7 @@ size_t be_fsize(void *hfile)
     {
         return 0;
     }
-    File_Type* File = (File_Type*)hfile;
+    Drive_Types::File_Type* File = (Drive_Types::File_Type*)hfile;
     if (*File)
     {
         return File->Get_Size();
@@ -192,7 +192,7 @@ int be_isdir(const char *path)
     {
         return false;
     }
-    File_Type File = Drive.Open(path);
+    Drive_Types::File_Type File = Drive.Open(path);
     if (File)
     {
         return File.Is_Directory();
@@ -206,7 +206,7 @@ int be_isfile(const char *path)
     {
         return false;
     }
-    File_Type File = Drive.Open(path);
+    Drive_Types::File_Type File = Drive.Open(path);
     if (File)
     {
         return !File.Is_Directory();
@@ -252,9 +252,9 @@ int be_unlink(const char *filename)
 
 int be_dirfirst(bdirinfo *info, const char *Path)
 {
-    File_Type* Directory = new File_Type;
+    Drive_Types::File_Type* Directory = new Drive_Types::File_Type;
     *Directory = Drive.Open(Path);
-    File_Type* File = new File_Type;
+    Drive_Types::File_Type* File = new Drive_Types::File_Type;
     if (*Directory)
     {
         Directory->Rewind_Directory();
@@ -281,20 +281,20 @@ int be_dirnext(bdirinfo *info)
     }
     if (info->file == NULL)
     {
-        info->file = new File_Type;
+        info->file = new Drive_Types::File_Type;
     }
-    File_Type* Directory = (File_Type*)info->dir;
-    *(File_Type*)info->file = Directory->Open_Next_File();
+    Drive_Types::File_Type* Directory = (Drive_Types::File_Type*)info->dir;
+    *(Drive_Types::File_Type*)info->file = Directory->Open_Next_File();
     
-    if (*(File_Type*)info->file)
+    if (*(Drive_Types::File_Type*)info->file)
     {
         return false;
     }
     
-    delete (File_Type*)info->file;
+    delete (Drive_Types::File_Type*)info->file;
     info->file = NULL;
 
-    File_Type* File = (File_Type*)info->file; 
+    Drive_Types::File_Type* File = (Drive_Types::File_Type*)info->file; 
 
     info->name = File->Get_Name();
     return true;
@@ -304,13 +304,13 @@ int be_dirclose(bdirinfo *info)
 {
     if (info->dir != NULL)
     {
-        if (*(File_Type*)info->dir)
+        if (*(Drive_Types::File_Type*)info->dir)
         {
-            File_Type* Directory = (File_Type*)info->dir;
+            Drive_Types::File_Type* Directory = (Drive_Types::File_Type*)info->dir;
             Directory->Close();
         }
-        delete (File_Type*)info->dir;
-        delete (File_Type*)info->file;
+        delete (Drive_Types::File_Type*)info->dir;
+        delete (Drive_Types::File_Type*)info->file;
         info->dir = NULL;
         info->file = NULL;
         

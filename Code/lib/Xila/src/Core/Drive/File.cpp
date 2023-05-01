@@ -185,7 +185,7 @@ uint16_t File_Class::Count_Items()
     }
     
     Rewind_Directory();
-    File_Type Temporary_File = Open_Next_File();
+    Drive_Types::File_Type Temporary_File = Open_Next_File();
     uint16_t i;
     for (i = 0; i < 0xFFFF; i++)
     {

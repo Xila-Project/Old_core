@@ -78,7 +78,7 @@ bool Drive_Class::Make_Directory(const String &Path)
     return SD_MMC.mkdir(Path);
 }
 
-File_Type Drive_Class::Open(const char *Path, bool Write, bool Append)
+Drive_Types::File_Type Drive_Class::Open(const char *Path, bool Write, bool Append)
 {
     if (Write)
     {
@@ -91,7 +91,7 @@ File_Type Drive_Class::Open(const char *Path, bool Write, bool Append)
     return SD_MMC.open(Path, FILE_READ);
 }
 
-File_Type Drive_Class::Open(const String &Path, bool Write, bool Append)
+Drive_Types::File_Type Drive_Class::Open(const String &Path, bool Write, bool Append)
 {
     return Open(Path.c_str(), Write, Append);
 }

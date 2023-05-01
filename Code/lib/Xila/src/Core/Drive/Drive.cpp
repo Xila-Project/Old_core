@@ -15,7 +15,7 @@ Drive_Type Xila_Namespace::Drive;
 
 // Custom methods
 
-Result_Type Drive_Class::Copy(File_Type &Origin_File, File_Type &Destination_File)
+Result_Type Drive_Class::Copy(Drive_Types::File_Type &Origin_File, Drive_Types::File_Type &Destination_File)
 {
     uint8_t Readed_Bytes;
     uint8_t Buffer[255];
@@ -32,8 +32,8 @@ Result_Type Drive_Class::Copy(File_Type &Origin_File, File_Type &Destination_Fil
 
 Result_Type Drive_Class::Copy(const char *Origin_Path, const char *Destination_Path)
 {
-    File_Type Origin_File = Open(Origin_Path);
-    File_Type Destination_File = Open(Destination_Path, true);
+    Drive_Types::File_Type Origin_File = Open(Origin_Path);
+    Drive_Types::File_Type Destination_File = Open(Destination_Path, true);
     return Copy(Origin_File, Destination_File);
 }
 
@@ -42,12 +42,12 @@ Result_Type Drive_Class::Remove_Directory(const char* Path, bool Recursive)
     if (!Recursive)
         return Remove_Directory(Path);
 
-    File_Type Directory = Open(Path);
+    Drive_Types::File_Type Directory = Open(Path);
 
     if (!Directory || !Directory.Is_Directory())
         return Result_Type::Error;
     
-    File_Type Item;
+    Drive_Types::File_Type Item;
     while (Item = Directory.Open_Next_File())
     {
         if (Item.Is_Directory())
@@ -65,7 +65,7 @@ Result_Type Drive_Class::Remove_Directory(const char* Path, bool Recursive)
 
 Result_Type Drive_Class::Remove(const char *Path)
 {
-    File_Type File = Open(Path);
+    Drive_Types::File_Type File = Open(Path);
     if (!File)
         return Result_Type::Error;
  
@@ -73,4 +73,14 @@ Result_Type Drive_Class::Remove(const char *Path)
         return Remove_Directory(Path, true);
     else
         return Remove_File(Path);
+}
+
+Result_Type Drive_Class::Cut(Drive_Types::File_Type &Origin_File, Drive_Types::File_Type &Destination_File)
+{
+    return Result_Type::Error;
+}
+
+Result_Type Drive_Class::Cut(const char *Path_From, const char *Path_To)
+{
+    return Result_Type::Error;
 }

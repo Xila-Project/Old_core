@@ -54,7 +54,7 @@ Result_Type WiFi_Class::Station_Class::Add(const String_Type &SSID, const String
 {
     // - Open registry
     DynamicJsonDocument WiFi_Registry(8 * 128);
-    File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
+    Drive_Types::File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
     // - Check if registry is valid
     if (!Registry_File || deserializeJson(WiFi_Registry, Registry_File) || (strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0) || WiFi_Registry["Access points"] == NULL)
     {
@@ -110,7 +110,7 @@ Result_Type WiFi_Class::Station_Class::Remove(const String_Type &SSID, int32_t C
 {
     // - Open registry
     DynamicJsonDocument Network_Registry(512);
-    File_Type Registry_File = Drive.Open(Registry("WiFi"));
+    Drive_Types::File_Type Registry_File = Drive.Open(Registry("WiFi"));
     if (!Registry_File || deserializeJson(Network_Registry, Registry_File) || (strcmp(Network_Registry["Registry"] | "", "WiFi") != 0))
     {
         Registry_File.Close();
@@ -161,7 +161,7 @@ bool WiFi_Class::Station_Class::Is_Known(const String_Type &SSID, const String_T
     StaticJsonDocument<32> Filter;
     Filter["Station"]["Access points"] = true;
     // - Open registry
-    File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
+    Drive_Types::File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
     DynamicJsonDocument WiFi_Registry(8 * 128);
 
     if (!Registry_File || deserializeJson(WiFi_Registry, Registry_File, DeserializationOption::Filter(Filter)) || (strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0))
@@ -215,7 +215,7 @@ Result_Type WiFi_Class::Create_Registry()
     WiFi_Registry["Registry"] = "WiFi";
     WiFi_Registry.createNestedObject("Station").createNestedArray("Access points");
 
-    File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
+    Drive_Types::File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
     if (!Registry_File || (serializeJson(WiFi_Registry, Registry_File) == 0))
     {
         Registry_File.Close();
@@ -231,7 +231,7 @@ Result_Type WiFi_Class::Create_Registry()
 /// @return Result_Type
 Result_Type WiFi_Class::Load_Registry()
 {
-    File_Type Temporary_File = Drive.Open(Registry("WiFi"), true);
+    Drive_Types::File_Type Temporary_File = Drive.Open(Registry("WiFi"), true);
     DynamicJsonDocument WiFi_Registry(8 * 128);
     if (deserializeJson(WiFi_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -256,7 +256,7 @@ Result_Type WiFi_Class::Save_Registry()
     DynamicJsonDocument WiFi_Registry(8 * 128);
     WiFi_Registry["Registry"] = "Network";
 
-    File_Type Regisitry_File = Drive.Open(Registry("Network"), true);
+    Drive_Types::File_Type Regisitry_File = Drive.Open(Registry("Network"), true);
 
     if (!Regisitry_File || deserializeJson(WiFi_Registry, Regisitry_File))
     {

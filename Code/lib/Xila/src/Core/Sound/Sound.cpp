@@ -80,7 +80,7 @@ Result_Type Sound_Class::Create_Registry()
 Result_Type Sound_Class::Load_Registry()
 {
     /*
-    File_Type Temporary_File = Drive.Open(Registry("Sound"));
+    Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Sound"));
     DynamicJsonDocument Sound_Registry(256);
     if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -123,7 +123,7 @@ Result_Type Sound_Class::Save_Registry()
     Sound_Registry["Clock Pin"] = Clock_Pin;
     Sound_Registry["Word Select Pin"] = Word_Select_Pin;
     Sound_Registry["Data Pin"] = Data_Pin;
-    File_Type Temporary_File = Drive.Open(Registry("Sound"), true);
+    Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Sound"), true);
     if (serializeJson(Sound_Registry, Temporary_File) == 0)
     {
         Temporary_File.Close();

@@ -17,7 +17,7 @@ File_Player_Class::File_Player_Class(Decoder_Type &Decoder)
 {
 }
 
-File_Player_Class::File_Player_Class(File_Type &Input_File, AudioStream &Output_Stream, Decoder_Type &Decoder)
+File_Player_Class::File_Player_Class(Drive_Types::File_Type &Input_File, AudioStream &Output_Stream, Decoder_Type &Decoder)
     : Encoded_Stream(&Output_Stream, &Decoder),
       Decoder(Decoder),
       Stream_Copier(Encoded_Stream, Input_File),

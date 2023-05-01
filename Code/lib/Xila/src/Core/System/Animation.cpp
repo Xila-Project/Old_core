@@ -87,7 +87,7 @@ void System_Class::Stop_Load_Animation(Object_Type *Logo, Graphics_Types::Animat
 {
   // - Play startup sound
   Log_Verbose("System", "Playing startup sound.");
-  File_Type Startup_Sound = Drive.Open("/Xila/Sounds/Startup.wav");
+  Drive_Types::File_Type Startup_Sound = Drive.Open("/Xila/Sounds/Startup.wav");
 
   WAVDecoder WAV_Decoder;
   Sound_Types::File_Player_Type File_Player(Startup_Sound, Sound.Volume_Stream, WAV_Decoder);

@@ -92,10 +92,10 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type &Instr
                 // - Print Users dir content 
                 Log_Verbose("Shell", "Users dir content :");
                 
-                File_Type Users = Drive.Open("/Users");
+                Drive_Types::File_Type Users = Drive.Open("/Users");
                 Users.Rewind_Directory();
 
-                File_Type Item = Users.Open_Next_File();
+                Drive_Types::File_Type Item = Users.Open_Next_File();
                 while (Item)
                 {
                     Log_Verbose("Login", "%s", Item.Get_Name());

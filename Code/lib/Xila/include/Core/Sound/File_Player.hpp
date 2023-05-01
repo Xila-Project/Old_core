@@ -31,7 +31,7 @@ namespace Xila_Namespace
             // - Methods
             // - - Constructors / Destructor
             File_Player_Class(Decoder_Type &Decoder);
-            File_Player_Class(File_Type &Input_File, AudioStream &Output_Stream, Decoder_Type &Decoder);
+            File_Player_Class(Drive_Types::File_Type &Input_File, AudioStream &Output_Stream, Decoder_Type &Decoder);
 
             ~File_Player_Class();
 
@@ -82,7 +82,7 @@ namespace Xila_Namespace
 
         private:
             Decoder_Type &Decoder;
-            File_Type Input_File;
+            Drive_Types::File_Type Input_File;
             Encoded_Stream_Type Encoded_Stream;
             Stream_Copier_Type Stream_Copier;
 

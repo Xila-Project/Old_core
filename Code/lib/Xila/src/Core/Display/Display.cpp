@@ -79,7 +79,7 @@ uint16_t Display_Class::Get_Standby_Time()
 /// @return Xila_Class::Success or Xila_Class::Error
 Result_Type Display_Class::Load_Registry()
 {
-    File_Type Temporary_File = Drive.Open(Registry("Display"));
+    Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Display"));
 
     StaticJsonDocument<256> Display_Registry;
     if (!Temporary_File || deserializeJson(Display_Registry, Temporary_File) || strcmp("Display", Display_Registry["Registry"] | "") != 0)
@@ -100,7 +100,7 @@ Result_Type Display_Class::Load_Registry()
 /// @return Result_Type
 Result_Type Display_Class::Save_Registry()
 {
-    File_Type Temporary_File = Drive.Open(Registry("Display"), true);
+    Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Display"), true);
     StaticJsonDocument<256> Display_Registry;
     
     if (!Temporary_File || deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok || strcmp("Display", Display_Registry["Registry"] | "") != 0)
@@ -126,7 +126,7 @@ Result_Type Display_Class::Create_Registry()
     StaticJsonDocument<256> Display_Registry;
     Display_Registry["Registry"] = "Display";
     
-    File_Type Temporary_File = Drive.Open(Registry("Display"), true);
+    Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Display"), true);
     if (!Temporary_File || serializeJson(Display_Registry, Temporary_File) == 0)
     {
         Temporary_File.Close();

@@ -85,7 +85,7 @@ void System_Class::Task_Function()
 ///
 /// @param Update_File Executable file.
 /// @return Result_Type
-Result_Type System_Class::Upgrade(File_Type Executable_File)
+Result_Type System_Class::Upgrade(Drive_Types::File_Type Executable_File)
 {
   if (!Executable_File || Executable_File.Is_Directory())
   {

@@ -49,7 +49,7 @@ Result_Type Accounts_Class::Create_Registry()
   StaticJsonDocument<256> Account_Registry;
   Account_Registry["Registry"] = "Account";
   // TODO : Change how to autologin.
-  File_Type Temporary_File = Drive.Open(Registry("Account"), true);
+  Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Account"), true);
   if (!Temporary_File || (serializeJson(Account_Registry, Temporary_File) == 0))
   {
     Temporary_File.Close();
@@ -64,7 +64,7 @@ Result_Type Accounts_Class::Create_Registry()
 /// @return Result_Type
 Result_Type Accounts_Class::Load_Registry()
 {
-  File_Type Temporary_File = Drive.Open(Registry("Account"));
+  Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Account"));
   StaticJsonDocument<256> Account_Registry;
 
   if (!Temporary_File || deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
@@ -92,7 +92,7 @@ Result_Type Accounts_Class::Load_Registry()
 
 Result_Type Accounts_Class::Save_Registry()
 {
-  File_Type Temporary_File = Drive.Open(Registry("Account"));
+  Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Account"));
   StaticJsonDocument<256> Account_Registry;
 
   if (!Temporary_File || deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
@@ -124,7 +124,7 @@ Result_Type Accounts_Class::Save_Registry()
 /// @return Result_Type
 Result_Type Accounts_Class::Set_Autologin(bool Enable, const String_Type &Name, const String_Type &Password)
 {
-  File_Type Temporary_File = Drive.Open(Registry("Account"), true);
+  Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Account"), true);
   StaticJsonDocument<256> Account_Registry;
   Account_Registry["Registry"] = "Account";
   if (Enable)
@@ -279,7 +279,7 @@ Result_Type Accounts_Class::Create(const String_Type &User_Name, const String_Ty
 
   Temporary_String += "/Registry/User.xrf";
 
-  File_Type Temporary_File = Drive.Open(Temporary_String, true);
+  Drive_Types::File_Type Temporary_File = Drive.Open(Temporary_String, true);
   StaticJsonDocument<512> User_Registry;
 
   User_Registry["Registry"] = "User";
@@ -434,7 +434,7 @@ Result_Type Accounts_Class::Change_Password(const String_Type &Name, const Strin
 
   char Temporary_Char[48];
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Name);
-  File_Type Temporary_File = Drive.Open(Temporary_Char, true);
+  Drive_Types::File_Type Temporary_File = Drive.Open(Temporary_Char, true);
   StaticJsonDocument<256> User_Registry;
   User_Registry["Registry"] = "User";
 
@@ -469,7 +469,7 @@ Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Che
 
     Log_Verbose("Accounts", "Temporary_Path : %s", (const char *)Temporary_Path);
 
-    File_Type Temporary_File = Drive.Open(Temporary_Path);
+    Drive_Types::File_Type Temporary_File = Drive.Open(Temporary_Path);
     StaticJsonDocument<512> User_Registry;
 
     if (!Temporary_File)
