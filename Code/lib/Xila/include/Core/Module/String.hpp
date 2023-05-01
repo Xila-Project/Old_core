@@ -543,8 +543,8 @@ namespace Xila_Namespace
             // log_printf("Static_String_Class::Static_String_Class(String_Class&& String) - String = %s \n", (const char *)String);
 
             Set_Buffer(this->Buffer, Length);
-            String.Characters_Pointer = NULL;
-            String.Size = 0;
+           // String.Characters_Pointer = NULL;
+           // String.Size = 0;
         }
 
         explicit Static_String_Class(char Character) : Static_String_Class()
@@ -634,7 +634,6 @@ namespace Xila_Namespace
 
     protected:
         char Buffer[Length + 1];
-
 
         friend class Unit_Test_Class;
     };

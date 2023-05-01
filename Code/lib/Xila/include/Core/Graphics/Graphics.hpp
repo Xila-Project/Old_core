@@ -74,7 +74,7 @@ namespace Xila_Namespace
         Result_Type Start();
         Result_Type Stop();
 
-        Object_Type Get_Top_Layer();
+        Graphics_Types::Object_Type Get_Top_Layer();
 
         // - - Task
         static void Task_Start_Function(void *Instance_Pointer);

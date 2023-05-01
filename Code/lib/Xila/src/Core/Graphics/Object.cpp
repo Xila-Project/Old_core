@@ -36,7 +36,7 @@ Object_Class::Object_Class(const Object_Class &Object_To_Copy) : Object_Class()
 
 // - - Operators
 
-Object_Type::Style_Selector_Type Xila_Namespace::operator|(Part_Type Part, Graphics_Types::State_Type State)
+Object_Type::Style_Selector_Type Xila_Namespace::Graphics_Types::operator|(Part_Type Part, State_Type State)
 {
     return static_cast<lv_part_t>(Part) | static_cast<lv_state_t>(State);
 }

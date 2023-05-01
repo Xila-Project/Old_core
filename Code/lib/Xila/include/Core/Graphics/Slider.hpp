@@ -15,56 +15,60 @@
 
 namespace Xila_Namespace
 {
-    typedef class Slider_Class : public Object_Class
+    namespace Graphics_Types
     {
-    public:
-        // - Types
-
-        typedef lv_slider_mode_t Mode_Type;
-
-        // - - Enumerations
-        enum Mode_Enumeration
+        /// @brief Slider class.
+        typedef class Slider_Class : public Object_Class
         {
-            Normal = LV_SLIDER_MODE_NORMAL,
-            Symmetrical = LV_SLIDER_MODE_SYMMETRICAL,
-            Range = LV_SLIDER_MODE_RANGE,
-        };
+        public:
+            // - Types
 
-        typedef enum Draw_Part_Enumeration
-        {
-            Knob = LV_SLIDER_DRAW_PART_KNOB,
-            Knob_Left = LV_SLIDER_DRAW_PART_KNOB_LEFT,
-        } Draw_Part_Type;
+            typedef lv_slider_mode_t Mode_Type;
 
-        // - Methods
+            // - - Enumerations
+            enum Mode_Enumeration
+            {
+                Normal = LV_SLIDER_MODE_NORMAL,
+                Symmetrical = LV_SLIDER_MODE_SYMMETRICAL,
+                Range = LV_SLIDER_MODE_RANGE,
+            };
 
-        // - - Constructors / destructors
-        Slider_Class();
-        Slider_Class(const Object_Class &Object_To_Copy);
+            typedef enum Draw_Part_Enumeration
+            {
+                Knob = LV_SLIDER_DRAW_PART_KNOB,
+                Knob_Left = LV_SLIDER_DRAW_PART_KNOB_LEFT,
+            } Draw_Part_Type;
 
-        // - - Manipulation
-        virtual void Create(Object_Class Parent_Object) override;
+            // - Methods
 
-        bool Is_Dragged();
+            // - - Constructors / destructors
+            Slider_Class();
+            Slider_Class(const Object_Class &Object_To_Copy);
 
-        // - - Setters.
-        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            // - - Manipulation
+            virtual void Create(Object_Class Parent_Object) override;
 
-        void Set_Value(int32_t Value, bool Animation);
-        void Set_Left_Value(int32_t Value, bool Animation);
-        void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
-        void Set_Mode(Mode_Type Mode);
+            bool Is_Dragged();
 
-        // - - Getters.
-        int32_t Get_Value();
-        int32_t Get_Left_Value();
-        int32_t Get_Minimum_Value();
-        int32_t Get_Maximum_Value();
-        Mode_Type Get_Mode();
+            // - - Setters.
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-        // - Attributes
-        static const Graphics_Types::Class_Type& Class;
-    } Slider_Type;
-}
+            void Set_Value(int32_t Value, bool Animation);
+            void Set_Left_Value(int32_t Value, bool Animation);
+            void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
+            void Set_Mode(Mode_Type Mode);
+
+            // - - Getters.
+            int32_t Get_Value();
+            int32_t Get_Left_Value();
+            int32_t Get_Minimum_Value();
+            int32_t Get_Maximum_Value();
+            Mode_Type Get_Mode();
+
+            // - Attributes
+            static const Class_Type &Class;
+        } Slider_Type;
+    } // namespace Graphics_Types
+} // namespace Xila_Namespace
 
 #endif

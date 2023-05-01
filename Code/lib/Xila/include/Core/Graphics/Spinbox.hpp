@@ -15,42 +15,46 @@
 
 namespace Xila_Namespace
 {
-    typedef class Spinbox_Class : public Object_Class
+    namespace Graphics_Types
     {
-    public:
-        // - Methods
-        
-        // - - Constructors / destructors
-        Spinbox_Class();
-        Spinbox_Class(const Object_Class &Object_To_Copy);
+        /// @brief Spinbox class.
+        typedef class Spinbox_Class : public Object_Class
+        {
+        public:
+            // - Methods
 
-        // - - Manipulation
-        virtual void Create(Object_Class Parent_Object) override;
+            // - - Constructors / destructors
+            Spinbox_Class();
+            Spinbox_Class(const Object_Class &Object_To_Copy);
 
-        // - - Manipulation.
-        void Step_Next();
-        void Step_Previous();
-        void Increment();
-        void Decrement();
+            // - - Manipulation
+            virtual void Create(Object_Class Parent_Object) override;
 
-        // - - Getters.
-        bool Get_Rollover();
-        int32_t Get_Value();
-        int32_t Get_Step();
+            // - - Manipulation.
+            void Step_Next();
+            void Step_Previous();
+            void Increment();
+            void Decrement();
 
-        // - - Setters.
-        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
-        void Set_Value(int32_t Value);
-        void Set_Rollover(bool Rollover);
-        void Set_Digit_Format(uint8_t Digit_Count, uint8_t DecimalSeparator_Position_Point_Position);
-        void Set_Step(uint32_t Step);
-        void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
-        void Set_Cursor_Position(uint8_t Cursor_Position);
-        void Set_Digit_Step_Direction(Direction_Type Direction);
+            // - - Getters.
+            bool Get_Rollover();
+            int32_t Get_Value();
+            int32_t Get_Step();
 
-        // - Attributes
-        static const Graphics_Types::Class_Type& Class;
-    } Spinbox_Type;
-}
+            // - - Setters.
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            void Set_Value(int32_t Value);
+            void Set_Rollover(bool Rollover);
+            void Set_Digit_Format(uint8_t Digit_Count, uint8_t DecimalSeparator_Position_Point_Position);
+            void Set_Step(uint32_t Step);
+            void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
+            void Set_Cursor_Position(uint8_t Cursor_Position);
+            void Set_Digit_Step_Direction(Direction_Type Direction);
+
+            // - Attributes
+            static const Class_Type &Class;
+        } Spinbox_Type;
+    } // namespace Graphics_Types
+} // namespace Xila_Namespace
 
 #endif

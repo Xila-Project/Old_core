@@ -133,7 +133,7 @@ void Berry_Class::REPL()
     // - Set interface
 
     Window.Set_Title("Berry");
-    Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
+    Window.Get_Body().Set_Flex_Flow(Graphics_Types::Flex_Flow_Type::Column);
 
     char Prompt_String_Local[(80 + 1) * 24 + 1];
     char Input_String[80 + 1];
@@ -148,7 +148,7 @@ void Berry_Class::REPL()
     Prompt_Container.Set_Width(Percentage(100));
     Prompt_Container.Set_Flex_Grow(1);
     Prompt_Container.Set_Style_Pad_All(0, 0);
-    Prompt_Container.Clear_Flag(Flag_Type::Scroll_Elastic); // - Remove, very annoying.
+    Prompt_Container.Clear_Flag(Graphics_Types::Flag_Type::Scroll_Elastic); // - Remove, very annoying.
 
     Prompt_Label.Create(Prompt_Container);
     Prompt_Label.Set_Width(Percentage(100));

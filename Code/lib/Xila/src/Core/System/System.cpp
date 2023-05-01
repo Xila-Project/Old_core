@@ -301,7 +301,7 @@ void System_Class::Load()
   }
 
   Graphics_Types::Animation_Type *Animation = new Graphics_Types::Animation_Type();
-  Object_Type Logo;
+  Graphics_Types::Object_Type Logo;
   this->Start_Load_Animation(&Logo, Animation);
 
   // - Check system folders.
@@ -367,7 +367,7 @@ void System_Class::Load()
 void System_Class::Shutdown()
 {
   Graphics_Types::Animation_Type *Animation = new Graphics_Types::Animation_Type;
-  Object_Type Logo;
+  Graphics_Types::Object_Type Logo;
   this->Start_Load_Animation(Logo, Animation);
 
   // Sound.Play(Sounds("Shutdown.wav"));
@@ -391,7 +391,7 @@ void System_Class::Shutdown()
 void System_Class::Restart()
 {
   Graphics_Types::Animation_Type *Animation = new Graphics_Types::Animation_Type;
-  Object_Type Logo;
+  Graphics_Types::Object_Type Logo;
   this->Start_Load_Animation(Logo, Animation);
 
   // Sound.Play(Sounds("Shutdown.wav"));

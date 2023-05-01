@@ -52,27 +52,27 @@ class File_Manager_Class : public Software_Type
 
     Graphics_Types::Window_Type Window;
 
-    Object_Type Grid;
-    Object_Type Flexbox;
+    Graphics_Types::Object_Type Grid;
+    Graphics_Types::Object_Type Flexbox;
     Graphics_Types::Text_Area_Type Path_Text_Area;
     Graphics_Types::List_Type List;
-    Object_Type Parent_Folder_Button;
-    Object_Type Home_Folder_Button;
-    Object_Type Root_Folder_Button;
-    Object_Type Refresh_Button;
-    Object_Type New_Folder_Button;
-    Object_Type New_File_Button;
-    Object_Type Select_Button;
-    Object_Type Deselect_Button;
-    Object_Type Delete_Button;
-    Object_Type Rename_Button;
-    Object_Type Copy_Button;
-    Object_Type Cut_Button;
-    Object_Type Paste_Button;
-    Object_Type Details_Button;
+    Graphics_Types::Object_Type Parent_Folder_Button;
+    Graphics_Types::Object_Type Home_Folder_Button;
+    Graphics_Types::Object_Type Root_Folder_Button;
+    Graphics_Types::Object_Type Refresh_Button;
+    Graphics_Types::Object_Type New_Folder_Button;
+    Graphics_Types::Object_Type New_File_Button;
+    Graphics_Types::Object_Type Select_Button;
+    Graphics_Types::Object_Type Deselect_Button;
+    Graphics_Types::Object_Type Delete_Button;
+    Graphics_Types::Object_Type Rename_Button;
+    Graphics_Types::Object_Type Copy_Button;
+    Graphics_Types::Object_Type Cut_Button;
+    Graphics_Types::Object_Type Paste_Button;
+    Graphics_Types::Object_Type Details_Button;
 
     Graphics_Types::Dialog_Type Details_Dialog;
-    Table_Type Details_Table;
+    Graphics_Types::Table_Type Details_Table;
 
     Graphics_Types::Keyboard_Type Keyboard;
 

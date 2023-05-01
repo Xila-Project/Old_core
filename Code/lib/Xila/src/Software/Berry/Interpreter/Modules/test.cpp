@@ -1,4 +1,4 @@
-
+#include "test.hpp"
 #include "Software/Berry/Berry.hpp"
 #include "be_constobj.h"
 #include "be_mapping.h"
@@ -32,51 +32,47 @@ const float ftoc(float f)
 
 BE_FUNC_CTYPE_DECLARE(ftoc, "f", "f")
 
-class Foo_Class
+Foo_Class::Foo_Class(const char *Name)
 {
-public:
-    Foo_Class(const char* Name)
-    {
-        strlcpy(this->Name, Name, sizeof(this->Name));
-        Log_Verbose("Berry", "Foo() with name : %s", Name);
-    }
+    strlcpy(this->Name, Name, sizeof(this->Name));
+    Log_Verbose("Berry", "Foo() with name : %s", Name);
+}
 
-    ~Foo_Class()
-    {
-        Log_Verbose("Berry", "~Foo() with name : %s", Name);
-    }
+Foo_Class::~Foo_Class()
+{
+    Log_Verbose("Berry", "~Foo() with name : %s", Name);
+}
 
-    bool Clap()
-    {
-        Log_Verbose("Berry", "Foo::Clap() with name : %s", Name);
-        return true;
-    }
+bool Foo_Class::Clap(int Test)
+{
+    Log_Verbose("Berry", "Foo::Clap() with name : %s", Name);
+    return true;
+}
 
-private:
-    char Name[32];
-};
 
-const void* Be_Foo_Init(const char* Name)
+
+
+
+const void *Be_Foo_Init(const char *Name)
 {
     return new Foo_Class(Name);
 }
 
 BE_FUNC_CTYPE_DECLARE(Be_Foo_Init, "+_p", "s")
 
-void Be_Foo_Deinit(void* Instance)
+void Be_Foo_Deinit(void *Instance)
 {
-    delete static_cast<Foo_Class*>(Instance);
+    delete static_cast<Foo_Class *>(Instance);
 }
 
 BE_FUNC_CTYPE_DECLARE(Be_Foo_Deinit, "", ".")
 
-bool Be_Foo_Clap(void* Instance)
+bool Be_Foo_Clap(void *Instance, int Test)
 {
-    return static_cast<Foo_Class*>(Instance)->Clap();
+    return static_cast<Foo_Class *>(Instance)->Clap(Test);
 }
 
-BE_FUNC_CTYPE_DECLARE(Be_Foo_Clap, "b", ".")
-
+BE_FUNC_CTYPE_DECLARE(Be_Foo_Clap, "b", ".i")
 
 extern "C"
 {
@@ -92,7 +88,7 @@ class be_class_foo (scope:global, name:Foo)
 
     Clap, ctype_func(Be_Foo_Clap)
 }
-@const_object_info_end 
+@const_object_info_end
 
 @const_object_info_begin
 module test (scope: global) {

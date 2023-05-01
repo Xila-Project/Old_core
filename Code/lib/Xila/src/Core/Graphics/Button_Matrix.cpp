@@ -42,22 +42,22 @@ void Button_Matrix_Class::Create(Object_Class Parent_Object)
     }
 }
 
-void Button_Matrix_Class::Clear_Button_Control(uint16_t Button_Identifier, Control::Type Control)
+void Button_Matrix_Class::Clear_Button_Control(uint16_t Button_Identifier, Button_Matrix_Control_Type Control)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_btnmatrix_clear_btn_ctrl(Get_Pointer(), Button_Identifier, Control);
+    lv_btnmatrix_clear_btn_ctrl(Get_Pointer(), Button_Identifier, static_cast<lv_btnmatrix_ctrl_t>(Control));
 }
 
-void Button_Matrix_Class::Clear_All_Buttons_Control(Control::Type Control)
+void Button_Matrix_Class::Clear_All_Buttons_Control(Button_Matrix_Control_Type Control)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_btnmatrix_clear_btn_ctrl_all(Get_Pointer(), Control);
+    lv_btnmatrix_clear_btn_ctrl_all(Get_Pointer(), static_cast<lv_btnmatrix_ctrl_t>(Control));
 }
 
-bool Button_Matrix_Class::Has_Button_Control(uint16_t Button_Identifier, Control::Type Control)
+bool Button_Matrix_Class::Has_Button_Control(uint16_t Button_Identifier, Button_Matrix_Control_Type Control)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_btnmatrix_has_btn_ctrl(Get_Pointer(), Button_Identifier, Control);
+    return lv_btnmatrix_has_btn_ctrl(Get_Pointer(), Button_Identifier, static_cast<lv_btnmatrix_ctrl_t>(Control));
 }
 
 // ------------------------------------------------------------------------- //
@@ -93,11 +93,12 @@ void Button_Matrix_Class::Set_Map(const char **Map)
     lv_btnmatrix_set_map(Get_Pointer(), Map);
 }
 
-void Button_Matrix_Class::Set_Control_Map(Control::Type *Map)
+void Button_Matrix_Class::Set_Control_Map(Button_Matrix_Control_Type *Map)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_btnmatrix_set_ctrl_map(Get_Pointer(), Map);
+    lv_btnmatrix_set_ctrl_map(Get_Pointer(), reinterpret_cast<lv_btnmatrix_ctrl_t*>(Map));
 }
+
 
 void Button_Matrix_Class::Set_Selected_Button(uint16_t Button_Identifier)
 {
@@ -105,16 +106,16 @@ void Button_Matrix_Class::Set_Selected_Button(uint16_t Button_Identifier)
     lv_btnmatrix_set_selected_btn(Get_Pointer(), Button_Identifier);
 }
 
-void Button_Matrix_Class::Set_Button_Control(uint16_t Button_Identifier, Control::Type Control)
+void Button_Matrix_Class::Set_Button_Control(uint16_t Button_Identifier, Button_Matrix_Control_Type Control)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_btnmatrix_set_btn_ctrl(Get_Pointer(), Button_Identifier, Control);
+    lv_btnmatrix_set_btn_ctrl(Get_Pointer(), Button_Identifier, static_cast<lv_btnmatrix_ctrl_t>(Control));
 }
 
-void Button_Matrix_Class::Set_Button_Control_All(Control::Type Control)
+void Button_Matrix_Class::Set_Button_Control_All(Button_Matrix_Control_Type Control)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_btnmatrix_set_btn_ctrl_all(Get_Pointer(), Control);
+    lv_btnmatrix_set_btn_ctrl_all(Get_Pointer(), static_cast<lv_btnmatrix_ctrl_t>(Control));
 }
 
 void Button_Matrix_Class::Set_One_Checked(bool Enabled)

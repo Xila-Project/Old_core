@@ -15,90 +15,89 @@
 
 namespace Xila_Namespace
 {
-    typedef class Button_Matrix_Class : public Object_Class
+    namespace Graphics_Types
     {
-    public:
-        // - Types
+        // - Base types
+        using Button_Matrix_Draw_Callback_Type = lv_btnmatrix_btn_draw_cb_t;
+        
+        enum class Button_Matrix_Control_Type : lv_btnmatrix_ctrl_t
+        {
+            Hidden = LV_BTNMATRIX_CTRL_HIDDEN,
+            No_Repeat = LV_BTNMATRIX_CTRL_NO_REPEAT,
+            Disabled = LV_BTNMATRIX_CTRL_DISABLED,
+            Checkable = LV_BTNMATRIX_CTRL_CHECKABLE,
+            Checked = LV_BTNMATRIX_CTRL_CHECKED,
+            Click_Trigger = LV_BTNMATRIX_CTRL_CLICK_TRIG,
+            Popover = LV_BTNMATRIX_CTRL_POPOVER,
+            Recolor = LV_BTNMATRIX_CTRL_RECOLOR,
+            Custom_1 = LV_BTNMATRIX_CTRL_CUSTOM_1,
+            Custom_2 = LV_BTNMATRIX_CTRL_CUSTOM_2
+        };
 
-        typedef lv_btnmatrix_btn_draw_cb_t Button_Draw_Callback_Type;
 
-        // - Enumerations
-
-        class Control
+        /// @brief Button matrix class.
+        typedef class Button_Matrix_Class : public Object_Class
         {
         public:
-            typedef lv_btnmatrix_ctrl_t Type;
 
-            enum Enumeration
+            // - Enumerations
+
+            class Draw_Part
             {
-                Hidden = LV_BTNMATRIX_CTRL_HIDDEN,
-                No_Repeat = LV_BTNMATRIX_CTRL_NO_REPEAT,
-                Disabled = LV_BTNMATRIX_CTRL_DISABLED,
-                Checkable = LV_BTNMATRIX_CTRL_CHECKABLE,
-                Checked = LV_BTNMATRIX_CTRL_CHECKED,
-                Click_Trigger = LV_BTNMATRIX_CTRL_CLICK_TRIG,
-                Popover = LV_BTNMATRIX_CTRL_POPOVER,
-                Recolor = LV_BTNMATRIX_CTRL_RECOLOR,
-                Custom_1 = LV_BTNMATRIX_CTRL_CUSTOM_1,
-                Custom_2 = LV_BTNMATRIX_CTRL_CUSTOM_2
+            public:
+                typedef enum Enumeration
+                {
+                    Button = LV_BTNMATRIX_DRAW_PART_BTN
+                } Type;
             };
-        };
 
-        class Draw_Part
-        {
-        public:
-            typedef enum Enumeration
-            {
-                Button = LV_BTNMATRIX_DRAW_PART_BTN
-            } Type;
-        };
+            // - Methods
 
-        // - Methods
+            // - - Constructor / destructor
 
-        // - - Constructor / destructor
+            /// @brief Default constructor.
+            Button_Matrix_Class();
 
-        /// @brief Default constructor.
-        Button_Matrix_Class();
+            /// @brief Copy constructor.
+            Button_Matrix_Class(const Object_Class &Object_To_Copy);
 
-        /// @brief Copy constructor.
-        Button_Matrix_Class(const Object_Class &Object_To_Copy);
+            // - - Manipulation
 
-        // - - Manipulation
+            /// @brief Create a new button matrix object.
+            /// @param Parent_Object Parent object of the new button matrix.
+            virtual void Create(Object_Class Parent_Object) override;
 
-        /// @brief Create a new button matrix object.
-        /// @param Parent_Object Parent object of the new button matrix.
-        virtual void Create(Object_Class Parent_Object) override;
+            /// @brief
+            void Clear_Button_Control(uint16_t Button_Identifier, Button_Matrix_Control_Type Control);
+            void Clear_All_Buttons_Control(Button_Matrix_Control_Type Control);
+            bool Has_Button_Control(uint16_t Button_Identifier, Button_Matrix_Control_Type Control);
 
-        /// @brief 
-        void Clear_Button_Control(uint16_t Button_Identifier, Control::Type Control);
-        void Clear_All_Buttons_Control(Control::Type Control);
-        bool Has_Button_Control(uint16_t Button_Identifier, Control::Type Control);
+            // - - Setters.
 
-        // - - Setters.
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            void Set_Button_Width(uint16_t Button_Identifier, uint8_t Width);
 
-        void Set_Button_Width(uint16_t Button_Identifier, uint8_t Width);
+            void Set_Map(const char **Map);
+            void Set_Control_Map(Button_Matrix_Control_Type *Map);
+            void Set_Selected_Button(uint16_t Button_Identifier);
+            void Set_Button_Control(uint16_t Button_Identifier, Button_Matrix_Control_Type Control);
+            void Set_Button_Control_All(Button_Matrix_Control_Type Control);
 
-        void Set_Map(const char **Map);
-        void Set_Control_Map(Control::Type *Map);
-        void Set_Selected_Button(uint16_t Button_Identifier);
-        void Set_Button_Control(uint16_t Button_Identifier, Control::Type Control);
-        void Set_Button_Control_All(Control::Type Control);
+            void Set_One_Checked(bool Enabled);
 
-        void Set_One_Checked(bool Enabled);
+            // - - Getters
+            const char **Get_Map();
+            uint16_t Get_Selected_Button();
 
-        // - - Getters
-        const char **Get_Map();
-        uint16_t Get_Selected_Button();
+            const char *Get_Button_Text(uint16_t Button_Identifier);
+            bool Get_Popovers();
+            bool Get_One_Checked();
 
-        const char *Get_Button_Text(uint16_t Button_Identifier);
-        bool Get_Popovers();
-        bool Get_One_Checked();    
-
-        // - - Attributes
-        static const Graphics_Types::Class_Type& Class;
-    } Button_Matrix_Type;
+            // - - Attributes
+            static const Class_Type &Class;
+        } Button_Matrix_Type;
+    }
 }
 
 #endif

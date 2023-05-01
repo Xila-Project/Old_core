@@ -22,6 +22,8 @@
 
 namespace Xila_Namespace
 {
+    namespace Graphics_Types
+    {
     /// @brief Bar class.
     typedef class Bar_Class : public Object_Class
     {
@@ -120,9 +122,11 @@ namespace Xila_Namespace
         // - - Attributes
 
         /// @brief Bar class.
-        static const Graphics_Types::Class_Type &Class;
+        static const Class_Type &Class;
 
     } Bar_Type;
-}
+    
+        } // namespace Graphics_Types
+}   // namespace Xila_Namespace
 
 #endif

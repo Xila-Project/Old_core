@@ -69,7 +69,7 @@ class Berry_Class : public Software_Type
     Graphics_Types::Keyboard_Type Keyboard;
     Graphics_Types::Text_Area_Type Input_Text_Area;
     Graphics_Types::Label_Type Prompt_Label;
-    Object_Type Prompt_Container;
+    Graphics_Types::Object_Type Prompt_Container;
 
     static bool Softwares_Handles_Loaded;
 

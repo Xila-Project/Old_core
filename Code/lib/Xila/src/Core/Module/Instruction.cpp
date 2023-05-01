@@ -65,12 +65,12 @@ void Instruction_Class::Graphics_Class::Set_Code(Graphics_Types::Event_Code_Type
     this->Code = Code;
 }
 
-void Instruction_Class::Graphics_Class::Set_Target_Pointer(Object_Type Object)
+void Instruction_Class::Graphics_Class::Set_Target_Pointer(Graphics_Types::Object_Type Object)
 {
     Target_Pointer = Object.Get_Pointer();
 }
 
-void Instruction_Class::Graphics_Class::Set_Current_Target_Pointer(Object_Type Object)
+void Instruction_Class::Graphics_Class::Set_Current_Target_Pointer(Graphics_Types::Object_Type Object)
 {
     Current_Target_Pointer = Object.Get_Pointer();
 }
@@ -82,12 +82,12 @@ Graphics_Types::Event_Code_Type Instruction_Class::Graphics_Class::Get_Code() co
     return Code;
 }
 
-Object_Type Instruction_Class::Graphics_Class::Get_Target() const
+Graphics_Types::Object_Type Instruction_Class::Graphics_Class::Get_Target() const
 {
-    return Object_Type(static_cast<lv_obj_t *>(Target_Pointer));
+    return Graphics_Types::Object_Type(static_cast<lv_obj_t *>(Target_Pointer));
 }
 
-Object_Type Instruction_Class::Graphics_Class::Get_Current_Target() const
+Graphics_Types::Object_Type Instruction_Class::Graphics_Class::Get_Current_Target() const
 {
-    return Object_Type(static_cast<lv_obj_t *>(Current_Target_Pointer));
+    return Graphics_Types::Object_Type(static_cast<lv_obj_t *>(Current_Target_Pointer));
 }

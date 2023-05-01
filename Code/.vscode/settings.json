@@ -332,7 +332,9 @@
     "be_class.h": "c",
     "be_module.h": "c",
     "be_list.h": "c",
-    "be_fixed_test_class.h": "c"
+    "be_fixed_test_class.h": "c",
+    "codecvt": "cpp",
+    "variant": "cpp"
   },
   "commentTranslate.source": "intellsmi.deepl-translate-deepl",
   "cSpell.words": [

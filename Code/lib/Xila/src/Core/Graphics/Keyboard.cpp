@@ -68,10 +68,10 @@ bool Keyboard_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     return true;
 }
 
-void Keyboard_Class::Set_Map(Mode_Type Mode, const char *Map[], const Button_Matrix_Class::Control::Type Control_Map[])
+void Keyboard_Class::Set_Map(Mode_Type Mode, const char *Map[], const Button_Matrix_Control_Type Control_Map[])
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_keyboard_set_map(Get_Pointer(), Mode, Map, Control_Map);
+    lv_keyboard_set_map(Get_Pointer(), Mode, Map, reinterpret_cast<const lv_btnmatrix_ctrl_t*>(Control_Map));
 }
 
 void Keyboard_Class::Set_Mode(Mode_Type Mode)

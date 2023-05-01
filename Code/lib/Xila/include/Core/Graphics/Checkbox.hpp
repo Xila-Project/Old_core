@@ -45,7 +45,7 @@ namespace Xila_Namespace
             const char *Get_Text();
 
             // - Attributes
-            static const Graphics_Types::Class_Type &Class;
+            static const Class_Type &Class;
 
         } Checkbox_Type;
     } // namespace Graphics_Types

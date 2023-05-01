@@ -56,27 +56,27 @@ class Preferences_Class : public Software_Type
     // - Attributes
 
     Graphics_Types::Window_Type Window;
-    Tabs_Type Tabs;
-    Object_Type Personal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
+    Graphics_Types::Tabs_Type Tabs;
+    Graphics_Types::Object_Type Personal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
 
     Graphics_Types::Keyboard_Type Keyboard;
 
     // - - Personal
 
-    Button_Type Personal_Style_Apply_Button;
-    Button_Type Personal_Style_Background_Button;
-    Button_Type Personal_Style_Foreground_Button;
+    Graphics_Types::Button_Type Personal_Style_Apply_Button;
+    Graphics_Types::Button_Type Personal_Style_Background_Button;
+    Graphics_Types::Button_Type Personal_Style_Foreground_Button;
 
     // - - Wireless
 
-    Switch_Type Wireless_WiFi_Switch;
-    Button_Type Wireless_WiFi_Refresh_Button;
-    Button_Type Wireless_WiFi_Informations_Button;
-    Button_Type Wireless_WiFi_Connect_Button;
-    Roller_Type Wireless_WiFi_Access_Point_Roller;
+    Graphics_Types::Switch_Type Wireless_WiFi_Switch;
+    Graphics_Types::Button_Type Wireless_WiFi_Refresh_Button;
+    Graphics_Types::Button_Type Wireless_WiFi_Informations_Button;
+    Graphics_Types::Button_Type Wireless_WiFi_Connect_Button;
+    Graphics_Types::Roller_Type Wireless_WiFi_Access_Point_Roller;
     Graphics_Types::Text_Area_Type Wireless_WiFi_Password_Text_Area;
 
-    Button_Type Wireless_Network_Apply_Button;
+    Graphics_Types::Button_Type Wireless_Network_Apply_Button;
     Graphics_Types::Checkbox_Type Wireless_Network_DHCP_Checkbox;
     Graphics_Types::Text_Area_Type Wireless_Network_Local_IP_Text_Area;
     Graphics_Types::Text_Area_Type Wireless_Network_Gateway_IP_Text_Area;
@@ -85,12 +85,12 @@ class Preferences_Class : public Software_Type
     Graphics_Types::Text_Area_Type Wireless_Network_DNS_2_Text_Area;
 
     // - - Users
-    Button_Type Users_Apply_Button;
-    Button_Type Users_Delete_Your_Account_Button;
-    Button_Type Users_Delete_User_Button;
-    Button_Type Users_Add_User_Button;
+    Graphics_Types::Button_Type Users_Apply_Button;
+    Graphics_Types::Button_Type Users_Delete_Your_Account_Button;
+    Graphics_Types::Button_Type Users_Delete_User_Button;
+    Graphics_Types::Button_Type Users_Add_User_Button;
 
-    Roller_Type Users_Roller;
+    Graphics_Types::Roller_Type Users_Roller;
 
     Graphics_Types::Text_Area_Type Users_Add_User_Name_Text_Area;
     Graphics_Types::Text_Area_Type Users_Add_User_Password_Text_Area;
@@ -102,32 +102,32 @@ class Preferences_Class : public Software_Type
 
     // - - Hardware
 
-    Button_Type Hardware_Display_Calibrate_Button;
-    Slider_Type Hardware_Display_Brightness_Slider;
-    Slider_Type Hardware_Sound_Volume_Slider;
+    Graphics_Types::Button_Type Hardware_Display_Calibrate_Button;
+    Graphics_Types::Slider_Type Hardware_Display_Brightness_Slider;
+    Graphics_Types::Slider_Type Hardware_Sound_Volume_Slider;
     Graphics_Types::Label_Type Hardware_Battery_Level_Label;
     Graphics_Types::Label_Type Hardware_Drive_Informations_Label;
-    Roller_Type Hardware_Energy_Standby_Roller;
-    Button_Type Hardware_Energy_Apply_Button;
+    Graphics_Types::Roller_Type Hardware_Energy_Standby_Roller;
+    Graphics_Types::Button_Type Hardware_Energy_Apply_Button;
 
     // - - Softwares
 
-    Roller_Type Softwares_Roller;
-    Button_Type Softwares_Delete_Button;
+    Graphics_Types::Roller_Type Softwares_Roller;
+    Graphics_Types::Button_Type Softwares_Delete_Button;
 
     // - - System
 
-    Button_Type System_Device_Apply_Button;
+    Graphics_Types::Button_Type System_Device_Apply_Button;
     Graphics_Types::Text_Area_Type System_Device_Name_Text_Area;
-    Button_Type System_Update_Button;
-    Button_Type System_Reboot_Loader_Button;
+    Graphics_Types::Button_Type System_Update_Button;
+    Graphics_Types::Button_Type System_Reboot_Loader_Button;
 
-    Button_Type System_Time_Apply_Button;
-    Button_Type System_Time_Plus_Button;
-    Button_Type System_Time_Minus_Button;
-    Spinbox_Type System_Time_Daylight_Offset_Spinbox;
+    Graphics_Types::Button_Type System_Time_Apply_Button;
+    Graphics_Types::Button_Type System_Time_Plus_Button;
+    Graphics_Types::Button_Type System_Time_Minus_Button;
+    Graphics_Types::Spinbox_Type System_Time_Daylight_Offset_Spinbox;
     Graphics_Types::Text_Area_Type System_Time_NTP_Server_Text_Area;
-    Roller_Type System_Time_Zone_Roller;
+    Graphics_Types::Roller_Type System_Time_Zone_Roller;
 
     friend class Preferences_Handle_Class;
 };

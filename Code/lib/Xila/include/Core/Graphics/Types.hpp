@@ -16,163 +16,161 @@
 
 namespace Xila_Namespace
 {
-
-    enum class Part_Type
-    {
-        Main = LV_PART_MAIN,                        /// < Main part of the object.
-        Scrollbar = LV_PART_SCROLLBAR,              /// < Scrollbar part.
-        Indicator = LV_PART_INDICATOR,              /// < Indicator part of a scrollbar.
-        Knob = LV_PART_KNOB,                        /// < Knob of a scrollbar
-        Selected = LV_PART_SELECTED,                /// < The part of a list is selected.
-        Items = LV_PART_ITEMS,                      /// < The part of the list where the items are drawn.
-        Ticks = LV_PART_TICKS,                      /// < Ticks of a gauge
-        Cursor = LV_PART_CURSOR,                    /// < Cursor of a slider
-        Custom_First = LV_PART_CUSTOM_FIRST,        /// < First custom part
-        Placeholder = LV_PART_TEXTAREA_PLACEHOLDER, /// < (only for text area objects).
-        Any = LV_PART_ANY                           /// < Any part of the object.
-    };
-
-    enum class Direction_Type
-    {
-        None = LV_DIR_NONE,
-        Left = LV_DIR_LEFT,
-        Right = LV_DIR_RIGHT,
-        Top = LV_DIR_TOP,
-        Bottom = LV_DIR_BOTTOM,
-        Horizontal = LV_DIR_HOR,
-        Vertical = LV_DIR_VER,
-        All = LV_DIR_ALL,
-    };
-
-    enum class Alignment_Type : uint8_t
-    {
-        Default = LV_ALIGN_DEFAULT,
-        Top_Left = LV_ALIGN_TOP_LEFT,
-        Top_Middle = LV_ALIGN_TOP_MID,
-        Top_Right = LV_ALIGN_TOP_RIGHT,
-        Middle_Left = LV_ALIGN_LEFT_MID,
-        Center = LV_ALIGN_CENTER,
-        Middle_Right = LV_ALIGN_RIGHT_MID,
-        Bottom_Left = LV_ALIGN_BOTTOM_LEFT,
-        Bottom_Middle = LV_ALIGN_BOTTOM_MID,
-        Bottom_Right = LV_ALIGN_BOTTOM_RIGHT,
-
-        Out_Top_Left = LV_ALIGN_OUT_TOP_LEFT,
-        Out_Top_Middle = LV_ALIGN_OUT_TOP_MID,
-        Out_Top_Right = LV_ALIGN_OUT_TOP_RIGHT,
-        Out_Bottom_Left = LV_ALIGN_OUT_BOTTOM_LEFT,
-        Out_Bottom_Middle = LV_ALIGN_OUT_BOTTOM_MID,
-        Out_Bottom_Right = LV_ALIGN_OUT_BOTTOM_RIGHT,
-        Out_Left_Top = LV_ALIGN_OUT_LEFT_TOP,
-        Out_Left_Middle = LV_ALIGN_OUT_LEFT_MID,
-        Out_Left_Bottom = LV_ALIGN_OUT_LEFT_BOTTOM,
-        Out_Right_Top = LV_ALIGN_OUT_RIGHT_TOP,
-        Out_Right_Middle = LV_ALIGN_OUT_RIGHT_MID,
-        Out_Right_Bottom = LV_ALIGN_OUT_RIGHT_BOTTOM
-    };
-
-    enum class Grid_Alignment_Type
-    {
-        Start = LV_GRID_ALIGN_START,
-        Center = LV_GRID_ALIGN_CENTER,
-        End = LV_GRID_ALIGN_END,
-        Stretch = LV_GRID_ALIGN_STRETCH,
-        Space_Evenly = LV_GRID_ALIGN_SPACE_EVENLY,
-        Space_Around = LV_GRID_ALIGN_SPACE_AROUND,
-        Space_Between = LV_GRID_ALIGN_SPACE_BETWEEN
-    };
-
-    /// @brief Flex flow enumeration and type.
-    enum class Flex_Flow_Type
-    {
-        Row = LV_FLEX_FLOW_ROW,
-        Column = LV_FLEX_FLOW_COLUMN,
-        Wrap = LV_FLEX_FLOW_ROW_WRAP,
-        Reverse = LV_FLEX_FLOW_ROW_REVERSE,
-        Wrap_Reverse = LV_FLEX_FLOW_ROW_WRAP_REVERSE,
-        Column_Wrap = LV_FLEX_FLOW_COLUMN_WRAP,
-        Column_Reverse = LV_FLEX_FLOW_COLUMN_REVERSE,
-        Column_Wrap_Reverse = LV_FLEX_FLOW_COLUMN_WRAP_REVERSE,
-    };
-
-    /// @brief Flex align type.
-    enum class Flex_Alignment_Type
-    {
-        Start = LV_FLEX_ALIGN_START,
-        End = LV_FLEX_ALIGN_END,
-        Center = LV_FLEX_ALIGN_CENTER,
-        Space_Evenly = LV_FLEX_ALIGN_SPACE_EVENLY,
-        Space_Around = LV_FLEX_ALIGN_SPACE_AROUND,
-        Space_Between = LV_FLEX_ALIGN_SPACE_BETWEEN
-    };
-
-    enum class Opacity_Type : uint8_t
-    {
-
-        Transparent = LV_OPA_TRANSP,
-        Opacity_0_Percent = LV_OPA_0,
-        Opacity_10_Percent = LV_OPA_10,
-        Opacity_20_Percent = LV_OPA_20,
-        Opacity_30_Percent = LV_OPA_30,
-        Opacity_40_Percent = LV_OPA_40,
-        Opacity_50_Percent = LV_OPA_50,
-        Opacity_60_Percent = LV_OPA_60,
-        Opacity_70_Percent = LV_OPA_70,
-        Opacity_80_Percent = LV_OPA_80,
-        Opacity_90_Percent = LV_OPA_90,
-        Opacity_100_Percent = LV_OPA_100,
-        Cover = LV_OPA_COVER
-    };
-
-    enum class Border_Side_Type : uint8_t
-    {
-
-        None = LV_BORDER_SIDE_NONE,
-        Bottom = LV_BORDER_SIDE_BOTTOM,
-        Top = LV_BORDER_SIDE_TOP,
-        Left = LV_BORDER_SIDE_LEFT,
-        Right = LV_BORDER_SIDE_RIGHT,
-        Full = LV_BORDER_SIDE_FULL,
-        Internal = LV_BORDER_SIDE_INTERNAL, /**< FOR matrix-like objects (e.g. Button matrix)*/
-    };
-
-    enum class Flag_Type
-    {
-        Hidden = LV_OBJ_FLAG_HIDDEN,
-        Clickable = LV_OBJ_FLAG_CLICKABLE,
-        Click_Focusable = LV_OBJ_FLAG_CLICK_FOCUSABLE,
-        Checkable = LV_OBJ_FLAG_CHECKABLE,
-        Scrollable = LV_OBJ_FLAG_SCROLLABLE,
-        Scroll_Elastic = LV_OBJ_FLAG_SCROLL_ELASTIC,
-        Scroll_Momentum = LV_OBJ_FLAG_SCROLL_MOMENTUM,
-        Scroll_One = LV_OBJ_FLAG_SCROLL_ONE,
-        Scroll_Chain_Horizontal = LV_OBJ_FLAG_SCROLL_CHAIN_HOR,
-        Scroll_Chain_Vertical = LV_OBJ_FLAG_SCROLL_CHAIN_VER,
-        Scroll_Chain = LV_OBJ_FLAG_SCROLL_CHAIN,
-        Scroll_On_Focus = LV_OBJ_FLAG_SCROLL_ON_FOCUS,
-        Scroll_With_Arrow = LV_OBJ_FLAG_SCROLL_WITH_ARROW,
-        Snappable = LV_OBJ_FLAG_SNAPPABLE,
-        Press_Lock = LV_OBJ_FLAG_PRESS_LOCK,
-        Event_Bubble = LV_OBJ_FLAG_EVENT_BUBBLE,
-        Gesture_Bubble = LV_OBJ_FLAG_GESTURE_BUBBLE,
-        Adv_Hittest = LV_OBJ_FLAG_ADV_HITTEST,
-        Ignore_Layout = LV_OBJ_FLAG_IGNORE_LAYOUT,
-        Floating = LV_OBJ_FLAG_FLOATING,
-        Overflow_Visible = LV_OBJ_FLAG_OVERFLOW_VISIBLE,
-        Layout_1 = LV_OBJ_FLAG_LAYOUT_1,
-        Layout_2 = LV_OBJ_FLAG_LAYOUT_2,
-        Widget_1 = LV_OBJ_FLAG_WIDGET_1,
-        Widget_2 = LV_OBJ_FLAG_WIDGET_2,
-        Custom_1 = LV_OBJ_FLAG_USER_1,
-        Custom_2 = LV_OBJ_FLAG_USER_2,
-        Custom_3 = LV_OBJ_FLAG_USER_3,
-        Custom_4 = LV_OBJ_FLAG_USER_4,
-    };
-
-    typedef lv_coord_t Coordinate_Type;
-
     namespace Graphics_Types
     {
+        enum class Part_Type
+        {
+            Main = LV_PART_MAIN,                        /// < Main part of the object.
+            Scrollbar = LV_PART_SCROLLBAR,              /// < Scrollbar part.
+            Indicator = LV_PART_INDICATOR,              /// < Indicator part of a scrollbar.
+            Knob = LV_PART_KNOB,                        /// < Knob of a scrollbar
+            Selected = LV_PART_SELECTED,                /// < The part of a list is selected.
+            Items = LV_PART_ITEMS,                      /// < The part of the list where the items are drawn.
+            Ticks = LV_PART_TICKS,                      /// < Ticks of a gauge
+            Cursor = LV_PART_CURSOR,                    /// < Cursor of a slider
+            Custom_First = LV_PART_CUSTOM_FIRST,        /// < First custom part
+            Placeholder = LV_PART_TEXTAREA_PLACEHOLDER, /// < (only for text area objects).
+            Any = LV_PART_ANY                           /// < Any part of the object.
+        };
+
+        enum class Direction_Type
+        {
+            None = LV_DIR_NONE,
+            Left = LV_DIR_LEFT,
+            Right = LV_DIR_RIGHT,
+            Top = LV_DIR_TOP,
+            Bottom = LV_DIR_BOTTOM,
+            Horizontal = LV_DIR_HOR,
+            Vertical = LV_DIR_VER,
+            All = LV_DIR_ALL,
+        };
+
+        enum class Alignment_Type : uint8_t
+        {
+            Default = LV_ALIGN_DEFAULT,
+            Top_Left = LV_ALIGN_TOP_LEFT,
+            Top_Middle = LV_ALIGN_TOP_MID,
+            Top_Right = LV_ALIGN_TOP_RIGHT,
+            Middle_Left = LV_ALIGN_LEFT_MID,
+            Center = LV_ALIGN_CENTER,
+            Middle_Right = LV_ALIGN_RIGHT_MID,
+            Bottom_Left = LV_ALIGN_BOTTOM_LEFT,
+            Bottom_Middle = LV_ALIGN_BOTTOM_MID,
+            Bottom_Right = LV_ALIGN_BOTTOM_RIGHT,
+
+            Out_Top_Left = LV_ALIGN_OUT_TOP_LEFT,
+            Out_Top_Middle = LV_ALIGN_OUT_TOP_MID,
+            Out_Top_Right = LV_ALIGN_OUT_TOP_RIGHT,
+            Out_Bottom_Left = LV_ALIGN_OUT_BOTTOM_LEFT,
+            Out_Bottom_Middle = LV_ALIGN_OUT_BOTTOM_MID,
+            Out_Bottom_Right = LV_ALIGN_OUT_BOTTOM_RIGHT,
+            Out_Left_Top = LV_ALIGN_OUT_LEFT_TOP,
+            Out_Left_Middle = LV_ALIGN_OUT_LEFT_MID,
+            Out_Left_Bottom = LV_ALIGN_OUT_LEFT_BOTTOM,
+            Out_Right_Top = LV_ALIGN_OUT_RIGHT_TOP,
+            Out_Right_Middle = LV_ALIGN_OUT_RIGHT_MID,
+            Out_Right_Bottom = LV_ALIGN_OUT_RIGHT_BOTTOM
+        };
+
+        enum class Grid_Alignment_Type
+        {
+            Start = LV_GRID_ALIGN_START,
+            Center = LV_GRID_ALIGN_CENTER,
+            End = LV_GRID_ALIGN_END,
+            Stretch = LV_GRID_ALIGN_STRETCH,
+            Space_Evenly = LV_GRID_ALIGN_SPACE_EVENLY,
+            Space_Around = LV_GRID_ALIGN_SPACE_AROUND,
+            Space_Between = LV_GRID_ALIGN_SPACE_BETWEEN
+        };
+
+        /// @brief Flex flow enumeration and type.
+        enum class Flex_Flow_Type
+        {
+            Row = LV_FLEX_FLOW_ROW,
+            Column = LV_FLEX_FLOW_COLUMN,
+            Wrap = LV_FLEX_FLOW_ROW_WRAP,
+            Reverse = LV_FLEX_FLOW_ROW_REVERSE,
+            Wrap_Reverse = LV_FLEX_FLOW_ROW_WRAP_REVERSE,
+            Column_Wrap = LV_FLEX_FLOW_COLUMN_WRAP,
+            Column_Reverse = LV_FLEX_FLOW_COLUMN_REVERSE,
+            Column_Wrap_Reverse = LV_FLEX_FLOW_COLUMN_WRAP_REVERSE,
+        };
+
+        /// @brief Flex align type.
+        enum class Flex_Alignment_Type
+        {
+            Start = LV_FLEX_ALIGN_START,
+            End = LV_FLEX_ALIGN_END,
+            Center = LV_FLEX_ALIGN_CENTER,
+            Space_Evenly = LV_FLEX_ALIGN_SPACE_EVENLY,
+            Space_Around = LV_FLEX_ALIGN_SPACE_AROUND,
+            Space_Between = LV_FLEX_ALIGN_SPACE_BETWEEN
+        };
+
+        enum class Opacity_Type : uint8_t
+        {
+
+            Transparent = LV_OPA_TRANSP,
+            Opacity_0_Percent = LV_OPA_0,
+            Opacity_10_Percent = LV_OPA_10,
+            Opacity_20_Percent = LV_OPA_20,
+            Opacity_30_Percent = LV_OPA_30,
+            Opacity_40_Percent = LV_OPA_40,
+            Opacity_50_Percent = LV_OPA_50,
+            Opacity_60_Percent = LV_OPA_60,
+            Opacity_70_Percent = LV_OPA_70,
+            Opacity_80_Percent = LV_OPA_80,
+            Opacity_90_Percent = LV_OPA_90,
+            Opacity_100_Percent = LV_OPA_100,
+            Cover = LV_OPA_COVER
+        };
+
+        enum class Border_Side_Type : uint8_t
+        {
+
+            None = LV_BORDER_SIDE_NONE,
+            Bottom = LV_BORDER_SIDE_BOTTOM,
+            Top = LV_BORDER_SIDE_TOP,
+            Left = LV_BORDER_SIDE_LEFT,
+            Right = LV_BORDER_SIDE_RIGHT,
+            Full = LV_BORDER_SIDE_FULL,
+            Internal = LV_BORDER_SIDE_INTERNAL, /**< FOR matrix-like objects (e.g. Button matrix)*/
+        };
+
+        enum class Flag_Type
+        {
+            Hidden = LV_OBJ_FLAG_HIDDEN,
+            Clickable = LV_OBJ_FLAG_CLICKABLE,
+            Click_Focusable = LV_OBJ_FLAG_CLICK_FOCUSABLE,
+            Checkable = LV_OBJ_FLAG_CHECKABLE,
+            Scrollable = LV_OBJ_FLAG_SCROLLABLE,
+            Scroll_Elastic = LV_OBJ_FLAG_SCROLL_ELASTIC,
+            Scroll_Momentum = LV_OBJ_FLAG_SCROLL_MOMENTUM,
+            Scroll_One = LV_OBJ_FLAG_SCROLL_ONE,
+            Scroll_Chain_Horizontal = LV_OBJ_FLAG_SCROLL_CHAIN_HOR,
+            Scroll_Chain_Vertical = LV_OBJ_FLAG_SCROLL_CHAIN_VER,
+            Scroll_Chain = LV_OBJ_FLAG_SCROLL_CHAIN,
+            Scroll_On_Focus = LV_OBJ_FLAG_SCROLL_ON_FOCUS,
+            Scroll_With_Arrow = LV_OBJ_FLAG_SCROLL_WITH_ARROW,
+            Snappable = LV_OBJ_FLAG_SNAPPABLE,
+            Press_Lock = LV_OBJ_FLAG_PRESS_LOCK,
+            Event_Bubble = LV_OBJ_FLAG_EVENT_BUBBLE,
+            Gesture_Bubble = LV_OBJ_FLAG_GESTURE_BUBBLE,
+            Adv_Hittest = LV_OBJ_FLAG_ADV_HITTEST,
+            Ignore_Layout = LV_OBJ_FLAG_IGNORE_LAYOUT,
+            Floating = LV_OBJ_FLAG_FLOATING,
+            Overflow_Visible = LV_OBJ_FLAG_OVERFLOW_VISIBLE,
+            Layout_1 = LV_OBJ_FLAG_LAYOUT_1,
+            Layout_2 = LV_OBJ_FLAG_LAYOUT_2,
+            Widget_1 = LV_OBJ_FLAG_WIDGET_1,
+            Widget_2 = LV_OBJ_FLAG_WIDGET_2,
+            Custom_1 = LV_OBJ_FLAG_USER_1,
+            Custom_2 = LV_OBJ_FLAG_USER_2,
+            Custom_3 = LV_OBJ_FLAG_USER_3,
+            Custom_4 = LV_OBJ_FLAG_USER_4,
+        };
+
+        typedef lv_coord_t Coordinate_Type;
 
         enum class Text_Alignment_Type
         {

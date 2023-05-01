@@ -15,25 +15,28 @@
 
 namespace Xila_Namespace
 {
-    typedef class Switch_Class : public Object_Class
+    namespace Graphics_Types
     {
-    public:
-        // - Methods
+        typedef class Switch_Class : public Object_Class
+        {
+        public:
+            // - Methods
 
-        // - - Constructors / destructors
-        Switch_Class();
-        Switch_Class(const Object_Class &Object_To_Copy);
+            // - - Constructors / destructors
+            Switch_Class();
+            Switch_Class(const Object_Class &Object_To_Copy);
 
-        // - - Manipulation
-        virtual void Create(Object_Class Parent_Object) override;
-        
-        // - - Setters
-        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            // - - Manipulation
+            virtual void Create(Object_Class Parent_Object) override;
 
-        // - Attributes
-        static const Graphics_Types::Class_Type& Class;
+            // - - Setters
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-    } Switch_Type;
-}
+            // - Attributes
+            static const Class_Type &Class;
+
+        } Switch_Type;
+    } // namespace Graphics_Types
+} // namespace Xila_Namespace
 
 #endif

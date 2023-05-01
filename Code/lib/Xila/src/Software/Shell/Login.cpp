@@ -12,6 +12,8 @@
 
 Shell_Class::Login_Class::Login_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
+    using namespace Graphics_Types;
+
     Dialog.Create(Shell_Pointer);
     Dialog.Set_Title("Login");
     Dialog.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
@@ -111,8 +113,8 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type &Instr
                 }
                 else
                 {
-                    Name_Input.Set_Style_Border_Color(Color_Type::Red[5], 0);
-                    Password_Input.Set_Style_Border_Color(Color_Type::Red[5], 0);
+                    Name_Input.Set_Style_Border_Color(Graphics_Types::Color_Type::Red[5], 0);
+                    Password_Input.Set_Style_Border_Color(Graphics_Types::Color_Type::Red[5], 0);
                 }
             }
         }

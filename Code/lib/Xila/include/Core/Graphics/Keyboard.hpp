@@ -59,10 +59,10 @@ namespace Xila_Namespace
             void Set_Text_Area(Text_Area_Class &Text_Area, bool Show = true);
             void Set_Mode(Mode_Type Mode);
             void Set_Pop_Overs(bool Enabled);
-            void Set_Map(Mode_Type Mode, const char *Map[], const Button_Matrix_Class::Control::Type Control_Map[]);
+            void Set_Map(Mode_Type Mode, const char *Map[], const Button_Matrix_Control_Type Control_Map[]);
             
             // - Attributes
-            static const Graphics_Types::Class_Type &Class;
+            static const Class_Type &Class;
 
         } Keyboard_Type;
     }

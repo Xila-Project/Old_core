@@ -133,6 +133,8 @@ void File_Manager_Class::Main_Task_Function()
 
 void File_Manager_Class::Refresh()
 {
+    using namespace Graphics_Types;
+
     Log_Verbose("File manager", "Refresh");
 
     Log_Verbose("File manager", "Path: %s", Path_Text_Area.Get_Text());
@@ -219,7 +221,9 @@ void File_Manager_Class::Refresh()
 }
 
 void File_Manager_Class::Enable_Selection_Mode(bool Multiple = false)
-{
+{   
+    using namespace Graphics_Types;
+
     if (Multiple)
     {
         Select_Button.Add_Flag(Flag_Type::Hidden);
@@ -253,6 +257,8 @@ void File_Manager_Class::Enable_Selection_Mode(bool Multiple = false)
 
 void File_Manager_Class::Disable_Selection_Mode()
 {
+    using namespace Graphics_Types;
+
     Select_Button.Clear_Flag(Flag_Type::Hidden);
     Deselect_Button.Add_Flag(Flag_Type::Hidden);
     Delete_Button.Add_Flag(Flag_Type::Hidden);
@@ -288,7 +294,7 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
     {
         Log_Verbose("File manager", "Instruction !");
 
-        Object_Type Target = Instruction.Graphics.Get_Target();
+        Graphics_Types::Object_Type Target = Instruction.Graphics.Get_Target();
 
         switch (Instruction.Graphics.Get_Code())
         {
@@ -324,17 +330,17 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
             else if (Target == Copy_Button)
             {
                 Cut = false;
-                Paste_Button.Clear_Flag(Flag_Type::Hidden);
+                Paste_Button.Clear_Flag(Graphics_Types::Flag_Type::Hidden);
             }
             else if (Target == Cut_Button)
             {
                 Cut = true;
-                Paste_Button.Clear_Flag(Flag_Type::Hidden);
+                Paste_Button.Clear_Flag(Graphics_Types::Flag_Type::Hidden);
             }
             else if (Target == Paste_Button)
             {
 
-                Paste_Button.Add_Flag(Flag_Type::Hidden);
+                Paste_Button.Add_Flag(Graphics_Types::Flag_Type::Hidden);
             }
             else if (Target == Details_Button)
                 Details();
@@ -458,7 +464,7 @@ void File_Manager_Class::Details()
             // tm *File_Last_Write = localtime(&File_Last_Write_Time);
             // sprintf(Temporary_Char_Array, "%02d/%02d/%d %02d:%02d:%02d\n", File_Last_Write->tm_mday, (File_Last_Write->tm_mon) + 1, (File_Last_Write->tm_year) + 1900, File_Last_Write->tm_hour, File_Last_Write->tm_min, File_Last_Write->tm_sec);
 
-            Details_Dialog.Clear_Flag(Flag_Type::Hidden);
+            Details_Dialog.Clear_Flag(Graphics_Types::Flag_Type::Hidden);
 
             Item.Close();
 

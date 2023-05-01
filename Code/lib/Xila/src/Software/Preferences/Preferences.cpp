@@ -10,8 +10,8 @@
 
 #include "Software/Preferences/Preferences.hpp"
 
-const Coordinate_Type Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-const Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, LV_GRID_TEMPLATE_LAST};
+const Graphics_Types::Coordinate_Type Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+const Graphics_Types::Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, LV_GRID_TEMPLATE_LAST};
 
 // -- Constructor -- //
 
@@ -27,6 +27,8 @@ Preferences_Class::~Preferences_Class()
 
 void Preferences_Class::Set_Interface()
 {
+    using namespace Graphics_Types;
+
     Log_Verbose("Preferences", "Start");
 
     Window.Create(this);
@@ -64,7 +66,7 @@ void Preferences_Class::Set_Interface()
     Log_Verbose("Preferences", "Draw user");
     Draw_Users();
     Log_Verbose("Preferences", "Draw syst");
-   // Draw_System();
+    // Draw_System();
 
     Log_Verbose("Preferences", "Draw done");
     //  Keyboard.Create(Graphics.Get_Top_Layer());
@@ -93,11 +95,12 @@ void Preferences_Class::Main_Task_Function()
 
 void Preferences_Class::Draw_Wireless()
 {
+    using namespace Graphics_Types;
+
     Network_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Network_Tab.Set_Style_Pad_All(0, 0);
     Network_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
     Network_Tab.Clear_Flag(Flag_Type::Scroll_Momentum);
-
 
     // - Grid layout
     Object_Type Grid;
@@ -110,7 +113,7 @@ void Preferences_Class::Draw_Wireless()
     const uint8_t WiFi_Section_Row = 0;
 
     {
-        Graphics_Types::Label_Type Label;
+        Label_Type Label;
         Label.Create(Grid, "WiFi station");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, WiFi_Section_Row, 1);
         Label.Clear_Pointer();
@@ -118,7 +121,7 @@ void Preferences_Class::Draw_Wireless()
         // - WiFi switch
         Wireless_WiFi_Switch.Create(Grid);
         Wireless_WiFi_Switch.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, WiFi_Section_Row, 1);
-        Wireless_WiFi_Switch.Add_Event(this, Graphics_Types::Event_Code_Type::Value_Changed);
+        Wireless_WiFi_Switch.Add_Event(this, Event_Code_Type::Value_Changed);
 
         // - Access point roller
         Wireless_WiFi_Access_Point_Roller.Create(Grid);
@@ -153,7 +156,7 @@ void Preferences_Class::Draw_Wireless()
     {
         // - Title label
 
-        Graphics_Types::Label_Type Label;
+        Label_Type Label;
         Label.Create(Grid, "Network");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Network_Section_Row, 1);
         Label.Clear_Pointer();
@@ -204,11 +207,12 @@ void Preferences_Class::Draw_Wireless()
 
 void Preferences_Class::Draw_Hardware()
 {
+    using namespace Graphics_Types;
+
     Hardware_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Hardware_Tab.Set_Style_Pad_All(0, 0);
     Hardware_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
     Hardware_Tab.Clear_Flag(Flag_Type::Scroll_Momentum);
-
 
     // - Grid layout
     Object_Type Grid;
@@ -221,7 +225,7 @@ void Preferences_Class::Draw_Hardware()
     const uint8_t Display_Section_Row = 0;
 
     {
-        Graphics_Types::Label_Type Label;
+        Label_Type Label;
         Label.Create(Grid, "Display");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Display_Section_Row, 1);
         Label.Clear_Pointer();
@@ -233,7 +237,7 @@ void Preferences_Class::Draw_Hardware()
         Hardware_Display_Brightness_Slider.Create(Grid);
         Hardware_Display_Brightness_Slider.Set_Grid_Cell(Grid_Alignment_Type::Center, 2, 4, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
         Hardware_Display_Brightness_Slider.Set_Range(0, 100);
-        Hardware_Display_Brightness_Slider.Add_Event(this, Graphics_Types::Event_Code_Type::Value_Changed);
+        Hardware_Display_Brightness_Slider.Add_Event(this, Event_Code_Type::Value_Changed);
 
         Hardware_Display_Calibrate_Button.Create(Grid, "Calibrate", 0, 0, this);
         Hardware_Display_Calibrate_Button.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
@@ -242,7 +246,7 @@ void Preferences_Class::Draw_Hardware()
     const uint8_t Sound_Section_Row = Display_Section_Row + 2;
 
     {
-        Graphics_Types::Label_Type Label;
+        Label_Type Label;
         Label.Create(Grid, "Sound");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Sound_Section_Row, 1);
         Label.Clear_Pointer();
@@ -259,7 +263,7 @@ void Preferences_Class::Draw_Hardware()
     const uint8_t Battery_Section_Row = Sound_Section_Row + 2;
 
     {
-        Graphics_Types::Label_Type Label;
+        Label_Type Label;
         Label.Create(Grid, "Battery");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Battery_Section_Row, 1);
         Label.Clear_Pointer();
@@ -275,7 +279,7 @@ void Preferences_Class::Draw_Hardware()
     const uint8_t Drive_Section_Row = Battery_Section_Row + 2;
 
     {
-        Graphics_Types::Label_Type Label;
+        Label_Type Label;
         Label.Create(Grid, "Drive");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Drive_Section_Row, 1);
         Label.Clear_Pointer();
@@ -287,7 +291,7 @@ void Preferences_Class::Draw_Hardware()
     const uint8_t Energy_Section_Row = Drive_Section_Row + 2;
 
     {
-        Graphics_Types::Label_Type Label;
+        Label_Type Label;
         Label.Create(Grid, "Energy");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Energy_Section_Row, 1);
         Label.Clear_Pointer();
@@ -311,11 +315,12 @@ void Preferences_Class::Draw_Hardware()
 
 void Preferences_Class::Draw_Users()
 {
+    using namespace Graphics_Types;
+    
     Users_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Users_Tab.Set_Style_Pad_All(0, 0);
     Users_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
     Users_Tab.Clear_Flag(Flag_Type::Scroll_Momentum);
-
 
     // - Grid layout
 
@@ -331,7 +336,7 @@ void Preferences_Class::Draw_Users()
     const uint8_t Your_Account_Section_Row = 0;
 
     {
-        Graphics_Types::Label_Type Title_Label;
+        Label_Type Title_Label;
         Title_Label.Create(Grid, "Your account");
         Title_Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Your_Account_Section_Row, 1);
 
@@ -366,7 +371,7 @@ void Preferences_Class::Draw_Users()
     const uint8_t Other_Accounts_Section_Row = Your_Account_Section_Row + 6;
 
     {
-        Graphics_Types::Label_Type Title_Label;
+        Label_Type Title_Label;
         Title_Label.Create(Grid, "Other accounts");
         Title_Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Other_Accounts_Section_Row, 1);
 
@@ -382,7 +387,7 @@ void Preferences_Class::Draw_Users()
     const uint8_t Add_User_Section_Row = Other_Accounts_Section_Row + 3;
 
     {
-        Graphics_Types::Label_Type Title_Label;
+        Label_Type Title_Label;
         Title_Label.Create(Grid, "Add user");
         Title_Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Add_User_Section_Row, 1);
 
@@ -402,11 +407,12 @@ void Preferences_Class::Draw_Users()
 
 void Preferences_Class::Draw_Softwares()
 {
+    using namespace Graphics_Types;
+
     Softwares_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Softwares_Tab.Set_Style_Pad_All(0, 0);
     Softwares_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
     Softwares_Tab.Clear_Flag(Flag_Type::Scroll_Momentum);
-
 
     // - Grid layout
 
@@ -424,7 +430,7 @@ void Preferences_Class::Draw_Softwares()
     {
         // - - - Software title label
         {
-            Graphics_Types::Label_Type Label;
+            Label_Type Label;
             Label.Create(Grid, "Softwares");
             Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Software_Section_Row, 1);
         }
@@ -444,6 +450,8 @@ void Preferences_Class::Draw_Softwares()
 
 void Preferences_Class::Draw_Personal()
 {
+    using namespace Graphics_Types;
+
     Personal_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Personal_Tab.Set_Style_Pad_All(0, 0);
     Personal_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
@@ -465,7 +473,7 @@ void Preferences_Class::Draw_Personal()
     {
         // - - - Style title label
 
-        Graphics_Types::Label_Type Label;
+        Label_Type Label;
         Label.Create(Grid, "Style");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Style_Section_Row, 1);
         Label.Clear_Pointer();
@@ -497,6 +505,8 @@ void Preferences_Class::Draw_Personal()
 
 void Preferences_Class::Draw_System()
 {
+    using namespace Graphics_Types;
+
     System_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     System_Tab.Set_Style_Pad_All(0, 0);
     System_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
@@ -517,7 +527,7 @@ void Preferences_Class::Draw_System()
     {
         // - - - Device title label
         {
-            Graphics_Types::Label_Type Label;
+            Label_Type Label;
             Label.Create(Grid, "Device");
             Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Device_Section_Row, 1);
         }
@@ -548,7 +558,7 @@ void Preferences_Class::Draw_System()
     {
         // - - - Time title label
 
-        Graphics_Types::Label_Type Label;
+        Label_Type Label;
         Label.Create(Grid, "Time");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Time_Section_Row, 1);
         Label.Clear_Pointer();
@@ -594,7 +604,7 @@ void Preferences_Class::Draw_System()
 
         // - - - Minus button
 
-        System_Time_Minus_Button.Create(Grid, LV_SYMBOL_MINUS, 0, 0, this, Graphics_Types::Event_Code_Type::All);
+        System_Time_Minus_Button.Create(Grid, LV_SYMBOL_MINUS, 0, 0, this, Event_Code_Type::All);
         System_Time_Minus_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 1, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
 
         // - - - UTC offset spinbox
@@ -605,7 +615,7 @@ void Preferences_Class::Draw_System()
 
         // - - - Plus button
 
-        System_Time_Plus_Button.Create(Grid, LV_SYMBOL_PLUS, 0, 0, this, Graphics_Types::Event_Code_Type::All);
+        System_Time_Plus_Button.Create(Grid, LV_SYMBOL_PLUS, 0, 0, this, Event_Code_Type::All);
         System_Time_Plus_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 1, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
     }
 
@@ -616,7 +626,7 @@ void Preferences_Class::Draw_System()
     {
         // - - - About title label
 
-        Graphics_Types::Label_Type Label;
+        Label_Type Label;
         Label.Create(Grid, "About");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, About_Section_Row, 1);
         Label.Clear_Pointer();
@@ -914,7 +924,7 @@ void Preferences_Class::Refresh_Softwares()
         }
     }
 
-    Softwares_Roller.Set_Options(Software_Name, Roller_Type::Mode_Type::Normal);
+    Softwares_Roller.Set_Options(Software_Name, Graphics_Types::Roller_Type::Mode_Type::Normal);
 }
 
 // - - Hardware
@@ -1013,7 +1023,7 @@ void Preferences_Class::Refresh_Wireless()
                 }
             }
 
-            Wireless_WiFi_Access_Point_Roller.Set_Options(Networks_List, Roller_Class::Mode_Type::Normal);
+            Wireless_WiFi_Access_Point_Roller.Set_Options(Networks_List, Graphics_Types::Roller_Class::Mode_Type::Normal);
 
             Communication.WiFi.Scan.Delete();
         }

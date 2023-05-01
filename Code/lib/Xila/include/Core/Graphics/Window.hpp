@@ -97,7 +97,7 @@ namespace Xila_Namespace
             // - Attributes
 
             /// @brief Custom LVGL class for Window (almost identical to object class).
-            static const Graphics_Types::Class_Type Class;
+            static const Class_Type Class;
 
 
         protected:

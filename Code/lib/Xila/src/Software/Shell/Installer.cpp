@@ -12,6 +12,8 @@
 
 Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
+    using namespace Graphics_Types;
+    
     Dialog.Create(Shell_Pointer->Desk.Window);
     Dialog.Set_Title("Installer");
     Dialog.Set_Overlay(true);

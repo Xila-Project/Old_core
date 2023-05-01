@@ -60,7 +60,7 @@ namespace Xila_Namespace
             void Set_Text_Selection(bool Enabled);
             void Set_Password_Mode(bool Enabled);
             void Set_Password_Show_Time(uint16_t Time);
-            void Set_Text_Alignment(Graphics_Types::Text_Alignment_Type Alignment);
+            void Set_Text_Alignment(Text_Alignment_Type Alignment);
             void Set_Cursor_Position(int32_t Position);
 
             // - - Getters
@@ -79,7 +79,7 @@ namespace Xila_Namespace
 
             // - Attributes
 
-            static const Graphics_Types::Class_Type &Class;
+            static const Class_Type &Class;
 
         } Text_Area_Type;
     }

@@ -15,6 +15,8 @@
 
 namespace Xila_Namespace
 {
+    namespace Graphics_Types
+    {
     typedef class Color_Wheel_Class : public Object_Class
     {
     public:
@@ -55,9 +57,10 @@ namespace Xila_Namespace
         virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
         
         // - Attributes
-        static const Graphics_Types::Class_Type& Class;
+        static const Class_Type& Class;
         
     } Color_Wheel_Type;
-}
+    } // namespace Graphics_Types
+} // namespace Xila_Namespace
 
 #endif

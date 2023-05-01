@@ -15,6 +15,8 @@
 
 namespace Xila_Namespace
 {
+       namespace Graphics_Types
+    {
     typedef class Table_Class : public Object_Class
     {
     public:
@@ -75,9 +77,10 @@ namespace Xila_Namespace
         void Set_Column_Width(uint16_t Column_Identifier, Coordinate_Type Width);
         
         // - Attributes
-        static const Graphics_Types::Class_Type& Class;
+        static const Class_Type& Class;
 
     } Table_Type;
-}
+    } // namespace Graphics_Types
+} // namespace Xila_Namespace
 
 #endif

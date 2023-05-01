@@ -42,7 +42,7 @@ namespace Xila_Namespace
             const char *Get_Button_Text(Button_Class &Button);
 
             // - Attributes
-            static const Graphics_Types::Class_Type &Class;
+            static const Class_Type &Class;
         } List_Type;
 
     } // namespace Graphics_Types

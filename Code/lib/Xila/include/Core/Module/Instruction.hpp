@@ -19,8 +19,7 @@ namespace Xila_Namespace
 
     class Module_Class;
 
-    class Object_Class;
-    typedef Object_Class Object_Type;
+    namespace Graphics_Types { typedef class Object_Class Object_Type; };
 
     namespace Graphics_Types
     {
@@ -59,16 +58,16 @@ namespace Xila_Namespace
 
             /// @brief Get the original target of a graphics event.
             /// @return Target of the instruction.
-            Object_Type Get_Target() const;
+            Graphics_Types::Object_Type Get_Target() const;
             
             /// @brief Get the current target of a graphics event.
             /// @return Current target of the instruction.
-            Object_Type Get_Current_Target() const;
+            Graphics_Types::Object_Type Get_Current_Target() const;
         private:
             // - - Setters
             void Set_Code(Graphics_Types::Event_Code_Type Code);
-            void Set_Target_Pointer(Object_Type Object);
-            void Set_Current_Target_Pointer(Object_Type Object);
+            void Set_Target_Pointer(Graphics_Types::Object_Type Object);
+            void Set_Current_Target_Pointer(Graphics_Types::Object_Type Object);
 
             // - Attributes
             Graphics_Types::Event_Code_Type Code;

@@ -15,43 +15,46 @@
 
 namespace Xila_Namespace
 {
-    /// @brief Roller class.
-    typedef class Roller_Class : public Object_Class
+    namespace Graphics_Types
     {
-    public:
-        // -- Types
-
-        enum class Mode_Type
+        /// @brief Roller class.
+        typedef class Roller_Class : public Object_Class
         {
-            Normal = LV_ROLLER_MODE_NORMAL,
-            Infinite = LV_ROLLER_MODE_INFINITE
-        };
+        public:
+            // -- Types
 
-        // - Methods
+            enum class Mode_Type
+            {
+                Normal = LV_ROLLER_MODE_NORMAL,
+                Infinite = LV_ROLLER_MODE_INFINITE
+            };
 
-        // - - Constructors / destructors
-        Roller_Class();
-        Roller_Class(const Object_Class &Object_To_Copy);
+            // - Methods
 
-        // - - Manipulation
-        virtual void Create(Object_Class Parent_Object) override;
+            // - - Constructors / destructors
+            Roller_Class();
+            Roller_Class(const Object_Class &Object_To_Copy);
 
-        // - - Setters
-        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            // - - Manipulation
+            virtual void Create(Object_Class Parent_Object) override;
 
-        void Set_Options(const char *Options, Mode_Type Mode);
-        void Set_Selected(uint16_t Index, bool Animated);
-        void Set_Visible_Row_Count(uint8_t Row_Count);
+            // - - Setters
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-        // - - Getters
-        uint16_t Get_Selected();
-        String_Type& Get_Selected_String(String_Type& String);
-        const char *Get_Options();
-        uint16_t Get_Option_Count();
+            void Set_Options(const char *Options, Mode_Type Mode);
+            void Set_Selected(uint16_t Index, bool Animated);
+            void Set_Visible_Row_Count(uint8_t Row_Count);
 
-        // - Attributes
-        static const Graphics_Types::Class_Type& Class;
-    } Roller_Type;
-}
+            // - - Getters
+            uint16_t Get_Selected();
+            String_Type &Get_Selected_String(String_Type &String);
+            const char *Get_Options();
+            uint16_t Get_Option_Count();
+
+            // - Attributes
+            static const Class_Type &Class;
+        } Roller_Type;
+    } // namespace Graphics_Types
+} // namespace Xila_Namespace
 
 #endif

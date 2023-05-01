@@ -88,7 +88,7 @@ void Shell_Class::Drawer_Class::Execute_Instruction(const Instruction_Type &Inst
         {
         case Graphics_Types::Event_Code_Type::Clicked:
         {
-            Object_Type Target = Instruction.Graphics.Get_Current_Target(); // Get icon container
+            Graphics_Types::Object_Type Target = Instruction.Graphics.Get_Current_Target(); // Get icon container
             Size_Type Child_Count = Window.Get_Body().Get_Child_Count();
             for (uint8_t i = 0; i < Child_Count; i++)
             {

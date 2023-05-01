@@ -36,26 +36,26 @@ class Shell_Class : public Software_Type
 
     // - - - Overlay
 
-    Style_Type Status_Buttons_Style;
+    Graphics_Types::Style_Type Status_Buttons_Style;
 
     /// @brief Object containing clock label, battery, sound and wifi status icons.
-    Object_Type Overlay;
+    Graphics_Types::Object_Type Overlay;
 
     /// @brief Battery status button.
-    Button_Type Battery_Button;
+    Graphics_Types::Button_Type Battery_Button;
 
     /// @brief Wifi status button.
-    Button_Type WiFi_Button;
+    Graphics_Types::Button_Type WiFi_Button;
 
     /// @brief Sound status button.
-    Button_Type Sound_Button;
+    Graphics_Types::Button_Type Sound_Button;
 
     /// @brief Clock label.
     Graphics_Types::Label_Type Clock_Label;
 
     /// @brief
     Graphics_Types::Screen_Type Screen; // ! : Must be declared before desk (due to the order of construction) since desk needs screen to create a window.
-   
+
     /// @brief Keyboard used by text areas.
     Graphics_Types::Keyboard_Type Keyboard;
 
@@ -73,12 +73,12 @@ class Shell_Class : public Software_Type
         void Execute_Instruction(const Instruction_Type &Instruction);
 
         // - -  Getters
-        Color_Type Get_Background_Color() const;
-        Color_Type Get_Foreground_Color() const;
+        Graphics_Types::Color_Type Get_Background_Color() const;
+        Graphics_Types::Color_Type Get_Foreground_Color() const;
 
         // - - Setters
-        void Set_Background_Color(Color_Type Color);
-        void Set_Foreground_Color(Color_Type Color);
+        void Set_Background_Color(Graphics_Types::Color_Type Color);
+        void Set_Foreground_Color(Graphics_Types::Color_Type Color);
 
         // - Attributes
         Graphics_Types::Window_Type Window;
@@ -92,13 +92,9 @@ class Shell_Class : public Software_Type
 
         // - - Parent window
 
-        Object_Type Desk_Grid;
-        Object_Type Dock;
-        Object_Type Menu_Button;
-        Object_Type Dock_List;
+        Graphics_Types::Object_Type Desk_Grid, Dock, Menu_Button, Dock_List;
 
-        Color_Type Background_Color;
-        Color_Type Foreground_Color;
+        Graphics_Types::Color_Type Background_Color, Foreground_Color;
 
         // - - Shell pointer
         Shell_Class *Shell_Pointer;
@@ -161,7 +157,7 @@ class Shell_Class : public Software_Type
 
         Graphics_Types::Text_Area_Type Name_Input;
         Graphics_Types::Text_Area_Type Password_Input;
-        Button_Type Login_Button;
+        Graphics_Types::Button_Type Login_Button;
         Graphics_Types::Label_Type Login_Label;
 
         Shell_Class *Shell_Pointer;
@@ -192,8 +188,8 @@ class Shell_Class : public Software_Type
 
         // - Attributes
 
-        Button_Type Setup_Button;
-        Button_Type Create_Account_Button;
+        Graphics_Types::Button_Type Setup_Button;
+        Graphics_Types::Button_Type Create_Account_Button;
         Graphics_Types::Text_Area_Type Username_Text_Area;
         Graphics_Types::Text_Area_Type Password_Text_Area;
 
@@ -232,7 +228,8 @@ class Shell_Class : public Software_Type
 
     // - - Others
 
-    static void Get_Software_Icon(Object_Type &, const String_Type &);
+    void Set_Interface();
+    static void Get_Software_Icon(Graphics_Types::Object_Type &, const String_Type &);
     void Execute_Instruction(Instruction_Type Instruction);
     void Main_Task_Function() override;
     void Refresh_Overlay();
@@ -252,7 +249,7 @@ class Shell_Class : public Software_Type
 static class Shell_Handle_Class : public Software_Handle_Type
 {
 public:
-    Shell_Handle_Class() : Software_Handle_Type("Shell"){ Log_Verbose("Shell", "Handle created"); };
+    Shell_Handle_Class() : Software_Handle_Type("Shell") { Log_Verbose("Shell", "Handle created"); };
 
     void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
     {

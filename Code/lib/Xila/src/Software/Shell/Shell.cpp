@@ -31,16 +31,9 @@ Shell_Class::~Shell_Class()
     Installer_Class::Close(this);
 }
 
-/// @brief Shell main task.
-void Shell_Class::Main_Task_Function()
+void Shell_Class::Set_Interface()
 {
-    uint32_t Next_Refresh = 0;
-
-    // - Registry
-    if (this->Load_Registry() != Result_Type::Success)
-    {
-        this->Create_Registry();
-    }
+    using namespace Graphics_Types;
 
     Screen.Load();
 
@@ -80,13 +73,28 @@ void Shell_Class::Main_Task_Function()
     Clock_Label.Set_Style_Text_Color(Color_Type::White, 0);
 
     Desk.Set_Interface();
+}
+
+/// @brief Shell main task.
+void Shell_Class::Main_Task_Function()
+{
+    uint32_t Next_Refresh = 0;
+
+    // - Registry
+    if (this->Load_Registry() != Result_Type::Success)
+
+    {
+        this->Create_Registry();
+    }
+
+    Set_Interface();
 
     while (1)
     {
         // Log_Verbose("Shell", "Main task");
         if (this->Instruction_Available())
         {
-            //Log_Verbose("Shell", "Instruction received");
+            // Log_Verbose("Shell", "Instruction received");
             this->Execute_Instruction(Get_Instruction());
         }
         else
@@ -104,7 +112,7 @@ void Shell_Class::Main_Task_Function()
 
                 Next_Refresh = System.Get_Up_Time_Milliseconds() + 5000;
             }
-         
+
             Main_Task.Delay(40);
         }
     }
@@ -128,7 +136,6 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
         Drawer.Execute_Instruction(Instruction);
         return;
     }
-
 
     if (Installer_Class::Is_Openned(this))
     {
@@ -177,8 +184,8 @@ Result_Type Shell_Class::Load_Registry()
     Registry_File.Close();
 
     // - Load registry values
-    this->Desk.Set_Background_Color(Color_Type(Shell_Registry["Desk"]["Background color"] | Shell_Default_Background_Color));
-    this->Desk.Set_Foreground_Color(Color_Type(Shell_Registry["Desk"]["Foreground color"] | Shell_Default_Foreground_Color));
+    this->Desk.Set_Background_Color(Graphics_Types::Color_Type(Shell_Registry["Desk"]["Background color"] | Shell_Default_Background_Color));
+    this->Desk.Set_Foreground_Color(Graphics_Types::Color_Type(Shell_Registry["Desk"]["Foreground color"] | Shell_Default_Foreground_Color));
 
     return Result_Type::Success;
 }
@@ -360,7 +367,7 @@ void Shell_Class::Refresh_Overlay()
     }
 }
 
-void Shell_Class::Get_Software_Icon(Object_Type& Icon_Container, const String_Type &Name)
+void Shell_Class::Get_Software_Icon(Graphics_Types::Object_Type &Icon_Container, const String_Type &Name)
 {
     using namespace Xila::Graphics_Types;
 
@@ -377,8 +384,8 @@ void Shell_Class::Get_Software_Icon(Object_Type& Icon_Container, const String_Ty
         Log_Verbose("Shell", "Invalid icon label.");
         return;
     }
-    
-    Icon_Container.Set_Size(5*8, 5*8);
+
+    Icon_Container.Set_Size(5 * 8, 5 * 8);
     Icon_Container.Set_Style_Radius(5, 0);
     Icon_Container.Set_Style_Pad_All(0, 0);
 

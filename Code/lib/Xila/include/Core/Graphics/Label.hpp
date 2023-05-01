@@ -65,7 +65,7 @@ namespace Xila_Namespace
             uint32_t Get_Selection_End();
 
             // - - Attributes
-            static const Graphics_Types::Class_Type &Class;
+            static const Class_Type &Class;
 
         } Label_Type;
     }

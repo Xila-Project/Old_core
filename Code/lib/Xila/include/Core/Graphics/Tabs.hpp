@@ -16,39 +16,42 @@
 
 namespace Xila_Namespace
 {
-    typedef class Tabs_Class : public Object_Class
+    namespace Graphics_Types
     {
-    public:
-        // - Methods
+        typedef class Tabs_Class : public Object_Class
+        {
+        public:
+            // - Methods
 
-        // - - Constructors / destructors
-        Tabs_Class();
-        Tabs_Class(const Object_Class &Object_To_Copy);
+            // - - Constructors / destructors
+            Tabs_Class();
+            Tabs_Class(const Object_Class &Object_To_Copy);
 
-        // - - Manipulation
-        virtual void Create(Object_Class Parent_Object) override;
-        virtual void Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size);
+            // - - Manipulation
+            virtual void Create(Object_Class Parent_Object) override;
+            virtual void Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size);
 
-        Object_Class Add_Tab(const String_Type& Name);
-        void Rename_Tab(uint32_t Index, const String_Type &New_name);
+            Object_Class Add_Tab(const String_Type &Name);
+            void Rename_Tab(uint32_t Index, const String_Type &New_name);
 
-        // - - Setters.
-        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            // - - Setters.
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-        void Set_Active_Tab(uint32_t Identifier, bool Animation);
+            void Set_Active_Tab(uint32_t Identifier, bool Animation);
 
-        // - - Getters.
-        uint16_t Get_Tab_Active();
-        uint16_t Get_Tab_Count();
+            // - - Getters.
+            uint16_t Get_Tab_Active();
+            uint16_t Get_Tab_Count();
 
-        Object_Class Get_Content();
-        Button_Matrix_Type Get_Tab_Buttons();
+            Object_Class Get_Content();
+            Button_Matrix_Type Get_Tab_Buttons();
 
-        uint16_t Get_Animation_Time();
+            uint16_t Get_Animation_Time();
 
-        // - Attributes
-        static const Graphics_Types::Class_Type& Class;
-    } Tabs_Type;
-}
+            // - Attributes
+            static const Class_Type &Class;
+        } Tabs_Type;
+    } // namespace Graphics_Types
+} // namespace Xila_Namespace
 
 #endif

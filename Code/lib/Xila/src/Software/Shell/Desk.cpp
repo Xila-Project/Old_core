@@ -165,21 +165,21 @@ Shell_Class::Desk_Class::~Desk_Class()
 {
 }
 
-Color_Type Shell_Class::Desk_Class::Get_Foreground_Color() const
+Graphics_Types::Color_Type Shell_Class::Desk_Class::Get_Foreground_Color() const
 {
     return Foreground_Color;
 }
 
-Color_Type Shell_Class::Desk_Class::Get_Background_Color() const
+Graphics_Types::Color_Type Shell_Class::Desk_Class::Get_Background_Color() const
 {
     return Background_Color;
 }
 
-void Shell_Class::Desk_Class::Set_Foreground_Color(Color_Type Color)
+void Shell_Class::Desk_Class::Set_Foreground_Color(Graphics_Types::Color_Type Color)
 {
 }
 
-void Shell_Class::Desk_Class::Set_Background_Color(Color_Type Color)
+void Shell_Class::Desk_Class::Set_Background_Color(Graphics_Types::Color_Type Color)
 {
 }
 
@@ -220,7 +220,7 @@ void Shell_Class::Desk_Class::Refresh()
     // Delete grid items except the dock.
 
     // - If the dock is hidden, do nothing.
-    if (Dock.Has_Flag(Flag_Type::Hidden))
+    if (Dock.Has_Flag(Graphics_Types::Flag_Type::Hidden))
     {
         return;
     }
@@ -236,7 +236,7 @@ void Shell_Class::Desk_Class::Refresh()
 
     // If there is not enough icons, create more.
     {
-        Object_Type Icon_Container;
+        Graphics_Types::Object_Type Icon_Container;
         Graphics_Types::Label_Type Icon_Label;
         while (Dock_List.Get_Child_Count() < (User_Softwares_Count - 1))
         {
@@ -244,7 +244,7 @@ void Shell_Class::Desk_Class::Refresh()
 
             Icon_Container.Create(Dock_List);
             Icon_Label.Create(Icon_Container);
-            Icon_Container.Set_Alignment(Alignment_Type::Top_Middle);
+            Icon_Container.Set_Alignment(Graphics_Types::Alignment_Type::Top_Middle);
             Icon_Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
             Icon_Container.Clear_Pointer();
@@ -254,7 +254,7 @@ void Shell_Class::Desk_Class::Refresh()
 
     // - - Set dock software icons.
     {
-        Object_Type Icon_Container;
+        Graphics_Types::Object_Type Icon_Container;
         const Software_Type *Software_Pointer;
         Static_String_Type<24> Name;
 
