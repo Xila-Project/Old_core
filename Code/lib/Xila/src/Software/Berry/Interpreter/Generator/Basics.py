@@ -22,6 +22,9 @@ def Is_Constructor(Declaration):
 def Is_Enumeration(Declaration):
     return type(Declaration) == Declarations.enumeration.enumeration_t
 
+def Is_Typedef(Declaration):
+    return type(Declaration) == Declarations.typedef.typedef_t
+
 def Is_Destructor(Declaration):
     return type(Declaration) == Declarations.calldef_members.destructor_t
 
@@ -29,6 +32,12 @@ def Get_Name(Declaration):
     return Declaration.name
 
 def Get_Return_Type(Declaration):
+    
+    #print("For : ", Get_Name(Declaration), " return type : ", str(Declaration.return_type))
+    #if (Is_Typedef(Declaration.return_type)):
+    #    print("Typedef !")
+    #    print("Top level: " + Get_Name(Declaration.return_type.top_parent))
+
     return str(Declaration.return_type).replace("Xila_Namespace::", "")
 
 def Get_Project_Path():

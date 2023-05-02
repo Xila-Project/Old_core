@@ -122,7 +122,41 @@ def Generate(Global_Namespace):
             print("Class : " + Get_Name(Declaration))
             Generate_Class(Declaration)
 
-    
+def determine_type(typedef):
+    # Vérifiez si le type réel est une classe
+    if isinstance(typedef.decl_type, Declarations.class_declaration_t):
+        return 'class'
+
+    # Vérifiez si le type réel est un nombre
+    elif isinstance(typedef.decl_type, Declarations.fundamental_t) and \
+            typedef.decl_type.is_numeric:
+        return 'numeric'
+
+    # Vérifiez si le type réel est un caractère
+    elif isinstance(typedef.decl_type, Declarations.fundamental_t) and \
+            typedef.decl_type.is_char:
+        return 'char'
+
+    # Si le type réel est un autre typedef, parcourez-le récursivement
+    elif isinstance(typedef.decl_type, Declarations.typedef_t):
+        print("recursive")
+        return determine_type(typedef.decl_type)
+
+    # Si le type réel n'est pas une classe, un nombre, un caractère ou un autre typedef, considérez-le comme un type inconnu
+    else:
+        print(str(typedef.decl_type))
+        return 'unknown'
+
+def det_type(typedef):
+    if Is_Typedef(typedef):
+        return det_type(typedef.decl_typdetermine_typee)
+    else:
+        if (str(typedef) == "lv_coord_t"):
+
+            print("lv_coord_t : ", typedef.decl_type)
+
+        return typedef
+
 # Find the location of the xml generator (castxml or gccxml)
 generator_path, generator_name = utils.find_xml_generator()
 
@@ -187,13 +221,20 @@ if os.path.exists(os.path.join(Get_Code_Path(), "Xila.d")):
 # Get access to the global namespace
 Xila_Namespace = Declarations.get_global_namespace(Dec).namespace("Xila_Namespace")
 
+
 #Generate_Module(Xila_Namespace, "System")
 #Generate_Module(Xila_Namespace, "Memory")
-Generate_Module(Xila_Namespace, "Drive")
+
+for Declaration in Xila_Namespace.namespace("Graphics_Types").typedefs():
+
+    print("Typedef : ", Get_Name(Declaration))
+    list = Declarations.dependencies.
+        
+
+
+Generate_Module(Xila_Namespace, "Graphics")
 
 Temporary_Folder_Path = os.path.join(Get_Code_Path(), "lib", "berry", "Temporary")
-
-print(Temporary_Folder_Path)
 
 # Delete temporary folder
 shutil.rmtree(Temporary_Folder_Path, ignore_errors=True)
@@ -219,14 +260,11 @@ shutil.copy(Berry_Callback_Module_Path, os.path.join(Temporary_Folder_Path, "be_
 
 COC_Path = os.path.join(Get_Code_Path(), "lib", "berry", "tools", "coc", "coc")
 
-Result = subprocess.run(["pwd"], stdout=subprocess.PIPE)
-
-print(Result.stdout.decode("utf-8"))
-
 Result = subprocess.run([COC_Path, '-o', 'generate', 'default', 'Temporary', '-c', 'default/berry_conf.h'], stdout=subprocess.PIPE)
 
-shutil.rmtree(Temporary_Folder_Path, ignore_errors=True)
 
 print(Result.stdout.decode("utf-8"))
 
 print(Result.returncode)
+
+shutil.rmtree(Temporary_Folder_Path, ignore_errors=True)
