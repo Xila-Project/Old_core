@@ -19,7 +19,7 @@ def Get_Header_File_Paths(Folder_Path):
             if Item_Path.endswith(".hpp"):
                 Headers_File_Paths.append(Item_Path)
 
-def Generate_Class(Generated_File, Class, Module_Name):
+def Generate_Class(Generated_File, Xila_Namespace, Class, Module_Name):
     # print(Get_Header_File_Paths(os.path.dirname(__file__)))
 
     Generated_File.write("\n// - Functions\n")
@@ -27,7 +27,7 @@ def Generate_Class(Generated_File, Class, Module_Name):
     Generated_File.write("\n// - - Constructors\n")
     for Member in Class.get_members():
         if (Is_Constructor(Member) and not(Is_Copy_Constructor(Member))):
-            print(Get_Binding_Function_Arguments(Member, False))
+            Generated_File.write(Generate_Binding_Function(Member, Module_Name, False))
             #Generated_File.write(Get_Binding_Function(Member, False) + "\n")
             #Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
 
@@ -36,7 +36,7 @@ def Generate_Class(Generated_File, Class, Module_Name):
     # Destructor
     for Member in Class.get_members():
         if (Is_Destructor(Member)):
-            print(Get_Binding_Function_Arguments(Member, False))
+            Generated_File.write(Generate_Binding_Function(Member, Module_Name, False))
             #Generated_File.write(Get_Binding_Function(Member, False) + "\n")
             #Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
 
@@ -45,7 +45,7 @@ def Generate_Class(Generated_File, Class, Module_Name):
     # Function
     for Member in Class.get_members():
         if(Is_Function(Member)):
-            print(Get_Binding_Function_Arguments(Member, False))
+            Generated_File.write(Generate_Binding_Function(Member, Module_Name, False))
             #Generated_File.write(Get_Binding_Function(Member, False) + "\n")
             #Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
 
@@ -53,14 +53,13 @@ def Generate_Class(Generated_File, Class, Module_Name):
 
     Generated_File.write("\n// - Berry declaration\n")
     Generated_File.write(Get_Class_Binding_Declaration(Class, False) + "\n")
+    Clear_Binding_Function_Table()
 
     # Include the berry header
 
     Generated_File.write("\nextern \"C\"\n{\n")
- #   Generated_File.write("\t#include \"../generate/be_fixed_" + Module_Name + ".h\"\n")
-    Generated_File.write("\t#include \"../generate/be_fixed_Berry_" + Get_Name(Class) + ".h\"\n")
+    Generated_File.write("\t#include \"../generate/be_fixed_Berry_" + Get_Name(Class).replace("_Class", "_Type") + ".h\"\n")
     Generated_File.write("}")
-
 
 
 def Generate_Module(Xila_Namespace, Module_Name):
@@ -89,21 +88,21 @@ def Generate_Module(Xila_Namespace, Module_Name):
 
     for Type in Module_Namespace.declarations:
         if Is_Class(Type):
-            Generate_Class(Generated_File, Type, Module_Name)
+            Generate_Class(Generated_File, Xila_Namespace, Type, Module_Name)
     #        Generated_File.write("\t#include \"../generate/be_fixed_Berry_" + Get_Name(Type) + ".h\"\n")
 
     Generated_File.write("\n// - Functions\n")
 
-    # Function
+    # Module methods
     for Member in Module_Class.get_members():
         if(Is_Function(Member)):
-            Generated_File.write(Get_Binding_Function(Member, True) + "\n")
-            Generated_File.write(Get_Binding_Function_Declaration(Member, True) + "\n")
+            Generated_File.write(Generate_Binding_Function(Member, Module_Name, True) + "\n")
 
     # Berry declaration part
 
     Generated_File.write("\n// - Berry declaration\n")
     Generated_File.write(Get_Class_Binding_Declaration(Module_Class, True, Module_Namespace) + "\n")
+    Clear_Binding_Function_Table()
 
     # Include the berry header
 

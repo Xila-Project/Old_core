@@ -24,7 +24,7 @@ def Is_Constructor(Declaration):
 def Is_Copy_Constructor(Declaration):
     return Type_Traits_Classes.is_copy_constructor(Declaration)
 
-def Is_Enumeration(Declaration):
+def Is_Enumeration_Type(Declaration):
     return type(Declaration) == Declarations.enumeration.enumeration_t
 
 def Is_Typedef(Declaration):
@@ -33,6 +33,8 @@ def Is_Typedef(Declaration):
 def Is_Destructor(Declaration):
     return type(Declaration) == Declarations.calldef_members.destructor_t and (Declaration.access_type == "public")
 
+def Is_Declarated_Type(Declaration):
+    return type(Declaration) == Declarations.declarated_t
 
 def Get_Name(Declaration):
     return Declaration.name
@@ -63,8 +65,14 @@ def Is_Fundamental_Type(Declaration):
 def Is_Boolean_Type(Declaration):
     return Type_Traits.is_bool(Declaration)
 
+def Is_Optional(Declaration):
+    return Declaration.default_value != None
+
 def Is_Integral_Type(Declaration):
     return Type_Traits.is_integral(Declaration)
+
+def Is_Elaborated_Type(Declaration):
+    return Type_Traits.is_elaborated(Declaration)
 
 def Is_Float_Type(Declaration):
     return Type_Traits.is_floating_point(Declaration)

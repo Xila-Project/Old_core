@@ -36,6 +36,10 @@ namespace Xila_Namespace
             /// @brief Default constructor.
             File_Class();
 
+            /// @brief Constructor from a `fs::File` object.
+            /// @param File `fs::File` object.
+            File_Class(fs::File File);
+
             // - - Stream methods override
 
             size_t write(uint8_t) override;
@@ -154,10 +158,6 @@ namespace Xila_Namespace
             operator bool() const;
 
         protected:
-            /// @brief Constructor from a `fs::File` object.
-            /// @param File `fs::File` object.
-            File_Class(fs::File File);
-
             // - Attributes
             fs::File File;
         } File_Type;

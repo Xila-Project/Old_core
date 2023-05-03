@@ -70,7 +70,7 @@ String_Type& System_Class::Get_Device_Name(String_Class &Device_Name)
 
 /// @brief
 /// @param Device_Name
-void System_Class::Set_Device_Name(const String_Class &Device_Name)
+void System_Class::Set_Device_Name(const char* Device_Name)
 {
     this->Device_Name = Device_Name;
 }

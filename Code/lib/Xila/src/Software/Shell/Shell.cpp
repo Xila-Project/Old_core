@@ -367,7 +367,7 @@ void Shell_Class::Refresh_Overlay()
     }
 }
 
-void Shell_Class::Get_Software_Icon(Graphics_Types::Object_Type &Icon_Container, const char*Name)
+void Shell_Class::Get_Software_Icon(Graphics_Types::Object_Type &Icon_Container, const String_Type& Name)
 {
     using namespace Xila::Graphics_Types;
 

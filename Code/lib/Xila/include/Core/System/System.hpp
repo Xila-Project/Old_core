@@ -67,7 +67,7 @@ namespace Xila_Namespace
         uint32_t Get_Chip_Cores();
         uint32_t Get_CPU_Frequency();
 
-        void Set_Device_Name(const char*Device_Name);
+        void Set_Device_Name(const char* Device_Name);
 
         // - - Time
 
