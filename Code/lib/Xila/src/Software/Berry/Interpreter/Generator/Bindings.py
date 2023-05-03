@@ -13,11 +13,16 @@ def Get_Binding_Function_Arguments(Declaration, Module):
 
     Arguments = Get_Function_Arguments(Declaration)
 
-    S = "\t\t"
-    StringD = "\t"
+    S = ""
+    StringD = ""
     R = ""
     ReturnD = ""
-    
+    Return_Conversion = ""
+
+    Additional_Content = ""
+    Passed_Arguments = ""
+
+
     Length = len(Arguments)
 
     if not(Module):
@@ -32,24 +37,30 @@ def Get_Binding_Function_Arguments(Declaration, Module):
             print("Base pointer type : ", Base_Type)
             if Is_Const(Argument):
                 if (str(Base_Type) == "char") or (str(Base_Type) == "unsigned char"):
-                    S += "const char* A_" + str(i) + ", "
+                    S += "const" + str(Base_Type) + "char* A_" + str(i) + ", "
                     StringD += "s"
             else:
                 if (str(Base_Type) == "char") or (str(Base_Type) == "unsigned char"):
-                    print("Override return type : ", Base_Type)
                     # Override return type
                     R += "const " + str(Base_Type) + "*"
                     ReturnD += "s"
+                    Additional_Content += str(Base_Type) + "S_" + str(i) + "[256] = \{0\}\n"
+                    Passed_Arguments += "S_" + str(i) + ", "
         else:
             if Is_Boolean_Type(Argument):
                 S += "bool A_" + str(i) + ", "
                 StringD += "b"
+                Passed_Arguments += "A_" + str(i) + ", "
             elif Is_Integral_Type(Argument) or Is_Enumeration(Argument):
+                Base_Type = Get_Base_Type(Argument)
                 S += "int A_" + str(i) + ", "
                 StringD += "i"
+                Passed_Arguments += "(" + str(Base_Type) + ")A_" + str(i) + ", " # Conversion from int to desired type
             elif Is_Float_Type(Argument):
+                Base_Type = Get_Base_Type(Argument)
                 S += "float A_" + str(i) + ", "
                 StringD += "f"
+                Passed_Arguments += "(" + str(Base_Type) + ")A_" + str(i) + ", "
             elif Is_Class(Argument):
                 S += Get_Name(Argument.base_type) + "* A_" + str(i) + ", "
                 StringD += "."
@@ -57,9 +68,12 @@ def Get_Binding_Function_Arguments(Declaration, Module):
                 print("Unhandled type : ", Argument)
                 S += "void* A_" + str(i) + ", "
                 StringD += "."
+                Passed_Arguments += "A_" + str(i) + ", "
 
     if S.endswith(", "):
         S = S[:-2]
+    if Passed_Arguments.endswith(", "):
+        Passed_Arguments = Passed_Arguments[:-2]
 
     # Return :
     if Is_Constructor(Declaration):
@@ -85,24 +99,61 @@ def Get_Binding_Function_Arguments(Declaration, Module):
             elif (Is_Integral_Type(Return_Type)) or (Is_Enumeration(Return_Type)):
                 R = "int"
                 ReturnD = "i"
+                Return_Conversion = "(int)"
             elif Is_Float_Type(Return_Type):
                 R = "float"
                 ReturnD = "f"
+                Return_Conversion = "(float)"
             elif Is_Class(Return_Type):
                 R = Get_Name(Return_Type) + "*"
                 ReturnD = Get_Name(Return_Type) + "."
             elif Is_Void_Type(Return_Type):
                 R = "void"
-                ReturnD = "empty"
+                ReturnD = ""
+            else:
+                print("Unhandled return type : ", Return_Type)
 
 
-         
-    print("S : ", S)
-    print("StringD : ", StringD)
-    print("R : ", R)
-    print("ReturnD : ", ReturnD)
+    Function_Name = Get_Name(Declaration)
 
-    print("StringD reg : ", re.sub(r"[^a-z0-9_]+", '', S.replace(" ", "_").lower()))
+    # - Function name    
+    Berry_Function_Name = "Berry_" + Get_Name(Declaration.parent) + "_"
+
+    if Is_Constructor(Declaration):
+        Berry_Function_Name += "Initialize"
+    elif Is_Destructor(Declaration):
+        Berry_Function_Name += "Deinitialize"
+    else:
+        Berry_Function_Name += Function_Name
+    
+
+    Complementary_Berry_Function_Name = re.sub(r"[^a-zA-Z0-9_]+", '', S.replace(" ", "_"))
+
+    # - Function signature
+    Berry_Function_Signature = R + " " + Berry_Function_Name + "(" + S + ")"
+
+    # - Function body
+    Berry_Function_Body = "{\n" + Additional_Content + "return " + Return_Conversion
+    if Is_Constructor(Declaration):
+        Berry_Function_Body += "new " + Get_Name(Declaration.parent)
+    elif Is_Destructor(Declaration):
+        Berry_Function_Body += "delete I;\n}\n"
+    elif Is_Function(Declaration):
+        if Module:   # Function but not module
+            Berry_Function_Body += "Module." # TODO : Replace
+        else:
+            Berry_Function_Body += "I->"
+
+    if not(Is_Destructor(Declaration)):
+        Berry_Function_Body += Get_Name(Declaration) + "(" + Passed_Arguments + "); \n}"
+
+    # - Function declaration
+    Berry_Function_Declaration = "BE_FUNC_CTYPE_DECLARE(" + Berry_Function_Name + Complementary_Berry_Function_Name + ", \"" + ReturnD + "\", \"" + StringD + "\")" 
+
+    print(Berry_Function_Signature)
+    print(Berry_Function_Body)
+    print(Berry_Function_Declaration)
+    print("")
 
 
     return S
