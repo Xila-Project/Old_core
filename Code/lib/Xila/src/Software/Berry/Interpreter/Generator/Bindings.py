@@ -6,46 +6,106 @@ from Basics import *
 import copy
 import re
 
-Type_Bindings = {
-    "uint8_t": "i",
-    "uint16_t": "i",
-    "uint32_t": "i",
-    "uint64_t": "i",
-    "int8_t": "i",
-    "int16_t": "i",
-    "int32_t": "i",
-    "int64_t": "i",
-    "int": "i",
-    "float": "f",
-    "double": "f",
-    "char*": "s",
-    "bool": "b",
-    "void": "",
-    "void*": "p",
-    "bool": "b",
-    "String_Type": "s",
-    "String_Type&": "s",
-    "Size_Type": "i"
-}
-
+# Function that convert function arguments to 
 def Get_Binding_Function_Arguments(Declaration, Module):
 
-    Arguments = []
+    print('Function : ', Declaration, ' Module : ', Module)
 
-    # Just copy the arguments names and types (faster than deepcopy since we don't need to copy the whole tree)
-    for Argument in Declaration.arguments:
-        Arguments.append([str(Argument.decl_type).replace("Xila_Namespace::", ""), Get_Name(Argument)])
+    Arguments = Get_Function_Arguments(Declaration)
 
-    # Clean types
-    for i in range(len(Arguments)):
-        Arguments[i][0] = Arguments[i][0].replace(" ", "")
-        Arguments[i][0] = Arguments[i][0].replace("const", "")
+    S = "\t\t"
+    StringD = "\t"
+    R = ""
+    ReturnD = ""
+    
+    Length = len(Arguments)
 
     if not(Module):
         if Is_Function(Declaration) or Is_Destructor(Declaration):
-            Arguments.insert(0, ["void*", "Instance"])
+            S += Get_Name(Declaration.parent) + "* I, "
+            StringD += "."
 
-    return Arguments
+    for i, Raw_Argument in enumerate(Arguments):
+        Argument = Remove_Alias(Raw_Argument.decl_type)
+        if Is_Pointer_Type(Argument):
+            Base_Type = Get_Base_Type(Argument)
+            print("Base pointer type : ", Base_Type)
+            if Is_Const(Argument):
+                if (str(Base_Type) == "char") or (str(Base_Type) == "unsigned char"):
+                    S += "const char* A_" + str(i) + ", "
+                    StringD += "s"
+            else:
+                if (str(Base_Type) == "char") or (str(Base_Type) == "unsigned char"):
+                    print("Override return type : ", Base_Type)
+                    # Override return type
+                    R += "const " + str(Base_Type) + "*"
+                    ReturnD += "s"
+        else:
+            if Is_Boolean_Type(Argument):
+                S += "bool A_" + str(i) + ", "
+                StringD += "b"
+            elif Is_Integral_Type(Argument) or Is_Enumeration(Argument):
+                S += "int A_" + str(i) + ", "
+                StringD += "i"
+            elif Is_Float_Type(Argument):
+                S += "float A_" + str(i) + ", "
+                StringD += "f"
+            elif Is_Class(Argument):
+                S += Get_Name(Argument.base_type) + "* A_" + str(i) + ", "
+                StringD += "."
+            else:
+                print("Unhandled type : ", Argument)
+                S += "void* A_" + str(i) + ", "
+                StringD += "."
+
+    if S.endswith(", "):
+        S = S[:-2]
+
+    # Return :
+    if Is_Constructor(Declaration):
+        R += "void *"
+        ReturnD += "+_p"
+    elif Is_Destructor(Declaration):
+        R += "void"
+        ReturnD += "empty"
+    elif (R == "") and (ReturnD == ""):
+        Return_Type = Remove_Alias(Get_Return_Type(Declaration))
+        if Is_Pointer_Type(Return_Type):
+            Base_Type = Get_Base_Type(Return_Type)
+            if (str(Base_Type) == "char") or (str(Base_Type) == "unsigned char"):
+                R = "const char*"
+                ReturnD = "s"
+            else:
+                R = "void*"
+                ReturnD = "p"
+        else:
+            if (Is_Boolean_Type(Return_Type)):
+                R = "bool"
+                ReturnD = "b"
+            elif (Is_Integral_Type(Return_Type)) or (Is_Enumeration(Return_Type)):
+                R = "int"
+                ReturnD = "i"
+            elif Is_Float_Type(Return_Type):
+                R = "float"
+                ReturnD = "f"
+            elif Is_Class(Return_Type):
+                R = Get_Name(Return_Type) + "*"
+                ReturnD = Get_Name(Return_Type) + "."
+            elif Is_Void_Type(Return_Type):
+                R = "void"
+                ReturnD = "empty"
+
+
+         
+    print("S : ", S)
+    print("StringD : ", StringD)
+    print("R : ", R)
+    print("ReturnD : ", ReturnD)
+
+    print("StringD reg : ", re.sub(r"[^a-z0-9_]+", '', S.replace(" ", "_").lower()))
+
+
+    return S
 
 def Get_Binding_Function_Name(Member, Module):
     Class_Name = Get_Name(Member.parent)

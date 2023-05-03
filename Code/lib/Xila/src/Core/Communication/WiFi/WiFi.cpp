@@ -50,7 +50,7 @@ Result_Type WiFi_Class::Stop()
 /// @param Channel Channel of the access point.
 /// @param BSSID BSSID of the access point.
 /// @return Result_Type::Success if the access point has been added to the registry, Result_Type::Error otherwise (doublon, failed to open the registry or save it ...).
-Result_Type WiFi_Class::Station_Class::Add(const String_Type &SSID, const String_Type &Password, int32_t Channel, const uint8_t *BSSID)
+Result_Type WiFi_Class::Station_Class::Add(const char*SSID, const char*Password, int32_t Channel, const uint8_t *BSSID)
 {
     // - Open registry
     DynamicJsonDocument WiFi_Registry(8 * 128);
@@ -106,7 +106,7 @@ Result_Type WiFi_Class::Station_Class::Add(const String_Type &SSID, const String
 /// @param SSID SSID of the access point.
 /// @param Channel Channel of the access point.
 /// @return Result_Type::Success if the access point has been removed from the registry, Result_Type::Error otherwise (not found, failed to open the registry or save it ...).
-Result_Type WiFi_Class::Station_Class::Remove(const String_Type &SSID, int32_t Channel)
+Result_Type WiFi_Class::Station_Class::Remove(const char*SSID, int32_t Channel)
 {
     // - Open registry
     DynamicJsonDocument Network_Registry(512);
@@ -155,7 +155,7 @@ Result_Type WiFi_Class::Station_Class::Remove(const String_Type &SSID, int32_t C
 /// @param SSID SSID of the access point.
 /// @param Channel Channel of the access point.
 /// @return true if the access point is known in the registry, false otherwise.
-bool WiFi_Class::Station_Class::Is_Known(const String_Type &SSID, const String_Type& Password, int32_t Channel)
+bool WiFi_Class::Station_Class::Is_Known(const char*SSID, const char* Password, int32_t Channel)
 {
     // - Create filter
     StaticJsonDocument<32> Filter;
@@ -195,7 +195,7 @@ bool WiFi_Class::Station_Class::Is_Known(const String_Type &SSID, const String_T
             break;
         }
      
-        if (Password.Is_Valid() && Password != Access_Point["Password"].as<const char*>())
+        if (strcmp(Password, Access_Point["Password"]) != 0)
         {
             Match = false;
             break;

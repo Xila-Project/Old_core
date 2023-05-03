@@ -96,7 +96,6 @@ void Berry_Class::Main_Task_Function()
         Load_Softwares_Handles();
 
     Virtual_Machine_Create();
-    be_set_ctype_func_hanlder(Virtual_Machine, be_call_ctype_func);
 
     // - REPL
     if (this->Get_Handle() == &Berry_Handle)
@@ -181,6 +180,7 @@ void Berry_Class::Main_Task_Function()
 void Berry_Class::Virtual_Machine_Create()
 {
     Virtual_Machine = be_vm_new();
+    be_set_ctype_func_hanlder(Virtual_Machine, be_call_ctype_func);
 }
 
 void Berry_Class::Virtual_Machine_Delete()

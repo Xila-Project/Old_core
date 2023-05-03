@@ -114,10 +114,10 @@ void Style_Class::Set_Arc_Width(Coordinate_Type Width)
     lv_style_set_arc_width(&LVGL_Style, Width);
 }
 
-void Style_Class::Set_Base_Direction(Base_Direction::Type Base_Direction)
+void Style_Class::Set_Base_Direction(Base_Direction_Type Base_Direction)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_style_set_base_dir(&LVGL_Style, Base_Direction);
+    lv_style_set_base_dir(&LVGL_Style, static_cast<lv_base_dir_t>(Base_Direction));
 }
 
 void Style_Class::Set_Background_Color(Color_Type Color)
@@ -126,13 +126,13 @@ void Style_Class::Set_Background_Color(Color_Type Color)
     lv_style_set_bg_color(&LVGL_Style, Color.Get_LVGL_Color());
 }
 
-void Style_Class::Set_Background_Dither_Mode(Dither_Mode::Type Dither_Mode)
+void Style_Class::Set_Background_Dither_Mode(Dither_Mode_Type Dither_Mode)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_style_set_bg_dither_mode(&LVGL_Style, Dither_Mode);
+    lv_style_set_bg_dither_mode(&LVGL_Style, static_cast<lv_dither_mode_t>(Dither_Mode));
 }
 
-void Style_Class::Set_Background_Gradient(const Gradient::Descriptor_Type *Gradient_Descriptor)
+void Style_Class::Set_Background_Gradient(const Gradient_Descriptor_Type *Gradient_Descriptor)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_style_set_bg_grad(&LVGL_Style, Gradient_Descriptor);
@@ -144,10 +144,10 @@ void Style_Class::Set_Background_Gradient_Color(Color_Type Color)
     lv_style_set_bg_grad_color(&LVGL_Style, Color.Get_LVGL_Color());
 }
 
-void Style_Class::Set_Background_Gradient_Direction(Gradient::Direction_Type Gradient_Direction)
+void Style_Class::Set_Background_Gradient_Direction(Gradient_Direction_Type Gradient_Direction)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_style_set_bg_grad_dir(&LVGL_Style, Gradient_Direction);
+    lv_style_set_bg_grad_dir(&LVGL_Style, static_cast<lv_grad_dir_t>(Gradient_Direction));
 }
 
 void Style_Class::Set_Background_Gradient_Stop(Coordinate_Type Value)
@@ -198,10 +198,10 @@ void Style_Class::Set_Background_Opacity(Opacity_Type Opacity)
     lv_style_set_bg_opa(&LVGL_Style, static_cast<lv_opa_t>(Opacity));
 }
 
-void Style_Class::Set_Blend_Mode(Blend::Mode_Type Blend_Mode)
+void Style_Class::Set_Blend_Mode(Blend_Mode_Type Blend_Mode)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_style_set_blend_mode(&LVGL_Style, Blend_Mode);
+    lv_style_set_blend_mode(&LVGL_Style, static_cast<lv_blend_mode_t>(Blend_Mode));
 }
 
 void Style_Class::Set_Border_Color(Color_Type Color)
@@ -582,10 +582,10 @@ void Style_Class::Set_Text_Color(Color_Type Color)
     lv_style_set_text_color(&LVGL_Style, Color.Get_LVGL_Color());
 }
 
-void Style_Class::Set_Text_Decor(Text::Decor_Type Text_Decor)
+void Style_Class::Set_Text_Decor(Text_Decor_Type Text_Decor)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_style_set_text_decor(&LVGL_Style, Text_Decor);
+    lv_style_set_text_decor(&LVGL_Style, static_cast<lv_text_decor_t>(Text_Decor));
 }
 
 void Style_Class::Set_Text_Font(Font_Type *Font)

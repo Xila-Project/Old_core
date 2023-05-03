@@ -135,7 +135,7 @@ IP_Address_Class& IP_Address_Class::operator=(const uint32_t Address)
     return *this;
 }
 
-void IP_Address_Class::To(String_Class& String) const
+String_Type& IP_Address_Class::To(String_Class& String) const
 {
     if (Is_IPv4)
     {

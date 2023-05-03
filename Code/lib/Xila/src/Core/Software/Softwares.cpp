@@ -82,7 +82,7 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
     return Result_Type::Success;
 }
 
-Result_Type Softwares_Class::Open(const String_Type &Name, const Accounts_Types::User_Type *Owner_User)
+Result_Type Softwares_Class::Open(const char*Name, const Accounts_Types::User_Type *Owner_User)
 {   
     const Software_Handle_Type *Handle = this->Find_Handle(Name);
 
@@ -133,7 +133,7 @@ Software_Type *Softwares_Class::Find(const Software_Handle_Type *Handle)
     return NULL;
 }
 
-Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
+Software_Handle_Type *Softwares_Class::Find_Handle(const char*Name)
 {    
     Static_String_Type<Default_Software_Name_Length> Software_Name;
     

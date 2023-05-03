@@ -43,7 +43,7 @@ void Button_Class::Create(Object_Class Parent_Object)
 }
 
 
-void Button_Class::Create(Object_Class Parent_Object, const String_Type &Label_Text, Coordinate_Type Width, Coordinate_Type Height, Module_Type *Module, Graphics_Types::Event_Code_Type Event_Code)
+void Button_Class::Create(Object_Class Parent_Object, const char*Label_Text, Coordinate_Type Width, Coordinate_Type Height, Module_Type *Module, Graphics_Types::Event_Code_Type Event_Code)
 {
     if (Parent_Object)
     {

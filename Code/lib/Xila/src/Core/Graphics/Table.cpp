@@ -42,22 +42,22 @@ void Table_Class::Create(Object_Class Parent_Object)
     }
 }
 
-void Table_Class::Add_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control)
+void Table_Class::Add_Cell_Control(uint16_t Row, uint16_t Column, Table_Cell_Control_Type Cell_Control)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_table_add_cell_ctrl(Get_Pointer(), Row, Column, Cell_Control);
+    lv_table_add_cell_ctrl(Get_Pointer(), Row, Column, static_cast<lv_table_cell_ctrl_t>(Cell_Control));
 }
 
-void Table_Class::Clear_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control)
+void Table_Class::Clear_Cell_Control(uint16_t Row, uint16_t Column, Table_Cell_Control_Type Cell_Control)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_table_clear_cell_ctrl(Get_Pointer(), Row, Column, Cell_Control);
+    lv_table_clear_cell_ctrl(Get_Pointer(), Row, Column, static_cast<lv_table_cell_ctrl_t>(Cell_Control));
 }
 
-bool Table_Class::Has_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control)
+bool Table_Class::Has_Cell_Control(uint16_t Row, uint16_t Column, Table_Cell_Control_Type Cell_Control)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_table_has_cell_ctrl(Get_Pointer(), Row, Column, Cell_Control);
+    return lv_table_has_cell_ctrl(Get_Pointer(), Row, Column, static_cast<lv_table_cell_ctrl_t>(Cell_Control));
 }
 
 // - - Getters

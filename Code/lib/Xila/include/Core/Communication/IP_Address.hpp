@@ -92,7 +92,7 @@ namespace Xila_Namespace
 
             /// @brief Convert the IP address to a string.
             /// @param String : String to store the IP address.
-            void To(String_Type &String) const;
+            String_Type& To(String_Type &String) const;
 
             // - - Getters
 

@@ -76,7 +76,7 @@ namespace Xila_Namespace
             /// @brief Add a string to the hash.
             /// @param String String to add.
             /// @return Result_Type
-            Result_Type Add(const String_Type &String);
+            Result_Type Add(const char*String);
 
         private:
             // - Attributes

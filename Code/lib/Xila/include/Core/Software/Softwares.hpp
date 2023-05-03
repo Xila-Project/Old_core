@@ -40,12 +40,12 @@ namespace Xila_Namespace
         // - - Operations
 
         Result_Type Open(const Software_Handle_Type* Handle, const Accounts_Types::User_Type* Owner_User = NULL);
-        Result_Type Open(const String_Type& Name, const Accounts_Types::User_Type* Owner_User = NULL);
+        Result_Type Open(const char* Name, const Accounts_Types::User_Type* Owner_User = NULL);
         Result_Type Close(Software_Type* Software);
         Result_Type Kill(Software_Type* Software);
 
         Software_Type* Find(const Software_Handle_Type* Handle);
-        Software_Handle_Type* Find_Handle(const String_Type& Name);  
+        Software_Handle_Type* Find_Handle(const char* Name);  
 
         Software_Type* Get(uint8_t Index);
         const Software_Handle_Type* Get_Handle(uint8_t Index);

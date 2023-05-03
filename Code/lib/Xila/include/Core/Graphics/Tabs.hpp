@@ -31,8 +31,8 @@ namespace Xila_Namespace
             virtual void Create(Object_Class Parent_Object) override;
             virtual void Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size);
 
-            Object_Class Add_Tab(const String_Type &Name);
-            void Rename_Tab(uint32_t Index, const String_Type &New_name);
+            Object_Class Add_Tab(const char*Name);
+            void Rename_Tab(uint32_t Index, const char*New_name);
 
             // - - Setters.
             virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;

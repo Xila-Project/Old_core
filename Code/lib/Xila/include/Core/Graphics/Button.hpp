@@ -47,7 +47,7 @@ namespace Xila_Namespace
             /// @param Height
             /// @param Module
             /// @param Event_Code
-            void Create(Object_Class Parent_Object, const String_Type &Label_Text, Coordinate_Type Width = 0, Coordinate_Type Height = 0, Module_Type *Module = NULL, Event_Code_Type Event_Code = Event_Code_Type::Clicked);
+            void Create(Object_Class Parent_Object, const char*Label_Text, Coordinate_Type Width = 0, Coordinate_Type Height = 0, Module_Type *Module = NULL, Event_Code_Type Event_Code = Event_Code_Type::Clicked);
 
             // - - Setters
 

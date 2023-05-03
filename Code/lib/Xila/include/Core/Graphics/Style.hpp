@@ -21,7 +21,7 @@ namespace Xila_Namespace
 {
     namespace Graphics_Types
     {
-        typedef class Style_Class : public Types_Class
+        typedef class Style_Class 
         {
         public:
             // - Types
@@ -62,14 +62,14 @@ namespace Xila_Namespace
             void Set_Arc_Rounded(bool Rounded);
             void Set_Arc_Width(Coordinate_Type Width);
 
-            void Set_Base_Direction(Base_Direction::Type Base_Direction);
+            void Set_Base_Direction(Base_Direction_Type Base_Direction);
 
             // - - - Background
             void Set_Background_Color(Color_Type Color);
-            void Set_Background_Dither_Mode(Dither_Mode::Type Dither_Mode);
-            void Set_Background_Gradient(const Gradient::Descriptor_Type *Gradient_Descriptor);
+            void Set_Background_Dither_Mode(Dither_Mode_Type Dither_Mode);
+            void Set_Background_Gradient(const Gradient_Descriptor_Type *Gradient_Descriptor);
             void Set_Background_Gradient_Color(Color_Type Color);
-            void Set_Background_Gradient_Direction(Gradient::Direction_Type Gradient_Direction);
+            void Set_Background_Gradient_Direction(Gradient_Direction_Type Gradient_Direction);
             void Set_Background_Gradient_Stop(Coordinate_Type Value);
             void Set_Background_Image_Opacity(Opacity_Type Opacity);
             void Set_Background_Image_Recolor(Color_Type Color);
@@ -79,7 +79,7 @@ namespace Xila_Namespace
             void Set_Background_Main_Stop(Coordinate_Type Value);
             void Set_Background_Opacity(Opacity_Type Opacity);
 
-            void Set_Blend_Mode(Blend::Mode_Type Blend_Mode);
+            void Set_Blend_Mode(Blend_Mode_Type Blend_Mode);
 
             // - - - - Border
             void Set_Border_Color(Color_Type Color);
@@ -169,7 +169,7 @@ namespace Xila_Namespace
             // - - - - Text
             void Set_Text_Alignment(Text_Alignment_Type Alignment);
             void Set_Text_Color(Color_Type Color);
-            void Set_Text_Decor(Text::Decor_Type Decor);
+            void Set_Text_Decor(Text_Decor_Type Decor);
             void Set_Text_Font(Font_Type *Font);
             void Set_Text_Letter_Space(Coordinate_Type Letter_Space);
             void Set_Text_Line_Space(Coordinate_Type Line_Space);

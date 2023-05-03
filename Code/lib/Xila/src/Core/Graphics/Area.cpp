@@ -35,7 +35,7 @@ void Area_Class::Move(Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
 void Area_Class::Align(Area_Class To_Align_To, Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_area_align(&To_Align_To.LVGL_Area, &LVGL_Area, Alignment, X_Offset, Y_Offset);
+    lv_area_align(&To_Align_To.LVGL_Area, &LVGL_Area, static_cast<lv_align_t>(Alignment), X_Offset, Y_Offset);
 }
 
 // ------------------------------------------------------------------------- //
@@ -73,13 +73,13 @@ void Area_Class::Set_Height(Coordinate_Type Height)
 //
 // ------------------------------------------------------------------------- //
 
-Area_Class::Coordinate_Type Area_Class::Get_Width()
+Coordinate_Type Area_Class::Get_Width()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_area_get_width(&LVGL_Area);
 }
 
-Area_Class::Coordinate_Type Area_Class::Get_Height()
+Coordinate_Type Area_Class::Get_Height()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_area_get_height(&LVGL_Area);

@@ -40,7 +40,7 @@ namespace Xila_Namespace
         ~Software_Handle_Class();
 
         // - - Getters
-        void Get_Name(String_Type& Name) const;
+        String_Type& Get_Name(String_Type& Name) const;
 
         virtual void Create_Instance(const Accounts_Types::User_Type* Owner_User) const;
         bool Is_Equal(const Software_Handle_Class &Software_Handle_To_Compare) const;

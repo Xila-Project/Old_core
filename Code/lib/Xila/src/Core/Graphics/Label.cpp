@@ -42,7 +42,7 @@ void Label_Class::Create(Object_Class Parent_Object)
     }
 }
 
-void Label_Class::Create(Object_Class Parent_Object, const String_Type &Text, Coordinate_Type Width, Coordinate_Type Height)
+void Label_Class::Create(Object_Class Parent_Object, const char*Text, Coordinate_Type Width, Coordinate_Type Height)
 {
     if (Parent_Object)
     {

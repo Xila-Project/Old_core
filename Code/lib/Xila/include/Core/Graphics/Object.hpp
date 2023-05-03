@@ -32,7 +32,7 @@ namespace Xila_Namespace
     {
 
         /// @brief Object class.
-        typedef class Object_Class : public Types_Class
+        typedef class Object_Class 
         {
         public:
             // - Types
@@ -40,8 +40,6 @@ namespace Xila_Namespace
             /// @brief Point type.
             typedef lv_point_t Point_Type;
 
-            /// @brief Color type.
-            typedef Color_Class Color_Type;
 
             /// @brief Color descriptor type.
             typedef Color_Filter_Descriptor_Class Color_Filter_Descriptor_Type;
@@ -186,10 +184,10 @@ namespace Xila_Namespace
 
             // - - - - Background
             void Set_Style_Background_Color(Color_Type Color, Style_Selector_Type Style_Selector);
-            void Set_Style_Background_Dither_Mode(Dither_Mode::Type Dither_Mode, Style_Selector_Type Style_Selector);
-            void Set_Style_Background_Gradient(const Gradient::Descriptor_Type *Gradient_Descriptor, Style_Selector_Type Style_Selector);
+            void Set_Style_Background_Dither_Mode(Dither_Mode_Type Dither_Mode, Style_Selector_Type Style_Selector);
+            void Set_Style_Background_Gradient(const Gradient_Descriptor_Type *Gradient_Descriptor, Style_Selector_Type Style_Selector);
             void Set_Style_Background_Gradient_Color(Color_Type Color, Style_Selector_Type Style_Selector);
-            void Set_Style_Background_Gradient_Direction(Gradient::Direction_Type Gradient_Direction, Style_Selector_Type Style_Selector);
+            void Set_Style_Background_Gradient_Direction(Gradient_Direction_Type Gradient_Direction, Style_Selector_Type Style_Selector);
             void Set_Style_Background_Gradient_Stop(Coordinate_Type Value, Style_Selector_Type Style_Selector);
             void Set_Style_Background_Image_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
             void Set_Style_Background_Image_Recolor(Color_Type Color, Style_Selector_Type Style_Selector);
@@ -200,7 +198,7 @@ namespace Xila_Namespace
             void Set_Style_Background_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
 
             // - - - - Blend
-            void Set_Style_Blend_Mode(Blend::Mode_Type Blend_Mode, Style_Selector_Type Style_Selector);
+            void Set_Style_Blend_Mode(Blend_Mode_Type Blend_Mode, Style_Selector_Type Style_Selector);
 
             // - - - - Border
             void Set_Style_Border_Color(Color_Type Color, Style_Selector_Type Style_Selector);
@@ -286,7 +284,7 @@ namespace Xila_Namespace
             // - - - - Text
             void Set_Style_Text_Alignment(Text_Alignment_Type Alignment, Style_Selector_Type Style_Selector);
             void Set_Style_Text_Color(Color_Type Color, Style_Selector_Type Style_Selector);
-            void Set_Style_Text_Decor(Text::Decor_Type Decor, Style_Selector_Type Style_Selector);
+            void Set_Style_Text_Decor(Text_Decor_Type Decor, Style_Selector_Type Style_Selector);
             void Set_Style_Text_Font(const Font_Type *Font, Style_Selector_Type Style_Selector);
             void Set_Style_Text_Letter_Space(Coordinate_Type Letter_Space, Style_Selector_Type Style_Selector);
             void Set_Style_Text_Line_Space(Coordinate_Type Line_Space, Style_Selector_Type Style_Selector);
@@ -343,18 +341,18 @@ namespace Xila_Namespace
             bool Get_Style_Arc_Rounded(Part_Type Part);
             Coordinate_Type Get_Style_Arc_Width(Part_Type Part);
 
-            Base_Direction::Type Get_Style_Base_Direction(Part_Type Part);
+            Base_Direction_Type Get_Style_Base_Direction(Part_Type Part);
             // - - - Background
             Color_Type Get_Style_Background_Color(Part_Type Part);
             Color_Type Get_Style_Background_Color_Filtered(Part_Type Part);
             Opacity_Type Get_Style_Background_Opacity(Part_Type Part);
             Color_Type Get_Style_Background_Gradient_Color(Part_Type Part);
             Color_Type Get_Style_Background_Gradient_Color_Filtered(Part_Type Part);
-            Gradient::Direction_Type Get_Style_Background_Gradient_Direction(Part_Type Part);
+            Gradient_Direction_Type Get_Style_Background_Gradient_Direction(Part_Type Part);
             Coordinate_Type Get_Style_Background_Main_Stop(Part_Type Part);
             Coordinate_Type Get_Style_Background_Gradient_Stop(Part_Type Part);
-            const Gradient::Descriptor_Type *Get_Style_Background_Gradient(Part_Type Part);
-            Dither_Mode::Type Get_Style_Background_Dither_Mode(Part_Type Part);
+            const Gradient_Descriptor_Type *Get_Style_Background_Gradient(Part_Type Part);
+            Dither_Mode_Type Get_Style_Background_Dither_Mode(Part_Type Part);
             const void *Get_Style_Background_Image_Source(Part_Type Part);
             Opacity_Type Get_Style_Background_Image_Opacity(Part_Type Part);
             Color_Type Get_Style_Background_Image_Recolor(Part_Type Part);
@@ -362,7 +360,7 @@ namespace Xila_Namespace
             Opacity_Type Get_Style_Background_Image_Recolor_Opacity(Part_Type Part);
             bool Get_Style_Background_Image_Tiled(Part_Type Part);
 
-            Blend::Mode_Type Get_Style_Blend_Mode(Part_Type Part);
+            Blend_Mode_Type Get_Style_Blend_Mode(Part_Type Part);
 
             // - - - Border
             Color_Type Get_Style_Border_Color(Part_Type Part);
@@ -453,7 +451,7 @@ namespace Xila_Namespace
             Text_Alignment_Type Get_Style_Text_Alignment(Part_Type Part);
             Color_Type Get_Style_Text_Color(Part_Type Part);
             Color_Type Get_Style_Text_Color_Filtered(Part_Type Part);
-            Text::Decor_Type Get_Style_Text_Decor(Part_Type Part);
+            Text_Decor_Type Get_Style_Text_Decor(Part_Type Part);
             const Font_Type *Get_Style_Text_Font(Part_Type Part);
             Coordinate_Type Get_Style_Text_Letter_Space(Part_Type Part);
             Coordinate_Type Get_Style_Text_Line_Space(Part_Type Part);

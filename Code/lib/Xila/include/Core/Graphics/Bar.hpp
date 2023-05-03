@@ -24,26 +24,19 @@ namespace Xila_Namespace
 {
     namespace Graphics_Types
     {
+
+    enum class Bar_Mode_Type : lv_bar_mode_t
+    {
+        Normal = LV_BAR_MODE_NORMAL,
+        Symmetrical = LV_BAR_MODE_SYMMETRICAL,
+        Range = LV_BAR_MODE_RANGE
+    };
+
     /// @brief Bar class.
     typedef class Bar_Class : public Object_Class
     {
     public:
         // -- Types
-
-        class Mode
-        {
-        public:
-            /// @brief Bar mode type.
-            typedef lv_bar_mode_t Type;
-
-            /// @brief Bar mode enumeration.
-            enum Enumeration
-            {
-                Normal = LV_BAR_MODE_NORMAL,
-                Symmetrical = LV_BAR_MODE_SYMMETRICAL,
-                Range = LV_BAR_MODE_RANGE
-            };
-        };
 
         class Draw_Part
         {
@@ -95,7 +88,7 @@ namespace Xila_Namespace
 
         /// @brief Set the mode of the bar.
         /// @param Mode Mode to set.
-        void Set_Mode(Mode::Type Mode);
+        void Set_Mode(Bar_Mode_Type Mode);
 
         // - - Getters.
 
@@ -117,7 +110,7 @@ namespace Xila_Namespace
 
         /// @brief Get the mode of the bar.
         /// @return Mode of the bar.
-        Mode::Type Get_Mode();
+        Bar_Mode_Type Get_Mode();
 
         // - - Attributes
 

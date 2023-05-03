@@ -67,7 +67,7 @@ namespace Xila_Namespace
         uint32_t Get_Chip_Cores();
         uint32_t Get_CPU_Frequency();
 
-        void Set_Device_Name(const String_Type &Device_Name);
+        void Set_Device_Name(const char*Device_Name);
 
         // - - Time
 
@@ -85,7 +85,7 @@ namespace Xila_Namespace
 
         // - - - Setters
         void Set_Time_Zone(uint32_t UTC_Offset, uint16_t Daylight_Offset);
-        void Set_NTP_Server(const String_Type &NTP_Server);
+        void Set_NTP_Server(const char*NTP_Server);
 
         // - - System
 

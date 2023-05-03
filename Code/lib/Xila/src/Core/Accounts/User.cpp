@@ -18,7 +18,7 @@ using namespace Xila_Namespace::Accounts_Types;
 /// @brief User class constructor.
 /// @param Name User name.
 /// @param State User state.
-User_Class::User_Class(const String_Type& Name, User_State_Type State) : Name(Name), State(State)
+User_Class::User_Class(const char* Name, User_State_Type State) : Name(Name), State(State)
 {
   Log_Verbose("User", "Constructor");
 }
@@ -41,20 +41,21 @@ User_State_Type User_Class::Get_State() const
   return State;
 }
 
-void User_Class::Get_Name(String_Type& Name) const
+String_Type& User_Class::Get_Name(String_Type& Name) const
 {
   Name = this->Name;
+  return Name;
 }
 
-void User_Class::Get_Home_Folder_Path(String_Type& Home_Folder_Path) const
+String_Type& User_Class::Get_Home_Folder_Path(String_Type& Home_Folder_Path) const
 {
   Home_Folder_Path = Users_Directory_Path;
   Home_Folder_Path += "/";
   Home_Folder_Path += this->Name;
-  
+  return Home_Folder_Path;
 }
 
-void User_Class::Set_Name(const String_Type& Name)
+void User_Class::Set_Name(const char* Name)
 {
   this->Name = Name;
 }

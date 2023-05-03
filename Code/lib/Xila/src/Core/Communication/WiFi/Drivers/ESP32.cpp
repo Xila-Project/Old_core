@@ -223,7 +223,7 @@ Result_Type WiFi_Class::Set_Transmission_Power(int16_t Power)
     return Result_Type::Error;
 }
 
-Result_Type WiFi_Class::Set_Host_Name(const String_Type& Host_Name)
+Result_Type WiFi_Class::Set_Host_Name(const char* Host_Name)
 {
     if (Host_Name)
     {
@@ -237,7 +237,7 @@ Result_Type WiFi_Class::Set_Host_Name(const String_Type& Host_Name)
 
 // - - Station
 
-void WiFi_Class::Station_Class::Connect(const String_Type& SSID, const String_Type& Password, int32_t Channel, const uint8_t *BSSID)
+void WiFi_Class::Station_Class::Connect(const char* SSID, const char* Password, int32_t Channel, const uint8_t *BSSID)
 {
     if (this->Is_Known(SSID, Password, Channel))
     {
@@ -384,9 +384,9 @@ void WiFi_Class::Station_Class::Set_Sort_Method(bool Signal)
 
 // - Access point
 
-Result_Type WiFi_Class::Access_Point_Class::Create(const String_Type& SSID, const String_Type& Password, int32_t Channel, bool Hidden, uint8_t Maximum_Stations, bool FTM_Responder)
+Result_Type WiFi_Class::Access_Point_Class::Create(const char* SSID, const char* Password, int32_t Channel, bool Hidden, uint8_t Maximum_Stations, bool FTM_Responder)
 {
-    if (Password.Get_Length() <= this->Password.Get_Length())
+    if (strlen(Password) <= this->Password.Get_Length())
     {
         if (ESP32_WiFi.softAP(SSID, Password, Channel, Hidden, Maximum_Stations, FTM_Responder))
         {
@@ -500,7 +500,7 @@ Result_Type WiFi_Class::Access_Point_Class::Set_Configuration(IP_Address_Type Lo
 
 // - - Scan
 
-int16_t WiFi_Class::Scan_Class::Start(bool Asynchronous, bool Show_Hidden, bool Passive, uint32_t Maximum_Milliseconds_Per_Channel, uint8_t Channel, const String_Type& SSID, const uint8_t *BSSID)
+int16_t WiFi_Class::Scan_Class::Start(bool Asynchronous, bool Show_Hidden, bool Passive, uint32_t Maximum_Milliseconds_Per_Channel, uint8_t Channel, const char* SSID, const uint8_t *BSSID)
 {
     return ESP32_WiFi.scanNetworks(Asynchronous, Show_Hidden, Passive, Maximum_Milliseconds_Per_Channel, Channel, SSID, BSSID);
 }

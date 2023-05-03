@@ -33,7 +33,7 @@ namespace Xila_Namespace
             lv_color_filter_dsc_t LVGL_Color_Filter_Descriptor;
         } Color_Filter_Descriptor_Type;
 
-        typedef class Color_Class : public Types_Class
+        typedef class Color_Class 
         {
         public:
             // - Attributes

@@ -1,13 +1,15 @@
 from pygccxml import utils
+from pygccxml.declarations import type_traits as Type_Traits
 from pygccxml import declarations as Declarations
 from pygccxml import parser as Parser
+from pygccxml.declarations import type_traits_classes as Type_Traits_Classes
 import os
 
 def Is_Namespace(Declaration):
     return type(Declaration) == Declarations.namespace_t
 
 def Is_Class(Declaration):
-    return Declaration.name.endswith("_Class") and (type(Declaration) == Declarations.class_declaration.class_t)
+    return (type(Declaration) == Declarations.class_declaration.class_t) and Declaration.name.endswith("_Class") 
 
 def Is_Function(Declaration):
     return (type(Declaration) == Declarations.calldef_members.member_function_t) and (Declaration.access_type == "public")
@@ -17,7 +19,10 @@ def Is_Constructor(Declaration):
     #for Argument in Declaration.arguments:
     #    if (Argument.name == "arg0"):
     #        return False
-    return type(Declaration) == Declarations.calldef_members.constructor_t
+    return type(Declaration) == Declarations.calldef_members.constructor_t and (Declaration.access_type == "public")
+
+def Is_Copy_Constructor(Declaration):
+    return Type_Traits_Classes.is_copy_constructor(Declaration)
 
 def Is_Enumeration(Declaration):
     return type(Declaration) == Declarations.enumeration.enumeration_t
@@ -26,7 +31,8 @@ def Is_Typedef(Declaration):
     return type(Declaration) == Declarations.typedef.typedef_t
 
 def Is_Destructor(Declaration):
-    return type(Declaration) == Declarations.calldef_members.destructor_t
+    return type(Declaration) == Declarations.calldef_members.destructor_t and (Declaration.access_type == "public")
+
 
 def Get_Name(Declaration):
     return Declaration.name
@@ -38,7 +44,45 @@ def Get_Return_Type(Declaration):
     #    print("Typedef !")
     #    print("Top level: " + Get_Name(Declaration.return_type.top_parent))
 
-    return str(Declaration.return_type).replace("Xila_Namespace::", "")
+   # print("Declaration : ", Declaration.return_type, " base : ", Type_Traits.base_type(Ty), " is fund", Type_Traits.is_fundamental(Ty) )
+
+    return Declaration.return_type
+
+def Get_Function_Arguments(Declaration):
+    return Declaration.arguments
+
+def Get_Base_Type(Declaration):
+    return Type_Traits.base_type(Declaration)
+
+def Is_Void_Type(Declaration):
+    return Type_Traits.is_void(Declaration)
+
+def Is_Fundamental_Type(Declaration):
+    return Type_Traits.is_fundamental(Declaration)
+
+def Is_Boolean_Type(Declaration):
+    return Type_Traits.is_bool(Declaration)
+
+def Is_Integral_Type(Declaration):
+    return Type_Traits.is_integral(Declaration)
+
+def Is_Float_Type(Declaration):
+    return Type_Traits.is_floating_point(Declaration)
+
+def Is_Pointer_Type(Declaration):
+    return Type_Traits.is_pointer(Declaration)
+
+def Is_Reference_Type(Declaration):
+    return Type_Traits.is_reference(Declaration)
+
+def Is_Const(Declaration):
+    return Type_Traits.is_const(Declaration)
+
+def Remove_Alias(Declaration):
+    return Type_Traits.remove_alias(Declaration)
+
+def Remove_Const_Volatile(Declaration):
+    return Type_Traits.remove_cv(Declaration)
 
 def Get_Project_Path():
     Path = os.path.dirname(__file__)

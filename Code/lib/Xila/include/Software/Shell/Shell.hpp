@@ -229,7 +229,7 @@ class Shell_Class : public Software_Type
     // - - Others
 
     void Set_Interface();
-    static void Get_Software_Icon(Graphics_Types::Object_Type &, const String_Type &);
+    static void Get_Software_Icon(Graphics_Types::Object_Type &, const char*);
     void Execute_Instruction(Instruction_Type Instruction);
     void Main_Task_Function() override;
     void Refresh_Overlay();

@@ -92,7 +92,7 @@ void System_Class::Set_Time_Zone(uint32_t UTC_Offset, uint16_t Daylight_Offset)
   configTime(this->UTC_Offset, this->Daylight_Offset, this->NTP_Server);
 }
 
-void System_Class::Set_NTP_Server(const String_Type &NTP_Server)
+void System_Class::Set_NTP_Server(const char*NTP_Server)
 {
   this->NTP_Server = NTP_Server;
   configTime(this->UTC_Offset, this->Daylight_Offset, this->NTP_Server);

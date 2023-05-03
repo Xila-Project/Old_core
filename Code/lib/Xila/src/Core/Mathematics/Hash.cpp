@@ -131,7 +131,7 @@ Result_Type Hash_Class::Add(const Byte_Type *Data, Size_Type Size)
     return Result_Type::Success;
 }
 
-Result_Type Hash_Class::Add(const String_Type &Data)
+Result_Type Hash_Class::Add(const char*Data)
 {
-    return this->Add((const Byte_Type *)Data, Data.Get_Length());
+    return this->Add((const Byte_Type *)Data, strlen(Data));
 }

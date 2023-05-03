@@ -164,7 +164,7 @@ void Canvas_Class::Set_Buffer(void *Buffer, Coordinate_Type Width, Coordinate_Ty
 //
 // ------------------------------------------------------------------------- //
 
-Object_Class::Color_Type Canvas_Class::Get_Pixel(Coordinate_Type X, Coordinate_Type Y)
+Color_Type Canvas_Class::Get_Pixel(Coordinate_Type X, Coordinate_Type Y)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_canvas_get_px(Get_Pointer(), X, Y);

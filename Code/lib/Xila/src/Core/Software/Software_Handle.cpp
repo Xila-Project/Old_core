@@ -67,9 +67,10 @@ bool Software_Handle_Class::Is_Equal(const Software_Handle_Class &Software_Handl
   return false;
 }
 
-void Software_Handle_Class::Get_Name(String_Type& Name) const
+String_Type& Software_Handle_Class::Get_Name(String_Type& Name) const
 {
   Name = this->Name;
+  return Name;
 }
 
 void Software_Handle_Class::Create_Instance(const Accounts_Types::User_Type* Owner_User) const

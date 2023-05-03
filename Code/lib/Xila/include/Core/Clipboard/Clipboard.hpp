@@ -34,7 +34,7 @@ namespace Xila_Namespace
         void Clear();
 
         void Copy(QWord_Type Value_To_Copy);
-        void Copy(const String_Type &String_To_Copy);
+        void Copy(const char*String_To_Copy);
         void Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length = 0);
         void Copy(const void *Data, Size_Type Data_Size);
 

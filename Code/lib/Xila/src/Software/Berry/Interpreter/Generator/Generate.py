@@ -26,25 +26,28 @@ def Generate_Class(Generated_File, Class, Module_Name):
     # Constructors
     Generated_File.write("\n// - - Constructors\n")
     for Member in Class.get_members():
-        if (Is_Constructor(Member)):
-             Generated_File.write(Get_Binding_Function(Member, False) + "\n")
-             Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
+        if (Is_Constructor(Member) and not(Is_Copy_Constructor(Member))):
+            print(Get_Binding_Function_Arguments(Member, False))
+            #Generated_File.write(Get_Binding_Function(Member, False) + "\n")
+            #Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
 
     Generated_File.write("\n// - - Destructors\n")
 
     # Destructor
     for Member in Class.get_members():
         if (Is_Destructor(Member)):
-            Generated_File.write(Get_Binding_Function(Member, False) + "\n")
-            Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
+            print(Get_Binding_Function_Arguments(Member, False))
+            #Generated_File.write(Get_Binding_Function(Member, False) + "\n")
+            #Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
 
     Generated_File.write("\n// - - Functions\n")
 
     # Function
     for Member in Class.get_members():
         if(Is_Function(Member)):
-            Generated_File.write(Get_Binding_Function(Member, False) + "\n")
-            Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
+            print(Get_Binding_Function_Arguments(Member, False))
+            #Generated_File.write(Get_Binding_Function(Member, False) + "\n")
+            #Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
 
     # Berry declaration part
 
@@ -122,39 +125,10 @@ def Generate(Global_Namespace):
             print("Class : " + Get_Name(Declaration))
             Generate_Class(Declaration)
 
-def determine_type(typedef):
-    # Vérifiez si le type réel est une classe
-    if isinstance(typedef.decl_type, Declarations.class_declaration_t):
-        return 'class'
-
-    # Vérifiez si le type réel est un nombre
-    elif isinstance(typedef.decl_type, Declarations.fundamental_t) and \
-            typedef.decl_type.is_numeric:
-        return 'numeric'
-
-    # Vérifiez si le type réel est un caractère
-    elif isinstance(typedef.decl_type, Declarations.fundamental_t) and \
-            typedef.decl_type.is_char:
-        return 'char'
-
-    # Si le type réel est un autre typedef, parcourez-le récursivement
-    elif isinstance(typedef.decl_type, Declarations.typedef_t):
-        print("recursive")
-        return determine_type(typedef.decl_type)
-
-    # Si le type réel n'est pas une classe, un nombre, un caractère ou un autre typedef, considérez-le comme un type inconnu
-    else:
-        print(str(typedef.decl_type))
-        return 'unknown'
-
-def det_type(typedef):
+def Resolve_Type(typedef):
     if Is_Typedef(typedef):
-        return det_type(typedef.decl_typdetermine_typee)
+        return Resolve_Type(typedef.decl_type)
     else:
-        if (str(typedef) == "lv_coord_t"):
-
-            print("lv_coord_t : ", typedef.decl_type)
-
         return typedef
 
 # Find the location of the xml generator (castxml or gccxml)
@@ -215,24 +189,19 @@ Header = [os.path.join(Get_Code_Path(), "lib", "Xila", "include", "Xila.hpp")]
 # Parse the c++ file
 Dec = Parser.parse(Header, xml_generator_config)
 
+
 if os.path.exists(os.path.join(Get_Code_Path(), "Xila.d")):
     os.remove(os.path.join(Get_Code_Path(), "Xila.d"))
 
 # Get access to the global namespace
 Xila_Namespace = Declarations.get_global_namespace(Dec).namespace("Xila_Namespace")
 
-
-#Generate_Module(Xila_Namespace, "System")
-#Generate_Module(Xila_Namespace, "Memory")
-
-for Declaration in Xila_Namespace.namespace("Graphics_Types").typedefs():
-
-    print("Typedef : ", Get_Name(Declaration))
-    list = Declarations.dependencies.
+#Parser.declarations_joiner.join_declarations(Declarations.get_global_namespace(Dec))
         
 
-
-Generate_Module(Xila_Namespace, "Graphics")
+Generate_Module(Xila_Namespace, "Drive")
+#Generate_Module(Xila_Namespace, "Memory")
+#Generate_Module(Xila_Namespace, "Graphics")
 
 Temporary_Folder_Path = os.path.join(Get_Code_Path(), "lib", "berry", "Temporary")
 

@@ -43,7 +43,7 @@ void Tabs_Class::Create(Object_Class Parent_Object, Direction_Type Direction, Co
     }
 }
 
-Object_Class Tabs_Class::Add_Tab(const String_Type &Name)
+Object_Class Tabs_Class::Add_Tab(const char*Name)
 {
     lv_obj_t* Tab_Pointer;
     {
@@ -53,7 +53,7 @@ Object_Class Tabs_Class::Add_Tab(const String_Type &Name)
     return Object_Class(Tab_Pointer);
 }
 
-void Tabs_Class::Rename_Tab(uint32_t Index, const String_Type &New_name)
+void Tabs_Class::Rename_Tab(uint32_t Index, const char*New_name)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_tabview_rename_tab(Get_Pointer(), Index, New_name);

@@ -632,6 +632,12 @@ namespace Xila_Namespace
             return Result_Type::Error;
         };
 
+        /// @brief Cast the string to a character array (return the buffer pointer).
+        operator const char *() const
+        {
+            return Characters_Pointer;
+        }
+
     protected:
         char Buffer[Length + 1];
 

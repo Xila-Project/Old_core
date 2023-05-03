@@ -45,7 +45,7 @@ namespace Xila_Namespace
             All = LV_DIR_ALL,
         };
 
-        enum class Alignment_Type : uint8_t
+        enum class Alignment_Type : lv_align_t
         {
             Default = LV_ALIGN_DEFAULT,
             Top_Left = LV_ALIGN_TOP_LEFT,
@@ -273,98 +273,52 @@ namespace Xila_Namespace
         };
     }
 
-    class Types_Class
+    typedef lv_font_t Font_Type;
+
+    enum class Base_Direction_Type : lv_base_dir_t
     {
-    public:
-        // - Types
+        Left_To_Right = LV_BASE_DIR_LTR,
+        Right_To_Left = LV_BASE_DIR_RTL,
+        Automatic = LV_BASE_DIR_AUTO,
+        Neutral = LV_BASE_DIR_NEUTRAL,
+        Weak = LV_BASE_DIR_WEAK
+    };
 
-        /// @brief Text font type
-        typedef lv_font_t Font_Type;
+    enum class Gradient_Direction_Type : lv_grad_dir_t
+    {
+        None = LV_GRAD_DIR_NONE,
+        Horizontal = LV_GRAD_DIR_HOR,
+        Vertical = LV_GRAD_DIR_VER,
+        Both = LV_GRAD_DIR_VER,
+    };
 
-        class Base_Direction
-        {
-        public:
-            /// @brief Base direction type.
-            typedef lv_base_dir_t Type;
+    typedef lv_grad_dsc_t Gradient_Descriptor_Type;
 
-            /// @brief Base directions enumeration.
-            enum Enumeration
-            {
-                Left_To_Right = LV_BASE_DIR_LTR,
-                Right_To_Left = LV_BASE_DIR_RTL,
-                Automatic = LV_BASE_DIR_AUTO,
-                Neutral = LV_BASE_DIR_NEUTRAL,
-                Weak = LV_BASE_DIR_WEAK
-            };
-        };
+    typedef lv_gradient_stop_t Gradient_Stop_Type;
 
-        class Gradient
-        {
-        public:
-            /// @brief Gradient descriptor type.
-            typedef lv_grad_dsc_t Descriptor_Type;
+    enum class Blend_Mode_Type : lv_blend_mode_t
+    {
+        Normal = LV_BLEND_MODE_NORMAL,           /**< Simply mix according to the opacity value*/
+        Additive = LV_BLEND_MODE_ADDITIVE,       /**< Add the respective color channels*/
+        Subtractive = LV_BLEND_MODE_SUBTRACTIVE, /**< Subtract the foreground from the background*/
+        Multiply = LV_BLEND_MODE_MULTIPLY,       /**< Multiply the foreground and background*/
+        Replace = LV_BLEND_MODE_REPLACE,         /**< Replace background with foreground in the area*/
+    };
 
-            /// @brief Gradient direction type.
-            typedef lv_grad_dir_t Direction_Type;
+    /// @brief Text decor enumeration
+    enum class Text_Decor_Type
+    {
+        None = LV_TEXT_DECOR_NONE,
+        Underline = LV_TEXT_DECOR_UNDERLINE,
+        Strikethrough = LV_TEXT_DECOR_STRIKETHROUGH,
+    };
 
-            /// @brief Gradient enumeration type.
-            enum Direction_Enumeration
-            {
-                None = LV_GRAD_DIR_NONE,      /**< No gradient (the `grad_color` property is ignored)*/
-                Vertical = LV_GRAD_DIR_VER,   /**< Vertical (top to bottom) gradient*/
-                Horizontal = LV_GRAD_DIR_HOR, /**< Horizontal (left to right) gradient*/
-            };
+    enum class Dither_Mode_Type
+    {
 
-            /// @brief Gradient stop type.
-            typedef lv_gradient_stop_t Stop_Type;
-        };
-
-        class Blend
-        {
-        public:
-            /// @brief Blend mode type.
-            typedef lv_blend_mode_t Mode_Type;
-
-            /// @brief Blend mode enumeration.
-            enum Mode_Enumeration
-            {
-                Normal = LV_BLEND_MODE_NORMAL,           /**< Simply mix according to the opacity value*/
-                Additive = LV_BLEND_MODE_ADDITIVE,       /**< Add the respective color channels*/
-                Subtractive = LV_BLEND_MODE_SUBTRACTIVE, /**< Subtract the foreground from the background*/
-                Multiply = LV_BLEND_MODE_MULTIPLY,       /**< Multiply the foreground and background*/
-                Replace = LV_BLEND_MODE_REPLACE,         /**< Replace background with foreground in the area*/
-            };
-        };
-
-        class Text
-        {
-        public:
-            /// @brief Text decor enumeration
-            enum Decor_Enumeration
-            {
-                None = LV_TEXT_DECOR_NONE,
-                Underline = LV_TEXT_DECOR_UNDERLINE,
-                Strikethrough = LV_TEXT_DECOR_STRIKETHROUGH,
-            };
-
-            /// @brief Text decor type.
-            typedef lv_text_decor_t Decor_Type;
-        };
-
-        class Dither_Mode
-        {
-        public:
-            /// @brief Dither mode type.
-            typedef lv_dither_mode_t Type;
-
-            /// @brief Dither mode enumeration.
-            enum Enumeration
-            {
-                None = LV_DITHER_NONE,                /**< No dithering, colors are just quantized to the output resolution*/
-                Ordered = LV_DITHER_ORDERED,          /**< Ordered dithering. Faster to compute and use less memory but lower quality*/
-                Error_diffusion = LV_DITHER_ERR_DIFF, /**< Error diffusion mode. Slower to compute and use more memory but give highest dither quality*/
-            };
-        };
+        None = LV_DITHER_NONE,                /**< No dithering, colors are just quantized to the output resolution*/
+        Ordered = LV_DITHER_ORDERED,          /**< Ordered dithering. Faster to compute and use less memory but lower quality*/
+        Error_diffusion = LV_DITHER_ERR_DIFF, /**< Error diffusion mode. Slower to compute and use more memory but give highest dither quality*/
     };
 
 }

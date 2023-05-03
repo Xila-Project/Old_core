@@ -61,7 +61,7 @@ bool Color_Wheel_Class::Get_Mode_Fixed()
     return lv_colorwheel_get_color_mode_fixed(Get_Pointer());
 }
 
-Object_Class::Color_Type Color_Wheel_Class::Get_Color()
+Color_Type Color_Wheel_Class::Get_Color()
 {
     Color_Type Color(lv_colorwheel_get_rgb(Get_Pointer()));
     return Color;

@@ -201,7 +201,7 @@ bool Object_Class::Check_Class(const Class_Type *Class_To_Check) const
         Log_Verbose("Object", "Class to check is NULL");
         return false;
     }
-    
+
     return (this->Get_Class() == Class_To_Check);
 }
 
@@ -431,13 +431,13 @@ void Object_Class::Set_Style_Background_Color(Color_Type Color, Style_Selector_T
     lv_obj_set_style_bg_color(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
-void Object_Class::Set_Style_Background_Dither_Mode(Dither_Mode::Type Dither_Mode, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Background_Dither_Mode(Dither_Mode_Type Dither_Mode, Style_Selector_Type Style_Selector)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_set_style_bg_dither_mode(Get_Pointer(), Dither_Mode, Style_Selector);
+    lv_obj_set_style_bg_dither_mode(Get_Pointer(), static_cast<lv_dither_mode_t>(Dither_Mode), Style_Selector);
 }
 
-void Object_Class::Set_Style_Background_Gradient(const Gradient::Descriptor_Type *Gradient_Descriptor, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Background_Gradient(const Gradient_Descriptor_Type *Gradient_Descriptor, Style_Selector_Type Style_Selector)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_obj_set_style_bg_grad(Get_Pointer(), Gradient_Descriptor, Style_Selector);
@@ -449,10 +449,10 @@ void Object_Class::Set_Style_Background_Gradient_Color(Color_Type Color, Style_S
     lv_obj_set_style_bg_grad_color(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
-void Object_Class::Set_Style_Background_Gradient_Direction(Gradient::Direction_Type Gradient_Direction, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Background_Gradient_Direction(Gradient_Direction_Type Gradient_Direction, Style_Selector_Type Style_Selector)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_set_style_bg_grad_dir(Get_Pointer(), Gradient_Direction, Style_Selector);
+    lv_obj_set_style_bg_grad_dir(Get_Pointer(), static_cast<lv_grad_dir_t>(Gradient_Direction), Style_Selector);
 }
 
 void Object_Class::Set_Style_Background_Gradient_Stop(Coordinate_Type Value, Style_Selector_Type Style_Selector)
@@ -503,10 +503,10 @@ void Object_Class::Set_Style_Background_Opacity(Opacity_Type Opacity, Style_Sele
     lv_obj_set_style_bg_opa(Get_Pointer(), static_cast<lv_opa_t>(Opacity), Style_Selector);
 }
 
-void Object_Class::Set_Style_Blend_Mode(Blend::Mode_Type Blend_Mode, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Blend_Mode(Blend_Mode_Type Blend_Mode, Style_Selector_Type Style_Selector)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_set_style_blend_mode(Get_Pointer(), Blend_Mode, Style_Selector);
+    lv_obj_set_style_blend_mode(Get_Pointer(), static_cast<lv_blend_mode_t>(Blend_Mode), Style_Selector);
 }
 
 void Object_Class::Set_Style_Border_Color(Color_Type Color, Style_Selector_Type Style_Selector)
@@ -869,10 +869,10 @@ void Object_Class::Set_Style_Text_Color(Color_Type Color, Style_Selector_Type St
     lv_obj_set_style_text_color(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
-void Object_Class::Set_Style_Text_Decor(Text::Decor_Type Text_Decor, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Text_Decor(Text_Decor_Type Text_Decor, Style_Selector_Type Style_Selector)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_set_style_text_decor(Get_Pointer(), Text_Decor, Style_Selector);
+    lv_obj_set_style_text_decor(Get_Pointer(), static_cast<lv_text_decor_t>(Text_Decor), Style_Selector);
 }
 
 void Object_Class::Set_Style_Text_Font(const Font_Type *Font, Style_Selector_Type Style_Selector)
@@ -1074,14 +1074,14 @@ uint32_t Object_Class::Get_Style_Animation_Speed(Part_Type Part)
     return lv_obj_get_style_anim_speed(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Arc_Color(Part_Type Part)
+Color_Type Object_Class::Get_Style_Arc_Color(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     Color_Type Color(lv_obj_get_style_arc_color(Get_Pointer(), static_cast<uint32_t>(Part)));
     return Color;
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Arc_Color_Filtered(Part_Type Part)
+Color_Type Object_Class::Get_Style_Arc_Color_Filtered(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     Color_Type Color(lv_obj_get_style_arc_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part)));
@@ -1112,19 +1112,19 @@ Coordinate_Type Object_Class::Get_Style_Arc_Width(Part_Type Part)
     return lv_obj_get_style_arc_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Base_Direction::Type Object_Class::Get_Style_Base_Direction(Part_Type Part)
+Base_Direction_Type Object_Class::Get_Style_Base_Direction(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_obj_get_style_base_dir(Get_Pointer(), static_cast<uint32_t>(Part));
+    return static_cast<Base_Direction_Type>(lv_obj_get_style_base_dir(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Background_Color(Part_Type Part)
+Color_Type Object_Class::Get_Style_Background_Color(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_bg_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Background_Color_Filtered(Part_Type Part)
+Color_Type Object_Class::Get_Style_Background_Color_Filtered(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_bg_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
@@ -1136,22 +1136,22 @@ Opacity_Type Object_Class::Get_Style_Background_Opacity(Part_Type Part)
     return (Opacity_Type)lv_obj_get_style_bg_opa(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Background_Gradient_Color(Part_Type Part)
+Color_Type Object_Class::Get_Style_Background_Gradient_Color(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_bg_grad_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Background_Gradient_Color_Filtered(Part_Type Part)
+Color_Type Object_Class::Get_Style_Background_Gradient_Color_Filtered(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_bg_grad_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Gradient::Direction_Type Object_Class::Get_Style_Background_Gradient_Direction(Part_Type Part)
+Gradient_Direction_Type Object_Class::Get_Style_Background_Gradient_Direction(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_obj_get_style_bg_grad_dir(Get_Pointer(), static_cast<uint32_t>(Part));
+    return static_cast<Gradient_Direction_Type>(lv_obj_get_style_bg_grad_dir(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 Coordinate_Type Object_Class::Get_Style_Background_Main_Stop(Part_Type Part)
@@ -1166,16 +1166,16 @@ Coordinate_Type Object_Class::Get_Style_Background_Gradient_Stop(Part_Type Part)
     return lv_obj_get_style_bg_grad_stop(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-const Object_Class::Gradient::Descriptor_Type *Object_Class::Get_Style_Background_Gradient(Part_Type Part)
+const Gradient_Descriptor_Type *Object_Class::Get_Style_Background_Gradient(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_obj_get_style_bg_grad(Get_Pointer(), static_cast<uint32_t>(Part));
+    return static_cast<const Gradient_Descriptor_Type *>(lv_obj_get_style_bg_grad(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
-Object_Class::Dither_Mode::Type Object_Class::Get_Style_Background_Dither_Mode(Part_Type Part)
+Dither_Mode_Type Object_Class::Get_Style_Background_Dither_Mode(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_obj_get_style_bg_dither_mode(Get_Pointer(), static_cast<uint32_t>(Part));
+    return static_cast<Dither_Mode_Type>(lv_obj_get_style_bg_dither_mode(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 const void *Object_Class::Get_Style_Background_Image_Source(Part_Type Part)
@@ -1190,13 +1190,13 @@ Opacity_Type Object_Class::Get_Style_Background_Image_Opacity(Part_Type Part)
     return static_cast<Opacity_Type>(lv_obj_get_style_bg_img_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Background_Image_Recolor(Part_Type Part)
+Color_Type Object_Class::Get_Style_Background_Image_Recolor(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_bg_img_recolor(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Background_Image_Recolor_Filtered(Part_Type Part)
+Color_Type Object_Class::Get_Style_Background_Image_Recolor_Filtered(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_bg_img_recolor_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
@@ -1214,19 +1214,19 @@ bool Object_Class::Get_Style_Background_Image_Tiled(Part_Type Part)
     return lv_obj_get_style_bg_img_tiled(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Blend::Mode_Type Object_Class::Get_Style_Blend_Mode(Part_Type Part)
+Blend_Mode_Type Object_Class::Get_Style_Blend_Mode(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_obj_get_style_blend_mode(Get_Pointer(), static_cast<uint32_t>(Part));
+    return static_cast<Blend_Mode_Type>(lv_obj_get_style_blend_mode(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Border_Color(Part_Type Part)
+Color_Type Object_Class::Get_Style_Border_Color(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_border_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Border_Color_Filtered(Part_Type Part)
+Color_Type Object_Class::Get_Style_Border_Color_Filtered(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_border_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
@@ -1378,13 +1378,13 @@ Opacity_Type Object_Class::Get_Style_Image_Opacity(Part_Type Part)
     return static_cast<Opacity_Type>(lv_obj_get_style_img_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Image_Recolor(Part_Type Part)
+Color_Type Object_Class::Get_Style_Image_Recolor(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_img_recolor(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Image_Recolor_Filtered(Part_Type Part)
+Color_Type Object_Class::Get_Style_Image_Recolor_Filtered(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_img_recolor_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
@@ -1404,13 +1404,13 @@ uint16_t Object_Class::Get_Style_Layout(Part_Type Part)
 
 // - - - Line
 
-Object_Class::Color_Type Object_Class::Get_Style_Line_Color(Part_Type Part)
+Color_Type Object_Class::Get_Style_Line_Color(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_line_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Line_Color_Filtered(Part_Type Part)
+Color_Type Object_Class::Get_Style_Line_Color_Filtered(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_line_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
@@ -1470,13 +1470,13 @@ Coordinate_Type Object_Class::Get_Style_Minimum_Width(Part_Type Part)
     return lv_obj_get_style_min_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Outline_Color(Part_Type Part)
+Color_Type Object_Class::Get_Style_Outline_Color(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_outline_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Outline_Color_Filtered(Part_Type Part)
+Color_Type Object_Class::Get_Style_Outline_Color_Filtered(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_outline_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
@@ -1542,13 +1542,13 @@ Coordinate_Type Object_Class::Get_Style_Radius(Part_Type Part)
     return lv_obj_get_style_radius(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Shadow_Color(Part_Type Part)
+Color_Type Object_Class::Get_Style_Shadow_Color(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_shadow_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Shadow_Color_Filtered(Part_Type Part)
+Color_Type Object_Class::Get_Style_Shadow_Color_Filtered(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_shadow_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
@@ -1590,28 +1590,28 @@ Text_Alignment_Type Object_Class::Get_Style_Text_Alignment(Part_Type Part)
     return static_cast<Text_Alignment_Type>(lv_obj_get_style_text_align(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Text_Color(Part_Type Part)
+Color_Type Object_Class::Get_Style_Text_Color(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_text_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Color_Type Object_Class::Get_Style_Text_Color_Filtered(Part_Type Part)
+Color_Type Object_Class::Get_Style_Text_Color_Filtered(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_text_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
-Object_Class::Text::Decor_Type Object_Class::Get_Style_Text_Decor(Part_Type Part)
+Text_Decor_Type Object_Class::Get_Style_Text_Decor(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_obj_get_style_text_decor(Get_Pointer(), static_cast<uint32_t>(Part));
+    return static_cast<Text_Decor_Type>(lv_obj_get_style_text_decor(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
-const Object_Class::Font_Type *Object_Class::Get_Style_Text_Font(Part_Type Part)
+const Font_Type *Object_Class::Get_Style_Text_Font(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_obj_get_style_text_font(Get_Pointer(), static_cast<uint32_t>(Part));
+    return static_cast<const Font_Type *>(lv_obj_get_style_text_font(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 Coordinate_Type Object_Class::Get_Style_Text_Letter_Space(Part_Type Part)

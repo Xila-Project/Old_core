@@ -38,7 +38,7 @@ namespace Xila_Namespace
 
             // - - Manipulation
             virtual void Create(Object_Class Parent_Object) override;
-            void Create(Object_Class Parent_Object, const String_Type &Text, Coordinate_Type Width = 0, Coordinate_Type Height = 0);
+            void Create(Object_Class Parent_Object, const char*Text, Coordinate_Type Width = 0, Coordinate_Type Height = 0);
 
             void Insert_Text(uint32_t Position, const char *Text);
             void Cut_Text(uint32_t Position, uint32_t Length);

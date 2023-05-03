@@ -16,7 +16,7 @@
 
 namespace Xila_Namespace
 {
-    bool convertToJson(const String_Type &String, JsonVariant variant);
+    bool convertToJson(const char*String, JsonVariant variant);
 
 }
 
