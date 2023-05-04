@@ -85,11 +85,11 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 Passed_Arguments += "A_" + str(i) + ", "
             elif Is_Integral_Type(Argument):
                 if Next_May_Be_Buffer_Size:
-                    S += "int A_" + str(i) + " = 0"
-                    StringD += "[i"
+                    S += "int A_" + str(i) # + " = 0"
+                    StringD += "i" # "[i"
                     Passed_Arguments += "(A_" + str(i) + " == 0) ? sizeof(S_" + str(i - 1) + ")" + " : A_" + str(i)
                     Next_May_Be_Buffer_Size = False            
-                    Optional_Already_Defined = True
+                    Optional_Already_Defined = False
                     
                 else:
                     Base_Type = Get_Base_Type(Argument)
@@ -163,11 +163,7 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 R = "float"
                 ReturnD = "f"
                 Return_Conversion = "(float)"
-            elif Is_Class(Return_Type):
-                Pre_Additional_Content += Get_Name(Return_Type) + "* R = new " + Get_Name(Return_Type) + "();\n *R = "
-                Post_Additional_Content += "return R;\n"
-                R = Get_Name(Return_Type) + "*"
-                ReturnD = Get_Name(Return_Type) + "."
+            
             elif Is_Void_Type(Return_Type):
                 R = "void"
                 ReturnD = ""
@@ -178,7 +174,7 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                     Return_Conversion = "(int)"
                 elif Is_Class(Return_Type.declaration):
                     Pre_Additional_Content += Get_Name(Return_Type.declaration) + "* R = new " + Get_Name(Return_Type.declaration) + "();\n *R = "
-                    ReturnD = "(" + Module_Name + "." + Get_Name(Return_Type.declaration).replace("_Class", "_Type") + ")"
+                    ReturnD = Module_Name + "." + Get_Name(Return_Type.declaration).replace("_Class", "_Type")
                     Post_Additional_Content += "return R;\n"
                     R = "void *"
                 else:
@@ -201,7 +197,7 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
     else:
         Berry_Function_Name += Function_Name
     
-    Berry_Function_Name += "_" + str(uuid.uuid4()).replace("-", "_") # Add an unique id to allow overloading
+    Berry_Function_Name += "_" + str(uuid.uuid4()).replace("-", "_").upper() # Add an unique id to allow overloading
 
 
     # - Function signature

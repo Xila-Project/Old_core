@@ -70,7 +70,7 @@ void System_Class::Task_Function()
     //}
     // - Check available memory (prevent stack / heap collision)
 
-    Log_Information("System", "Memory usage : %u | PSRAM usage : %u %", Memory.Get_Free_Heap(), Memory.Get_PSRAM_Size() - Memory.Get_Free_PSRAM());
+    // Log_Information("System", "Memory usage : %u | PSRAM usage : %u %", Memory.Get_Free_Heap(), Memory.Get_PSRAM_Size() - Memory.Get_Free_PSRAM());
 
     if (Memory.Get_Free_Heap() < Low_Memory_Threshold)
     {
