@@ -198,7 +198,7 @@ Xila_Namespace = Declarations.get_global_namespace(Dec).namespace("Xila_Namespac
 #Parser.declarations_joiner.join_declarations(Declarations.get_global_namespace(Dec))
         
 
-Generate_Module(Xila_Namespace, "Drive")
+Generate_Module(Xila_Namespace, "Graphics")
 #Generate_Module(Xila_Namespace, "Memory")
 #Generate_Module(Xila_Namespace, "Graphics")
 

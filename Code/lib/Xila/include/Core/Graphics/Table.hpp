@@ -26,7 +26,6 @@ namespace Xila_Namespace
             Custom_3 = LV_TABLE_CELL_CTRL_CUSTOM_3,
             Custom_4 = LV_TABLE_CELL_CTRL_CUSTOM_4,
         };
-    
 
         typedef class Table_Class : public Object_Class
         {
@@ -55,7 +54,9 @@ namespace Xila_Namespace
             uint16_t Get_Row_Count();
             uint16_t Get_Column_Count();
             Coordinate_Type Get_Column_Width(uint16_t Column);
-            void Get_Selected_Cell(uint16_t *Row, uint16_t *Column);
+            void Get_Selected_Cell(uint16_t &Row, uint16_t &Column);
+            uint16_t Get_Selected_Cell_Row();
+            uint16_t Get_Selected_Cell_Column();
 
             // - - Setters.
             virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;

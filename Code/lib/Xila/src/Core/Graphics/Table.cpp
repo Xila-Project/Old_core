@@ -86,10 +86,24 @@ Coordinate_Type Table_Class::Get_Column_Width(uint16_t Column)
     return lv_table_get_col_width(Get_Pointer(), Column);
 }
 
-void Table_Class::Get_Selected_Cell(uint16_t *Row, uint16_t *Column)
+void Table_Class::Get_Selected_Cell(uint16_t &Row, uint16_t &Column)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_table_get_selected_cell(Get_Pointer(), Row, Column);
+}
+
+uint16_t Table_Class::Get_Selected_Cell_Row()
+{
+    uint16_t Row, Column;
+    Get_Selected_Cell(Row, Column);
+    return Row;
+}
+
+uint16_t Table_Class::Get_Selected_Cell_Column()
+{
+    uint16_t Row, Column;
+    Get_Selected_Cell(Row, Column);
+    return Column;
 }
 
 // - - Setters
@@ -101,7 +115,7 @@ bool Table_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
         return false;
     }
     Object_Type Object(LVGL_Object_Pointer);
-    if (!Object.Check_Class( &lv_table_class))
+    if (!Object.Check_Class(&lv_table_class))
     {
         return false;
     }

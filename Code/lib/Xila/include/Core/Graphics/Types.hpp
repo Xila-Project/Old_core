@@ -18,6 +18,47 @@ namespace Xila_Namespace
 {
     namespace Graphics_Types
     {
+        class Symbol_Type
+        {
+            const char Audio[4] = LV_SYMBOL_AUDIO;
+            const char Video[4] = LV_SYMBOL_VIDEO;
+            const char List[4] = LV_SYMBOL_LIST;
+            const char Ok[4] = LV_SYMBOL_OK;
+            const char Close[4] = LV_SYMBOL_CLOSE;
+            const char Power[4] = LV_SYMBOL_POWER;
+            const char Settings[4] = LV_SYMBOL_SETTINGS;
+                        const char Home[4] = LV_SYMBOL_HOME;
+            LV_SYMBOL_DOWNLOAD,
+            LV_SYMBOL_DRIVE,
+            LV_SYMBOL_REFRESH,
+            LV_SYMBOL_MUTE,
+            LV_SYMBOL_VOLUME_MID,
+            LV_SYMBOL_VOLUME_MAX,
+            LV_SYMBOL_IMAGE,
+            LV_SYMBOL_TINT,
+            LV_SYMBOL_PREV,
+            LV_SYMBOL_PLAY,
+            LV_SYMBOL_PAUSE,
+            LV_SYMBOL_STOP,
+            LV_SYMBOL_NEXT,
+            LV_SYMBOL_EJECT,
+            LV_SYMBOL_LEFT,
+            LV_SYMBOL_RIGHT,
+            LV_SYMBOL_PLUS,
+            LV_SYMBOL_MINUS,
+            LV_SYMBOL_EYE_OPEN,
+            LV_SYMBOL_EYE_CLOSE,
+            LV_SYMBOL_WARNING,
+            LV_SYMBOL_SHUFFLE,
+            LV_SYMBOL_UP,
+            LV_SYMBOL_DOWN,
+            LV_SYMBOL_LOOP,
+            LV_SYMBOL_DIRECTORY,
+            LV_SYMBOL_UPLOAD,
+            LV_SYMBOL_CALL,
+            LV_SYMBOL_CUT,
+        }
+
         enum class Part_Type
         {
             Main = LV_PART_MAIN,                        /// < Main part of the object.

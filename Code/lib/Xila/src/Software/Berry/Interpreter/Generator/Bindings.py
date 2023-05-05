@@ -6,12 +6,17 @@ from Basics import *
 import copy
 import re
 import uuid
+import Exclusion
 
 Binding_Function_Table = []
 
 # Function that convert function arguments to 
 def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
-    print("Declaration : ", Get_Name(Declaration))
+    print("Declaration : ", Declaration)
+
+    if Exclusion.Is_Function_Excluded(Declaration):
+        return ""
+
     # - Declarations
     S = ""
     StringD = ""
@@ -50,7 +55,9 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
             Base_Type = Get_Base_Type(Argument)
             #print("Pointer : ", Raw_Argument)
             if "const" in str(Raw_Argument):    # Not ideal, but works (strange behavior of pygccxml)
-                if (str(Base_Type) == "char") or (str(Base_Type) == "unsigned char"):
+                #if (str(Base_Type) == "char") or (str(Base_Type) == "unsigned char"):
+                if Is_Integral_Type(Base_Type):
+                    # Add support for byte buffer
                     S += "const " + str(Base_Type) + "* A_" + str(i)
                     StringD += "s"
                     Passed_Arguments += "A_" + str(i)
@@ -101,9 +108,6 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 S += "float A_" + str(i)
                 StringD += "f"
                 Passed_Arguments += "(" + str(Base_Type) + ")A_" + str(i)
-            elif Is_Class(Argument):
-                S += Get_Name(Argument.base_type) + "* A_" + str(i)
-                StringD += "."
             elif Is_Declarated_Type(Argument):
                 if Is_Enumeration_Type(Argument.declaration):
                     S += "int A_" + str(i)
