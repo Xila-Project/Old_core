@@ -18,8 +18,13 @@ namespace Xila_Namespace
 {
     namespace Graphics_Types
     {
-        class Symbol_Type
+
+
+        using Theme_Type = lv_theme_t;
+
+        typedef class Symbol_Class
         {
+        public:
             const char Audio[4] = LV_SYMBOL_AUDIO;
             const char Video[4] = LV_SYMBOL_VIDEO;
             const char List[4] = LV_SYMBOL_LIST;
@@ -27,40 +32,39 @@ namespace Xila_Namespace
             const char Close[4] = LV_SYMBOL_CLOSE;
             const char Power[4] = LV_SYMBOL_POWER;
             const char Settings[4] = LV_SYMBOL_SETTINGS;
-                        const char Home[4] = LV_SYMBOL_HOME;
-            LV_SYMBOL_DOWNLOAD,
-            LV_SYMBOL_DRIVE,
-            LV_SYMBOL_REFRESH,
-            LV_SYMBOL_MUTE,
-            LV_SYMBOL_VOLUME_MID,
-            LV_SYMBOL_VOLUME_MAX,
-            LV_SYMBOL_IMAGE,
-            LV_SYMBOL_TINT,
-            LV_SYMBOL_PREV,
-            LV_SYMBOL_PLAY,
-            LV_SYMBOL_PAUSE,
-            LV_SYMBOL_STOP,
-            LV_SYMBOL_NEXT,
-            LV_SYMBOL_EJECT,
-            LV_SYMBOL_LEFT,
-            LV_SYMBOL_RIGHT,
-            LV_SYMBOL_PLUS,
-            LV_SYMBOL_MINUS,
-            LV_SYMBOL_EYE_OPEN,
-            LV_SYMBOL_EYE_CLOSE,
-            LV_SYMBOL_WARNING,
-            LV_SYMBOL_SHUFFLE,
-            LV_SYMBOL_UP,
-            LV_SYMBOL_DOWN,
-            LV_SYMBOL_LOOP,
-            LV_SYMBOL_DIRECTORY,
-            LV_SYMBOL_UPLOAD,
-            LV_SYMBOL_CALL,
-            LV_SYMBOL_CUT,
-        }
+            const char Home[4] = LV_SYMBOL_HOME;
+            const char Download[4] = LV_SYMBOL_DOWNLOAD;
+            const char Drive[4] = LV_SYMBOL_DRIVE;
+            const char Refresh[4] = LV_SYMBOL_REFRESH;
+            const char Mute[4] = LV_SYMBOL_MUTE;
+            const char Volume_Medium[4] = LV_SYMBOL_VOLUME_MID;
+            const char Volume_Maximum[4] = LV_SYMBOL_VOLUME_MAX;
+            const char Image[4] = LV_SYMBOL_IMAGE;
+            const char Tint[4] = LV_SYMBOL_TINT;
+            const char Previous[4] = LV_SYMBOL_PREV;
+            const char Play[4] = LV_SYMBOL_PLAY;
+            const char Pause[4] = LV_SYMBOL_PAUSE;
+            const char Stop[4] = LV_SYMBOL_STOP;
+            const char Next[4] = LV_SYMBOL_NEXT;
+            const char Eject[4] = LV_SYMBOL_EJECT;
+            const char Left[4] = LV_SYMBOL_LEFT;
+            const char Right[4] = LV_SYMBOL_RIGHT;
+            const char Plus[4] = LV_SYMBOL_PLUS;
+            const char Minus[4] = LV_SYMBOL_MINUS;
+            const char Eye_Open[4] = LV_SYMBOL_EYE_OPEN;
+            const char Eye_Close[4] = LV_SYMBOL_EYE_CLOSE;
+            const char Warning[4] = LV_SYMBOL_WARNING;
+            const char Shuffle[4] = LV_SYMBOL_SHUFFLE;
+            const char Up[4] = LV_SYMBOL_UP;
+            const char Down[4] = LV_SYMBOL_DOWN;
+            const char Loop[4] = LV_SYMBOL_LOOP;
+            const char Directory[4] = LV_SYMBOL_DIRECTORY;
+            const char Upload[4] = LV_SYMBOL_UPLOAD;
+            const char Call[4] = LV_SYMBOL_CALL;
+            const char Cut[4] = LV_SYMBOL_CUT;
+        } Symbol_Type;
 
-        enum class Part_Type
-        {
+        enum class Part_Type {
             Main = LV_PART_MAIN,                        /// < Main part of the object.
             Scrollbar = LV_PART_SCROLLBAR,              /// < Scrollbar part.
             Indicator = LV_PART_INDICATOR,              /// < Indicator part of a scrollbar.

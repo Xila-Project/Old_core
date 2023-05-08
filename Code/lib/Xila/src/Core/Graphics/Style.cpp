@@ -243,7 +243,7 @@ void Style_Class::Set_Clip_Corner(bool Value)
 void Style_Class::Set_Color_Filter_Descriptor(Color_Filter_Descriptor_Class &Color_Filter_Descriptor)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_style_set_color_filter_dsc(&LVGL_Style, Color_Filter_Descriptor.Get_Pointer());
+    lv_style_set_color_filter_dsc(&LVGL_Style, Color_Filter_Descriptor);
 }
 
 void Style_Class::Set_Color_Filter_Opacity(Opacity_Type Opacity)

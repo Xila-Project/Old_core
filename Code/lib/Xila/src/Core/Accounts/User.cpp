@@ -19,19 +19,13 @@ using namespace Xila_Namespace::Accounts_Types;
 /// @param Name User name.
 /// @param State User state.
 User_Class::User_Class(const char* Name, User_State_Type State) : Name(Name), State(State)
-{
-  Log_Verbose("User", "Constructor");
-}
+{}
 
 User_Class::User_Class(const User_Class& User) : Name(User.Name), State(User.State)
-{
-  Log_Verbose("User", "Copy constructor");
-}
+{}
 
 User_Class::User_Class(User_Class&& User) : User_Class(User.Name, User.State)
-{
-  Log_Verbose("User", "Move constructor");
-}
+{}
 
 /// @brief Return current session state.
 ///

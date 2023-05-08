@@ -29,13 +29,7 @@ namespace Xila_Namespace
 
         typedef class Table_Class : public Object_Class
         {
-        public:
-            /// @brief Draw part enumeration and type.
-            typedef enum Draw_Part_Enumeration
-            {
-                Cell = LV_TABLE_DRAW_PART_CELL, /**< A cell*/
-            } Draw_Part_Type;
-
+        public:     
             // - Methods
 
             // - - Constructors / Destructors

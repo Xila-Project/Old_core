@@ -20,18 +20,12 @@ void Shell_Class::Drawer_Class::Set_Interface()
     Window.Create(Shell_Pointer);
     Window.Set_Minimize_Button_Hidden(true);
 
-    Log_Verbose("Drawer", "Drawer window created");
-
     Window.Set_Title("Drawer");
-
-    Log_Trace();
 
     // - Set flex container
     Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column_Wrap);
     Window.Get_Body().Set_Style_Pad_Row(5, 0);
     Window.Get_Body().Set_Style_Pad_Column(5, 0);
-
-    Log_Trace();
 
     {
         Object_Type Container, Icon_Container;

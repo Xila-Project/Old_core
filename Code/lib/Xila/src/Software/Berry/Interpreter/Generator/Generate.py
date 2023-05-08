@@ -8,6 +8,8 @@ import json
 import re
 import shutil
 import subprocess
+import Exclusion
+import traceback
 
 def Get_Header_File_Paths(Folder_Path):
     Headers_File_Paths = []
@@ -20,25 +22,20 @@ def Get_Header_File_Paths(Folder_Path):
                 Headers_File_Paths.append(Item_Path)
 
 def Generate_Class(Generated_File, Xila_Namespace, Class, Module_Name):
-    # print(Get_Header_File_Paths(os.path.dirname(__file__)))
-
     Generated_File.write("\n// - Functions\n")
     # Constructors
     Generated_File.write("\n// - - Constructors\n")
     for Member in Class.get_members():
-        if (Is_Constructor(Member) and not(Is_Copy_Constructor(Member))):
+       if (Is_Constructor(Member) and not(Is_Copy_Constructor(Member))):        
             Generated_File.write(Generate_Binding_Function(Member, Module_Name, False))
-            #Generated_File.write(Get_Binding_Function(Member, False) + "\n")
-            #Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
+
 
     Generated_File.write("\n// - - Destructors\n")
 
     # Destructor
     for Member in Class.get_members():
         if (Is_Destructor(Member)):
-            Generated_File.write(Generate_Binding_Function(Member, Module_Name, False))
-            #Generated_File.write(Get_Binding_Function(Member, False) + "\n")
-            #Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
+            Generated_File.write(Generate_Binding_Function(Member, Module_Name, False)) 
 
     Generated_File.write("\n// - - Functions\n")
 
@@ -46,13 +43,11 @@ def Generate_Class(Generated_File, Xila_Namespace, Class, Module_Name):
     for Member in Class.get_members():
         if(Is_Function(Member)):
             Generated_File.write(Generate_Binding_Function(Member, Module_Name, False))
-            #Generated_File.write(Get_Binding_Function(Member, False) + "\n")
-            #Generated_File.write(Get_Binding_Function_Declaration(Member, False) + "\n")
-
+           
     # Berry declaration part
 
     Generated_File.write("\n// - Berry declaration\n")
-    Generated_File.write(Get_Class_Binding_Declaration(Class, False) + "\n")
+    Generated_File.write(Get_Class_Binding_Declaration(Class, False, Xila_Namespace.namespace(Module_Name + "_Types")) + "\n")
     Clear_Binding_Function_Table()
 
     # Include the berry header
@@ -62,7 +57,7 @@ def Generate_Class(Generated_File, Xila_Namespace, Class, Module_Name):
     Generated_File.write("}")
 
 
-def Generate_Module(Xila_Namespace, Module_Name):
+def Generate_Module(Global_Namespace, Xila_Namespace, Module_Name):
     # Generate module class
     Module_Class = Find_Class(Xila_Namespace.declarations, Module_Name + "_Class")
     Module_Namespace = Xila_Namespace.namespace(Module_Name + "_Types")
@@ -86,17 +81,40 @@ def Generate_Module(Xila_Namespace, Module_Name):
 
     # Generate module types
 
-    for Type in Module_Namespace.declarations:
-        if Is_Class(Type):
-            Generate_Class(Generated_File, Xila_Namespace, Type, Module_Name)
-    #        Generated_File.write("\t#include \"../generate/be_fixed_Berry_" + Get_Name(Type) + ".h\"\n")
+
+    try:
+        Classes = Module_Namespace.classes(recursive=False)
+        
+
+        for C in Classes:
+            if not(Exclusion.Is_Class_Excluded(C)) :
+                print("Class : ", C)
+                Generate_Class(Generated_File, Xila_Namespace, C, Module_Name)
+
+      #  if Module_Name == "Graphics":
+      #      for C in Classes:
+      #          if Get_Name(C) == "Dialog_Class":
+      #              Generate_Class(Generated_File, Xila_Namespace, C, Module_Name)
+
+        
+    except Exception as e:
+        traceback.print_exc()
+        print(f"In module {Module_Name} generation, exception : {e}")
+        pass
 
     Generated_File.write("\n// - Functions\n")
 
     # Module methods
+        
     for Member in Module_Class.get_members():
         if(Is_Function(Member)):
             Generated_File.write(Generate_Binding_Function(Member, Module_Name, True) + "\n")
+
+    # Custom
+
+    if (Module_Name == "Graphics"):
+        Generated_File.write("BE_FUNC_CTYPE_DECLARE(Berry_Get_Window, \"Graphics.Window_Type\", \"@\")\n")
+        Add_Custom_Binding_Function("Get_Window", "Berry_Get_Window")
 
     # Berry declaration part
 
@@ -110,25 +128,8 @@ def Generate_Module(Xila_Namespace, Module_Name):
     Generated_File.write("\t#include \"../generate/be_fixed_" + Module_Name + ".h\"\n")
     Generated_File.write("}")
 
-   
-
     Generated_File.close()
 
-def Generate(Global_Namespace):
-    Declarations = Global_Namespace.declarations()
-    for Declaration in Declarations:
-        if (Is_Namespace(Declaration)):
-            print("Namespace : " + Get_Name(Declaration))
-            Generate(Declaration)
-        elif (Is_Class(Declaration)):    
-            print("Class : " + Get_Name(Declaration))
-            Generate_Class(Declaration)
-
-def Resolve_Type(typedef):
-    if Is_Typedef(typedef):
-        return Resolve_Type(typedef.decl_type)
-    else:
-        return typedef
 
 # Find the location of the xml generator (castxml or gccxml)
 generator_path, generator_name = utils.find_xml_generator()
@@ -193,14 +194,19 @@ if os.path.exists(os.path.join(Get_Code_Path(), "Xila.d")):
     os.remove(os.path.join(Get_Code_Path(), "Xila.d"))
 
 # Get access to the global namespace
-Xila_Namespace = Declarations.get_global_namespace(Dec).namespace("Xila_Namespace")
+Global_Namespace = Declarations.get_global_namespace(Dec)
+Xila_Namespace = Global_Namespace.namespace("Xila_Namespace")
 
 #Parser.declarations_joiner.join_declarations(Declarations.get_global_namespace(Dec))
         
 
-Generate_Module(Xila_Namespace, "Graphics")
-#Generate_Module(Xila_Namespace, "Memory")
-#Generate_Module(Xila_Namespace, "Graphics")
+Generate_Module(Global_Namespace, Xila_Namespace, "Drive")
+Generate_Module(Global_Namespace, Xila_Namespace, "Memory")
+Generate_Module(Global_Namespace, Xila_Namespace, "System")
+Generate_Module(Global_Namespace, Xila_Namespace, "Pin")
+Generate_Module(Global_Namespace, Xila_Namespace, "Flash")
+Generate_Module(Global_Namespace, Xila_Namespace, "Clipboard")
+Generate_Module(Global_Namespace, Xila_Namespace, "Graphics")
 
 Temporary_Folder_Path = os.path.join(Get_Code_Path(), "lib", "berry", "Temporary")
 

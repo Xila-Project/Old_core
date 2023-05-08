@@ -193,6 +193,11 @@ namespace Xila_Namespace
 
             // - - Getters
 
+            operator lv_style_t *()
+            {
+                return &LVGL_Style;
+            }
+
             lv_style_t *Get_Pointer();
 
         private:

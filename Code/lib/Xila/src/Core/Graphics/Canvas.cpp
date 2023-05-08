@@ -26,7 +26,7 @@ Canvas_Class::Canvas_Class() : Object_Class()
 
 Canvas_Class::Canvas_Class(const Object_Class &Object_To_Copy)
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Constructors / destructors
@@ -37,7 +37,7 @@ void Canvas_Class::Create(Object_Class Parent_Object)
     if (Parent_Object)
     {
         Auto_Semaphore_Type Auto_Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_canvas_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_canvas_create(Parent_Object);
     }
 }
 
@@ -92,13 +92,21 @@ void Canvas_Class::Draw_Image(Coordinate_Type X, Coordinate_Type Y, const void *
 void Canvas_Class::Draw_Polygon(const Point_Type Points[], uint32_t Number_Of_Point, const Draw_Rectangle_Descriptor_Type *Draw_Polygon_Descriptor)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_canvas_draw_polygon(Get_Pointer(), Points, Number_Of_Point, Draw_Polygon_Descriptor);
+    lv_point_t LVGL_Points[Number_Of_Point];
+    for (uint32_t i; i < Number_Of_Point; i++)
+        LVGL_Points[i] = Points[i];
+
+    lv_canvas_draw_polygon(Get_Pointer(), LVGL_Points, Number_Of_Point, Draw_Polygon_Descriptor);
 }
 
 void Canvas_Class::Draw_Line(const Point_Type Points[], uint32_t Number_Of_Point, const Draw_Line_Descriptor_Type *Draw_Line_Descriptor)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_canvas_draw_line(Get_Pointer(), Points, Number_Of_Point, Draw_Line_Descriptor);
+    lv_point_t LVGL_Points[Number_Of_Point];
+    for (uint32_t i; i < Number_Of_Point; i++)
+        LVGL_Points[i] = Points[i];
+
+    lv_canvas_draw_line(Get_Pointer(), LVGL_Points, Number_Of_Point, Draw_Line_Descriptor);
 }
 
 void Canvas_Class::Draw_Arc(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Radius, int32_t Start_Angle, int32_t End_Angle, const Draw_Arc_Descriptor_Type *Draw_Arc_Descriptor)

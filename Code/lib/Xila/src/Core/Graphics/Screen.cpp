@@ -38,20 +38,20 @@ Screen_Class::Screen_Class() : Object_Class()
 {
 }
 
-Screen_Class::Screen_Class(const Software_Type *Owner_Software)
+Screen_Class::Screen_Class(const Softwares_Types::Software_Type *Owner_Software)
 {
     this->Create(Owner_Software);
 }
 
 Screen_Class::Screen_Class(const Object_Class &Object_To_Copy)
 {
-    if (Set_Pointer(Object_To_Copy.Get_Pointer()))
+    if (Set_Pointer(Object_To_Copy))
         this->Set_User_Data(Object_To_Copy.Get_User_Data());
 }
 
 // - - Manipulation
 
-void Screen_Class::Create(const Software_Type *Owner_Software)
+void Screen_Class::Create(const Softwares_Types::Software_Type *Owner_Software)
 {
 
     if (Owner_Software != NULL)
@@ -71,7 +71,7 @@ void Screen_Class::Create(const Software_Type *Owner_Software)
             this->LVGL_Object_Pointer->class_p = &Screen_Class::Class;
         }
 
-        this->Set_User_Data(const_cast<Software_Type *>(Owner_Software));
+        this->Set_User_Data(const_cast<Softwares_Types::Software_Type *>(Owner_Software));
 
         this->List.push_back(this);
     }
@@ -121,11 +121,11 @@ Screen_Type Screen_Class::Get_User_Screen(const Accounts_Types::User_Type *User)
     if (User == NULL)
         return Screen_Type();
 
-    Software_Type *Owner_Software;
+    Softwares_Types::Software_Type *Owner_Software;
 
     for (auto &Screen : List)
     {
-        Owner_Software = static_cast<Software_Type *>(Screen->Get_User_Data());
+        Owner_Software = static_cast<Softwares_Types::Software_Type *>(Screen->Get_User_Data());
 
         if (Owner_Software != NULL && Owner_Software->Get_Owner_User() == User)
             return *Screen;

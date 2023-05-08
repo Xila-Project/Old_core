@@ -145,6 +145,7 @@ String_Type& IP_Address_Class::To(String_Class& String) const
     {
         String.Copy_Format("%x%x:%x%x:%x%x:%x%x:%x%x:%x%x:%x%x:%x%x", Address.Bytes[0], Address.Bytes[1], Address.Bytes[2], Address.Bytes[3], Address.Bytes[4], Address.Bytes[5], Address.Bytes[6], Address.Bytes[7], Address.Bytes[8], Address.Bytes[9], Address.Bytes[10], Address.Bytes[11], Address.Bytes[12], Address.Bytes[13], Address.Bytes[14], Address.Bytes[15]);
     }
+    return String;
 }
 
 bool IP_Address_Class::Is_IP_v4() const

@@ -36,18 +36,6 @@ namespace Xila_Namespace
                 };
             };
 
-            class Draw_Part
-            {
-            public:
-                /// @brief Draw part type and enumeration.
-                typedef enum Enumeration
-                {
-                    Background = LV_ARC_DRAW_PART_BACKGROUND,
-                    Foreground = LV_ARC_DRAW_PART_FOREGROUND,
-                    Knob = LV_ARC_DRAW_PART_KNOB
-                } Type;
-            };
-
             // - Methods
 
             // - - Constructors / destructors

@@ -28,7 +28,7 @@ Button_Class::Button_Class() : Object_Class()
 
 Button_Class::Button_Class(const Object_Class &Object_To_Copy)
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Manipulation
@@ -38,7 +38,7 @@ void Button_Class::Create(Object_Class Parent_Object)
     if (Parent_Object)
     {
         Auto_Semaphore_Type Auto_Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_btn_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_btn_create(Parent_Object);
     }
 }
 

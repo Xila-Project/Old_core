@@ -28,7 +28,7 @@ Label_Class::Label_Class() : Object_Class()
 
 Label_Class::Label_Class(const Object_Class &Object_To_Copy)
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Manipulation
@@ -38,7 +38,7 @@ void Label_Class::Create(Object_Class Parent_Object)
     if (Parent_Object)
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_label_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_label_create(Parent_Object);
     }
 }
 
@@ -70,7 +70,7 @@ void Label_Class::Cut_Text(uint32_t Position, uint32_t Length)
     lv_label_cut_text(Get_Pointer(), Position, Length);
 }
 
-bool Label_Class::Is_Char_Under_Position(Point_Type *Position)
+bool Label_Class::Is_Char_Under_Position(Point_Type& Position)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_label_is_char_under_pos(Get_Pointer(), Position);
@@ -166,13 +166,13 @@ bool Label_Class::Get_Recolor()
     return lv_label_get_recolor(Get_Pointer());
 }
 
-void Label_Class::Get_Letter_Position(uint32_t Index, Point_Type *Position)
+void Label_Class::Get_Letter_Position(uint32_t Index, Point_Type& Position)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_label_get_letter_pos(Get_Pointer(), Index, Position);
 }
 
-uint32_t Label_Class::Get_Letter_On(Point_Type *Position)
+uint32_t Label_Class::Get_Letter_On(Point_Type &Position)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_label_get_letter_on(Get_Pointer(), Position);

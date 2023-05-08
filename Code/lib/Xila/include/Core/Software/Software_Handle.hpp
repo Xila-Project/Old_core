@@ -23,47 +23,52 @@
 
 namespace Xila_Namespace
 {
+
+    typedef class Softwares_Class Softwares_Type;
+
     // - Forward declaration
     namespace Accounts_Types
     {
         typedef class User_Class User_Type;
     };
 
-    typedef class Software_Handle_Class
+    namespace Softwares_Types
     {
-    public:
 
-        // - Methods
+        typedef class Software_Handle_Class
+        {
+        public:
+            // - Methods
 
-        // - - Constructors / destructor
-        Software_Handle_Class(const char* Name);
-        ~Software_Handle_Class();
+            // - - Constructors / destructor
+            Software_Handle_Class(const char *Name);
+            ~Software_Handle_Class();
 
-        // - - Getters
-        String_Type& Get_Name(String_Type& Name) const;
+            // - - Getters
+            String_Type &Get_Name(String_Type &Name) const;
 
-        virtual void Create_Instance(const Accounts_Types::User_Type* Owner_User) const;
-        bool Is_Equal(const Software_Handle_Class &Software_Handle_To_Compare) const;
+            virtual void Create_Instance(const Accounts_Types::User_Type *Owner_User) const;
+            bool Is_Equal(const Software_Handle_Class &Software_Handle_To_Compare) const;
 
-        // - - Operators
-        bool operator==(const Software_Handle_Class &Software_Handle_To_Compare) const;
-        bool operator!=(const Software_Handle_Class &Software_Handle) const;
+            // - - Operators
+            bool operator==(const Software_Handle_Class &Software_Handle_To_Compare) const;
+            bool operator!=(const Software_Handle_Class &Software_Handle) const;
 
+        private:
+            // - Attributes
 
-    private:
-        // - Attributes
+            /// @brief Array containing all of the software handles.
+            /// @details This is a static array in order to avoid dynamic allocation since it's modified at early startup (when static Software handle constructor are called) before dynamic allocation system is initialized.
+            static std::array<Software_Handle_Class *, 40> List;
 
-        /// @brief Array containing all of the software handles.
-        /// @details This is a static array in order to avoid dynamic allocation since it's modified at early startup (when static Software handle constructor are called) before dynamic allocation system is initialized. 
-        static std::array<Software_Handle_Class*, 40> List;
+            /// @brief Software string name.
+            Static_String_Type<Default_Software_Name_Length> Name; // used to identify the software,
 
-        /// @brief Software string name.        
-        Static_String_Type<Default_Software_Name_Length> Name; // used to identify the software,
+            friend class Xila_Namespace::Softwares_Class;
+            friend class Software_Class;
+        } Software_Handle_Type;
 
-        friend class Softwares_Class;
-        friend class Software_Class;
-    } Software_Handle_Type;
-
+    }
 
 }
 

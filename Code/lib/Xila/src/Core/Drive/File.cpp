@@ -85,14 +85,14 @@ void File_Class::Flush()
     File.flush();
 }
 
-Size_Type File_Class::Read(uint8_t *Buffer, Size_Type Size)
+Size_Type File_Class::Read_String(char* Buffer, Size_Type Size)
 {
-    return File.read(Buffer, Size);
+    return File.readBytes(Buffer, Size);
 }
 
-Size_Type File_Class::Read_Bytes(char *Buffer, Size_Type Length)
+Size_Type File_Class::Read_Bytes(uint8_t *Buffer, Size_Type Length)
 {
-    return File.readBytes(Buffer, Length);
+    return File.read(Buffer, Length);
 }
 
 bool File_Class::Seek(uint32_t Position, Seek_Mode_Type Mode)

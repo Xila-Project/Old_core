@@ -105,49 +105,10 @@ uint32_t Xila_Namespace::Flash_Class::Get_Sketch_Free_Space()
 
 
 
-String Xila_Namespace::Flash_Class::Get_Sketch_MD5()
+String_Type& Xila_Namespace::Flash_Class::Get_Sketch_MD5(String_Type& String)
 {
-    static String result;
-    if (result.length())
-    {
-        return result;
-    }
-    uint32_t lengthLeft = Get_Sketch_Size();
-
-    const esp_partition_t *running = esp_ota_get_running_partition();
-    if (!running)
-    {
-        log_e("Partition could not be found");
-
-        return String();
-    }
-    const size_t bufSize = SPI_FLASH_SEC_SIZE;
-    std::unique_ptr<uint8_t[]> buf(new uint8_t[bufSize]);
-    uint32_t offset = 0;
-    if (!buf.get())
-    {
-        log_e("Not enough memory to allocate buffer");
-
-        return String();
-    }
-    MD5Builder md5;
-    md5.begin();
-    while (lengthLeft > 0)
-    {
-        size_t readBytes = (lengthLeft < bufSize) ? lengthLeft : bufSize;
-        if (!ESP.flashRead(running->address + offset, reinterpret_cast<uint32_t *>(buf.get()), (readBytes + 3) & ~3))
-        {
-            log_e("Could not read buffer from flash");
-
-            return String();
-        }
-        md5.add(buf.get(), readBytes);
-        lengthLeft -= readBytes;
-        offset += readBytes;
-    }
-    md5.calculate();
-    result = md5.toString();
-    return result;
+    String = ESP.getSketchMD5().c_str();
+    return String;
 }
 
 uint32_t Xila_Namespace::Flash_Class::Sketch_Size(sketchSize_t Response)

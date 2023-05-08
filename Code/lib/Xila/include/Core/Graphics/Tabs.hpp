@@ -41,12 +41,9 @@ namespace Xila_Namespace
 
             // - - Getters.
             uint16_t Get_Tab_Active();
-            uint16_t Get_Tab_Count();
 
             Object_Class Get_Content();
             Button_Matrix_Type Get_Tab_Buttons();
-
-            uint16_t Get_Animation_Time();
 
             // - Attributes
             static const Class_Type &Class;

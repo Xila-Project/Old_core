@@ -1,4 +1,3 @@
-///
 /// @file Window.hpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
@@ -6,7 +5,6 @@
 /// @date 06-05-2022
 ///
 /// @copyright Copyright (c) 2022
-///
 
 #ifndef Window_Hpp_Included
 #define Window_Hpp_Included
@@ -16,7 +14,6 @@
 #include "Object.hpp"
 #include "Button.hpp"
 #include "Label.hpp"
-#include "Image.hpp"
 
 #include "Core/Software/Software.hpp"
 #include "Core/Account/Accounts.hpp"
@@ -52,7 +49,7 @@ namespace Xila_Namespace
             virtual void Create(Object_Class Parent_Object) override;
 
             /// @brief Create a new parent window for software.
-            virtual void Create(const Software_Type *Owner_Module);
+            virtual void Create(const Softwares_Types::Software_Type *Owner_Module);
 
 
             virtual void Delete() override;
@@ -90,7 +87,7 @@ namespace Xila_Namespace
 
             /// @brief Get the title label of the window.
             /// @return Title label of the window.
-            const Software_Type *Get_Owner_Software() const;
+            const Softwares_Types::Software_Type *Get_Owner_Software() const;
 
             static void Event_Callback(lv_event_t* Event);
 
@@ -112,7 +109,7 @@ namespace Xila_Namespace
                 Label_Type Title_Label;
                 Button_Type Close_Button;
                 Button_Type Minimize_Button;
-                const Software_Type *Owner_Software;
+                const Softwares_Types::Software_Type *Owner_Software;
             } Data_Type;
 
             Data_Type* Data;

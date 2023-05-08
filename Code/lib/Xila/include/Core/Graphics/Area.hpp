@@ -24,10 +24,7 @@ namespace Xila_Namespace
         {
         public:
             // - Types
-        
-
-            /// @brief LVGL area type pointer.
-            typedef lv_area_t LVGL_Area_Type;
+          
 
             // - Methods
 
@@ -39,7 +36,7 @@ namespace Xila_Namespace
 
             // - - Setters
 
-            void Set(LVGL_Area_Type Area);
+            void Set(lv_area_t Area);
 
             void Set(Coordinate_Type X_1, Coordinate_Type Y_1, Coordinate_Type X_2, Coordinate_Type Y_2);
             void Set_Width(Coordinate_Type Width);
@@ -51,9 +48,12 @@ namespace Xila_Namespace
             Coordinate_Type Get_Height();
             uint32_t Get_Size();
 
-            const LVGL_Area_Type Get_LVGL_Area(); // For compatibility purpose.
-
-            LVGL_Area_Type LVGL_Area;
+            operator lv_area_t()
+            {
+                return LVGL_Area;
+            }
+            
+            lv_area_t LVGL_Area;
         } Area_Type;
 
     } // namespace Graphics_Types

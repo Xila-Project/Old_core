@@ -14,6 +14,7 @@ WiFiClass& ESP32_WiFi = WiFi;
 
 #include "Core/Communication/WiFi.hpp"
 #include "Core/Drive/Drive.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Communication_Types;
@@ -237,16 +238,24 @@ Result_Type WiFi_Class::Set_Host_Name(const char* Host_Name)
 
 // - - Station
 
+void WiFi_Class::Station_Class::Turn_On()
+{
+    ESP32_WiFi.mode(WIFI_STA);
+}
+
 void WiFi_Class::Station_Class::Connect(const char* SSID, const char* Password, int32_t Channel, const uint8_t *BSSID)
 {
-    if (this->Is_Known(SSID, Password, Channel))
+  //  if (this->Is_Known(SSID, Password, Channel))
+  //  {
+  //      Log_Trace();
+  //      ESP32_WiFi.begin(SSID, Password, Channel, BSSID, true);
+  //  }
+    if (this->Add(SSID, Password, Channel, BSSID) == Result_Type::Success)
     {
+        Log_Trace();
         ESP32_WiFi.begin(SSID, Password, Channel, BSSID, true);
     }
-    else if (this->Add(SSID, Password, Channel, BSSID) == Result_Type::Success)
-    {
-        ESP32_WiFi.begin(SSID, Password, Channel, BSSID, true);
-    }
+    Log_Trace();
 }
 
 Result_Type WiFi_Class::Station_Class::Disconnect()

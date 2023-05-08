@@ -31,7 +31,7 @@ Object_Class::Object_Class(lv_obj_t *LVGL_Object_Pointer) : Object_Class()
 
 Object_Class::Object_Class(const Object_Class &Object_To_Copy) : Object_Class()
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Operators
@@ -55,7 +55,7 @@ void Object_Class::Create(Object_Class Parent_Object)
     {
         {
             Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-            this->LVGL_Object_Pointer = lv_obj_create(Parent_Object.Get_Pointer());
+            this->LVGL_Object_Pointer = lv_obj_create(Parent_Object);
         }
 
         this->Set_Style_Radius(0, 0);
@@ -131,7 +131,7 @@ void Object_Class::Allocate_Special_Data()
 void Object_Class::Swap(Object_Class Object_To_Swap_With)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_swap(Get_Pointer(), Object_To_Swap_With.Get_Pointer());
+    lv_obj_swap(Get_Pointer(), Object_To_Swap_With);
 }
 
 void Object_Class::Add_Event(lv_event_cb_t Event_Callback, Event_Code_Type Event_Code, void *User_Data)
@@ -236,7 +236,7 @@ Coordinate_Type Object_Class::DPX(Coordinate_Type Pixels_To_Scale)
 void Object_Class::Add_Style(Style_Type &Style, Style_Selector_Type Style_Selector)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_add_style(Get_Pointer(), Style.Get_Pointer(), Style_Selector);
+    lv_obj_add_style(Get_Pointer(), Style, Style_Selector);
 }
 
 // ------------------------------------------------------------------------- //
@@ -254,28 +254,21 @@ void Object_Class::Set_User_Data(void *User_Data)
 void Object_Class::Set_Parent(Object_Class Parent_Object)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_set_parent(Get_Pointer(), Parent_Object.Get_Pointer());
+    lv_obj_set_parent(Get_Pointer(), Parent_Object);
 }
 
 // -- Position and size.
 
-void Object_Class::Set_Alignment(Alignment_Type Alignment)
-{
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_set_align(Get_Pointer(), (lv_align_t)Alignment);
-}
-
-void Object_Class::Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
-{
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_align(Get_Pointer(), static_cast<lv_align_t>(Alignment), X_Offset, Y_Offset);
-}
-
-void Object_Class::Set_Alignment(Object_Class Object_To_Align_With, Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
+void Object_Class::Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset, Object_Class *Object_To_Align_With)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
 
-    lv_obj_align_to(Get_Pointer(), Object_To_Align_With.Get_Pointer(), (lv_align_t)Alignment, X_Offset, Y_Offset);
+    if ((X_Offset == 0) && (Y_Offset == 0))
+        lv_obj_set_align(this->Get_Pointer(), (lv_align_t)Alignment);
+    else if (Object_To_Align_With == NULL)
+        lv_obj_align(this->Get_Pointer(), (lv_align_t)Alignment, X_Offset, Y_Offset);
+    else
+        lv_obj_align_to(this->Get_Pointer(), Object_To_Align_With->Get_Pointer(), (lv_align_t)Alignment, X_Offset, Y_Offset);
 }
 
 void Object_Class::Set_Position_X(Coordinate_Type X)
@@ -548,7 +541,7 @@ void Object_Class::Set_Style_Clip_Corner(bool Value, Style_Selector_Type Style_S
 void Object_Class::Set_Style_Color_Filter_Descriptor(Color_Filter_Descriptor_Type &Color_Filter_Descriptor, Style_Selector_Type Style_Selector)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_set_style_color_filter_dsc(Get_Pointer(), Color_Filter_Descriptor.Get_Pointer(), Style_Selector);
+    lv_obj_set_style_color_filter_dsc(Get_Pointer(), Color_Filter_Descriptor, Style_Selector);
 }
 
 void Object_Class::Set_Style_Color_Filter_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
@@ -970,11 +963,11 @@ void Object_Class::Set_Tile(Object_Class Tile, bool Animation)
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (Animation)
     {
-        lv_obj_set_tile(Get_Pointer(), Tile.Get_Pointer(), LV_ANIM_ON);
+        lv_obj_set_tile(Get_Pointer(), Tile, LV_ANIM_ON);
     }
     else
     {
-        lv_obj_set_tile(Get_Pointer(), Tile.Get_Pointer(), LV_ANIM_OFF);
+        lv_obj_set_tile(Get_Pointer(), Tile, LV_ANIM_OFF);
     }
 }
 
@@ -1039,7 +1032,7 @@ void *Object_Class::Get_Group()
     return lv_obj_get_group(Get_Pointer());
 }
 
-inline bool Object_Class::Get_Object_Visibility()
+bool Object_Class::Get_Object_Visibility()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_is_visible(Get_Pointer());
@@ -1266,7 +1259,7 @@ const Object_Class::Color_Filter_Descriptor_Type Object_Class::Get_Style_Color_F
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     Color_Filter_Descriptor_Type Color_Filter_Descriptor;
-    *Color_Filter_Descriptor.Get_Pointer() = *lv_obj_get_style_color_filter_dsc(Get_Pointer(), static_cast<uint32_t>(Part));
+    *Color_Filter_Descriptor = *lv_obj_get_style_color_filter_dsc(Get_Pointer(), static_cast<uint32_t>(Part));
     return Color_Filter_Descriptor;
 }
 
@@ -1468,6 +1461,12 @@ Coordinate_Type Object_Class::Get_Style_Minimum_Width(Part_Type Part)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_style_min_width(Get_Pointer(), static_cast<uint32_t>(Part));
+}
+
+Opacity_Type Object_Class::Get_Style_Opacity(Part_Type Type)
+{
+    Auto_Semaphore_Class Semaphore = Graphics.Take_Semaphore_Auto();
+    return Opacity_Type::Opacity_0_Percent;
 }
 
 Color_Type Object_Class::Get_Style_Outline_Color(Part_Type Part)

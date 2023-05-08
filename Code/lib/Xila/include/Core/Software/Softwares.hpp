@@ -14,6 +14,9 @@
 #include "../Module/Module.hpp"
 
 #include "Software.hpp"
+#include "Software_Handle.hpp"
+
+#include "Software.hpp"
 #include <vector>
 
 namespace Xila_Namespace
@@ -39,16 +42,16 @@ namespace Xila_Namespace
 
         // - - Operations
 
-        Result_Type Open(const Software_Handle_Type* Handle, const Accounts_Types::User_Type* Owner_User = NULL);
+        Result_Type Open(const Softwares_Types::Software_Handle_Type* Handle, const Accounts_Types::User_Type* Owner_User = NULL);
         Result_Type Open(const char* Name, const Accounts_Types::User_Type* Owner_User = NULL);
-        Result_Type Close(Software_Type* Software);
-        Result_Type Kill(Software_Type* Software);
+        Result_Type Close(Softwares_Types::Software_Type* Software);
+        Result_Type Kill(Softwares_Types::Software_Type* Software);
 
-        Software_Type* Find(const Software_Handle_Type* Handle);
-        Software_Handle_Type* Find_Handle(const char* Name);  
+        Softwares_Types::Software_Type* Find(const Softwares_Types::Software_Handle_Type* Handle);
+        Softwares_Types::Software_Handle_Type* Find_Handle(const char* Name);  
 
-        Software_Type* Get(uint8_t Index);
-        const Software_Handle_Type* Get_Handle(uint8_t Index);
+        Softwares_Types::Software_Type* Get(uint8_t Index);
+        const Softwares_Types::Software_Handle_Type* Get_Handle(uint8_t Index);
 
         uint8_t Get_Count();
         uint8_t Get_Handle_Count();
@@ -58,7 +61,7 @@ namespace Xila_Namespace
         void Send_Instruction_User_Softwares(const Accounts_Types::User_Type* User, const Instruction_Type& Instruction);
         void Send_Instruction_Softwares(const Instruction_Type& Instruction);
         uint8_t Get_User_Softwares_Count(const Accounts_Types::User_Type* User);
-        const Software_Type* Get_User_Softwares(const Accounts_Types::User_Type* User, uint8_t Index);
+        const Softwares_Types::Software_Type* Get_User_Softwares(const Accounts_Types::User_Type* User, uint8_t Index);
     } Softwares_Type;
 
     extern Softwares_Type Softwares;

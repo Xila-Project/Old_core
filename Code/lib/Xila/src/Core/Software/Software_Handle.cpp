@@ -10,6 +10,7 @@
 #include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
+using namespace Softwares_Types;
 
 template<typename T, size_t N>
 std::array<T, N> Init_Array(const T& value) {

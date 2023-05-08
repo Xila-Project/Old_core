@@ -44,8 +44,6 @@
 #include "Memory/Memory.hpp"
 #include "Pin/Pin.hpp"
 #include "Power/Power.hpp"
-#include "Software/Software.hpp"
-#include "Software/Software_Handle.hpp"
 #include "Software/Softwares.hpp"
 #include "Sound/Sound.hpp"
 #include "System/System.hpp"

@@ -67,12 +67,12 @@ void Instruction_Class::Graphics_Class::Set_Code(Graphics_Types::Event_Code_Type
 
 void Instruction_Class::Graphics_Class::Set_Target_Pointer(Graphics_Types::Object_Type Object)
 {
-    Target_Pointer = Object.Get_Pointer();
+    Target_Pointer = Object;
 }
 
 void Instruction_Class::Graphics_Class::Set_Current_Target_Pointer(Graphics_Types::Object_Type Object)
 {
-    Current_Target_Pointer = Object.Get_Pointer();
+    Current_Target_Pointer = Object;
 }
 
 // - - Getters

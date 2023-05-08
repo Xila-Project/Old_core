@@ -28,7 +28,7 @@ Drop_Down_List_Class::Drop_Down_List_Class() : Object_Class()
 
 Drop_Down_List_Class::Drop_Down_List_Class(const Object_Class &Object_To_Copy)
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Manipulation
@@ -38,7 +38,7 @@ void Drop_Down_List_Class::Create(Object_Class Parent_Object)
     if (Parent_Object)
     {
         Auto_Semaphore_Type Auto_Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_dropdown_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_dropdown_create(Parent_Object);
     }
 }
 
@@ -119,7 +119,7 @@ void Drop_Down_List_Class::Set_Direction(Direction_Type Direction)
     lv_dropdown_set_dir(Get_Pointer(), static_cast<lv_dir_t>(Direction));
 }
 
-void Drop_Down_List_Class::Set_Symbol(const void *Symbol)
+void Drop_Down_List_Class::Set_Symbol(const char *Symbol)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_dropdown_set_symbol(Get_Pointer(), Symbol);

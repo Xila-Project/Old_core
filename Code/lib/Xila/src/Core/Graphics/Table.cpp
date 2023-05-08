@@ -28,7 +28,7 @@ Table_Class::Table_Class() : Object_Class()
 
 Table_Class::Table_Class(const Object_Class &Object_To_Copy)
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Manipulation
@@ -38,7 +38,7 @@ void Table_Class::Create(Object_Class Parent_Object)
     if (Parent_Object)
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_table_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_table_create(Parent_Object);
     }
 }
 
@@ -89,7 +89,7 @@ Coordinate_Type Table_Class::Get_Column_Width(uint16_t Column)
 void Table_Class::Get_Selected_Cell(uint16_t &Row, uint16_t &Column)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_table_get_selected_cell(Get_Pointer(), Row, Column);
+    lv_table_get_selected_cell(Get_Pointer(), &Row, &Column);
 }
 
 uint16_t Table_Class::Get_Selected_Cell_Row()

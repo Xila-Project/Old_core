@@ -138,6 +138,9 @@ namespace Xila_Namespace
                 /// @brief Default constructor.
                 Station_Class();
 
+                /// @brief Turn on the station.
+                void Turn_On();
+
                 /// @brief Connect to a WiFi network (async).
                 /// @param SSID SSID of the network to connect to.
                 /// @param Password Password of the network to connect to.
@@ -399,7 +402,7 @@ namespace Xila_Namespace
                 /// @param Channel Channel to scan.
                 /// @param SSID SSID to scan.
                 /// @param BSSID BSSID to scan.
-                /// @return `Result_Type::Success` if the scan has been started, `Result_Type::Error` otherwise.
+                /// @return The number of networks found or (-1) if the scan is not complete.
                 int16_t Start(bool Asynchronous = false, bool Show_Hidden = false, bool Passive = false, uint32_t Maximum_Milliseconds_Per_Channel = 300, uint8_t Channel = 0, const char*SSID = NULL, const uint8_t *BSSID = NULL);
 
                 /// @brief Check if the scan is complete.

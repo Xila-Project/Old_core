@@ -15,7 +15,7 @@
 
 using namespace Xila;
 
-class File_Manager_Class : public Software_Type
+class File_Manager_Class : public Softwares_Types::Software_Type
 {
 
     // - Methods
@@ -81,10 +81,10 @@ class File_Manager_Class : public Software_Type
 
 // - Types
 
-static class File_Manager_Handle_Class : public Software_Handle_Class
+static class File_Manager_Handle_Class : public Softwares_Types::Software_Handle_Class
 {
 public:
-    File_Manager_Handle_Class() : Software_Handle_Class("File manager"){};
+    File_Manager_Handle_Class() : Softwares_Types::Software_Handle_Class("File manager"){};
 
     void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
     {

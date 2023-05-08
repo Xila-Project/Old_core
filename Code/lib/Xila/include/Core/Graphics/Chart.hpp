@@ -50,16 +50,6 @@ public:
         Last = LV_CHART_AXIS_LAST
     };
 
-    enum Draw_Part::Type
-    {
-        Div_Line_Init = LV_CHART_DRAW_PART_DIV_LINE_INIT,
-        Div_Line_Horizontal = LV_CHART_DRAW_PART_DIV_LINE_HORIZONTAL,
-        Div_Line_Vertical = LV_CHART_DRAW_PART_DIV_LINE_VERTICAL,
-        Line_And_Point = LV_CHART_DRAW_PART_LINE_AND_POINT,
-        Bar = LV_CHART_DRAW_PART_BAR,
-        Cursor = LV_CHART_DRAW_PART_CURSOR,
-        Tick_Label = LV_CHART_DRAW_PART_TICK_LABEL
-    };
 
     // -- Methods
 

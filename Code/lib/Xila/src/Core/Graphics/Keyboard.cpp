@@ -28,7 +28,7 @@ Keyboard_Class::Keyboard_Class() : Object_Class()
 
 Keyboard_Class::Keyboard_Class(const Object_Class &Object_To_Copy)
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Manipulation
@@ -39,7 +39,7 @@ void Keyboard_Class::Create(Object_Class Parent_Object)
     {
         {
             Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-            this->LVGL_Object_Pointer = lv_keyboard_create(Parent_Object.Get_Pointer());
+            this->LVGL_Object_Pointer = lv_keyboard_create(Parent_Object);
             if (!Is_Valid())
                 return;
         }
@@ -89,7 +89,7 @@ void Keyboard_Class::Set_Pop_Overs(bool Enabled)
 void Keyboard_Class::Set_Text_Area(Text_Area_Class &Text_Area, bool Show)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_keyboard_set_textarea(Get_Pointer(), Text_Area.Get_Pointer());
+    lv_keyboard_set_textarea(Get_Pointer(), Text_Area);
     if (Show)
     {
         this->Clear_Flag(Flag_Type::Hidden);

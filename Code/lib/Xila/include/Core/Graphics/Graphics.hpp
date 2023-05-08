@@ -13,22 +13,21 @@
 
 #include "../Module/Module.hpp"
 
+
 #include "lvgl.h"
 
 // Base object
-#include "Object.hpp"
 // Widgets
+#include "Object.hpp"
 #include "Arc.hpp"
 #include "Bar.hpp"
-#include "Button.hpp"
 #include "Button_Matrix.hpp"
 #include "Canvas.hpp"
 #include "Checkbox.hpp"
-#include "Dialog.hpp"
 #include "Drop_Down_List.hpp"
 #include "Image.hpp"
+
 #include "Line.hpp"
-#include "Label.hpp"
 #include "Roller.hpp"
 #include "Slider.hpp"
 #include "Spinbox.hpp"
@@ -53,22 +52,22 @@
 #include "Tabs.hpp"
 // #include "Tileview.hpp"
 
+#include "Dialog.hpp"
+#include "Window.hpp"
+#include "Button.hpp"
+#include "Label.hpp"
 
-#include <atomic>
 
 namespace Xila_Namespace
 {
     namespace Graphics_Types
-    {
-
-    };
+    {};
 
     typedef class Graphics_Class : public Module_Class
     {
     public:
         // - Constructor
         Graphics_Class();
-
 
         // - Methods
         Result_Type Start();
@@ -97,14 +96,38 @@ namespace Xila_Namespace
 
         inline void Give_Semaphore()
         {
-        
             Semaphore.Give_Recursive();
         };
 
+        // - - Getters
+
+        // - - - Theme
+
+        Graphics_Types::Color_Type Get_Theme_Primary_Color();
+        Graphics_Types::Color_Type Get_Theme_Secondary_Color();
+        bool Get_Theme_Dark_Mode();
+        Graphics_Types::Coordinate_Type Get_Percentage(Graphics_Types::Coordinate_Type Coordinate);
+
+        // - - Setters
+
+        // - - - Theme
+
+        void Set_Theme_Primary_Color(Graphics_Types::Color_Type Color);
+        void Set_Theme_Secondary_Color(Graphics_Types::Color_Type Color);
+        void Set_Theme_Dark_Mode(bool Enabled);
+
     private:
+        // - Methods
+        
+        Result_Type Load_Registry();
+        Result_Type Save_Registry();
+        Result_Type Create_Registry();
+
+
         // - Attributes
         Semaphore_Type Semaphore;
 
+        Graphics_Types::Theme_Type* Theme;
         
         Task_Class Task;
 

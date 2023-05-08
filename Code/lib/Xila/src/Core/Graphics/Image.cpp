@@ -28,7 +28,7 @@ Image_Class::Image_Class() : Object_Class()
 
 Image_Class::Image_Class(const Object_Class &Object_To_Copy)
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Manipulation
@@ -38,7 +38,7 @@ void Image_Class::Create(Object_Class Parent_Object)
     if (Parent_Object)
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_img_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_img_create(Parent_Object);
     }
 }
 
@@ -135,7 +135,7 @@ Coordinate_Type Image_Class::Get_Offset_Y()
 void Image_Class::Get_Pivot(Point_Type &Pivot)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_img_get_pivot(Get_Pointer(), &Pivot);
+    return lv_img_get_pivot(Get_Pointer(), Pivot);
 }
 
 Image_Class::Size_Mode_Type Image_Class::Get_Size_Mode()

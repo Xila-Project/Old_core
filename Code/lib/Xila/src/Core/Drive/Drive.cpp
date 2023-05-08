@@ -8,6 +8,8 @@
 
 #include "Core/Drive/Drive.hpp"
 
+#include "Core/System/System.hpp"
+
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Drive_Types;
 
@@ -18,14 +20,24 @@ Drive_Type Xila_Namespace::Drive;
 Result_Type Drive_Class::Copy(Drive_Types::File_Type &Origin_File, Drive_Types::File_Type &Destination_File)
 {
     uint8_t Readed_Bytes;
-    uint8_t Buffer[255];
+    uint8_t Buffer[256];
     if (!Origin_File || !Destination_File)
     {
         return Result_Type::Error;
     }
-    while ((Readed_Bytes = Origin_File.Read(Buffer, sizeof(Buffer))) > 0)
+
+    auto Next_Pause = System.Get_Up_Time_Milliseconds() + 100;
+
+    while (Origin_File.Available() > 0)
     {
+        Size_Type Readed_Bytes = Origin_File.Read_Bytes(Buffer, sizeof(Buffer));
         Destination_File.write(Buffer, Readed_Bytes);
+        
+        if (System.Get_Up_Time_Milliseconds() > Next_Pause)
+        {
+            Task_Type::Delay_Static(10);    // Let the system breath.
+            Next_Pause = System.Get_Up_Time_Milliseconds() + 100;
+        }
     }
     return Result_Type::Success;
 }

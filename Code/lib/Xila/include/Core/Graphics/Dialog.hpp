@@ -4,6 +4,9 @@
 #include "Window.hpp"
 #include "Color_Wheel.hpp"
 #include "Object.hpp"
+#include "Button.hpp"
+#include "Label.hpp"
+#include "Object.hpp"
 
 namespace Xila_Namespace
 {
@@ -18,7 +21,7 @@ namespace Xila_Namespace
             Dialog_Class();
             Dialog_Class(const Object_Class &Object_To_Copy);
 
-            virtual void Create(const Software_Type* Owner_Software) override;
+            virtual void Create(const Softwares_Types::Software_Type* Owner_Software) override;
             virtual void Create(Object_Class Parent_Object) override;
 
             // - - Getters

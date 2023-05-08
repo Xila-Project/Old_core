@@ -15,6 +15,8 @@
 
 #include "Test.hpp"
 
+#include <vector>
+
 using namespace Xila;
 
 // - Forward declaration
@@ -24,9 +26,18 @@ typedef int (*bntvfunc)(bvm *);
 
 class Berry_Softwares_Handle_Class;
 
+Graphics_Types::Window_Type* Berry_Get_Window(bvm*);
+
 /// @brief Berry class
-class Berry_Class : public Software_Type
+class Berry_Class : public Softwares_Types::Software_Type
 {
+public:
+
+    static Berry_Class* Get_Instance(bvm*);
+    uint8_t Buffer[1024];   // Buffer used to store the input object
+    
+protected:
+
     // - Methods
 
     // - - Constructors / destructor
@@ -47,6 +58,7 @@ class Berry_Class : public Software_Type
     void Virtual_Machine_Register_Function(const char *Name, bntvfunc Function);
     Result_Type Virtual_Machine_Load_File(const char *Path);
     Result_Type Virtual_Machine_Load_String(const char *String);
+
     Result_Type Call(Integer_Type);
     
     // - - - - REPL
@@ -62,6 +74,7 @@ class Berry_Class : public Software_Type
     // - - - Softwares
     void Load_Softwares_Handles();
 
+
     // - Attributes
 
     char* Input_String;
@@ -73,20 +86,24 @@ class Berry_Class : public Software_Type
     Graphics_Types::Label_Type Prompt_Label;
     Graphics_Types::Object_Type Prompt_Container;
 
+
+    static std::vector<Berry_Class *> Instances_List;
+
     static bool Softwares_Handles_Loaded;
 
     Graphics_Types::Window_Class Window;
 
     friend class Berry_Handle_Class;
     friend class Berry_Softwares_Handle_Class;
+    friend Graphics_Types::Window_Type* Berry_Get_Window(bvm*);;
 };
 
 extern char* Prompt_String;
 
-static class Berry_Handle_Class : public Software_Handle_Type
+static class Berry_Handle_Class : public Softwares_Types::Software_Handle_Type
 {
 public:
-    Berry_Handle_Class() : Software_Handle_Type("Berry"){};
+    Berry_Handle_Class() : Softwares_Types::Software_Handle_Type("Berry"){};
 
     void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
     {
@@ -95,10 +112,10 @@ public:
 
 } Berry_Handle;
 
-class Berry_Softwares_Handle_Class : public Software_Handle_Type
+class Berry_Softwares_Handle_Class : public Softwares_Types::Software_Handle_Type
 {
 public:
-    Berry_Softwares_Handle_Class(const char *Name) : Software_Handle_Type(Name){};
+    Berry_Softwares_Handle_Class(const char *Name) : Softwares_Types::Software_Handle_Type(Name){};
 
     void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
     {

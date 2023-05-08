@@ -32,9 +32,9 @@ BERRY_API char *be_readstring(char *buffer, size_t size)
     strlcat(Prompt_String, buffer, (80 + 1) * 24 + 1);
     Log.Print(buffer);
     while (true)
-    {
-        Task_Type::Delay_Static(100);
-    }
+   {
+       Task_Type::Delay_Static(100);
+   }
     
     return NULL;
 
@@ -116,7 +116,7 @@ size_t be_fread(void *hfile, void *buffer, size_t length)
     Drive_Types::File_Type* File = (Drive_Types::File_Type*)hfile;
     if (*File)
     {
-        return File->Read((uint8_t*)buffer, length);
+        return File->Read_Bytes((uint8_t*)buffer, length);
     }
     return 0;
 }

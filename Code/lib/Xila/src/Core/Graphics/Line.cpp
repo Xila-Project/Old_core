@@ -29,7 +29,7 @@ Line_Class::Line_Class() : Object_Class()
 
 Line_Class::Line_Class(const Object_Class &Object_To_Copy)
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Manipulation
@@ -39,7 +39,7 @@ void Line_Class::Create(Object_Class Parent_Object)
     if (Parent_Object)
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_line_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_line_create(Parent_Object);
     }
 }
 
@@ -67,7 +67,11 @@ bool Line_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 void Line_Class::Set_Points(const Point_Type *Points, uint16_t Number)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_line_set_points(Get_Pointer(), Points, Number);
+    lv_point_t LVGL_Points[Number];
+    for (uint16_t i = 0; i < Number; i++)
+        LVGL_Points[i] = Points[i];
+
+    lv_line_set_points(Get_Pointer(), LVGL_Points, Number);
 }
 
 void Line_Class::Set_Y_Inversion(bool Inversion)

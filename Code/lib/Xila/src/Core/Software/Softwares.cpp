@@ -13,6 +13,7 @@
 #include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
+using namespace Softwares_Types;
 
 Softwares_Type Xila_Namespace::Softwares;
 
@@ -55,29 +56,17 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
         return Result_Type::Error;
     }
 
-
-
-
-    Log_Verbose("Softwares", "List size : %d", Software_Class::List.size());
-
     if (Owner_User == NULL)
     {
         Owner_User = Accounts.Get_Logged_User();
         if (Owner_User == NULL)
-        {
             return Result_Type::Error;
-        }
 
     }
-
-    Log_Verbose("Softwares", "User ptr  : %p", Owner_User);
-    Log_Verbose("Softwares", "Opening software for user: %s", (const char*)Owner_User->Name);
-
+   
     Handle->Create_Instance(Owner_User);
 
     Software_Type::List.back()->Owner_User = Owner_User;
-
-    Log_Verbose("Softwares", "Software opened : %s | by user: %s", (const char*)Handle->Name, (const char*)Owner_User->Name);
 
     return Result_Type::Success;
 }
@@ -102,7 +91,7 @@ Result_Type Softwares_Class::Close(Software_Type *Software)
     else
     {
         Instruction_Type Instruction(this, Software);
-        Instruction.Softwares.Set_Code(Softwares_Types::Event_Code_Type::Close);
+        Instruction.Softwares.Set_Code(Event_Code_Type::Close);
         return Software->Send_Instruction(Instruction);
     }
 }

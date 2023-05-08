@@ -26,7 +26,6 @@ Graphics_Class::Graphics_Class() : Task(this)
 
 Result_Type Graphics_Class::Start()
 {
-    Log_Information("Graphics", "Start graphics module...");
     lv_init();
 
     if (!lv_is_initialized())
@@ -53,10 +52,25 @@ Result_Type Graphics_Class::Start()
 
     // - Set file system driver
 
+    // - Initialize semaphore
+
     if (Semaphore.Create(Semaphore_Type::Type_Type::Recursive_Mutex) != Result_Type::Success)
     {
         return Result_Type::Error;
     }
+
+    // - Initialize the default theme
+
+    {
+        auto Semaphore = Take_Semaphore_Auto();
+        Theme = lv_theme_default_get();
+    }
+
+ //   if (Load_Registry() != Result_Type::Success)
+ //   {
+ //       if (Create_Registry() != Result_Type::Success)
+ //           return Result_Type::Error;
+ //   }
 
     // - Create task
     Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Priority_Type::System);
@@ -69,9 +83,9 @@ Result_Type Graphics_Class::Stop()
 
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        #if LV_MEM_CUSTOM == 0
+#if LV_MEM_CUSTOM == 0
         lv_deinit();
-        #endif
+#endif
     }
 
     Task.Delete();
@@ -118,7 +132,7 @@ void Graphics_Class::Execute_Instruction(Instruction_Type Instruction)
         {
             Window_Type Window = Instruction.Graphics.Get_Target();
             if (Window.Is_Valid())
-                Softwares.Close(const_cast<Software_Type *>(Window.Get_Owner_Software()));
+                Softwares.Close(const_cast<Softwares_Types::Software_Type *>(Window.Get_Owner_Software()));
             break;
         }
         }
@@ -145,6 +159,46 @@ Object_Type Graphics_Type::Get_Top_Layer()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return Object_Type(lv_layer_top());
+}
+
+Color_Type Graphics_Class::Get_Theme_Primary_Color()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    return Color_Type(Theme->color_primary);
+}
+
+Color_Type Graphics_Class::Get_Theme_Secondary_Color()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    return Color_Type(Theme->color_secondary);
+}
+
+bool Graphics_Class::Get_Theme_Dark_Mode()
+{
+    return (Theme->flags & 1) == 1;
+}
+
+void Graphics_Class::Set_Theme_Primary_Color(Color_Type Color)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    Theme = lv_theme_default_init(NULL, Color.Get_LVGL_Color(), Get_Theme_Secondary_Color().Get_LVGL_Color(), Get_Theme_Dark_Mode(), LV_FONT_DEFAULT);
+}
+
+void Graphics_Class::Set_Theme_Secondary_Color(Color_Type Color)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    Theme = lv_theme_default_init(NULL, Get_Theme_Primary_Color().Get_LVGL_Color(), Color.Get_LVGL_Color(), Get_Theme_Dark_Mode(), LV_FONT_DEFAULT);
+}
+
+void Graphics_Class::Set_Theme_Dark_Mode(bool Enabled)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    Theme = lv_theme_default_init(NULL, Get_Theme_Primary_Color().Get_LVGL_Color(), Get_Theme_Secondary_Color().Get_LVGL_Color(), Enabled, LV_FONT_DEFAULT);
+}
+
+Coordinate_Type Graphics_Class::Get_Percentage(Coordinate_Type Coordinate)
+{
+    return Percentage(Coordinate);
 }
 
 /*

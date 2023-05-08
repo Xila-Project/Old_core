@@ -38,11 +38,11 @@ namespace Xila_Namespace
 
             // - - Manipulation
             virtual void Create(Object_Class Parent_Object) override;
-            void Create(Object_Class Parent_Object, const char*Text, Coordinate_Type Width = 0, Coordinate_Type Height = 0);
+            void Create(Object_Class Parent_Object, const char *Text, Coordinate_Type Width = 0, Coordinate_Type Height = 0);
 
             void Insert_Text(uint32_t Position, const char *Text);
             void Cut_Text(uint32_t Position, uint32_t Length);
-            bool Is_Char_Under_Position(Point_Type *Position);
+            bool Is_Char_Under_Position(Point_Type &Position);
 
             // - - Setters
             virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
@@ -59,8 +59,8 @@ namespace Xila_Namespace
             char *Get_Text();
             Long_Type Get_Long_Mode();
             bool Get_Recolor();
-            void Get_Letter_Position(uint32_t Index, Point_Type *Position);
-            uint32_t Get_Letter_On(Point_Type *Position_In);
+            void Get_Letter_Position(uint32_t Index, Point_Type &Position);
+            uint32_t Get_Letter_On(Point_Type &Position_In);
             uint32_t Get_Selection_Start();
             uint32_t Get_Selection_End();
 

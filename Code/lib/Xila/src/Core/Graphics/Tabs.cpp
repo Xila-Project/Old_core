@@ -24,7 +24,7 @@ Tabs_Class::Tabs_Class() : Object_Class()
 
 Tabs_Class::Tabs_Class(const Object_Class &Object_To_Copy)
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Manipulation
@@ -39,7 +39,7 @@ void Tabs_Class::Create(Object_Class Parent_Object, Direction_Type Direction, Co
     if (Parent_Object)
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_tabview_create(Parent_Object.Get_Pointer(), static_cast<lv_dir_t>(Direction), Size);
+        this->LVGL_Object_Pointer = lv_tabview_create(Parent_Object, static_cast<lv_dir_t>(Direction), Size);
     }
 }
 
@@ -116,3 +116,4 @@ Button_Matrix_Type Tabs_Class::Get_Tab_Buttons()
     }
     return Button_Matrix_Type(Object_Type(Button_Pointer));
 }
+

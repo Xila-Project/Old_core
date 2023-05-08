@@ -17,6 +17,13 @@ namespace Xila_Namespace
 {
     namespace Graphics_Types
     {
+        enum class Slider_Mode_Type
+        {
+            Normal = LV_SLIDER_MODE_NORMAL,
+            Symmetrical = LV_SLIDER_MODE_SYMMETRICAL,
+            Range = LV_SLIDER_MODE_RANGE,
+        };
+
         /// @brief Slider class.
         typedef class Slider_Class : public Object_Class
         {
@@ -26,18 +33,6 @@ namespace Xila_Namespace
             typedef lv_slider_mode_t Mode_Type;
 
             // - - Enumerations
-            enum Mode_Enumeration
-            {
-                Normal = LV_SLIDER_MODE_NORMAL,
-                Symmetrical = LV_SLIDER_MODE_SYMMETRICAL,
-                Range = LV_SLIDER_MODE_RANGE,
-            };
-
-            typedef enum Draw_Part_Enumeration
-            {
-                Knob = LV_SLIDER_DRAW_PART_KNOB,
-                Knob_Left = LV_SLIDER_DRAW_PART_KNOB_LEFT,
-            } Draw_Part_Type;
 
             // - Methods
 

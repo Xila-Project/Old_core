@@ -1,12 +1,13 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Color_Filter_Descriptor_Type_map) {
-    { be_const_key(_p, -1), be_const_var(0) },
+    { be_const_key(_p, 1), be_const_var(0) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Color_Filter_Descriptor_Class_Deinitialize_A008A48E_5820_421C_B222_B98E65A85694) },
 };
 
 static be_define_const_map(
     Berry_Color_Filter_Descriptor_Type_map,
-    1
+    2
 );
 
 BE_EXPORT_VARIABLE be_define_const_class(

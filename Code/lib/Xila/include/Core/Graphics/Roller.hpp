@@ -17,17 +17,17 @@ namespace Xila_Namespace
 {
     namespace Graphics_Types
     {
+        enum class Roller_Mode_Type
+        {
+            Normal = LV_ROLLER_MODE_NORMAL,
+            Infinite = LV_ROLLER_MODE_INFINITE
+        };
+
         /// @brief Roller class.
         typedef class Roller_Class : public Object_Class
         {
         public:
             // -- Types
-
-            enum class Mode_Type
-            {
-                Normal = LV_ROLLER_MODE_NORMAL,
-                Infinite = LV_ROLLER_MODE_INFINITE
-            };
 
             // - Methods
 
@@ -41,7 +41,7 @@ namespace Xila_Namespace
             // - - Setters
             virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-            void Set_Options(const char *Options, Mode_Type Mode);
+            void Set_Options(const char *Options, Roller_Mode_Type Mode);
             void Set_Selected(uint16_t Index, bool Animated);
             void Set_Visible_Row_Count(uint8_t Row_Count);
 

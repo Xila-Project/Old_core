@@ -18,6 +18,7 @@ using namespace Xila_Namespace::Graphics_Types;
 
 void System_Class::Start_Load_Animation(Object_Type *Logo, Graphics_Types::Animation_Type *Animation)
 {
+
   Object_Type Background;
 
   Background.Create(Object_Type(lv_scr_act()));

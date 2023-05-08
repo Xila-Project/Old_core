@@ -375,7 +375,7 @@ void System_Class::Shutdown()
 {
   Graphics_Types::Animation_Type *Animation = new Graphics_Types::Animation_Type;
   Graphics_Types::Object_Type Logo;
-  this->Start_Load_Animation(Logo, Animation);
+  this->Start_Load_Animation(&Logo, Animation);
 
   // Sound.Play(Sounds("Shutdown.wav"));
 
@@ -398,7 +398,7 @@ void System_Class::Restart()
 {
   Graphics_Types::Animation_Type *Animation = new Graphics_Types::Animation_Type;
   Graphics_Types::Object_Type Logo;
-  this->Start_Load_Animation(Logo, Animation);
+  this->Start_Load_Animation(&Logo, Animation);
 
   // Sound.Play(Sounds("Shutdown.wav"));
 

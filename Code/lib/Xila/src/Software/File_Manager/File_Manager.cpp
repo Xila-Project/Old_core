@@ -200,8 +200,6 @@ void File_Manager_Class::Refresh()
         Item_Name += " ";
         Item_Name += File.Get_Name();
 
-        Log_Verbose("File manager", "Item name: %s", (const char *)Item_Name);
-
         Checkbox.Set_Text((const char *)Item_Name);
 
         Checkbox.Clear_Pointer();

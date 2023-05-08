@@ -33,11 +33,11 @@ Dialog_Class::Dialog_Class() : Window_Class()
 
 Dialog_Class::Dialog_Class(const Object_Class &Object_To_Copy)
 {
-    if (Object_To_Copy.Get_User_Data() != NULL && Object_To_Copy.Is_Valid() && Set_Pointer(Object_To_Copy.Get_Pointer()))
+    if (Object_To_Copy.Get_User_Data() != NULL && Object_To_Copy.Is_Valid() && Set_Pointer(Object_To_Copy))
         Data = static_cast<Data_Type *>(Object_To_Copy.Get_User_Data());
 }
 
-void Dialog_Class::Create(const Software_Type* Owner_Software)
+void Dialog_Class::Create(const Softwares_Types::Software_Type* Owner_Software)
 {
     if (Owner_Software == NULL)
         return;
@@ -50,7 +50,7 @@ void Dialog_Class::Create(const Software_Type* Owner_Software)
 
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_obj_create(User_Screen.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_obj_create(User_Screen);
         if (!Is_Valid())
             return;
        
@@ -81,7 +81,7 @@ void Dialog_Class::Create(Object_Class Parent_Object)
 
     {
         Auto_Semaphore_Class Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_obj_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_obj_create(Parent_Object);
 
         if (!Is_Valid())
         {

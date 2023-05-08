@@ -39,19 +39,14 @@ void Clipboard_Class::Clear()
 ///
 /// @param Value_To_Copy Data to push.
 /// @return Result_Type
-void Clipboard_Class::Copy(uint64_t Value_To_Copy)
+void Clipboard_Class::Copy(QWord_Type Value_To_Copy)
 {
   Number = Value_To_Copy;
 }
 
-/// @brief Push data into the clipboard.
-///
-/// @param Char_Array_To_Copy Data to push.
-/// @param Char_Array_Length Data size.
-/// @return Result_Type
-void Clipboard_Class::Copy(const char *Char_Array_To_Copy, Size_Type Char_Array_Length)
+void Clipboard_Class::Copy(const char *String_To_Copy)
 {
-  String.Copy(Char_Array_To_Copy, Char_Array_Length + 1);
+  this->String = String_To_Copy;
 }
 
 void Clipboard_Class::Copy(const void *Data, Size_Type Data_Size)
@@ -86,7 +81,8 @@ void Clipboard_Class::Paste(char *Destination_Char_Array, Size_Type Char_Array_L
   strlcpy(Destination_Char_Array, String, Char_Array_Length);
 }
 
-void Clipboard_Class::Paste(String_Type &Destination_String) const
+String_Type& Clipboard_Class::Paste(String_Type &Destination_String) const
 {
   Destination_String.Copy(String);
+  return Destination_String;
 }

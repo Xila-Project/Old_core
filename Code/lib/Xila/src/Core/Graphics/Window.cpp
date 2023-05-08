@@ -47,13 +47,13 @@ Window_Class::Window_Class() : Object_Class()
 
 Window_Class::Window_Class(const Object_Class &Object_To_Copy)
 {
-    if (Object_To_Copy.Is_Valid() && (Object_To_Copy.Get_User_Data() != NULL) && Object_To_Copy.Is_Valid() && Set_Pointer(Object_To_Copy.Get_Pointer()))
+    if (Object_To_Copy.Is_Valid() && (Object_To_Copy.Get_User_Data() != NULL) && Object_To_Copy.Is_Valid() && Set_Pointer(Object_To_Copy))
         Data = static_cast<Data_Type *>(Object_To_Copy.Get_User_Data());
 }
 
 // - - Manipulation
 
-void Window_Class::Create(const Software_Type *Owner_Software)
+void Window_Class::Create(const Softwares_Types::Software_Type *Owner_Software)
 {
 
     if (Owner_Software == NULL)
@@ -66,7 +66,7 @@ void Window_Class::Create(const Software_Type *Owner_Software)
 
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_obj_create(User_Screen.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_obj_create(User_Screen);
         if (!Is_Valid())
             return;
 
@@ -86,7 +86,7 @@ void Window_Class::Create(Object_Class Parent_Object)
 
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_obj_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_obj_create(Parent_Object);
 
         if (this->LVGL_Object_Pointer == NULL)
             return;
@@ -145,7 +145,7 @@ void Window_Class::Set_Interface()
 
     Data->Minimize_Button.Create(Data->Header);
     Data->Minimize_Button.Set_Size(24, 24);
-    Data->Minimize_Button.Set_Alignment(Data->Close_Button, Alignment_Type::Out_Right_Middle, 8, 0);
+    Data->Minimize_Button.Set_Alignment(Alignment_Type::Out_Right_Middle, 8, 0, &Data->Close_Button);
     Data->Minimize_Button.Set_Style_Border_Color(Color_Type::Yellow[5], 0);
     Data->Minimize_Button.Set_Style_Border_Width(4, 0);
     Data->Minimize_Button.Set_Style_Radius(8, 0);
@@ -157,6 +157,7 @@ void Window_Class::Set_Interface()
     Data->Title_Label.Create(Data->Header);
     Data->Title_Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
     Data->Title_Label.Set_Alignment(Alignment_Type::Center);
+    Data->Title_Label.Set_Style_Text_Color(Color_Type::White, 0);
 
     // - Body.
     Data->Body.Create(*this);
@@ -242,7 +243,7 @@ Object_Class Window_Class::Get_Header()
     return Data->Header;
 }
 
-const Software_Type *Window_Class::Get_Owner_Software() const
+const Softwares_Types::Software_Type *Window_Class::Get_Owner_Software() const
 {
     return Data->Owner_Software;
 }
@@ -266,14 +267,13 @@ void Window_Class::Event_Callback(lv_event_t *Event)
 
         Window_Type *Window = static_cast<Window_Type *>(lv_event_get_user_data(Event));
 
-        Log_Verbose("Win", "Window event callback, pointer : %p", Window);
 
-        if (lv_event_get_target(Event) == Window->Data->Close_Button.Get_Pointer())
+        if (lv_event_get_target(Event) == Window->Data->Close_Button)
         {
 
             Window->Delete();
         }
-        else if (lv_event_get_target(Event) == Window->Data->Minimize_Button.Get_Pointer())
+        else if (lv_event_get_target(Event) == Window->Data->Minimize_Button)
         {
 
             Window->Set_State(Window_State_Type::Minimized);

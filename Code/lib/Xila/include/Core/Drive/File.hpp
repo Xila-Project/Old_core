@@ -85,13 +85,13 @@ namespace Xila_Namespace
             /// @param Buffer Byte array to store the byte.
             /// @param Size Number of bytes to read.
             /// @return Number of bytes read.
-            Size_Type Read(uint8_t *Buffer, Size_Type Size);
+            Size_Type Read_String(char *Buffer, Size_Type Size);
 
             /// @brief Read a character from the file.
             /// @param Buffer Character array to store the byte.
             /// @param Length Number of character to read.
             /// @return Number of bytes read.
-            Size_Type Read_Bytes(char *Buffer, Size_Type Length);
+            Size_Type Read_Bytes(uint8_t *Buffer, Size_Type Length);
 
             /// @brief Move the cursor to a specific position.
             /// @param Position Position to move the cursor to.

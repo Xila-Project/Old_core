@@ -13,6 +13,7 @@
 #include "Area.hpp"
 #include "Animation.hpp"
 #include "Style.hpp"
+#include "Point.hpp"
 
 #include "Types.hpp"
 
@@ -37,29 +38,12 @@ namespace Xila_Namespace
         public:
             // - Types
 
-            /// @brief Point type.
-            typedef lv_point_t Point_Type;
-
-
             /// @brief Color descriptor type.
             typedef Color_Filter_Descriptor_Class Color_Filter_Descriptor_Type;
 
             // -- Types and enumerations
 
             typedef lv_style_selector_t Style_Selector_Type;
-
-            class Draw_Part
-            {
-            public:
-                /// @brief Event enumeration.
-                // TODO : Don't forget to convert the draw part to LVGL draw part (no auto-cast).
-                typedef enum Enumeration
-                {
-                    Rectangle = LV_OBJ_DRAW_PART_RECTANGLE,
-                    Border_Post = LV_OBJ_DRAW_PART_BORDER_POST,
-                    Scrollbar = LV_OBJ_DRAW_PART_SCROLLBAR
-                } Type;
-            };
 
             // -- Methods
 
@@ -75,29 +59,23 @@ namespace Xila_Namespace
 
             bool operator==(const Object_Class &Other) const
             {
-                if (this->Get_Pointer() == nullptr || Other.Get_Pointer() == nullptr)
+                if ((this->Get_Pointer() == nullptr) || ((lv_obj_t*)Other == nullptr))
                 {
                     return false;
                 }
-                return (this->Get_Pointer() == Other.Get_Pointer());
+                return (this->Get_Pointer() == Other);
             }
 
             bool operator!=(const Object_Class &Other) const
             {
-                if (this->Get_Pointer() == nullptr || Other.Get_Pointer() == nullptr)
+                if ((this->Get_Pointer() == nullptr) || ((lv_obj_t*)Other == nullptr))
                 {
                     return true;
                 }
-                return (this->Get_Pointer() != Other.Get_Pointer());
+                return (this->Get_Pointer() != Other);
             }
 
             // - - - Cast
-
-            template <typename Type>
-            operator Type()
-            {
-                return Type(*this);
-            }
 
             // - - Manipulation
             virtual void Create(Object_Class Parent_Object);
@@ -144,10 +122,8 @@ namespace Xila_Namespace
             // - - - Position and size.
             void Set_Position_X(Coordinate_Type X);
             void Set_Position_Y(Coordinate_Type Y);
-            void Set_Position(Coordinate_Type X, Coordinate_Type Y);
-            void Set_Alignment(Alignment_Type Alignment);                                                                                        // -- Relative to parent object.
-            void Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset);                                    // -- Relative to parent object.
-            void Set_Alignment(Object_Class Object_To_Align_With, Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset); // -- Relative to parent object.
+            void Set_Position(Coordinate_Type X, Coordinate_Type Y);                                  
+            void Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset = 0, Coordinate_Type Y_Offset = 0, Object_Class* Object_To_Align_With = NULL);
             void Set_Size(Coordinate_Type Width, Coordinate_Type Height);
             void Set_Width(Coordinate_Type Width);
             void Set_Height(Coordinate_Type Height);
@@ -472,6 +448,11 @@ namespace Xila_Namespace
 
             // - - Operator
             operator bool();
+
+            operator lv_obj_t*() const
+            {
+                return LVGL_Object_Pointer;
+            }
 
             virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
             // TODO : See the encapsulation of these following methods.

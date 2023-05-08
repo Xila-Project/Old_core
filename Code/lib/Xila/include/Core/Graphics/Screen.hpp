@@ -18,7 +18,10 @@ namespace Xila_Namespace
     // - Forward declarations
     namespace Accounts_Types { typedef class User_Class User_Type; };
 
-    typedef class Software_Class Software_Type;
+    namespace Softwares_Types
+    {
+        typedef class Software_Class Software_Type;
+    };
 
 
     namespace Graphics_Types
@@ -29,12 +32,12 @@ namespace Xila_Namespace
             // - Methods
             // - - Constructor / destructor
             Screen_Class();
-            Screen_Class(const Software_Type* Owner_Software);
+            Screen_Class(const Softwares_Types::Software_Type* Owner_Software);
             Screen_Class(const Object_Class &Object_To_Copy);
 
             // - - Manipulation
             virtual void Create(Object_Class Parent_Object) override{};
-            virtual void Create(const Software_Type *Owner_Software);
+            virtual void Create(const Softwares_Types::Software_Type *Owner_Software);
             virtual void Delete() override;
 
             // - -

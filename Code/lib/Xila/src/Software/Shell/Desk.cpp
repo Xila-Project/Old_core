@@ -62,6 +62,22 @@ void Shell_Class::Desk_Class::Set_Interface()
     Dock.Set_Flex_Flow(Flex_Flow_Type::Row);
     Dock.Set_Flex_Alignment(Flex_Alignment_Type::Center, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
 
+    Dock_Options.Create(Window.Get_Body());
+    Dock_Options.Add_Flag(Flag_Type::Floating);
+    Dock_Options.Set_Alignment(Alignment_Type::Center);
+    Dock_Options.Set_Flex_Flow(Flex_Flow_Type::Column);
+    Dock_Options.Set_Size(LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    Dock_Options.Set_Style_Border_Width(1, 0);
+    Dock_Options.Set_Style_Radius(8, 0);
+    Dock_Options.Set_Style_Border_Color(Color_Type::White, 0);
+    Dock_Options.Set_Alignment(Alignment_Type::Bottom_Middle, 0, -64);
+
+    Dock_Close_Label.Create(Dock_Options, "Close");
+    Dock_Close_Label.Set_Style_Text_Color(Color_Type::Red[5], 0);
+    Dock_Maximize_Label.Create(Dock_Options, "Maximize");
+    Dock_Maximize_Label.Set_Style_Text_Color(Color_Type::Green[5], 0);
+    
+
     // - Menu button
     static Style_Type Menu_Button_Style;
     Menu_Button_Style.Initialize();
@@ -71,6 +87,8 @@ void Shell_Class::Desk_Class::Set_Interface()
     Menu_Button.Create(Dock);
     Menu_Button.Set_Size(32, 32);
     Menu_Button.Add_Style(Menu_Button_Style, 0);
+    Menu_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
+    Menu_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Released);
     Menu_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
     static Style_Type Menu_Button_Part_Style;
@@ -165,23 +183,6 @@ Shell_Class::Desk_Class::~Desk_Class()
 {
 }
 
-Graphics_Types::Color_Type Shell_Class::Desk_Class::Get_Foreground_Color() const
-{
-    return Foreground_Color;
-}
-
-Graphics_Types::Color_Type Shell_Class::Desk_Class::Get_Background_Color() const
-{
-    return Background_Color;
-}
-
-void Shell_Class::Desk_Class::Set_Foreground_Color(Graphics_Types::Color_Type Color)
-{
-}
-
-void Shell_Class::Desk_Class::Set_Background_Color(Graphics_Types::Color_Type Color)
-{
-}
 
 void Shell_Class::Desk_Class::Refresh()
 {
@@ -240,8 +241,7 @@ void Shell_Class::Desk_Class::Refresh()
         Graphics_Types::Label_Type Icon_Label;
         while (Dock_List.Get_Child_Count() < (User_Softwares_Count - 1))
         {
-            Log_Verbose("Shell", "Shell pointer : %p", Shell_Pointer);
-
+            
             Icon_Container.Create(Dock_List);
             Icon_Label.Create(Icon_Container);
             Icon_Container.Set_Alignment(Graphics_Types::Alignment_Type::Top_Middle);
@@ -255,7 +255,7 @@ void Shell_Class::Desk_Class::Refresh()
     // - - Set dock software icons.
     {
         Graphics_Types::Object_Type Icon_Container;
-        const Software_Type *Software_Pointer;
+        const Softwares_Types::Software_Type *Software_Pointer;
         Static_String_Type<24> Name;
 
         uint8_t j = 0;
@@ -283,10 +283,23 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
     {
         switch (Instruction.Graphics.Get_Code())
         {
+        case Event_Code_Type::Pressed:
+            if (Instruction.Graphics.Get_Current_Target() == Menu_Button)
+            {
+                for (uint8_t i = Menu_Button.Get_Child_Count(); i > 0; i--)
+                    Menu_Button.Get_Child(i - 1).Add_State(State_Type::Pressed);
+            }
+            break;
+        case Event_Code_Type::Released:
+            if (Instruction.Graphics.Get_Current_Target() == Menu_Button)
+            {
+                for (uint8_t i = Menu_Button.Get_Child_Count(); i > 0; i--)
+                    Menu_Button.Get_Child(i - 1).Clear_State(State_Type::Pressed);
+            }
+            break;
         case Event_Code_Type::Clicked:
             if (Instruction.Graphics.Get_Current_Target() == Menu_Button)
             {
-                Log_Verbose("Shell", "Menu button clicked");
                 Shell_Pointer->Drawer.Open();
             }
             else
@@ -311,7 +324,7 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
                         uint8_t User_Softwares_Count = Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User());
 
                         // - Counting the number of shell to skip.
-                        const Software_Type *Software_Pointer = NULL;
+                        const Softwares_Types::Software_Type *Software_Pointer = NULL;
                         for (uint8_t j = 0; j < User_Softwares_Count; j++)
                         { // - Skip shell instance.
                             if (Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), j) == Shell_Pointer)

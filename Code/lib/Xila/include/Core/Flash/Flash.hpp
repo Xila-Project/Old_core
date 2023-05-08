@@ -89,7 +89,7 @@ namespace Xila_Namespace
         Result_Type Read(uint32_t Offset, uint32_t *Data, size_t Size);
         Result_Type Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size);
         uint32_t Get_Sketch_Size();
-        String Get_Sketch_MD5();
+        String_Type& Get_Sketch_MD5(String_Type& String);
         uint32_t Get_Sketch_Free_Space();
 
     private:

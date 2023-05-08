@@ -25,64 +25,55 @@
 
 namespace Xila_Namespace
 {
-    
+
+    typedef class Softwares_Class Softwares_Type;
 
     namespace Softwares_Types
     {
-
-    };
-
-    typedef class Software_Class : public Module_Class
-    {
-    public:
-     
-        // - Methods
-
-        // - Getters
-        
-        const Software_Handle_Type *Get_Handle() const;
-         const Accounts_Types::User_Type* Get_Owner_User() const;
-
-    protected:
-        // - Types
-        typedef enum State_Enumeration
+        typedef class Software_Class : public Module_Class
         {
-            Active,
-            Maximized,
-            Minimized
-        } State_Type;
+        public:
+            // - Methods
 
-        // - Methods
+            // - Getters
 
-        // - - Constructor / Destructor
-        Software_Class(const Software_Handle_Type *Handle_Pointer, const Accounts_Types::User_Type* Owner_User, Size_Type Main_Task_Stack_Size = Default_Main_Task_Stack_Size, Size_Type Queue_Size = Default_Instruction_Queue_Size);
-        virtual ~Software_Class();
+            const Software_Handle_Type *Get_Handle() const;
+            const Accounts_Types::User_Type *Get_Owner_User() const;
 
-        // - - Task
+        protected:
+            // - Methods
 
-        static void Start_Main_Task_Function(void *Instance_Pointer);
-        virtual void Main_Task_Function();  // ? : Instead of virtual function, use lambda function in constructor ?
+            // - - Constructor / Destructor
+            Software_Class() = delete;
+            Software_Class(const Software_Handle_Type *Handle_Pointer, const Accounts_Types::User_Type *Owner_User, Size_Type Main_Task_Stack_Size = Default_Main_Task_Stack_Size, Size_Type Queue_Size = Default_Instruction_Queue_Size);
+            virtual ~Software_Class();
 
-        // - Attributes
+            // - - Task
 
-        /// @brief Software task handle.
-        Task_Type Main_Task;
+            static void Start_Main_Task_Function(void *Instance_Pointer);
+            virtual void Main_Task_Function(); // ? : Instead of virtual function, use lambda function in constructor ?
 
-    private:
-        // - Attributes
-        // - - Local attributes
-        
-        const Accounts_Types::User_Type* Owner_User;
-        /// @brief Software task handle.
-        const Software_Handle_Type* Handle_Pointer;
+            // - Attributes
 
-        // - - Static attributes
-        /// @brief Opened software pointer array
-        static std::vector<Software_Class *> List;
+            /// @brief Software task handle.
+            Task_Type Main_Task;
 
-        friend class Softwares_Class;
+        private:
+            // - Attributes
+            // - - Local attributes
 
-    } Software_Type;
+            const Accounts_Types::User_Type *Owner_User;
+            /// @brief Software task handle.
+            const Software_Handle_Type *Handle_Pointer;
+
+            // - - Static attributes
+            /// @brief Opened software pointer array
+            static std::vector<Software_Class *> List;
+
+            friend class Xila_Namespace::Softwares_Class;
+
+        } Software_Type;
+    }
 }
 
 #endif

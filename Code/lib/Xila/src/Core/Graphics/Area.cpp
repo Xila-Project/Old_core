@@ -44,7 +44,7 @@ void Area_Class::Align(Area_Class To_Align_To, Alignment_Type Alignment, Coordin
 //
 // ------------------------------------------------------------------------- //
 
-void Area_Class::Set(LVGL_Area_Type Area)
+void Area_Class::Set(lv_area_t Area)
 {
     LVGL_Area = Area;
 }
@@ -89,9 +89,4 @@ uint32_t Area_Class::Get_Size()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_area_get_size(&LVGL_Area);
-}
-
-const Area_Class::LVGL_Area_Type Area_Class::Get_LVGL_Area()
-{
-    return LVGL_Area;
 }

@@ -28,7 +28,7 @@ using namespace Xila;
 /// @brief Shell class
 ///
 /// @details Main inter
-class Shell_Class : public Software_Type
+class Shell_Class : public Softwares_Types::Software_Type
 {
     // - Atributes
 
@@ -72,14 +72,6 @@ class Shell_Class : public Software_Type
         // - - Others
         void Execute_Instruction(const Instruction_Type &Instruction);
 
-        // - -  Getters
-        Graphics_Types::Color_Type Get_Background_Color() const;
-        Graphics_Types::Color_Type Get_Foreground_Color() const;
-
-        // - - Setters
-        void Set_Background_Color(Graphics_Types::Color_Type Color);
-        void Set_Foreground_Color(Graphics_Types::Color_Type Color);
-
         // - Attributes
         Graphics_Types::Window_Type Window;
 
@@ -92,9 +84,9 @@ class Shell_Class : public Software_Type
 
         // - - Parent window
 
-        Graphics_Types::Object_Type Desk_Grid, Dock, Menu_Button, Dock_List;
+        Graphics_Types::Object_Type Desk_Grid, Dock, Menu_Button, Dock_List, Dock_Options;
 
-        Graphics_Types::Color_Type Background_Color, Foreground_Color;
+        Graphics_Types::Label_Type Dock_Close_Label, Dock_Maximize_Label;
 
         // - - Shell pointer
         Shell_Class *Shell_Pointer;
@@ -246,10 +238,10 @@ class Shell_Class : public Software_Type
 
 // - Types
 
-static class Shell_Handle_Class : public Software_Handle_Type
+static class Shell_Handle_Class : public Softwares_Types::Software_Handle_Type
 {
 public:
-    Shell_Handle_Class() : Software_Handle_Type("Shell") { Log_Verbose("Shell", "Handle created"); };
+    Shell_Handle_Class() : Softwares_Types::Software_Handle_Type("Shell") { Log_Verbose("Shell", "Handle created"); };
 
     void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
     {

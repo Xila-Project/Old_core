@@ -21,8 +21,7 @@
 namespace Xila_Namespace
 {
     namespace Memory_Types
-    {
-        
+    {        
     }
 
 

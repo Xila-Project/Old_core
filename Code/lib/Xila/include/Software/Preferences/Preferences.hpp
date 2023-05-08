@@ -1,4 +1,3 @@
-///
 /// @file Preferences.hpp
 /// @author Alix ANNERAUD (alix@anneraud.fr)
 /// @brief
@@ -6,7 +5,6 @@
 /// @date 24-02-2023
 ///
 /// @copyright Copyright (c) 2023
-///
 
 #ifndef Preferences_Hpp_Included
 #define Preferences_Hpp_Included
@@ -15,7 +13,7 @@
 
 using namespace Xila;
 
-class Preferences_Class : public Software_Type
+class Preferences_Class : public Softwares_Types::Software_Type
 {
 
     // - Methods
@@ -61,11 +59,15 @@ class Preferences_Class : public Software_Type
 
     Graphics_Types::Keyboard_Type Keyboard;
 
+    const Graphics_Types::Coordinate_Type Column_Descriptor[9] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Graphics_Types::Coordinate_Type Row_Descriptor[18] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, LV_GRID_TEMPLATE_LAST};
+
     // - - Personal
 
-    Graphics_Types::Button_Type Personal_Style_Apply_Button;
-    Graphics_Types::Button_Type Personal_Style_Background_Button;
-    Graphics_Types::Button_Type Personal_Style_Foreground_Button;
+    Graphics_Types::Switch_Type Personal_Dark_Mode_Switch;
+
+    const Graphics_Types::Color_Type Personal_Primary_Colors[7] = {Graphics_Types::Color_Type::Blue[5], Graphics_Types::Color_Type::Green[5], Graphics_Types::Color_Type::Blue_Grey[5], Graphics_Types::Color_Type::Orange[5], Graphics_Types::Color_Type::Red[5], Graphics_Types::Color_Type::Purple[5], Graphics_Types::Color_Type::Teal[5]};
+    const Graphics_Types::Color_Type Personal_Secondary_Colors[7] = {Graphics_Types::Color_Type::Teal[5], Graphics_Types::Color_Type::Yellow[5], Graphics_Types::Color_Type::Red[5], Graphics_Types::Color_Type::Blue_Grey[5], Graphics_Types::Color_Type::Deep_Purple[5], Graphics_Types::Color_Type::Blue[5], Graphics_Types::Color_Type::Lime[5]};
 
     // - - Wireless
 
@@ -134,10 +136,10 @@ class Preferences_Class : public Software_Type
 
 // - Types
 
-static class Preferences_Handle_Class : public Software_Handle_Type
+static class Preferences_Handle_Class : public Softwares_Types::Software_Handle_Type
 {
 public:
-    Preferences_Handle_Class() : Software_Handle_Type("Preferences"){};
+    Preferences_Handle_Class() : Softwares_Types::Software_Handle_Type("Preferences"){};
 
     void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
     {

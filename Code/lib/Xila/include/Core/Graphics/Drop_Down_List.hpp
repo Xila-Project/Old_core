@@ -46,7 +46,7 @@ namespace Xila_Namespace
             void Set_Options_Static(const char *Options);
             void Set_Selected(uint16_t Selected_Option);
             void Set_Direction(Direction_Type Direction);
-            void Set_Symbol(const void *Symbol);
+            void Set_Symbol(const char *Symbol);
             void Set_Selected_Highlight(bool Enabled);
 
             // - - Getters
@@ -63,7 +63,7 @@ namespace Xila_Namespace
             // - Attributes
             static const Class_Type &Class;
         } Drop_Down_List_Type;
-    } // namespace Graphics_Types   
-}   // namespace Xila_Namespace
+    } // namespace Graphics_Types
+} // namespace Xila_Namespace
 
 #endif

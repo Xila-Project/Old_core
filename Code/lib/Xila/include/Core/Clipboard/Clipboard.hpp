@@ -22,6 +22,9 @@
 
 namespace Xila_Namespace
 {
+    namespace Clipboard_Types
+    {}
+
     typedef class Clipboard_Class : public Module_Class
     {
     public:
@@ -35,12 +38,11 @@ namespace Xila_Namespace
 
         void Copy(QWord_Type Value_To_Copy);
         void Copy(const char*String_To_Copy);
-        void Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length = 0);
         void Copy(const void *Data, Size_Type Data_Size);
 
         QWord_Type Paste() const;
         void Paste(char *Destination_Char_Array, Size_Type Char_Array_Length) const;
-        void Paste(String_Type &Destination_String) const;
+        String_Type& Paste(String_Type &Destination_String) const;
 
     protected:
         // - Attributes

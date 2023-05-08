@@ -28,7 +28,7 @@ Roller_Class::Roller_Class() : Object_Class()
 
 Roller_Class::Roller_Class(const Object_Class &Object_To_Copy)
 {
-    Set_Pointer(Object_To_Copy.Get_Pointer());
+    Set_Pointer(Object_To_Copy);
 }
 
 // - - Manipulation
@@ -38,7 +38,7 @@ void Roller_Class::Create(Object_Class Parent_Object)
     if (Parent_Object)
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_roller_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer = lv_roller_create(Parent_Object);
     }
 }
 
@@ -59,7 +59,7 @@ bool Roller_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     return true;
 }
 
-void Roller_Class::Set_Options(const char *Options, Mode_Type Mode)
+void Roller_Class::Set_Options(const char *Options, Roller_Mode_Type Mode)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_roller_set_options(Get_Pointer(), Options, static_cast<lv_roller_mode_t>(Mode));

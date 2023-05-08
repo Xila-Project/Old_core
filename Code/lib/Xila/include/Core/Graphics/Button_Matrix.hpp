@@ -39,18 +39,6 @@ namespace Xila_Namespace
         typedef class Button_Matrix_Class : public Object_Class
         {
         public:
-
-            // - Enumerations
-
-            class Draw_Part
-            {
-            public:
-                typedef enum Enumeration
-                {
-                    Button = LV_BTNMATRIX_DRAW_PART_BTN
-                } Type;
-            };
-
             // - Methods
 
             // - - Constructor / destructor

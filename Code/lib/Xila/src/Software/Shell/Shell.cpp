@@ -25,7 +25,6 @@ Shell_Class::Shell_Class(const Accounts_Types::User_Type *Owner_User)
 /// @brief Shell destructor.
 Shell_Class::~Shell_Class()
 {
-    Log_Verbose("Shell", "Shell destructor");
     this->Save_Registry();
     Login_Class::Close(this);
     Installer_Class::Close(this);
@@ -184,8 +183,8 @@ Result_Type Shell_Class::Load_Registry()
     Registry_File.Close();
 
     // - Load registry values
-    this->Desk.Set_Background_Color(Graphics_Types::Color_Type(Shell_Registry["Desk"]["Background color"] | Shell_Default_Background_Color));
-    this->Desk.Set_Foreground_Color(Graphics_Types::Color_Type(Shell_Registry["Desk"]["Foreground color"] | Shell_Default_Foreground_Color));
+    Graphics.Set_Theme_Primary_Color(Graphics_Types::Color_Type(Graphics_Types::Color_Type(Shell_Registry["Desk"]["Primary color"] | (uint32_t)Graphics_Types::Color_Type::Blue[5])));
+    Graphics.Set_Theme_Dark_Mode(Shell_Registry["Desk"]["Dark mode"] | true);
 
     return Result_Type::Success;
 }
@@ -233,8 +232,9 @@ Result_Type Shell_Class::Save_Registry()
     }
 
     // - Save registry values
-    Shell_Registry["Background color"] = static_cast<uint32_t>(Desk.Get_Background_Color());
-    Shell_Registry["Foreground color"] = static_cast<uint32_t>(Desk.Get_Foreground_Color());
+
+    
+
 
     // - Write registry
     if (serializeJson(Shell_Registry, Registry_File) == 0)
@@ -350,7 +350,7 @@ void Shell_Class::Refresh_Overlay()
         if (Sound_Label.Is_Valid())
         {
             // -- Update sound
-            Log_Verbose("Shell", "Sound volume : %d", Sound.Get_Volume());
+            // Log_Verbose("Shell", "Sound volume : %d", Sound.Get_Volume());
             if (Sound.Get_Volume() >= (255 * 2 / 3))
             {
                 Sound_Label.Set_Text(LV_SYMBOL_VOLUME_MAX);
@@ -394,6 +394,7 @@ void Shell_Class::Get_Software_Icon(Graphics_Types::Object_Type &Icon_Container,
     Icon_Label.Set_Style_Text_Font(&lv_font_montserrat_20, 0);
     Icon_Label.Add_Flag(Flag_Type::Event_Bubble);
     Icon_Label.Set_Alignment(Alignment_Type::Center);
+    Icon_Label.Set_Style_Text_Color(Color_Type::White, 0);
 
     // - Color
 

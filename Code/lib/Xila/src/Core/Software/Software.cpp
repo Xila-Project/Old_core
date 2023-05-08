@@ -13,6 +13,7 @@
 #include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
+using namespace Softwares_Types;
 
 std::vector<Software_Class *> Software_Class::List;
 
@@ -34,7 +35,7 @@ Software_Class::Software_Class(const Software_Handle_Type *Handle_Pointer, const
   }
   
   Log_Verbose("Software", "Software constructor");
-  List.reserve(40);
+  List.reserve(10);
   List.push_back(this); // Add software to the list.
 }
 

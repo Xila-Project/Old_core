@@ -44,8 +44,6 @@ namespace Xila_Namespace
             void Cursor_Up();
             void Cursor_Down();
 
-            bool Is_Selected();
-
             // - - Setters
 
             virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;

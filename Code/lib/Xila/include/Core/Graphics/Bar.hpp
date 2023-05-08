@@ -36,18 +36,6 @@ namespace Xila_Namespace
     typedef class Bar_Class : public Object_Class
     {
     public:
-        // -- Types
-
-        class Draw_Part
-        {
-        public:
-            /// @brief Draw part type and enumeration.
-            typedef enum Enumeration
-            {
-                Indicator = LV_BAR_DRAW_PART_INDICATOR
-            } Type;
-        };
-
         // - Methods
 
         // - - Constructors / destructors

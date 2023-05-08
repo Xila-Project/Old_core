@@ -339,5 +339,6 @@
   "commentTranslate.source": "intellsmi.deepl-translate-deepl",
   "cSpell.words": [
     "Snappable"
-  ]
+  ],
+  "restructuredtext.syntaxHighlighting.disabled": true
 }

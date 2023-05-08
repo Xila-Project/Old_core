@@ -27,6 +27,11 @@ namespace Xila_Namespace
 
             void Set_Callback(Callback_Type Callback);
 
+            operator lv_color_filter_dsc_t*()
+            {
+                return &LVGL_Color_Filter_Descriptor;
+            }
+
             lv_color_filter_dsc_t *Get_Pointer();
 
         private:

@@ -7,6 +7,7 @@
 /// @copyright Copyright (c) 2023
 
 #include "Core/Communication/Communication.hpp"
+#include "Core/Log/Log.hpp"
 
 // - Namespaces
 
@@ -21,6 +22,7 @@ Communication_Type Xila_Namespace::Communication;
 
 Result_Type Communication_Class::Start()
 {
+    Log_Information("WiFi", "Start Communication module...");
     if (WiFi.Start() == Result_Type::Success)
         return Result_Type::Success;
 

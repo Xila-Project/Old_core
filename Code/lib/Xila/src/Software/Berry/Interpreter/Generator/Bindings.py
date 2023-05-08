@@ -12,10 +12,22 @@ Binding_Function_Table = []
 
 # Function that convert function arguments to 
 def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
-    print("Declaration : ", Declaration)
+  #  print("Binding : ", Declaration)
 
-    if Exclusion.Is_Function_Excluded(Declaration):
+    # - Remove variadic functions
+    if Declaration.has_ellipsis:    
         return ""
+
+    # - Remove excluded functions
+    if Exclusion.Is_Function_Excluded(Declaration):   
+        return ""
+
+    # - Remove copy constructors
+    if Is_Constructor(Declaration):
+        if Declaration.is_artificial:
+            return ""
+
+
 
     # - Declarations
     S = ""
@@ -37,7 +49,7 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
 
     if not(Is_Module):
         if Is_Function(Declaration) or Is_Destructor(Declaration):
-            S += Module_Name + "_Types::" + Get_Name(Declaration.parent) + "* I, "
+            S += Declaration.parent.decl_string.replace("::Xila_Namespace", "Xila_Namespace") + "* I, "
             StringD += "."
 
     for i, Raw_Argument in enumerate(Arguments): 
@@ -54,36 +66,38 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
         if Is_Pointer_Type(Argument) or Is_Reference_Type(Argument):
             Base_Type = Get_Base_Type(Argument)
             #print("Pointer : ", Raw_Argument)
-            if "const" in str(Raw_Argument):    # Not ideal, but works (strange behavior of pygccxml)
-                #if (str(Base_Type) == "char") or (str(Base_Type) == "unsigned char"):
-                if Is_Integral_Type(Base_Type):
+            if Is_Integral_Type(Base_Type):
+                if "const" in str(Raw_Argument):     # Not ideal, but works (strange behavior of pygccxml)
                     # Add support for byte buffer
+
                     S += "const " + str(Base_Type) + "* A_" + str(i)
                     StringD += "s"
                     Passed_Arguments += "A_" + str(i)
-                elif Is_Class(Base_Type.declaration):
-                    S += Get_Name(Base_Type.declaration) + "* A_" + str(i)
-                    StringD += "(" + str(Base_Type) + ")"
-                    if Is_Reference_Type(Argument):
-                        Passed_Arguments += "*"
-                    Passed_Arguments += "A_" + str(i)
-                    print("Ptr Class : ", Base_Type, " type : ", type(Base_Type))
-            else:
-                if (str(Base_Type) == "char") or (str(Base_Type) == "unsigned char"):
+                else:
                     # Override return type
+                    S = "bvm* V, " + S
+                    StringD = "@" + StringD
                     R += "const " + str(Base_Type) + "*"
                     ReturnD += "s"
-                    Pre_Additional_Content += str(Base_Type) + " S_" + str(i) + "[256] = {0};\n"
+                    Pre_Additional_Content += str(Base_Type) + "* S_" + str(i) + " = (" + str(Base_Type) + "*)Berry_Class::Get_Instance(V)->Buffer;\n"
                     Post_Additional_Content += "return S_" + str(i) + ";\n"
                     Passed_Arguments += "S_" + str(i)
                     Next_May_Be_Buffer_Size = True
-                elif Is_Class(Base_Type.declaration):
-                    S += Get_Name(Base_Type.declaration) + "* A_" + str(i)
-                    StringD += "(" + str(Base_Type) + ")"
-                    if Is_Reference_Type(Argument):
-                        Passed_Arguments += "*"
-                    Passed_Arguments += "A_" + str(i)
-                    print("Ptr Class : ", Base_Type, " type : ", type(Base_Type))
+            elif ("String_Type" in str(Base_Type)) or ("String_Class" in str(Base_Type)):
+                S = "bvm* V, " + S
+                StringD = "@" + StringD
+                R += "const char*"
+                ReturnD += "s"
+                Pre_Additional_Content += "String_Type S_" + str(i) + ";\nS_" + str(i) + ".Set_Buffer((char*)Berry_Class::Get_Instance(V)->Buffer, sizeof(Berry_Class::Buffer));\n"
+                Post_Additional_Content += "return S_" + str(i) + ";\n"
+                Passed_Arguments += "S_" + str(i)
+
+            elif Is_Class(Base_Type.declaration):
+                S += Base_Type.declaration.decl_string + "* A_" + str(i)
+                StringD += "."#"(" + str(Base_Type) + ")"
+                if Is_Reference_Type(Argument):
+                    Passed_Arguments += "*"
+                Passed_Arguments += "A_" + str(i)
                 
         else:
             if Is_Boolean_Type(Argument):
@@ -92,9 +106,9 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 Passed_Arguments += "A_" + str(i) + ", "
             elif Is_Integral_Type(Argument):
                 if Next_May_Be_Buffer_Size:
-                    S += "int A_" + str(i) # + " = 0"
-                    StringD += "i" # "[i"
-                    Passed_Arguments += "(A_" + str(i) + " == 0) ? sizeof(S_" + str(i - 1) + ")" + " : A_" + str(i)
+                    S += "int A_" + str(i)
+                    StringD += "i"
+                    Passed_Arguments += "(A_" + str(i) + " > sizeof(Berry_Class::Buffer)) ? sizeof(Berry_Class::Buffer)" + " : A_" + str(i)
                     Next_May_Be_Buffer_Size = False            
                     Optional_Already_Defined = False
                     
@@ -113,6 +127,10 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                     S += "int A_" + str(i)
                     StringD += "i"
                     Passed_Arguments += "(" + Get_Name(Argument.declaration) + ")A_" + str(i)
+                elif Is_Class(Argument.declaration):
+                    S += Get_Name(Argument.declaration) + "* A_" + str(i)
+                    StringD += "."
+                    Passed_Arguments += "*A_" + str(i)
                 else:
                     print("Unhandled type : ", Argument, " type : ", Argument.declaration)
             else:
@@ -121,12 +139,14 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 StringD += "."
                 Passed_Arguments += "A_" + str(i)
 
-        if Is_Optional(Raw_Argument):
-            S += " = " + str(Raw_Argument.default_value)
 
+        # - - Default arguments
+        if Is_Optional(Raw_Argument):
+            S += " = " + str(Raw_Argument.default_value).replace("::Xila_Namespace", "Xila_Namespace")
+
+        # - - Add comma separator to arguments and passed arguments
         if not(S.endswith(", ")):
             S += ", "
-
         if not(Passed_Arguments.endswith(", ")):
             Passed_Arguments += ", "
 
@@ -153,7 +173,7 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 R = "const char*"
                 ReturnD = "s"
             else:
-                R = "void*"
+                R = "const void*"
                 ReturnD = "p"
         else:
             if (Is_Boolean_Type(Return_Type)):
@@ -178,7 +198,7 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                     Return_Conversion = "(int)"
                 elif Is_Class(Return_Type.declaration):
                     Pre_Additional_Content += Get_Name(Return_Type.declaration) + "* R = new " + Get_Name(Return_Type.declaration) + "();\n *R = "
-                    ReturnD = Module_Name + "." + Get_Name(Return_Type.declaration).replace("_Class", "_Type")
+                    ReturnD = Return_Type.declaration.decl_string.replace("_Types", "").replace("_Class", "_Type").replace("::Xila_Namespace::", "").replace("::", ".")
                     Post_Additional_Content += "return R;\n"
                     R = "void *"
                 else:
@@ -229,11 +249,6 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
     # - Function declaration
     Berry_Function_Declaration = "BE_FUNC_CTYPE_DECLARE(" + Berry_Function_Name + ", \"" + ReturnD + "\", \"" + StringD + "\");\n" 
 
-    #print(Berry_Function_Signature)
-    #print(Berry_Function_Body)
-    #print(Berry_Function_Declaration)
-    #print("")
-
     if Is_Constructor(Declaration):
         Binding_Function_Table.append(["init", Berry_Function_Name])
     elif Is_Destructor(Declaration):
@@ -248,17 +263,38 @@ def Clear_Binding_Function_Table():
     global Binding_Function_Table
     Binding_Function_Table = []
 
-def Get_Class_Binding_Declaration(Class, Module, Namespace=None):
-    if not(Is_Class(Class)):
-        return nil
+def Add_Custom_Binding_Function(Name, Berry_Name):
+    global Binding_Function_Table
+    Binding_Function_Table.append([Name, Berry_Name])
 
-    Declaration = "/* @const_object_info_begin\n"
+def Get_Class_Binding_Declaration(Class, Module, Namespace):
+
+    if not(Is_Class(Class)):
+        return ""
+
+    Declaration = ""
+
+    if Get_Name(Namespace) == "Graphics_Types":
+        try:
+            Declaration += "BE_EXPORT_VARIABLE const bclass Berry_" + Get_Name(Class.bases[0].related_class).replace("_Class", "_Type") + ";\n"
+        except:
+            pass
+
+    Declaration += "/* @const_object_info_begin\n"
 
     if Module:
         Declaration += "module " + Get_Name(Class).replace("_Class", "") + " (scope:global)"
     else:
-        Declaration += "class Berry_" + Get_Name(Class).replace("_Class", "_Type") + "(scope:global, name:" + Get_Name(Class).replace("_Class", "_Type") + ")"
+        Declaration += "class Berry_" + Get_Name(Class).replace("_Class", "_Type") + "(scope:global, name:" + Get_Name(Class).replace("_Class", "_Type")
 
+        if Get_Name(Namespace) == "Graphics_Types":
+            try:
+                Declaration += ", super: Berry_" + Get_Name(Class.bases[0].related_class).replace("_Class", "_Type")
+            except:
+                pass
+
+        Declaration += ")"
+    
     Declaration += "\n{\n"
 
     if not(Module):
@@ -270,18 +306,26 @@ def Get_Class_Binding_Declaration(Class, Module, Namespace=None):
     Declaration += "\n"
 
     if Module:
-        for Class in Namespace.classes():
-            Name = Get_Name(Class).replace("_Class", "_Type")
-            Declaration += "\t" + Name + ", class(Berry_" + Name + ")\n\n"
+        try:
+            for Class in Namespace.classes(recursive=False):
+                if not(Exclusion.Is_Class_Excluded(Class)):
+                    Name = Get_Name(Class).replace("_Class", "_Type")
+                    Declaration += "\t" + Name + ", class(Berry_" + Name + ")\n\n"
+        except:
+            pass
 
-        for Type in Namespace.enumerations():
 
-            Values = Type.get_name2value_dict()
-            for Key, Value in Values.items():
-                Declaration += "\t" + Get_Name(Type).replace("_Type", "") + "_" + Key + ", int(" + str(Value) + ")\n"
-            Declaration += "\n"
-
+        try:
+            for Type in Namespace.enumerations():
+                Values = Type.get_name2value_dict()
+                for Key, Value in Values.items():
+                    Declaration += "\t" + Get_Name(Type).replace("_Type", "") + "_" + Key + ", int(" + str(Value) + ")\n"
+                Declaration += "\n"
+        except:
+            pass
 
 
     Declaration  += "}\n@const_object_info_end */\n"
+
+
     return Declaration
