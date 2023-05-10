@@ -23,6 +23,7 @@ BE_FUNC_CTYPE_DECLARE(Berry_This_Instruction_Available, "i", "@");
 
 Graphics_Types::Window_Type *Berry_This_Get_Window(bvm *Virtual_Machine)
 {
+    Log_Verbose("This", "Get_Window : %p / %p", Berry_Class::Get_Instance(Virtual_Machine), &Berry_Class::Get_Instance(Virtual_Machine)->Window);
     return &Berry_Class::Get_Instance(Virtual_Machine)->Window;
 }
 BE_FUNC_CTYPE_DECLARE(Berry_This_Get_Window, "Graphics.Window_Type", "@")
@@ -33,13 +34,22 @@ void Berry_This_Delay(bvm* Instance, int Delay)
 }
 BE_FUNC_CTYPE_DECLARE(Berry_This_Delay, "", "@i");
 
+
+void* Berry_This_Get_This(bvm* Instance)
+{
+    Log_Verbose("This", "Get_This : %p", (Module_Type*)Berry_Class::Get_Instance(Instance));
+    return (Module_Type*)Berry_Class::Get_Instance(Instance);
+}
+BE_FUNC_CTYPE_DECLARE(Berry_This_Get_This, "Module_Type", "@");
+
 /*
 @const_object_info_begin
-module This(scope:global)
+module This (scope:global)
 {
     Get_Instruction, ctype_func(Berry_This_Get_Instruction)
     Instruction_Available, ctype_func(Berry_This_Instruction_Available)
     Get_Window, ctype_func(Berry_This_Get_Window)
+    Get_This, ctype_func(Berry_This_Get_This)
     Delay, ctype_func(Berry_This_Delay)
 }
 @const_object_info_end

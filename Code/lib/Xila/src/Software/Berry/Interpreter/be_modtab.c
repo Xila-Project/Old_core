@@ -29,6 +29,7 @@ be_extern_native_module(System);
 be_extern_native_module(Memory);
 be_extern_native_module(Graphics);
 be_extern_native_module(Drive);
+be_extern_native_module(This);
 //be_extern_native_module(Foo);
 /* user-defined modules declare end */
 
@@ -80,6 +81,8 @@ BERRY_LOCAL const bntvmodule_t* const be_module_table[] = {
     &be_native_module(Graphics),
 
     &be_native_module(System),
+    
+    &be_native_module(This),
     /* user-defined modules register end */
     NULL /* do not remove */
 };
@@ -88,6 +91,7 @@ BERRY_LOCAL const bntvmodule_t* const be_module_table[] = {
 be_extern_native_class(Berry_Instruction_Type);
 be_extern_native_class(Berry_Time_Type);
 be_extern_native_class(Berry_Date_Type);
+be_extern_native_class(Berry_Module_Type);
 /* be_extern_native_class(my_class); */
 /* user-defined classes declare end */
 
@@ -96,6 +100,7 @@ BERRY_LOCAL bclass_array be_class_table = {
     &be_native_class(Berry_Instruction_Type),
     &be_native_class(Berry_Time_Type),
     &be_native_class(Berry_Date_Type),
+    &be_native_class(Berry_Module_Type),
     /* &be_native_class(my_class), */
     NULL, /* do not remove */
 };

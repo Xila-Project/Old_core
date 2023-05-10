@@ -110,7 +110,7 @@ void Berry_Class::Main_Task_Function()
 
     Virtual_Machine_Create();
 
-    Log_Verbose("Berry", "Created virtual machine : %p", Virtual_Machine);
+    Log_Verbose("Berry", "Created virtual machine : %p / %p", (Module_Class*)this, Virtual_Machine);
 
     // - REPL
     if (this->Get_Handle() == &Berry_Handle)

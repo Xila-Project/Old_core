@@ -319,7 +319,10 @@ def Get_Class_Binding_Declaration(Class, Module, Namespace):
             for Type in Namespace.enumerations():
                 Values = Type.get_name2value_dict()
                 for Key, Value in Values.items():
-                    Declaration += "\t" + Get_Name(Type).replace("_Type", "") + "_" + Key + ", int(" + str(Value) + ")\n"
+                    Declaration += "\t" + Get_Name(Type).replace("_Type", "")
+                    if Get_Name(Type) != "":
+                        Declaration += "_"
+                    Declaration += Key + ", int(" + str(Value) + ")\n"
                 Declaration += "\n"
         except:
             pass

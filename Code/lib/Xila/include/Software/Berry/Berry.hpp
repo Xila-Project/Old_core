@@ -26,8 +26,6 @@ typedef int (*bntvfunc)(bvm *);
 
 class Berry_Softwares_Handle_Class;
 
-Graphics_Types::Window_Type* Berry_Get_Window(bvm*);
-
 /// @brief Berry class
 class Berry_Class : public Softwares_Types::Software_Type
 {

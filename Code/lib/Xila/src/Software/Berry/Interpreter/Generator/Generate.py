@@ -110,6 +110,10 @@ def Generate_Module(Global_Namespace, Xila_Namespace, Module_Name):
         if(Is_Function(Member)):
             Generated_File.write(Generate_Binding_Function(Member, Module_Name, True) + "\n")
 
+    Generated_File.write("void* Berry_" + Module_Name + "_Class_Get_Pointer()\n{\n\treturn &" + Module_Name + ";\n}\n")
+    Generated_File.write("BE_FUNC_CTYPE_DECLARE(Berry_" + Module_Name + "_Class_Get_Pointer, \"Module_Type\", \"\")\n")
+    Add_Custom_Binding_Function("Get_Pointer", "Berry_" + Module_Name + "_Class_Get_Pointer")
+
     # Berry declaration part
 
     Generated_File.write("\n// - Berry declaration\n")

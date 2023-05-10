@@ -61,7 +61,13 @@
 namespace Xila_Namespace
 {
     namespace Graphics_Types
-    {};
+    {
+        enum
+        {
+            Size_Content = LV_SIZE_CONTENT,
+        };
+
+    };
 
     typedef class Graphics_Class : public Module_Class
     {
