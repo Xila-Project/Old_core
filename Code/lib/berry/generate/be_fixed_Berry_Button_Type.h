@@ -1,10 +1,10 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Button_Type_map) {
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Button_Class_Deinitialize_DBD39166_5317_4FBD_8061_5F4D4B286DD4) },
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Button_Class_Create_07388BFA_2BCE_4308_B596_82C9F67DD735) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Button_Class_Deinitialize_4EAD883F_34B0_4DC2_98C4_81FD5CF23B68) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Button_Class_Create_703B5731_5C36_4681_A751_B183B0885AD0) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Button_Class_Initialize_6F4E67FB_05BE_4D1E_B7B4_C29CE2E83125) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Button_Class_Initialize_C8330C29_A640_42E5_8164_FF01F597E499) },
 };
 
 static be_define_const_map(

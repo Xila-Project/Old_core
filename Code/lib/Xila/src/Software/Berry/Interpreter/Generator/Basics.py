@@ -124,6 +124,11 @@ def Get_Generated_Folder_Path():
         os.mkdir(Path)
     return Path
 
+def Get_Static_Folder_Path():
+    Path = os.path.join(os.path.dirname(__file__), "Static")
+    if not os.path.exists(Path):
+        os.mkdir(Path)
+    return Path
 
 def Find_Class(Declarations, Name):
     for Declaration in Declarations:

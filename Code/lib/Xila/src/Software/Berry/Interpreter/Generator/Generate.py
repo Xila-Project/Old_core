@@ -110,12 +110,6 @@ def Generate_Module(Global_Namespace, Xila_Namespace, Module_Name):
         if(Is_Function(Member)):
             Generated_File.write(Generate_Binding_Function(Member, Module_Name, True) + "\n")
 
-    # Custom
-
-    if (Module_Name == "Graphics"):
-        Generated_File.write("BE_FUNC_CTYPE_DECLARE(Berry_Get_Window, \"Graphics.Window_Type\", \"@\")\n")
-        Add_Custom_Binding_Function("Get_Window", "Berry_Get_Window")
-
     # Berry declaration part
 
     Generated_File.write("\n// - Berry declaration\n")
@@ -216,6 +210,7 @@ os.makedirs(Temporary_Folder_Path)
 
 # Copy generated files to berry temporary folder
 
+shutil.copytree(Get_Static_Folder_Path(), Temporary_Folder_Path, dirs_exist_ok=True)
 
 shutil.copytree(Get_Generated_Folder_Path(), Temporary_Folder_Path, dirs_exist_ok=True)
 

@@ -9,66 +9,66 @@ using namespace Xila_Namespace;
 using namespace Clipboard_Types;
 
 // - Functions
-int Berry_Clipboard_Class_Start_51A27859_A5EB_49E5_BEBF_5C76B1A69D2B()
+int Berry_Clipboard_Class_Start_1E89A984_53DB_4F03_AD40_D4E4F60178E9()
 {
 return (int)Clipboard.Start(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Start_51A27859_A5EB_49E5_BEBF_5C76B1A69D2B, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Start_1E89A984_53DB_4F03_AD40_D4E4F60178E9, "i", "");
 
 
-int Berry_Clipboard_Class_Stop_DB0379C2_3ADD_4C19_9EC4_A9D01CB9BF34()
+int Berry_Clipboard_Class_Stop_FA1DEB2C_34FE_4ED8_AF48_BFBB3BA592D4()
 {
 return (int)Clipboard.Stop(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Stop_DB0379C2_3ADD_4C19_9EC4_A9D01CB9BF34, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Stop_FA1DEB2C_34FE_4ED8_AF48_BFBB3BA592D4, "i", "");
 
 
-void Berry_Clipboard_Class_Clear_4DCF47A6_A142_49CC_95DB_9E1EC38981A9()
+void Berry_Clipboard_Class_Clear_4EA9C446_EDAA_4323_9657_EE646FA4C652()
 {
 return Clipboard.Clear(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Clear_4DCF47A6_A142_49CC_95DB_9E1EC38981A9, "", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Clear_4EA9C446_EDAA_4323_9657_EE646FA4C652, "", "");
 
 
-void Berry_Clipboard_Class_Copy_B9E5C04A_7F6F_45B4_A574_64C51EFE5E2F(int A_0)
+void Berry_Clipboard_Class_Copy_CD4E0360_DDA6_4885_8D5C_938292AC6AD3(int A_0)
 {
 return Clipboard.Copy((long long unsigned int)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Copy_B9E5C04A_7F6F_45B4_A574_64C51EFE5E2F, "", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Copy_CD4E0360_DDA6_4885_8D5C_938292AC6AD3, "", "i");
 
 
-void Berry_Clipboard_Class_Copy_D4567252_CC79_4F04_9838_6E67389821DA(const char* A_0)
+void Berry_Clipboard_Class_Copy_DB703EB4_A1B7_4623_B7CC_3564AC3482C0(const char* A_0)
 {
 return Clipboard.Copy(A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Copy_D4567252_CC79_4F04_9838_6E67389821DA, "", "s");
+BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Copy_DB703EB4_A1B7_4623_B7CC_3564AC3482C0, "", "s");
 
 
 
-int Berry_Clipboard_Class_Paste_0128D970_886E_45CE_8076_86CC461D3A26()
+int Berry_Clipboard_Class_Paste_D2368464_5FD3_47FF_B175_7AC2A52F28AB()
 {
 return (int)Clipboard.Paste(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Paste_0128D970_886E_45CE_8076_86CC461D3A26, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Paste_D2368464_5FD3_47FF_B175_7AC2A52F28AB, "i", "");
 
 
-const char* Berry_Clipboard_Class_Paste_7D280811_5470_445D_8CD1_6FB132EFD613(bvm* V, int A_1)
+const char* Berry_Clipboard_Class_Paste_0DC87DFF_3CB1_45A1_B4E2_65DC118FC799(bvm* V, int A_1)
 {
 char* S_0 = (char*)Berry_Class::Get_Instance(V)->Buffer;
 Clipboard.Paste(S_0, (A_1 > sizeof(Berry_Class::Buffer)) ? sizeof(Berry_Class::Buffer) : A_1); 
 return S_0;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Paste_7D280811_5470_445D_8CD1_6FB132EFD613, "s", "@i");
+BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Paste_0DC87DFF_3CB1_45A1_B4E2_65DC118FC799, "s", "@i");
 
 
-const char* Berry_Clipboard_Class_Paste_37173641_6F3C_4D36_AB61_35D690C67B09(bvm* V)
+const char* Berry_Clipboard_Class_Paste_E78C465C_DCBA_490D_BDFE_EE2839B371BD(bvm* V)
 {
 String_Type S_0;
 S_0.Set_Buffer((char*)Berry_Class::Get_Instance(V)->Buffer, sizeof(Berry_Class::Buffer));
 Clipboard.Paste(S_0); 
 return S_0;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Paste_37173641_6F3C_4D36_AB61_35D690C67B09, "s", "@");
+BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Paste_E78C465C_DCBA_490D_BDFE_EE2839B371BD, "s", "@");
 
 
 
@@ -76,14 +76,14 @@ BE_FUNC_CTYPE_DECLARE(Berry_Clipboard_Class_Paste_37173641_6F3C_4D36_AB61_35D690
 /* @const_object_info_begin
 module Clipboard (scope:global)
 {
-	Start, ctype_func(Berry_Clipboard_Class_Start_51A27859_A5EB_49E5_BEBF_5C76B1A69D2B)
-	Stop, ctype_func(Berry_Clipboard_Class_Stop_DB0379C2_3ADD_4C19_9EC4_A9D01CB9BF34)
-	Clear, ctype_func(Berry_Clipboard_Class_Clear_4DCF47A6_A142_49CC_95DB_9E1EC38981A9)
-	Copy, ctype_func(Berry_Clipboard_Class_Copy_B9E5C04A_7F6F_45B4_A574_64C51EFE5E2F)
-	Copy, ctype_func(Berry_Clipboard_Class_Copy_D4567252_CC79_4F04_9838_6E67389821DA)
-	Paste, ctype_func(Berry_Clipboard_Class_Paste_0128D970_886E_45CE_8076_86CC461D3A26)
-	Paste, ctype_func(Berry_Clipboard_Class_Paste_7D280811_5470_445D_8CD1_6FB132EFD613)
-	Paste, ctype_func(Berry_Clipboard_Class_Paste_37173641_6F3C_4D36_AB61_35D690C67B09)
+	Start, ctype_func(Berry_Clipboard_Class_Start_1E89A984_53DB_4F03_AD40_D4E4F60178E9)
+	Stop, ctype_func(Berry_Clipboard_Class_Stop_FA1DEB2C_34FE_4ED8_AF48_BFBB3BA592D4)
+	Clear, ctype_func(Berry_Clipboard_Class_Clear_4EA9C446_EDAA_4323_9657_EE646FA4C652)
+	Copy, ctype_func(Berry_Clipboard_Class_Copy_CD4E0360_DDA6_4885_8D5C_938292AC6AD3)
+	Copy, ctype_func(Berry_Clipboard_Class_Copy_DB703EB4_A1B7_4623_B7CC_3564AC3482C0)
+	Paste, ctype_func(Berry_Clipboard_Class_Paste_D2368464_5FD3_47FF_B175_7AC2A52F28AB)
+	Paste, ctype_func(Berry_Clipboard_Class_Paste_0DC87DFF_3CB1_45A1_B4E2_65DC118FC799)
+	Paste, ctype_func(Berry_Clipboard_Class_Paste_E78C465C_DCBA_490D_BDFE_EE2839B371BD)
 
 }
 @const_object_info_end */

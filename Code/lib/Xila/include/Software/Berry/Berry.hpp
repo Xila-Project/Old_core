@@ -95,7 +95,8 @@ protected:
 
     friend class Berry_Handle_Class;
     friend class Berry_Softwares_Handle_Class;
-    friend Graphics_Types::Window_Type* Berry_Get_Window(bvm*);;
+    friend Graphics_Types::Window_Type* Berry_This_Get_Window(bvm*);
+    friend void Berry_This_Delay(bvm*, int);
 };
 
 extern char* Prompt_String;

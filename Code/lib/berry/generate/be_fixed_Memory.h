@@ -1,14 +1,14 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(m_libMemory_map) {
-    { be_const_key(Get_Maximum_Allocated_PSRAM, -1), be_const_ctype_func(Berry_Memory_Class_Get_Maximum_Allocated_PSRAM_EB2A0C81_E364_4A6A_8481_4889F750095F) },
-    { be_const_key(Get_PSRAM_Size, -1), be_const_ctype_func(Berry_Memory_Class_Get_PSRAM_Size_4D6A5576_E78F_4121_AF1E_4767204684E0) },
-    { be_const_key(Get_Heap_Size, -1), be_const_ctype_func(Berry_Memory_Class_Get_Heap_Size_1E171482_8034_42CF_A8C3_986DD6684359) },
-    { be_const_key(Get_Maximum_Allocated_Heap, -1), be_const_ctype_func(Berry_Memory_Class_Get_Maximum_Allocated_Heap_300EC7CD_4398_43FC_88BA_461E9B38FD16) },
-    { be_const_key(Get_Free_PSRAM, -1), be_const_ctype_func(Berry_Memory_Class_Get_Free_PSRAM_8BBDF67E_67EB_42C0_9D7F_41FA77179B62) },
-    { be_const_key(Get_Free_Heap, -1), be_const_ctype_func(Berry_Memory_Class_Get_Free_Heap_2188365B_1148_47F4_BD45_070596E84BE3) },
-    { be_const_key(Get_Minimum_Free_Heap, 4), be_const_ctype_func(Berry_Memory_Class_Get_Minimum_Free_Heap_6717C4A3_77DB_40CB_8BA7_1CD477105338) },
-    { be_const_key(Get_Minimum_Free_PSRAM, -1), be_const_ctype_func(Berry_Memory_Class_Get_Minimum_Free_PSRAM_8CCA7415_8DFE_4A0E_A11B_A24253EF5252) },
+    { be_const_key(Get_Maximum_Allocated_PSRAM, -1), be_const_ctype_func(Berry_Memory_Class_Get_Maximum_Allocated_PSRAM_71D1D04C_5CA7_4BC4_B26C_D876366C0A7C) },
+    { be_const_key(Get_PSRAM_Size, -1), be_const_ctype_func(Berry_Memory_Class_Get_PSRAM_Size_517BCC96_E63C_4930_89BE_C3098EFC3099) },
+    { be_const_key(Get_Heap_Size, -1), be_const_ctype_func(Berry_Memory_Class_Get_Heap_Size_F5EB8CFB_D02F_4BD1_A0D7_1934307BE2B5) },
+    { be_const_key(Get_Maximum_Allocated_Heap, -1), be_const_ctype_func(Berry_Memory_Class_Get_Maximum_Allocated_Heap_940311F0_CA3E_493C_A9AE_624EDAAE52AC) },
+    { be_const_key(Get_Free_PSRAM, -1), be_const_ctype_func(Berry_Memory_Class_Get_Free_PSRAM_E9D30C91_EB11_4CE1_91AD_530499987B4B) },
+    { be_const_key(Get_Free_Heap, -1), be_const_ctype_func(Berry_Memory_Class_Get_Free_Heap_29FF0A00_45F1_4AC1_B00A_FE5BB5630B70) },
+    { be_const_key(Get_Minimum_Free_Heap, 4), be_const_ctype_func(Berry_Memory_Class_Get_Minimum_Free_Heap_A78E828F_DFB1_4024_9899_E1F6BDE28BC1) },
+    { be_const_key(Get_Minimum_Free_PSRAM, -1), be_const_ctype_func(Berry_Memory_Class_Get_Minimum_Free_PSRAM_EBB9883B_9F9F_4E87_B31E_F2FFE7B0A965) },
 };
 
 static be_define_const_map(

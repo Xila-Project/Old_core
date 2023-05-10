@@ -164,14 +164,6 @@ void Berry_Class::Main_Task_Function()
     delete this;
 }
 
-Graphics_Types::Window_Type* Berry_Get_Window(bvm* Virtual_Machine)
-{
-    Berry_Class* Instance = Berry_Class::Get_Instance(Virtual_Machine);
-    if (!Instance)
-        return NULL;
-
-    return &Instance->Window;
-}
 
 void Berry_Class::Virtual_Machine_Create()
 {
