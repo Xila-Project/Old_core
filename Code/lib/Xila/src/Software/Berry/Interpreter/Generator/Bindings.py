@@ -48,6 +48,14 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
     Length = len(Arguments)
 
     if not(Is_Module):
+        if Is_Operator(Declaration):
+            print("Operator declaration : ", Declaration)
+            Berry_Function_Name = "Berry_" + Get_Name(Declaration.parent) + "_Operator_" + str(uuid.uuid4()).replace("-", "_").upper()
+            Binding = "bool " + Berry_Function_Name + "(" + Declaration.parent.decl_string.replace("::Xila_Namespace", "Xila_Namespace") + "* I, " + Declaration.parent.decl_string.replace("::Xila_Namespace", "Xila_Namespace") + "* A_0)\n"
+            Binding += "{\nreturn *I " + Declaration.symbol + " *A_0;\n}\n"
+            Binding += "BE_FUNC_CTYPE_DECLARE(" + Berry_Function_Name + ", \"\", \"..\")\n\n"
+            Binding_Function_Table.append([str(Declaration.symbol), Berry_Function_Name])
+            return Binding
         if Is_Function(Declaration) or Is_Destructor(Declaration):
             S += Declaration.parent.decl_string.replace("::Xila_Namespace", "Xila_Namespace") + "* I, "
             StringD += "."

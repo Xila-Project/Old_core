@@ -21,6 +21,9 @@ def Is_Constructor(Declaration):
     #        return False
     return type(Declaration) == Declarations.calldef_members.constructor_t and (Declaration.access_type == "public")
 
+def Is_Operator(Declaration):
+    return (type(Declaration) == Declarations.calldef_members.operator_t) or (type(Declaration) == Declarations.calldef_members.member_operator_t)
+
 def Is_Copy_Constructor(Declaration):
     return Type_Traits_Classes.is_copy_constructor(Declaration)
 

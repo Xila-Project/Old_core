@@ -44,6 +44,15 @@ def Generate_Class(Generated_File, Xila_Namespace, Class, Module_Name):
         if(Is_Function(Member)):
             Generated_File.write(Generate_Binding_Function(Member, Module_Name, False))
            
+    Generated_File.write("// - - Operators\n")
+    try:
+        for Operator in Class.operators(symbol="=="):
+            Generated_File.write(Generate_Binding_Function(Operator, Module_Name, False))
+        for Operator in Class.operators(symbol="!="):
+            Generated_File.write(Generate_Binding_Function(Operator, Module_Name, False))
+    except:
+        pass
+
     # Berry declaration part
 
     Generated_File.write("\n// - Berry declaration\n")
@@ -88,7 +97,6 @@ def Generate_Module(Global_Namespace, Xila_Namespace, Module_Name):
 
         for C in Classes:
             if not(Exclusion.Is_Class_Excluded(C)) :
-                print("Class : ", C)
                 Generate_Class(Generated_File, Xila_Namespace, C, Module_Name)
 
       #  if Module_Name == "Graphics":

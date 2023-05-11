@@ -1,16 +1,16 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Area_Type_map) {
-    { be_const_key(Move, 3), be_const_ctype_func(Berry_Area_Class_Move_1053E595_A5D1_43E9_9FDB_E4D3FB7617BE) },
-    { be_const_key(Set_Height, -1), be_const_ctype_func(Berry_Area_Class_Set_Height_5B5BDDED_3A6A_4C2E_9C53_07F32C7B4705) },
-    { be_const_key(deinit, 8), be_const_ctype_func(Berry_Area_Class_Deinitialize_42378EBE_4614_4D9E_907E_E163B0D49315) },
-    { be_const_key(Align, -1), be_const_ctype_func(Berry_Area_Class_Align_A38E80C8_E1F2_4164_835D_F578C5EC34A2) },
-    { be_const_key(Set_Width, -1), be_const_ctype_func(Berry_Area_Class_Set_Width_0EF29A3A_2F58_422A_ACCD_4CFC877A22DD) },
-    { be_const_key(Get_Height, 7), be_const_ctype_func(Berry_Area_Class_Get_Height_38CA9D36_01CE_425B_AB12_D2A95B6F13CC) },
-    { be_const_key(Get_Width, -1), be_const_ctype_func(Berry_Area_Class_Get_Width_8B2FDAF4_2D12_4CE3_8A1A_846AA1A3C178) },
-    { be_const_key(Increase, 9), be_const_ctype_func(Berry_Area_Class_Increase_68DAEC50_8F27_4FBD_A633_3C0E0129CAEE) },
+    { be_const_key(Move, 3), be_const_ctype_func(Berry_Area_Class_Move_0A15FE77_19F1_4369_A500_29B2E4817D4F) },
+    { be_const_key(Set_Height, -1), be_const_ctype_func(Berry_Area_Class_Set_Height_5C4071C5_9828_47D2_9338_307D6B2D6B97) },
+    { be_const_key(deinit, 8), be_const_ctype_func(Berry_Area_Class_Deinitialize_2022E39A_B8E4_497C_9590_CEC834D86E71) },
+    { be_const_key(Align, -1), be_const_ctype_func(Berry_Area_Class_Align_B2063CF8_CACA_4FC2_9C7A_CFA20641B2AD) },
+    { be_const_key(Set_Width, -1), be_const_ctype_func(Berry_Area_Class_Set_Width_7F0E48F1_DCF4_4B4F_A9DF_0360586DC199) },
+    { be_const_key(Get_Height, 7), be_const_ctype_func(Berry_Area_Class_Get_Height_B5C960F4_671E_4D68_AA2E_82831B7C287D) },
+    { be_const_key(Get_Width, -1), be_const_ctype_func(Berry_Area_Class_Get_Width_A1D9A169_268B_4F44_A382_257FCC90FE42) },
+    { be_const_key(Increase, 9), be_const_ctype_func(Berry_Area_Class_Increase_268E2143_7411_4D40_96D4_6F2B2300B820) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Get_Size, -1), be_const_ctype_func(Berry_Area_Class_Get_Size_7A7F8B7D_6BF0_4932_9CDB_2127F11C8D47) },
+    { be_const_key(Get_Size, -1), be_const_ctype_func(Berry_Area_Class_Get_Size_381AC1C3_D78D_46AA_98EA_0477E087A86B) },
 };
 
 static be_define_const_map(

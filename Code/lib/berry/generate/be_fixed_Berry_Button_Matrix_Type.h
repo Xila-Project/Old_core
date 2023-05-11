@@ -1,22 +1,22 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Button_Matrix_Type_map) {
-    { be_const_key(Get_Popovers, 9), be_const_ctype_func(Berry_Button_Matrix_Class_Get_Popovers_DC8C242B_4C61_4928_8988_52776F1B51A6) },
-    { be_const_key(Set_One_Checked, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Set_One_Checked_664DB75E_FCAD_4EA8_B588_3A79E22AFFE6) },
-    { be_const_key(Get_Selected_Button, 0), be_const_ctype_func(Berry_Button_Matrix_Class_Get_Selected_Button_1FB325E3_A097_4091_9C9E_0CB3E50E9BF4) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Initialize_C074F445_1B78_4075_B59F_8A05FA518A2E) },
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Create_7D94FA11_E64D_49FA_8493_3C90B17878F4) },
-    { be_const_key(Has_Button_Control, 1), be_const_ctype_func(Berry_Button_Matrix_Class_Has_Button_Control_ED91E7FA_7E83_4FBD_9A45_353983B07E01) },
-    { be_const_key(Set_Selected_Button, 12), be_const_ctype_func(Berry_Button_Matrix_Class_Set_Selected_Button_111AADBF_C1D8_41DF_9F94_202E407C44F5) },
-    { be_const_key(Set_Button_Width, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Set_Button_Width_A0236412_FD3F_4FE1_8655_C4337C18857C) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Deinitialize_A70C7084_A51B_42F9_94DE_BA54CF2C0D40) },
-    { be_const_key(Clear_All_Buttons_Control, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Clear_All_Buttons_Control_12D2E1FE_751D_4CFC_9D9C_6DA52D7C489B) },
+    { be_const_key(Get_Popovers, 9), be_const_ctype_func(Berry_Button_Matrix_Class_Get_Popovers_A243BF11_E7C4_4B77_97BC_79321A08B6C5) },
+    { be_const_key(Set_One_Checked, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Set_One_Checked_C59B8E7D_9FA7_41BC_9010_1EBAAEF5AA2F) },
+    { be_const_key(Get_Selected_Button, 0), be_const_ctype_func(Berry_Button_Matrix_Class_Get_Selected_Button_F43B5FF5_DFD0_457E_A83D_4BEF79937B8C) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Initialize_2AC32D84_AAAF_425B_8FF3_5732BD42DA48) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Create_C92018C5_751A_452F_9A6A_093612E5FD55) },
+    { be_const_key(Has_Button_Control, 1), be_const_ctype_func(Berry_Button_Matrix_Class_Has_Button_Control_E443F847_D27E_4F99_86C0_E50844604C89) },
+    { be_const_key(Set_Selected_Button, 12), be_const_ctype_func(Berry_Button_Matrix_Class_Set_Selected_Button_17CD6F11_2C19_4A1A_95F5_A20B80FDF9BC) },
+    { be_const_key(Set_Button_Width, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Set_Button_Width_C5A7D351_EB67_4331_BDE0_365547D2B608) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Deinitialize_547C1E60_38A3_46CF_B2B3_027B1E07D4A5) },
+    { be_const_key(Clear_All_Buttons_Control, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Clear_All_Buttons_Control_E8B122F8_4A2C_4F0D_920E_FD74DBA624BD) },
     { be_const_key(_p, 11), be_const_var(0) },
-    { be_const_key(Get_Button_Text, 15), be_const_ctype_func(Berry_Button_Matrix_Class_Get_Button_Text_81B9BF9C_9065_48B9_B555_2E5B02F9953B) },
-    { be_const_key(Set_Button_Control, 5), be_const_ctype_func(Berry_Button_Matrix_Class_Set_Button_Control_8200DE47_F308_4DD1_A7BB_E01D5FB8D1D4) },
-    { be_const_key(Clear_Button_Control, 4), be_const_ctype_func(Berry_Button_Matrix_Class_Clear_Button_Control_D491C949_6D51_4448_865D_C9EBB9E169FB) },
-    { be_const_key(Set_Button_Control_All, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Set_Button_Control_All_9AC3585C_0A8A_44EB_85D5_D3B3CC77D12B) },
-    { be_const_key(Get_One_Checked, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Get_One_Checked_53C6E94A_78A2_4E0A_B3CF_34614C768824) },
+    { be_const_key(Get_Button_Text, 15), be_const_ctype_func(Berry_Button_Matrix_Class_Get_Button_Text_C133DF06_8772_4043_BEFC_EBF8F3518AFA) },
+    { be_const_key(Set_Button_Control, 5), be_const_ctype_func(Berry_Button_Matrix_Class_Set_Button_Control_8A49C07B_B85B_44E1_ACA9_2D19B764B065) },
+    { be_const_key(Clear_Button_Control, 4), be_const_ctype_func(Berry_Button_Matrix_Class_Clear_Button_Control_EC00E941_4D4F_48FF_94AC_A58FA454102E) },
+    { be_const_key(Set_Button_Control_All, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Set_Button_Control_All_DDD0F431_C8DC_4E88_8B5D_455EF901364D) },
+    { be_const_key(Get_One_Checked, -1), be_const_ctype_func(Berry_Button_Matrix_Class_Get_One_Checked_69F9B529_C6C2_4866_99CF_F60C39BD7F43) },
 };
 
 static be_define_const_map(

@@ -1,12 +1,12 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_List_Type_map) {
-    { be_const_key(Add_Text, -1), be_const_ctype_func(Berry_List_Class_Add_Text_59CD9336_5758_4B4F_B71A_B6B49AF302A1) },
-    { be_const_key(Create, 3), be_const_ctype_func(Berry_List_Class_Create_CDD92D4D_25DA_4A65_8AB5_DA289B21EE3E) },
-    { be_const_key(Add_Button, -1), be_const_ctype_func(Berry_List_Class_Add_Button_4C40E9EC_9317_4907_B88E_9B688953CA5B) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_List_Class_Initialize_4204187A_6940_48F0_B4AF_0BFCD32AB518) },
-    { be_const_key(Get_Button_Text, 2), be_const_ctype_func(Berry_List_Class_Get_Button_Text_5CC4465E_3825_43DB_AA0A_9ECA18020AF9) },
-    { be_const_key(deinit, 1), be_const_ctype_func(Berry_List_Class_Deinitialize_242D79C9_5610_4997_8C98_EC43E9A25700) },
+    { be_const_key(Add_Text, -1), be_const_ctype_func(Berry_List_Class_Add_Text_07C8FBE6_5D07_4524_ACE0_F26DCA0557D7) },
+    { be_const_key(Create, 3), be_const_ctype_func(Berry_List_Class_Create_407D9F3F_F0C4_498D_9634_3AAA2EC1949A) },
+    { be_const_key(Add_Button, -1), be_const_ctype_func(Berry_List_Class_Add_Button_45291EBD_8027_4109_9BBE_9F14AFB79BF0) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_List_Class_Initialize_63476578_F6F3_45C0_8BEC_B4B72B974AC4) },
+    { be_const_key(Get_Button_Text, 2), be_const_ctype_func(Berry_List_Class_Get_Button_Text_EB0D80FE_9D37_4F65_A332_CEAF0BF51405) },
+    { be_const_key(deinit, 1), be_const_ctype_func(Berry_List_Class_Deinitialize_B3AAB7EA_1D5F_4559_9FE2_D5D8B93FF900) },
     { be_const_key(_p, 0), be_const_var(0) },
 };
 
