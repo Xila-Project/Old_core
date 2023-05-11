@@ -53,6 +53,17 @@ Result_Type WiFi_Class::Station_Class::Add(const char*SSID, const char*Password,
     // - Open registry
     DynamicJsonDocument WiFi_Registry(8 * 128);
     Drive_Types::File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
+
+    // Print registry file
+
+    Log_Verbose("WiFi", "Registry file content :");
+    while (Registry_File.available() > 0)
+    {
+        log_printf("%c", Registry_File.Read());
+    }
+
+    Registry_File.Seek(0);
+
     // - Check if registry is valid    
     if (deserializeJson(WiFi_Registry, Registry_File) || (strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0) || WiFi_Registry["Station"]["Access points"] == NULL)
     {

@@ -30,14 +30,18 @@ bool Berry_Class::Softwares_Handles_Loaded = false;
 
 Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User)
     : Softwares_Types::Software_Type(&Berry_Handle, Owner_User, 8 * 1024),
-      Input_String(NULL)
+      Input_String(NULL),
+      Server_Task(this)
 {
     Instances_List.push_back(this);
+
+    Server_Task.Create(Start_Task_Server, "Server", 4096, this);
 }
 
 Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User, const Berry_Softwares_Handle_Class *Handle)
     : Softwares_Types::Software_Type(Handle, Owner_User, 8 * 1024),
-      Input_String(NULL)
+      Input_String(NULL),
+      Server_Task(this)
 {
     Instances_List.push_back(this);
 }
@@ -49,6 +53,36 @@ Berry_Class::~Berry_Class()
     Virtual_Machine_Delete();
 
     Instances_List.erase(std::remove(Instances_List.begin(), Instances_List.end(), this), Instances_List.end());
+}
+
+void Berry_Class::Start_Task_Server(void* Instance)
+{
+    ((Berry_Class*)Instance)->Server_Task_Function();
+}
+
+void Berry_Class::Server_Task_Function()
+{
+    while (1)
+    {
+        WiFiClient Client = Server.available();
+        if (Client)
+        {
+            Log_Verbose("Berry", "Client connected.");
+            Drive_Types::File_Type Executable = Drive.Open("/Software/Berry/Temporary.be" , true, false, true);
+            while (Client.connected())
+            {
+                if (Client.available())
+                {
+                    char Buffer[256];
+                    Client.readBytes(Buffer, sizeof(Buffer));
+                    Executable.Write((uint8_t*)Buffer, sizeof(Buffer));
+                }
+            }
+            Log_Verbose("Berry", "Client disconnected.");
+            Client.stop();
+        }
+        Server_Task.Delay(100);
+    }
 }
 
 Berry_Class* Berry_Class::Get_Instance(bvm* Virtual_Machine)
@@ -109,6 +143,9 @@ void Berry_Class::Main_Task_Function()
         Load_Softwares_Handles();
 
     Virtual_Machine_Create();
+
+    Server.begin(80);
+
 
     Log_Verbose("Berry", "Created virtual machine : %p / %p", (Module_Class*)this, Virtual_Machine);
 

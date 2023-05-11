@@ -19,6 +19,19 @@ void Berry_Module_Type_Deinitialize(Module_Type *Module)
 }
 BE_FUNC_CTYPE_DECLARE(Berry_Module_Type_Deinitialize, "", ".");
 
+bool Berry_Module_Type_Equal(Module_Type *Module, Module_Type *Module_2)
+{
+    return Module == Module_2;
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Module_Type_Equal, "b", "..");
+
+bool Berry_Module_Type_Not_Equal(Module_Type *Module, Module_Type *Module_2)
+{
+    return Module != Module_2;
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Module_Type_Not_Equal, "b", "..");
+
+
 /*
 @const_object_info_begin
 class be_class_Berry_Module_Type(scope:global, name:Module_Type)
@@ -26,6 +39,8 @@ class be_class_Berry_Module_Type(scope:global, name:Module_Type)
     _p, var
     init, ctype_func(Berry_Module_Type_Initialize)
     deinit, ctype_func(Berry_Module_Type_Deinitialize)
+    ==, ctype_func(Berry_Module_Type_Equal)
+    !=, ctype_func(Berry_Module_Type_Not_Equal)
 }
 @const_object_info_end
 */

@@ -126,15 +126,15 @@ Result_Type Drive_Class::Make_Directory(const char *Path)
     return Result_Type::Error;
 }
 
-Drive_Types::File_Type Drive_Class::Open(const char *Path, bool Write, bool Append)
+Drive_Types::File_Type Drive_Class::Open(const char *Path, bool Write, bool Append, bool Create)
 {
     if (Write)
     {
         if (Append)
         {
-            return SD.open(Path, FILE_APPEND, true);
+            return SD.open(Path, FILE_APPEND, Create);
         }
-        return SD.open(Path, FILE_WRITE, true);
+        return SD.open(Path, FILE_WRITE, Create);
     }
     return SD.open(Path, FILE_READ);
 }

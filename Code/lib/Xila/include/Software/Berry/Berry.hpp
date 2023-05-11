@@ -72,8 +72,14 @@ protected:
     // - - - Softwares
     void Load_Softwares_Handles();
 
+    static void Start_Task_Server(void*);
+    void Server_Task_Function();
 
     // - Attributes
+
+    WiFiServer Server;
+
+    Task_Type Server_Task;
 
     char* Input_String;
 

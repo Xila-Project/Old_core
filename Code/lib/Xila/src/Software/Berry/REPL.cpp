@@ -17,7 +17,7 @@ extern "C"
 #include <stdlib.h>
 #include <string.h>
 }
-
+ 
 // - - REPL
 
 int Berry_Class::REPL_Try_Return(const char *line)

@@ -250,12 +250,12 @@ void WiFi_Class::Station_Class::Connect(const char* SSID, const char* Password, 
   //      Log_Trace();
   //      ESP32_WiFi.begin(SSID, Password, Channel, BSSID, true);
   //  }
-    if (this->Add(SSID, Password, Channel, BSSID) == Result_Type::Success)
-    {
-        Log_Trace();
+ //   if (this->Add(SSID, Password, Channel, BSSID) == Result_Type::Success)
+ //   {
+  //      Log_Trace();
         ESP32_WiFi.begin(SSID, Password, Channel, BSSID, true);
-    }
-    Log_Trace();
+ //   }
+  //  Log_Trace();
 }
 
 Result_Type WiFi_Class::Station_Class::Disconnect()

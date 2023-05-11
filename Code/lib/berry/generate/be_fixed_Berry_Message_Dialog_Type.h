@@ -1,8 +1,8 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Message_Dialog_Type_map) {
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Message_Dialog_Class_Create_43F0FA8C_AFAE_433C_AF24_87F1103EA3AA) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Message_Dialog_Class_Deinitialize_D5037235_B429_43E5_9C8A_B242975B951B) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Message_Dialog_Class_Create_7FAE99E9_E181_42CB_9492_D4FA83AA5C77) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Message_Dialog_Class_Deinitialize_BEC436E4_CEFD_43D2_AA0F_D218CEE305A0) },
     { be_const_key(_p, -1), be_const_var(0) },
 };
 

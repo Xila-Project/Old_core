@@ -114,7 +114,16 @@ void Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Ins
 
         Log_Verbose("Preferences", "Wireless : Connecting to %s with psw : %s", (const char*)Wireless_WiFi_Access_Point_Roller.Get_Selected_String(SSID), (const char*)Wireless_WiFi_Password_Text_Area.Get_Text());
 
-        Communication.WiFi.Station.Connect(Wireless_WiFi_Access_Point_Roller.Get_Selected_String(SSID), Wireless_WiFi_Password_Text_Area.Get_Text());
+        auto File = Drive.Open(Registry("WiFi"), true, false, false);
+
+        Log_Verbose("Preferences", "Wireless : File opened :");
+
+        while (File.Available() > 0)
+        {
+            log_printf("%c", File.Read());
+        }
+
+        // Communication.WiFi.Station.Connect(Wireless_WiFi_Access_Point_Roller.Get_Selected_String(SSID), Wireless_WiFi_Password_Text_Area.Get_Text());
     }
     else if (Instruction.Graphics.Get_Target() == Wireless_WiFi_Password_Text_Area)
     {
