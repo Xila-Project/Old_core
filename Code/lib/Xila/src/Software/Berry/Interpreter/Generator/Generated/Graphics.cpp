@@ -1546,6 +1546,7 @@ BE_FUNC_CTYPE_DECLARE(Berry_Object_Class_Operator_EC4387C0_FA18_4413_BF59_94C7EF
 bool Berry_Object_Class_Operator_F5F5B827_AF13_434A_8016_E63BFC385C25(Xila_Namespace::Graphics_Types::Object_Class* I, Xila_Namespace::Graphics_Types::Object_Class* A_0)
 {
 return *I != *A_0;
+Serial.println(F("Not equal"))
 }
 BE_FUNC_CTYPE_DECLARE(Berry_Object_Class_Operator_F5F5B827_AF13_434A_8016_E63BFC385C25, "b", "..")
 
