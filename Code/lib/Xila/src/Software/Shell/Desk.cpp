@@ -57,26 +57,29 @@ void Shell_Class::Desk_Class::Set_Interface()
     Dock.Set_Style_Shadow_Color(Color_Type::White, 0);
     Dock.Set_Style_Background_Color(Color_Type::Grey[8], 0);
     Dock.Set_Style_Radius(8, 0);
+    Dock.Add_Flag(Flag_Type::Overflow_Visible);
 
     // - - Dock's grid layout
     Dock.Set_Flex_Flow(Flex_Flow_Type::Row);
     Dock.Set_Flex_Alignment(Flex_Alignment_Type::Center, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
 
-    Dock_Options.Create(Window.Get_Body());
+    Dock_Options.Create(Dock);
     Dock_Options.Add_Flag(Flag_Type::Floating);
-    Dock_Options.Set_Alignment(Alignment_Type::Center);
+    Dock_Options.Add_Flag(Flag_Type::Hidden);
     Dock_Options.Set_Flex_Flow(Flex_Flow_Type::Column);
-    Dock_Options.Set_Size(LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-    Dock_Options.Set_Style_Border_Width(1, 0);
-    Dock_Options.Set_Style_Radius(8, 0);
-    Dock_Options.Set_Style_Border_Color(Color_Type::White, 0);
-    Dock_Options.Set_Alignment(Alignment_Type::Bottom_Middle, 0, -64);
+    Dock_Options.Set_Size(Size_Content, Size_Content);
+    Dock_Options.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+    Dock_Options.Set_Style_Pad_All(0, 0);
 
-    Dock_Close_Label.Create(Dock_Options, "Close");
-    Dock_Close_Label.Set_Style_Text_Color(Color_Type::Red[5], 0);
-    Dock_Maximize_Label.Create(Dock_Options, "Maximize");
-    Dock_Maximize_Label.Set_Style_Text_Color(Color_Type::Green[5], 0);
-    
+    Dock_Close_Button.Create(Dock_Options, "Close", 0, 0, Shell_Pointer);
+    Dock_Close_Button.Set_Style_Background_Color(Color_Type::Red[5], 0);
+    Dock_Close_Button.Set_Style_Background_Opacity(Opacity_Type::Cover, 0);
+
+    Dock_Maximize_Button.Create(Dock_Options, "Maximize", 0, 0, Shell_Pointer);
+    Dock_Maximize_Button.Set_Style_Background_Opacity(Opacity_Type::Cover, 0);
+    Dock_Maximize_Button.Set_Style_Background_Color(Color_Type::Green[5], 0);
+
+
 
     // - Menu button
     static Style_Type Menu_Button_Style;
@@ -183,6 +186,41 @@ Shell_Class::Desk_Class::~Desk_Class()
 {
 }
 
+const Softwares_Types::Software_Type *Shell_Class::Desk_Class::Get_Software_Pointer_From_Dock(Size_Type Index)
+{
+    uint8_t User_Softwares_Count = Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User());
+    for (uint8_t j = 0; j < User_Softwares_Count; j++)
+    {
+        // - Skip shell instances
+        if (Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), j) == Shell_Pointer)
+        {
+            Index++;
+            j++;
+        }
+
+        if (j == Index)
+        {
+            Log_Verbose("Shell", "Software %u found !", j);
+            return Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), j);
+        };
+    }
+    return NULL;
+}
+
+void Shell_Class::Desk_Class::Set_Software_Window_State(const Softwares_Types::Software_Type *Software_Pointer, Graphics_Types::Window_State_Type State)
+{
+    using namespace Graphics_Types;
+    if (!Software_Pointer)
+        return;
+
+    Size_Type Screen_Child_Count = Shell_Pointer->Screen.Get_Child_Count();
+    for (uint8_t i = 0; i < Screen_Child_Count; i++)
+    {
+        Window_Type Child_Window = Shell_Pointer->Screen.Get_Child(i);
+        if (Child_Window && (Child_Window.Get_Owner_Software() == Software_Pointer))
+            Child_Window.Set_State(State);
+    }
+}
 
 void Shell_Class::Desk_Class::Refresh()
 {
@@ -241,11 +279,12 @@ void Shell_Class::Desk_Class::Refresh()
         Graphics_Types::Label_Type Icon_Label;
         while (Dock_List.Get_Child_Count() < (User_Softwares_Count - 1))
         {
-            
+
             Icon_Container.Create(Dock_List);
             Icon_Label.Create(Icon_Container);
             Icon_Container.Set_Alignment(Graphics_Types::Alignment_Type::Top_Middle);
             Icon_Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+            Icon_Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Long_Pressed);
 
             Icon_Container.Clear_Pointer();
             Icon_Label.Clear_Pointer();
@@ -281,79 +320,65 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
     using namespace Graphics_Types;
     if (Instruction.Get_Sender() == &Graphics)
     {
+        auto Current_Target = Instruction.Graphics.Get_Current_Target();
+        Dock_Options.Add_Flag(Flag_Type::Hidden);
         switch (Instruction.Graphics.Get_Code())
         {
         case Event_Code_Type::Pressed:
-            if (Instruction.Graphics.Get_Current_Target() == Menu_Button)
+            if (Current_Target == Menu_Button)
             {
                 for (uint8_t i = Menu_Button.Get_Child_Count(); i > 0; i--)
                     Menu_Button.Get_Child(i - 1).Add_State(State_Type::Pressed);
             }
+            Ignore_Button.Clear_Pointer();
             break;
         case Event_Code_Type::Released:
-            if (Instruction.Graphics.Get_Current_Target() == Menu_Button)
+            if (Current_Target == Menu_Button)
             {
                 for (uint8_t i = Menu_Button.Get_Child_Count(); i > 0; i--)
                     Menu_Button.Get_Child(i - 1).Clear_State(State_Type::Pressed);
             }
             break;
-        case Event_Code_Type::Clicked:
-            if (Instruction.Graphics.Get_Current_Target() == Menu_Button)
+        case Event_Code_Type::Long_Pressed:
+            if (Current_Target.Get_Parent() == Dock_List)
             {
-                Shell_Pointer->Drawer.Open();
+                Ignore_Button = Current_Target;
+                Dock_Options.Set_Alignment(Alignment_Type::Out_Top_Left, 0, -16, &Current_Target);
+                Dock_Options.Clear_Flag(Flag_Type::Hidden);
+                Log_Verbose("Shell", "Dock's button long pressed !");
             }
-            else
+            break;
+        case Event_Code_Type::Clicked:
+            if (Current_Target == Menu_Button)
+                Shell_Pointer->Drawer.Open();
+            else if ((Current_Target == Dock_Close_Button) && Selected_Button)
             {
-                Log_Verbose("Shell", "Dock's button clicked");
-
-                Object_Type Target = Instruction.Graphics.Get_Current_Target();
-
-                Size_Type Dock_List_Child_Count = Dock_List.Get_Child_Count();
-
-                Log_Verbose("Shell", "Dock list child count : %d", Dock_List_Child_Count);
-
-                // Check if dock button is pressed
-                for (uint8_t i = 0; i < Dock_List_Child_Count; i++)
+                Log_Verbose("Shell", "Dock's close clicked");
+                Softwares.Close(const_cast<Softwares_Types::Software_Type *>(Get_Software_Pointer_From_Dock(Dock_List.Get_Child_Index(Selected_Button))));
+                Refresh();
+                Selected_Button.Clear_Pointer();
+            }
+            else if ((Current_Target == Dock_Maximize_Button) && Selected_Button)
+            {
+                Log_Verbose("Shell", "Dock's maximize clicked");
+                Set_Software_Window_State(Get_Software_Pointer_From_Dock(Dock_List.Get_Child_Index(Selected_Button)), Window_State_Type::Maximized);
+                Selected_Button.Clear_Pointer();
+            }
+            else if (Current_Target.Get_Parent() == Dock_List)
+            {
+                if (Current_Target == Ignore_Button)
                 {
-                    // If one of the dock button is pressed, maximize the windows of corresponding software.
-                    if (Dock_List.Get_Child(i) == Target)
-                    {
+                    Dock_Options.Clear_Flag(Flag_Type::Hidden); // Discard the hide dock options.
+                    Selected_Button = Current_Target;
+                }
+                else
+                {
+                    Log_Verbose("Shell", "Dock's button clicked");
 
-                        Log_Verbose("Shell", "Find button %d clicked !", i);
-
-                        uint8_t User_Softwares_Count = Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User());
-
-                        // - Counting the number of shell to skip.
-                        const Softwares_Types::Software_Type *Software_Pointer = NULL;
-                        for (uint8_t j = 0; j < User_Softwares_Count; j++)
-                        { // - Skip shell instance.
-                            if (Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), j) == Shell_Pointer)
-                            {
-                                i++;
-                                j++;
-                            }
-
-                            if (j == i)
-                            {
-                                Log_Verbose("Shell", "Software %u found !", j);
-                                Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), j);
-                                break;
-                            };
-                        }
-
-                        // - Maximize all the window of the software.
-                        Size_Type Screen_Child_Count = Shell_Pointer->Screen.Get_Child_Count();
-                        for (uint8_t j = 0; j < Screen_Child_Count; j++)
-                        {
-                            Window_Type Child_Window = Shell_Pointer->Screen.Get_Child(j);
-                            if (Child_Window.Is_Valid() && (Child_Window.Get_Owner_Software() == Software_Pointer))
-                                Child_Window.Set_State(Window_State_Type::Maximized);
-                        }
-
-                        break; // Break the for loop.
-                    }
+                    Set_Software_Window_State(Get_Software_Pointer_From_Dock(Dock_List.Get_Child_Index(Current_Target)), Window_State_Type::Maximized);
                 }
             }
+            Ignore_Button.Clear_Pointer();
             break;
         default:
             break;

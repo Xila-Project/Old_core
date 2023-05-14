@@ -11,15 +11,18 @@
 #include "Software/Shell/Shell.hpp"
 #include "Software/Shell/Translation.hpp"
 
+Shell_Class::Shell_Handle_Class Shell_Class::Handle;
+
 /// @brief Shell constructor.
 Shell_Class::Shell_Class(const Accounts_Types::User_Type *Owner_User)
-    : Software_Class(&Shell_Handle, Owner_User),
+    : Software_Class(Handle, Owner_User),
       Desk(this),
       Screen(this),
       Drawer(this),
       Installer_Pointer(NULL),
       Login_Pointer(NULL)
 {
+    Log_Verbose("Shell", "Shell_Class::Shell_Class()");
 }
 
 /// @brief Shell destructor.

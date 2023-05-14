@@ -29,9 +29,7 @@ Result_Type Graphics_Class::Start()
     lv_init();
 
     if (!lv_is_initialized())
-    {
         return Result_Type::Error;
-    }
 
     // - Set draw buffer
     lv_disp_draw_buf_init(&Draw_Buffer_Descriptor, Draw_Buffer, NULL, Display.Get_Horizontal_Definition() * 10);

@@ -103,7 +103,7 @@ int Berry_Class::REPL_Call_Script()
 int Berry_Class::REPL_Run()
 {
     char *line;
-    be_assert(getline != NULL);    
+    //be_assert(getline != NULL);    
     while ((line = REPL_Get_Line("> ")) != NULL)
     {
         int res = REPL_Compile(line);

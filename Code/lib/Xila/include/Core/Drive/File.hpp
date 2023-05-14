@@ -132,6 +132,10 @@ namespace Xila_Namespace
             /// @return Name of the file.
             const char *Get_Name() const;
 
+            /// @brief Get the extension of the file.
+            /// @return Extension of the file.
+            const char *Get_Extension() const;
+
             // - - Directory methods
 
             /// @brief Check if the file is a directory.

@@ -12,6 +12,7 @@
 #define Pin_Hpp_Included
 
 #include "../Module/Module.hpp"
+#include "Serial.hpp"
 
 //==============================================================================//
 ///
@@ -23,25 +24,25 @@ namespace Xila_Namespace
     namespace Pin_Types
     {
         /// @brief Digital IOs states.
-        enum class Digital_State_Type
+        enum class Digital_State_Type : Byte_Type
         {
-            Low,   ///< Low state.
-            High, ///< High state.
+            Low = LOW,   ///< Low state.
+            High = HIGH ///< High state.
 
         };
 
         /// @brief IOs modes.
-        enum class Mode_Type
+        enum class Mode_Type : Byte_Type
         {
-            Input,              ///< Input
-            Output,             ///< Output
-            Pull_Up,            ///< Pull up resistor.
-            Input_Pull_Up,      ///< Input with a pull up resistor.
-            Pull_Down,          ///< Pull down resistor.
-            Input_Pull_Down,    ///< Input with a pull down resistor.
-            Open_Drain,         ///< Open drain (nothing connected).
-            Output_Open_Drain,  ///< Output with open drain by default.
-            Analog              ///< Analog
+            Input = INPUT,              ///< Input
+            Output = OUTPUT,      ///< Output
+            Pull_Up = PULLUP,            ///< Pull up resistor.
+            Input_Pull_Up = INPUT_PULLUP,    ///< Input with a pull up resistor.
+            Pull_Down = PULLDOWN,          ///< Pull down resistor.
+            Input_Pull_Down = INPUT_PULLDOWN,    ///< Input with a pull down resistor.
+            Open_Drain = OPEN_DRAIN,         ///< Open drain (nothing connected).
+            Output_Open_Drain = OUTPUT_OPEN_DRAIN,  ///< Output with open drain by default.
+            Analog = ANALOG,             ///< Analog
         };
 
         /// @brief Interrupt modes.
@@ -93,6 +94,9 @@ namespace Xila_Namespace
         /// @return `Result_Type::Success` if the pin is valid, `Result_Type::Error` otherwise.
         Result_Type Valid_Digital_Pin(uint8_t Pin);
 
+
+        uint32_t Get_Pulse_In(uint8_t Pin, Pin_Types::Digital_State_Type State, uint32_t Timeout = 1000000);
+
         // -- Analog
 
         /// @brief Set a analog value to a pin.
@@ -104,6 +108,7 @@ namespace Xila_Namespace
         /// @param Pin Pin to read.
         /// @return Pin value.
         uint32_t Analog_Read_Milli_Volts(uint8_t Pin);
+        
 
         /// @brief Set the voltage reference pin.
         /// @param Pin Pin to set.

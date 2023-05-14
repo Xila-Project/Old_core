@@ -154,6 +154,11 @@ void Task_Class::Delay_Static(uint32_t Delay_In_Millisecond)
     }
 }
 
+void Task_Class::Delay_Microseconds(uint32_t Delay_In_Microsecond)
+{
+    delayMicroseconds(Delay_In_Microsecond);
+}
+
 void Task_Class::Delay_Until(TickType_t Time_Increment)
 {
     Feed_Watchdog();

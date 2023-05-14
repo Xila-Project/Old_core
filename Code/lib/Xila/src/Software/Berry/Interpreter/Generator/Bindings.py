@@ -70,6 +70,8 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
         if not(Is_Integral_Type(Argument)):
             Next_May_Be_Buffer_Size = False
 
+        
+
         if Is_Pointer_Type(Argument) or Is_Reference_Type(Argument):
             Base_Type = Get_Base_Type(Argument)
             #print("Pointer : ", Raw_Argument)
@@ -98,6 +100,12 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 Pre_Additional_Content += "String_Type S_" + str(i) + ";\nS_" + str(i) + ".Set_Buffer((char*)Berry_Class::Get_Instance(V)->Buffer, sizeof(Berry_Class::Buffer));\n"
                 Post_Additional_Content += "return S_" + str(i) + ";\n"
                 Passed_Arguments += "S_" + str(i)
+           
+            elif Is_Function_Pointer(Argument):
+                print("Function pointer in : ", str(Declaration))
+                S += str(Argument).replace("(*", "(* " + " A_" + str(i))
+                StringD += "^^"
+                Passed_Arguments += "A_" + str(i)
 
             elif Is_Class(Base_Type.declaration):
                 S += Base_Type.declaration.decl_string + "* A_" + str(i)
@@ -107,6 +115,7 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 Passed_Arguments += "A_" + str(i)
                 
         else:
+
             if Is_Boolean_Type(Argument):
                 S += "bool A_" + str(i)
                 StringD += "b"
@@ -149,7 +158,10 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
 
         # - - Default arguments
         if Is_Optional(Raw_Argument):
-            S += " = " + str(Raw_Argument.default_value).replace("::Xila_Namespace", "Xila_Namespace")
+            S += " = " 
+            if (Is_Declarated_Type(Argument) and Is_Enumeration_Type(Argument.declaration)):
+                S += "(int)"    # Add explicit cast for enum (enum class doesn't allow implicit cast)
+            S += str(Raw_Argument.default_value).replace("::Xila_Namespace", "Xila_Namespace")
 
         # - - Add comma separator to arguments and passed arguments
         if not(S.endswith(", ")):
@@ -222,8 +234,19 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
     Berry_Function_Name = "Berry_" + Get_Name(Declaration.parent) + "_"
 
     if Is_Constructor(Declaration):
+        if not(StringD.startswith("@")):
+            StringD = "@" + StringD
+            S = "bvm* V, " + S
+            if S.endswith(", "):
+                S = S[:-2]
+        Pre_Additional_Content += "void* Pointer = be_malloc(V, sizeof(" + Module_Name + "_Types::" + Get_Name(Declaration.parent) + "));\n"
         Berry_Function_Name += "Initialize"
     elif Is_Destructor(Declaration):
+        if not(StringD.startswith("@")):
+            StringD = "@" + StringD
+            S = "bvm* V, " + S
+            if S.endswith(", "):
+                S = S[:-2]
         Berry_Function_Name += "Deinitialize"
     else:
         Berry_Function_Name += Function_Name
@@ -237,13 +260,15 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
     # - Function body
     Berry_Function_Body = "{\n" + Pre_Additional_Content 
 
-    if Post_Additional_Content == "":
+    if Post_Additional_Content == "" and not(Is_Destructor(Declaration)):
         Berry_Function_Body += "return " + Return_Conversion
 
     if Is_Constructor(Declaration):
-        Berry_Function_Body += "new " + Module_Name + "_Types::" + Get_Name(Declaration.parent)
+        Berry_Function_Body += "new (Pointer) " + Module_Name + "_Types::" + Get_Name(Declaration.parent);
     elif Is_Destructor(Declaration):
-        Berry_Function_Body += "delete I;\n}\n"
+        Berry_Function_Body += "if (!I) { return; }\n"
+        Berry_Function_Body += "I->~" + Get_Name(Declaration.parent) + "();\n"
+        Berry_Function_Body += "be_free(V, I, sizeof(" + Module_Name + "_Types::" + Get_Name(Declaration.parent) + "));\n}\n"
     elif Is_Function(Declaration):
         if Is_Module:   # Function but not module
             Berry_Function_Body += Module_Name + "." + Function_Name

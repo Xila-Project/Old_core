@@ -12,16 +12,7 @@
 using namespace Xila_Namespace;
 using namespace Softwares_Types;
 
-template<typename T, size_t N>
-std::array<T, N> Init_Array(const T& value) {
-  std::array<T, N> result;
-  std::generate(result.begin(), result.end(), [&value]() { return value; });
-  return result;
-}
-
-/// Fill array with nullptr
-std::array<Software_Handle_Class*, 40> Software_Handle_Class::List = Init_Array<Software_Handle_Class*, 40>(NULL);
-// Software handle
+std::list<Software_Handle_Class*> Software_Handle_Class::List;
 
 /// @brief Construct and define a new Software_Handle::Software_Handle object
 ///
@@ -32,25 +23,11 @@ std::array<Software_Handle_Class*, 40> Software_Handle_Class::List = Init_Array<
 Software_Handle_Class::Software_Handle_Class(const char* Name)
     : Name(Name)
 {
-  for (auto& Software_Handle_Pointer : List)
-  {
-    if (Software_Handle_Pointer == NULL)
-    {
-      Software_Handle_Pointer = this;
-      break;
-    }
-  }
+ // Log_Verbose("Software", "Software handle constructor %s", Name);
 }
 
 Software_Handle_Class::~Software_Handle_Class()
 {
-  for (auto &Software_Handle_Pointer : List)
-  {
-    if (Software_Handle_Pointer == this)
-    {
-      Software_Handle_Pointer = nullptr;
-    }
-  }
 }
 
 ///

@@ -1,19 +1,19 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Bar_Type_map) {
-    { be_const_key(Set_Start_Value, -1), be_const_ctype_func(Berry_Bar_Class_Set_Start_Value_544C9B42_133E_473E_B091_24DBC4B01D5B) },
-    { be_const_key(Set_Range, -1), be_const_ctype_func(Berry_Bar_Class_Set_Range_EF083E7E_3F2B_427C_A810_F0A3145453C2) },
-    { be_const_key(Get_Value, -1), be_const_ctype_func(Berry_Bar_Class_Get_Value_130E00FF_90FB_4574_A6AD_4F69D48EB8A2) },
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Bar_Class_Create_FB201D1F_954C_4ED5_81B0_A813385F1851) },
-    { be_const_key(Get_Start_Value, -1), be_const_ctype_func(Berry_Bar_Class_Get_Start_Value_D80E5D9F_B9D5_4B40_ABF1_08616B069BAA) },
-    { be_const_key(Get_Mode, 4), be_const_ctype_func(Berry_Bar_Class_Get_Mode_4EFD4238_6D48_4306_BFA2_4F79FB1732C5) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Bar_Class_Initialize_65DFBBE3_21BA_43B2_B6A4_5B274DC27631) },
-    { be_const_key(Get_Minimum_Value, 10), be_const_ctype_func(Berry_Bar_Class_Get_Minimum_Value_C483927A_A7A5_4B36_8BA5_C34FEC275018) },
-    { be_const_key(Set_Mode, 9), be_const_ctype_func(Berry_Bar_Class_Set_Mode_2D041AFC_CBFD_483C_9D9F_C3D1A3F1615B) },
-    { be_const_key(Get_Maximum_Value, -1), be_const_ctype_func(Berry_Bar_Class_Get_Maximum_Value_9F6DADCC_2880_4F32_B69A_605E88EDB1A2) },
-    { be_const_key(Set_Value, -1), be_const_ctype_func(Berry_Bar_Class_Set_Value_B3C5FE32_5526_4C3B_B474_4AEEBFD25268) },
+    { be_const_key(Set_Start_Value, -1), be_const_ctype_func(Berry_Bar_Class_Set_Start_Value_683B6B70_E5C1_4F46_BCE6_2DB999CF2139) },
+    { be_const_key(Set_Range, -1), be_const_ctype_func(Berry_Bar_Class_Set_Range_87BDE45E_9CD3_4B99_B6F8_274E34EA497A) },
+    { be_const_key(Get_Value, -1), be_const_ctype_func(Berry_Bar_Class_Get_Value_04D32D1D_5CD0_4D96_B376_E93FB6161B0A) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Bar_Class_Create_02160AC6_5CFB_411F_AB72_B04DD74E3A5E) },
+    { be_const_key(Get_Start_Value, -1), be_const_ctype_func(Berry_Bar_Class_Get_Start_Value_57009A40_8D96_4B2A_8CCA_0220527FB721) },
+    { be_const_key(Get_Mode, 4), be_const_ctype_func(Berry_Bar_Class_Get_Mode_82968BD1_13F9_42C2_9C3E_1758FD53AE66) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Bar_Class_Initialize_23D3855B_A1F4_416F_BE4A_5C2808201C3F) },
+    { be_const_key(Get_Minimum_Value, 10), be_const_ctype_func(Berry_Bar_Class_Get_Minimum_Value_25C459D6_7E71_49ED_9CC8_7F1F3415E8EB) },
+    { be_const_key(Set_Mode, 9), be_const_ctype_func(Berry_Bar_Class_Set_Mode_D1B5EE93_2ECA_4080_B24B_597D0CC8B086) },
+    { be_const_key(Get_Maximum_Value, -1), be_const_ctype_func(Berry_Bar_Class_Get_Maximum_Value_94F18272_BC2F_4155_8F75_DED2CC615847) },
+    { be_const_key(Set_Value, -1), be_const_ctype_func(Berry_Bar_Class_Set_Value_23750CEB_2D3D_468F_8D4E_196290089257) },
     { be_const_key(_p, 1), be_const_var(0) },
-    { be_const_key(deinit, 7), be_const_ctype_func(Berry_Bar_Class_Deinitialize_8C3D91F6_A06D_4BBC_9160_13963E00F216) },
+    { be_const_key(deinit, 7), be_const_ctype_func(Berry_Bar_Class_Deinitialize_7E8F2B1F_1D69_42FA_925C_61BDA2BB5D0B) },
 };
 
 static be_define_const_map(

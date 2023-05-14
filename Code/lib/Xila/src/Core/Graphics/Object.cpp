@@ -188,6 +188,31 @@ void Object_Class::Move_Background()
     lv_obj_move_background(Get_Pointer());
 }
 
+// - - - Scroll
+void Object_Class::Scroll_By(Coordinate_Type X, Coordinate_Type Y, bool Animate)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    lv_obj_scroll_by(Get_Pointer(), X, Y, Animate ? LV_ANIM_ON : LV_ANIM_OFF);
+}
+
+void Object_Class::Scroll_To(Coordinate_Type X, Coordinate_Type Y, bool Animate)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    lv_obj_scroll_to(Get_Pointer(), X, Y, Animate ? LV_ANIM_ON : LV_ANIM_OFF);
+}
+
+void Object_Class::Scroll_Horizontally(Coordinate_Type X, bool Animate)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    lv_obj_scroll_to_x(Get_Pointer(), X, Animate ? LV_ANIM_ON : LV_ANIM_OFF);
+}
+
+void Object_Class::Scroll_Vertically(Coordinate_Type Y, bool Animate)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    lv_obj_scroll_to_y(Get_Pointer(), Y, Animate ? LV_ANIM_ON : LV_ANIM_OFF);
+}
+
 bool Object_Class::Has_Class(const Class_Type *Class_To_Check) const
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
@@ -1026,6 +1051,19 @@ Object_Class Object_Class::Get_Parent()
     return Object_Type(lv_obj_get_parent(this->Get_Pointer()));
 }
 
+Size_Type Object_Class::Get_Child_Index(Object_Type Child)
+{
+    Size_Type Child_Count = Get_Child_Count();
+    for (Size_Type i = 0; i < Child_Count; i++)
+    {
+        if (Get_Child(i) == Child)
+        {
+            return i;
+        }
+    }
+    return 0xFFFFFFFF;
+}
+
 void *Object_Class::Get_Group()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
@@ -1212,6 +1250,46 @@ Blend_Mode_Type Object_Class::Get_Style_Blend_Mode(Part_Type Part)
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return static_cast<Blend_Mode_Type>(lv_obj_get_style_blend_mode(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
+
+// - - - Scroll
+
+Coordinate_Type Object_Class::Get_Scroll_X()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    return lv_obj_get_scroll_x(Get_Pointer());
+}
+
+Coordinate_Type Object_Class::Get_Scroll_Y()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    return lv_obj_get_scroll_y(Get_Pointer());
+}
+
+Coordinate_Type Object_Class::Get_Scroll_Top()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    return lv_obj_get_scroll_top(Get_Pointer());
+}
+
+Coordinate_Type Object_Class::Get_Scroll_Left()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    return lv_obj_get_scroll_left(Get_Pointer());
+}
+
+Coordinate_Type Object_Class::Get_Scroll_Right()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    return lv_obj_get_scroll_right(Get_Pointer());
+}
+
+Coordinate_Type Object_Class::Get_Scroll_Bottom()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    return lv_obj_get_scroll_bottom(Get_Pointer());
+}
+
+// - - - Border
 
 Color_Type Object_Class::Get_Style_Border_Color(Part_Type Part)
 {

@@ -1042,8 +1042,10 @@ BERRY_API void be_raise(bvm *vm, const char *except, const char *msg)
 {
     be_pushstring(vm, except);
     if (msg) {
+        log_printf("exception: %s : %s\n", except, msg);
         be_pushstring(vm, msg);
     } else {
+        log_printf("exception: %s\n", except);
         be_pushnil(vm);
     }
     be_pop(vm, 2);

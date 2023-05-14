@@ -1,12 +1,12 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Line_Type_map) {
-    { be_const_key(Create, 5), be_const_ctype_func(Berry_Line_Class_Create_C5EDF697_5544_4019_90F6_475570D6FFBF) },
-    { be_const_key(Get_Y_Inversion, -1), be_const_ctype_func(Berry_Line_Class_Get_Y_Inversion_CB85DF52_F829_482D_892A_4211F793A275) },
+    { be_const_key(Create, 5), be_const_ctype_func(Berry_Line_Class_Create_C2FBE02C_63CC_493F_9C31_7AA77DF4F3F7) },
+    { be_const_key(Get_Y_Inversion, -1), be_const_ctype_func(Berry_Line_Class_Get_Y_Inversion_3647695C_8599_40DE_AF0B_716FE88F6B7C) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Set_Y_Inversion, 0), be_const_ctype_func(Berry_Line_Class_Set_Y_Inversion_377799C8_8EF5_4342_9C5D_1C7B73E9E438) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Line_Class_Deinitialize_A7E54A45_3E14_43CD_A908_79409FDF1FD7) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Line_Class_Initialize_8CFA8615_0133_4838_9FAE_82D84278F161) },
+    { be_const_key(Set_Y_Inversion, 0), be_const_ctype_func(Berry_Line_Class_Set_Y_Inversion_95908CFD_75C9_47E5_8781_CEF2924209D6) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Line_Class_Deinitialize_44859A90_5823_4D40_AC1B_93FF17E61C96) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Line_Class_Initialize_0061CFE2_476B_4B54_BE2D_259A54C54C2D) },
 };
 
 static be_define_const_map(

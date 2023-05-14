@@ -92,6 +92,8 @@ be_extern_native_class(Berry_Instruction_Type);
 be_extern_native_class(Berry_Time_Type);
 be_extern_native_class(Berry_Date_Type);
 be_extern_native_class(Berry_Module_Type);
+be_extern_native_class(Berry_Long_Integer_Type);
+be_extern_native_class(Berry_Long_Real_Type);
 /* be_extern_native_class(my_class); */
 /* user-defined classes declare end */
 
@@ -101,6 +103,8 @@ BERRY_LOCAL bclass_array be_class_table = {
     &be_native_class(Berry_Time_Type),
     &be_native_class(Berry_Date_Type),
     &be_native_class(Berry_Module_Type),
+    &be_native_class(Berry_Long_Integer_Type),
+    &be_native_class(Berry_Long_Real_Type),
     /* &be_native_class(my_class), */
     NULL, /* do not remove */
 };

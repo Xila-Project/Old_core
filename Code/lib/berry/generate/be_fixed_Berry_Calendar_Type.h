@@ -1,18 +1,18 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Calendar_Type_map) {
-    { be_const_key(Get_Highlighted_Dates, -1), be_const_ctype_func(Berry_Calendar_Class_Get_Highlighted_Dates_0A42D3E6_01A4_4335_8937_3416B7381205) },
-    { be_const_key(Get_Highlighted_Dates_Number, -1), be_const_ctype_func(Berry_Calendar_Class_Get_Highlighted_Dates_Number_70A30C1C_5B65_4B9B_90D8_1DF26EAD106A) },
-    { be_const_key(Get_Today_Date, 6), be_const_ctype_func(Berry_Calendar_Class_Get_Today_Date_64026A65_C903_4247_8442_E45F0E6F0443) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Calendar_Class_Initialize_0F46C5E0_EF05_4934_AB03_8A49E0726526) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Calendar_Class_Deinitialize_26E14ED7_DE9B_4DFE_B410_417499B4CDAF) },
-    { be_const_key(Get_Showed_Date, 7), be_const_ctype_func(Berry_Calendar_Class_Get_Showed_Date_8B6B46D1_95FC_4ECF_B530_6765C07E5A24) },
+    { be_const_key(Get_Highlighted_Dates, -1), be_const_ctype_func(Berry_Calendar_Class_Get_Highlighted_Dates_28E86DCA_D5F9_4625_A756_EA5CCCE414BD) },
+    { be_const_key(Get_Highlighted_Dates_Number, -1), be_const_ctype_func(Berry_Calendar_Class_Get_Highlighted_Dates_Number_1158C536_B453_4643_9E1A_B7600D94D1D6) },
+    { be_const_key(Get_Today_Date, 6), be_const_ctype_func(Berry_Calendar_Class_Get_Today_Date_87C5568C_ADC9_46C2_8319_11F81C7AC7C8) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Calendar_Class_Initialize_DB37765A_BDB8_4D11_8525_292493A7461E) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Calendar_Class_Deinitialize_516F9FB4_0B91_48C9_88C7_E4995ADBC3B3) },
+    { be_const_key(Get_Showed_Date, 7), be_const_ctype_func(Berry_Calendar_Class_Get_Showed_Date_10D865B6_F1E2_4335_93D9_89079432CC74) },
     { be_const_key(_p, 10), be_const_var(0) },
-    { be_const_key(Set_Showed_Date, -1), be_const_ctype_func(Berry_Calendar_Class_Set_Showed_Date_6A5F89A2_79B0_4F2D_BD17_DCFED426EFAE) },
-    { be_const_key(Get_Button_Matrix, -1), be_const_ctype_func(Berry_Calendar_Class_Get_Button_Matrix_C06AA346_D7E5_4FA9_A328_E36950AB942C) },
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Calendar_Class_Create_8F98E6EF_10CD_4050_86C5_05F28A5F882F) },
-    { be_const_key(Set_Today_Date, -1), be_const_ctype_func(Berry_Calendar_Class_Set_Today_Date_F22523D4_5D9F_4142_96C9_CB3A40B3A6E8) },
-    { be_const_key(Get_Pressed_Date, 0), be_const_ctype_func(Berry_Calendar_Class_Get_Pressed_Date_209FBF38_B771_4B59_A578_DE9A34F84608) },
+    { be_const_key(Set_Showed_Date, -1), be_const_ctype_func(Berry_Calendar_Class_Set_Showed_Date_C7B7B43E_208D_4E46_84B8_8BB0DCF424A8) },
+    { be_const_key(Get_Button_Matrix, -1), be_const_ctype_func(Berry_Calendar_Class_Get_Button_Matrix_80242DC7_8A5D_4F61_9E61_23E081BC0EF7) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Calendar_Class_Create_8FD17C3C_0ACA_4725_9A00_FBAE52537992) },
+    { be_const_key(Set_Today_Date, -1), be_const_ctype_func(Berry_Calendar_Class_Set_Today_Date_EBF02405_8BD1_4D2B_ADA0_E9E687569503) },
+    { be_const_key(Get_Pressed_Date, 0), be_const_ctype_func(Berry_Calendar_Class_Get_Pressed_Date_26839B4C_2C8C_4DFE_8ABE_ECD0A13DF84B) },
 };
 
 static be_define_const_map(

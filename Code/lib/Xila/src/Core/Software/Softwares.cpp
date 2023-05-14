@@ -11,6 +11,7 @@
 #include "Core/Software/Softwares.hpp"
 #include "Core/System/System.hpp"
 #include "Core/Log/Log.hpp"
+#include <iterator>
 
 using namespace Xila_Namespace;
 using namespace Softwares_Types;
@@ -61,9 +62,8 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
         Owner_User = Accounts.Get_Logged_User();
         if (Owner_User == NULL)
             return Result_Type::Error;
-
     }
-   
+
     Handle->Create_Instance(Owner_User);
 
     Software_Type::List.back()->Owner_User = Owner_User;
@@ -71,8 +71,8 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
     return Result_Type::Success;
 }
 
-Result_Type Softwares_Class::Open(const char*Name, const Accounts_Types::User_Type *Owner_User)
-{   
+Result_Type Softwares_Class::Open(const char *Name, const Accounts_Types::User_Type *Owner_User)
+{
     const Software_Handle_Type *Handle = this->Find_Handle(Name);
 
     return this->Open(Handle, Owner_User);
@@ -84,16 +84,11 @@ Result_Type Softwares_Class::Open(const char*Name, const Accounts_Types::User_Ty
 /// @return
 Result_Type Softwares_Class::Close(Software_Type *Software)
 {
-    if (Software == NULL)
-    {
+    if (!Software)
         return Result_Type::Error;
-    }
-    else
-    {
-        Instruction_Type Instruction(this, Software);
-        Instruction.Softwares.Set_Code(Event_Code_Type::Close);
-        return Software->Send_Instruction(Instruction);
-    }
+    Instruction_Type Instruction(this, Software);
+    Instruction.Softwares.Set_Code(Event_Code_Type::Close);
+    return Software->Send_Instruction(Instruction);
 }
 
 Result_Type Softwares_Class::Kill(Software_Type *Software)
@@ -110,6 +105,12 @@ Result_Type Softwares_Class::Kill(Software_Type *Software)
     return Result_Type::Success;
 }
 
+void Softwares_Class::Register_Handle(Softwares_Types::Software_Handle_Type& Software_Handle)
+{
+    Log_Verbose("Softwares", "Softwares_Class::Register_Handle() : Registering software handle %s.", (const char*)Software_Handle.Name);
+    Software_Handle_Class::List.push_back(&Software_Handle);
+}
+
 Software_Type *Softwares_Class::Find(const Software_Handle_Type *Handle)
 {
     for (auto &Software_Pointer : Software_Class::List)
@@ -122,33 +123,33 @@ Software_Type *Softwares_Class::Find(const Software_Handle_Type *Handle)
     return NULL;
 }
 
-Software_Handle_Type *Softwares_Class::Find_Handle(const char*Name)
-{    
+Software_Handle_Type* Softwares_Class::Find_Handle(const char *Name)
+{
     Static_String_Type<Default_Software_Name_Length> Software_Name;
-    
-    for (auto Software_Handle_Pointer : Software_Handle_Class::List)
+
+    for (auto Software_Handle : Software_Handle_Class::List)
     {
-        if (Software_Handle_Pointer == NULL)
+        if (Software_Handle == NULL)
             break;
 
-        Software_Handle_Pointer->Get_Name(Software_Name);
+        Software_Handle->Get_Name(Software_Name);
 
         if (Software_Name == Name)
         {
-            return Software_Handle_Pointer;
+            return Software_Handle;
         }
     }
     return NULL;
 }
 
-const Software_Handle_Type *Softwares_Class::Get_Handle(uint8_t Index)
+const Software_Handle_Type *Softwares_Class::Get_Handle(Size_Type Index)
 {
-    if (Index >= Software_Handle_Class::List.size())
-    {
+    if (Index >= Software_Handle_Class::List.size()) 
         return NULL;
-    }
 
-    return Software_Handle_Class::List[Index];
+    Log_Verbose("Software Handle", "Index : %d", Index);
+    return *std::next(Software_Handle_Class::List.begin(), Index);
+
 }
 
 Software_Type *Softwares_Class::Get(uint8_t Index)
@@ -172,15 +173,7 @@ uint8_t Softwares_Class::Get_Count()
 
 uint8_t Softwares_Class::Get_Handle_Count()
 {
-    uint8_t i = 0;
-    for (auto Software_Handle_Pointer : Software_Handle_Class::List)
-    {
-        if (Software_Handle_Pointer == NULL)
-            break;
-        else
-            i++;
-    }
-    return i;
+    return Software_Handle_Class::List.size();
 }
 
 void Softwares_Class::Close_User_Softwares(const Accounts_Types::User_Type *User)

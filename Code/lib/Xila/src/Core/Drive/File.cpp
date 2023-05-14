@@ -144,6 +144,14 @@ const char* File_Class::Get_Path() const
     return File.path();
 }
 
+const char* File_Class::Get_Extension() const
+{
+    char* Extension = strrchr(Get_Name(), '.');
+    if (Extension != NULL)
+        return Extension;
+    return "";
+}
+
 bool File_Class::Is_Valid() const
 {
     return File;

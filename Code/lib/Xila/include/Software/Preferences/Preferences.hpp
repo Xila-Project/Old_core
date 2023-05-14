@@ -15,7 +15,19 @@ using namespace Xila;
 
 class Preferences_Class : public Softwares_Types::Software_Type
 {
+public:
+    static class Preferences_Handle_Class : public Softwares_Types::Software_Handle_Type
+    {
+    public:
+        Preferences_Handle_Class() : Softwares_Types::Software_Handle_Type("Preferences"){};
 
+        void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
+        {
+            new Preferences_Class(Owner_User);
+        };
+    } Handle;
+
+private:
     // - Methods
 
     // - - Constructors / destructor
@@ -133,18 +145,5 @@ class Preferences_Class : public Softwares_Types::Software_Type
 
     friend class Preferences_Handle_Class;
 };
-
-// - Types
-
-static class Preferences_Handle_Class : public Softwares_Types::Software_Handle_Type
-{
-public:
-    Preferences_Handle_Class() : Softwares_Types::Software_Handle_Type("Preferences"){};
-
-    void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
-    {
-        new Preferences_Class(Owner_User);
-    };
-} Preferences_Handle;
 
 #endif

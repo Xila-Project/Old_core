@@ -42,6 +42,8 @@ namespace Xila_Namespace
 
         // - - Operations
 
+        void Register_Handle(Softwares_Types::Software_Handle_Type& Software_Handle);
+
         Result_Type Open(const Softwares_Types::Software_Handle_Type* Handle, const Accounts_Types::User_Type* Owner_User = NULL);
         Result_Type Open(const char* Name, const Accounts_Types::User_Type* Owner_User = NULL);
         Result_Type Close(Softwares_Types::Software_Type* Software);
@@ -51,7 +53,7 @@ namespace Xila_Namespace
         Softwares_Types::Software_Handle_Type* Find_Handle(const char* Name);  
 
         Softwares_Types::Software_Type* Get(uint8_t Index);
-        const Softwares_Types::Software_Handle_Type* Get_Handle(uint8_t Index);
+        const Softwares_Types::Software_Handle_Type* Get_Handle(Size_Type Index);
 
         uint8_t Get_Count();
         uint8_t Get_Handle_Count();

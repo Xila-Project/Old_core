@@ -7,17 +7,18 @@ extern "C"
 
 using namespace Xila_Namespace;
 
-void *Berry_Date_Type_Initialize(int Day = 0, int Month = 0, int Year = 0)
+void *Berry_Date_Type_Initialize(bvm* V, int Day = 0, int Month = 0, int Year = 0)
 {
-    return new Date_Type(Day, Month, Year);
+    void* Pointer = be_malloc(V, sizeof(Date_Type));
+    return new (Pointer) Date_Type(Day, Month, Year);
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Date_Type_Initialize, "+_p", "[iii");
+BE_FUNC_CTYPE_DECLARE(Berry_Date_Type_Initialize, "+_p", "@[iii");
 
-void Berry_Date_Type_Deinitialize(Date_Type *Date)
+void Berry_Date_Type_Deinitialize(bvm* V, Date_Type *Date)
 {
-    delete Date;
+    be_free(V, Date, sizeof(Date_Type));
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Date_Type_Deinitialize, "", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_Date_Type_Deinitialize, "", "@.");
 
 int Berry_Date_Type_Get_Day(Date_Type *Date)
 {

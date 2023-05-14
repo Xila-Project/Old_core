@@ -143,6 +143,7 @@ namespace Xila_Namespace
         // - - Constructors
         Instruction_Class();
         Instruction_Class(Module_Class *Sender, Module_Class *Receiver);
+        ~Instruction_Class();
 
         // - - Getters
         Module_Class *Get_Sender() const;

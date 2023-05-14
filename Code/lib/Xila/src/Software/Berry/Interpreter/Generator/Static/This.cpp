@@ -7,11 +7,15 @@ extern "C"
 
 using namespace Xila_Namespace;
 
-void *Berry_This_Get_Instruction(bvm *Instance)
+void *Berry_This_Get_Instruction(bvm *Virtual_Machine_Instance)
 {
-    Instruction_Type *Instruction = new Instruction_Type();
-    *Instruction = Berry_Class::Get_Instance(Instance)->Get_Instruction();
-    return Instruction;
+    Log_Verbose("This", "VM : %p", Virtual_Machine_Instance);
+
+    void* Pointer = be_malloc(Virtual_Machine_Instance, sizeof(Instruction_Type));
+
+    Log_Verbose("This", "Get_Instruction : %p ", Pointer);
+
+    return new (Pointer) Instruction_Type(Berry_Class::Get_Instance(Virtual_Machine_Instance)->Get_Instruction());
 }
 BE_FUNC_CTYPE_DECLARE(Berry_This_Get_Instruction, "Instruction_Type", "@");
 
@@ -23,8 +27,9 @@ BE_FUNC_CTYPE_DECLARE(Berry_This_Instruction_Available, "i", "@");
 
 Graphics_Types::Window_Type *Berry_This_Get_Window(bvm *Virtual_Machine)
 {
+    void* Pointer = be_malloc(Virtual_Machine, sizeof(Graphics_Types::Window_Type));
     Log_Verbose("This", "Get_Window : %p / %p", Berry_Class::Get_Instance(Virtual_Machine), &Berry_Class::Get_Instance(Virtual_Machine)->Window);
-    return &Berry_Class::Get_Instance(Virtual_Machine)->Window;
+    return new (Pointer) Graphics_Types::Window_Type(Berry_Class::Get_Instance(Virtual_Machine)->Window);
 }
 BE_FUNC_CTYPE_DECLARE(Berry_This_Get_Window, "Graphics.Window_Type", "@")
 
@@ -37,10 +42,18 @@ BE_FUNC_CTYPE_DECLARE(Berry_This_Delay, "", "@i");
 
 void* Berry_This_Get_This(bvm* Instance)
 {
-    Log_Verbose("This", "Get_This : %p", (Module_Type*)Berry_Class::Get_Instance(Instance));
-    return (Module_Type*)Berry_Class::Get_Instance(Instance);
+    Module_Class* Pointer = (Module_Class*)Berry_Class::Get_Instance(Instance);
+    Log_Verbose("This", "Get_This : %p", Pointer);
+    return Pointer;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_This_Get_This, "Module_Type", "@");
+BE_FUNC_CTYPE_DECLARE(Berry_This_Get_This, "c", "@");
+
+
+void Berry_This_Delay_Microseconds(int Delay)
+{
+    Task_Type::Delay_Microseconds(Delay);
+}
+BE_FUNC_CTYPE_DECLARE(Berry_This_Delay_Microseconds, "", "i");
 
 /*
 @const_object_info_begin
@@ -51,6 +64,7 @@ module This (scope:global)
     Get_Window, ctype_func(Berry_This_Get_Window)
     Get_This, ctype_func(Berry_This_Get_This)
     Delay, ctype_func(Berry_This_Delay)
+    Delay_Microseconds, ctype_func(Berry_This_Delay_Microseconds)
 }
 @const_object_info_end
 */

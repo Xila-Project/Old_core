@@ -30,6 +30,19 @@ using namespace Xila;
 /// @details Main inter
 class Shell_Class : public Softwares_Types::Software_Type
 {
+public:
+    static class Shell_Handle_Class : public Softwares_Types::Software_Handle_Type
+    {
+    public:
+        Shell_Handle_Class() : Softwares_Types::Software_Handle_Type("Shell") { Log_Verbose("Shell", "Handle created"); };
+
+        void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
+        {
+            new Shell_Class(Owner_User);
+        };
+    } Handle;
+
+private:
     // - Atributes
 
     // - - Graphics
@@ -80,13 +93,17 @@ class Shell_Class : public Softwares_Types::Software_Type
         void Refresh();
 
     private:
+        // - Methods
+        const Softwares_Types::Software_Type *Get_Software_Pointer_From_Dock(Size_Type);
+        void Set_Software_Window_State(const Softwares_Types::Software_Type *, Graphics_Types::Window_State_Type);
+
         // - Attributes
 
         // - - Parent window
 
-        Graphics_Types::Object_Type Desk_Grid, Dock, Menu_Button, Dock_List, Dock_Options;
+        Graphics_Types::Object_Type Desk_Grid, Dock, Menu_Button, Dock_List, Dock_Options, Ignore_Button, Selected_Button;
 
-        Graphics_Types::Label_Type Dock_Close_Label, Dock_Maximize_Label;
+        Graphics_Types::Button_Type Dock_Close_Button, Dock_Maximize_Button;
 
         // - - Shell pointer
         Shell_Class *Shell_Pointer;
@@ -216,12 +233,12 @@ class Shell_Class : public Softwares_Types::Software_Type
     // - - Constructors / destructor
 
     Shell_Class(const Accounts_Types::User_Type *Owner_User);
-    ~Shell_Class() override;
+    ~Shell_Class();
 
     // - - Others
 
     void Set_Interface();
-    static void Get_Software_Icon(Graphics_Types::Object_Type &, const String_Type&);
+    static void Get_Software_Icon(Graphics_Types::Object_Type &, const String_Type &);
     void Execute_Instruction(Instruction_Type Instruction);
     void Main_Task_Function() override;
     void Refresh_Overlay();
@@ -237,16 +254,5 @@ class Shell_Class : public Softwares_Types::Software_Type
 };
 
 // - Types
-
-static class Shell_Handle_Class : public Softwares_Types::Software_Handle_Type
-{
-public:
-    Shell_Handle_Class() : Softwares_Types::Software_Handle_Type("Shell") { Log_Verbose("Shell", "Handle created"); };
-
-    void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
-    {
-        new Shell_Class(Owner_User);
-    };
-} Shell_Handle;
 
 #endif

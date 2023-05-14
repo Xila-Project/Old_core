@@ -98,6 +98,10 @@ namespace Xila_Namespace
         /// @param Delay_In_Millisecond Delay in milliseconds.
         static void Delay_Static(uint32_t Delay_In_Millisecond);
 
+        /// @brief Delay the task.
+        /// @param Delay_In_Microseconds 
+        static void Delay_Microseconds(uint32_t Delay_In_Microseconds);
+
         /// @brief Delay the task until a specific time.
         /// @param Time_Increment Time in ticks.
         void Delay_Until(TickType_t Time_Increment);

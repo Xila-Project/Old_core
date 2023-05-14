@@ -73,7 +73,7 @@ Functions = [
 "Graphics_Class::Take_Semaphore_Auto(",
 "Xila_Namespace::Graphics_Types::Object_Class const &Object_To_Copy",
 "void Xila_Namespace::Graphics_Types::Label_Class::Create(Xila_Namespace::Graphics_Types::Object_Class Parent_Object, char const *Text",
-"void Xila_Namespace::Pin_Class::Attach_Interrupt(",
+"void Xila_Namespace::Pin_Class::Attach_Interrupt(uint8_t Pin, void (*)( void * ) Function_Pointer, void * Argument, Xila_Namespace::Pin_Types::Interrupt_Mode_Type Mode)",
 "void Xila_Namespace::Clipboard_Class::Copy(void const * Data, Xila_Namespace::Size_Type Data_Size)",
 "Xila_Namespace::Result_Type Xila_Namespace::Flash_Class::Partition_Read(esp_partition_t const *Partition, uint32_t Offset, uint32_t *Data, size_t Size)",
 

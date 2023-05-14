@@ -102,6 +102,12 @@ namespace Xila_Namespace
             void Move_Foreground();
             void Move_Background();
 
+            // - Scroll
+            void Scroll_By(Coordinate_Type X, Coordinate_Type Y, bool Animate = false);
+            void Scroll_To(Coordinate_Type X, Coordinate_Type Y, bool Animate = false);
+            void Scroll_Horizontally(Coordinate_Type X, bool Animate = false);
+            void Scroll_Vertically(Coordinate_Type Y, bool Animate = false);
+
             void Allocate_Special_Data();
 
             const Class_Type *Get_Class() const;
@@ -301,6 +307,7 @@ namespace Xila_Namespace
             Object_Class Get_Parent();
             Size_Type Get_Child_Count();
             Object_Class Get_Child(uint16_t Index);
+            Size_Type Get_Child_Index(Object_Type Child);
 
             // - - Style
 
@@ -335,8 +342,17 @@ namespace Xila_Namespace
             Color_Type Get_Style_Background_Image_Recolor_Filtered(Part_Type Part);
             Opacity_Type Get_Style_Background_Image_Recolor_Opacity(Part_Type Part);
             bool Get_Style_Background_Image_Tiled(Part_Type Part);
-
+            
             Blend_Mode_Type Get_Style_Blend_Mode(Part_Type Part);
+
+            // - - - Scroll
+
+            Coordinate_Type Get_Scroll_X();
+            Coordinate_Type Get_Scroll_Y();
+            Coordinate_Type Get_Scroll_Top();
+            Coordinate_Type Get_Scroll_Left();
+            Coordinate_Type Get_Scroll_Right();
+            Coordinate_Type Get_Scroll_Bottom();
 
             // - - - Border
             Color_Type Get_Style_Border_Color(Part_Type Part);

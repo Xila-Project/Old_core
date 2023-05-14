@@ -11,7 +11,8 @@
 #include "Software/Shell/Shell.hpp"
 
 Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
-{}
+{
+}
 
 void Shell_Class::Drawer_Class::Set_Interface()
 {
@@ -36,35 +37,37 @@ void Shell_Class::Drawer_Class::Set_Interface()
 
         for (Byte_Type i = 0; i < Handle_Count; i++)
         {
-            if (Shell_Pointer->Get_Handle() != Softwares.Get_Handle(i))
-            {
-                Container.Create(Window.Get_Body());
-                Container.Set_Size(10 * 8, 11 * 8);
-                Container.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
-                Container.Set_Style_Pad_All(0, 0);
-                Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+            if (Shell_Pointer->Get_Handle() == Softwares.Get_Handle(i))
+                continue;
 
-                Softwares.Get_Handle(i)->Get_Name(Name);
+            Container.Create(Window.Get_Body());
+            Container.Set_Size(12 * 8, 11 * 8);
+            Container.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+            Container.Set_Style_Pad_All(0, 0);
+            Container.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+            Container.Set_Flex_Flow(Flex_Flow_Type::Column);
+            Container.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
 
-                // - Set software icon (color according to it's name)
-                Icon_Container.Create(Container);
-                Icon_Container.Set_Alignment(Alignment_Type::Top_Middle);
-                Icon_Container.Add_Flag(Flag_Type::Event_Bubble);
-                Icon_Label.Create(Icon_Container);
-                Shell_Pointer->Get_Software_Icon(Icon_Container, Name);
-                
-                // - Set software label
-                Label.Create(Container, Name, Percentage(100));
-                Label.Set_Alignment(Alignment_Type::Bottom_Middle);
-                Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
-                Label.Add_Flag(Flag_Type::Event_Bubble);
-                Label.Set_Style_Text_Alignment(Text_Alignment_Type::Center, 0);
+            Softwares.Get_Handle(i)->Get_Name(Name);
 
-                Icon_Container.Clear_Pointer();
-                Icon_Label.Clear_Pointer();
-                Container.Clear_Pointer();
-                Label.Clear_Pointer();
-            }
+            // - Set software icon (color according to it's name)
+            Icon_Container.Create(Container);
+            //   Icon_Container.Set_Alignment(Alignment_Type::Top_Middle);
+            Icon_Container.Add_Flag(Flag_Type::Event_Bubble);
+            Icon_Label.Create(Icon_Container);
+            Shell_Pointer->Get_Software_Icon(Icon_Container, Name);
+
+            // - Set software label
+            Label.Create(Container, Name, Percentage(100));
+            //   Label.Set_Alignment(Alignment_Type::Bottom_Middle);
+            Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
+            Label.Add_Flag(Flag_Type::Event_Bubble);
+            Label.Set_Style_Text_Alignment(Text_Alignment_Type::Center, 0);
+
+            Icon_Container.Clear_Pointer();
+            Icon_Label.Clear_Pointer();
+            Container.Clear_Pointer();
+            Label.Clear_Pointer();
         }
     }
 }
@@ -78,17 +81,26 @@ void Shell_Class::Drawer_Class::Execute_Instruction(const Instruction_Type &Inst
 {
     if (Instruction.Get_Sender() == &Graphics)
     {
+        using namespace Graphics_Types;
         switch (Instruction.Graphics.Get_Code())
         {
         case Graphics_Types::Event_Code_Type::Clicked:
         {
-            Graphics_Types::Object_Type Target = Instruction.Graphics.Get_Current_Target(); // Get icon container
-            Size_Type Child_Count = Window.Get_Body().Get_Child_Count();
-            for (uint8_t i = 0; i < Child_Count; i++)
+            Object_Type Current_Target = Instruction.Graphics.Get_Current_Target(); // Get icon container
+            Size_Type Child_Index = Window.Get_Body().Get_Child_Index(Current_Target);              // Get icon container index
+            uint8_t Handle_Count = Softwares.Get_Handle_Count();
+            for (uint8_t j = 0; j < Softwares.Get_Handle_Count(); j++)
             {
-                if (Target == Window.Get_Body().Get_Child(i))
+                if (Shell_Pointer->Get_Handle() == Softwares.Get_Handle(j))
                 {
-                    Softwares.Get_Handle(i)->Create_Instance(Shell_Pointer->Get_Owner_User());
+                    j++;
+                    Child_Index++;
+                }
+
+                if (Child_Index == j)
+                {
+                    Softwares.Get_Handle(j)->Create_Instance(Shell_Pointer->Get_Owner_User());
+                    Shell_Pointer->Desk.Refresh();
                     Close();
                     break;
                 }

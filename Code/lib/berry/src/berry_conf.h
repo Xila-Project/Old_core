@@ -25,7 +25,7 @@
  * type when the value is 2.
  * Default: 2
  */
-#define BE_INTGER_TYPE                  2
+#define BE_INTGER_TYPE                  0
 
 /* Macro: BE_USE_SINGLE_FLOAT
  * Select floating point precision.
@@ -168,7 +168,7 @@
  * Berry debug hook switch.
  * Default: 0
  **/
-#define BE_USE_DEBUG_HOOK               1
+#define BE_USE_DEBUG_HOOK               0
 
 /* Macro: BE_USE_DEBUG_GC
  * Enable GC debug mode. This causes an actual gc after each
@@ -204,6 +204,7 @@
 #define BE_USE_SOLIDIFY_MODULE          1
 #define BE_USE_INTROSPECT_MODULE        1
 #define BE_USE_STRICT_MODULE            1
+
 
 /* Macro: BE_EXPLICIT_XXX
  * If these macros are defined, the corresponding function will

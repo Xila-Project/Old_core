@@ -7,20 +7,27 @@ extern "C"
 
 using namespace Xila_Namespace;
 
-void *Berry_Instruction_Class_Initialize(Module_Class *Sender = NULL, Module_Class *Receiver = NULL)
+void *Berry_Instruction_Class_Initialize(bvm* V, Module_Class *Sender = NULL, Module_Class *Receiver = NULL)
 {
+    void* Pointer = be_malloc(V, sizeof(Instruction_Class));
     if ((Sender == NULL) && (Receiver == NULL))
-        return new Instruction_Class();
+        Pointer = new (Pointer) Instruction_Class();
     else
-        return new Instruction_Class(Sender, Receiver);
-}
-BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Initialize, "+_p", "[..");
+        Pointer = new (Pointer) Instruction_Class(Sender, Receiver);
 
-void Berry_Instruction_Class_Deinitialize(Instruction_Class *Instruction)
-{
-    delete Instruction;
+    Log_Verbose("Instruction", "Initialize instruction : %p / %p / %p", Pointer, Sender, Receiver);
+    
+    return Pointer;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Deinitialize, "", ".");
+
+BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Initialize, "+_p", "@[..");
+
+void Berry_Instruction_Class_Deinitialize(bvm* V, Instruction_Class *Instruction)
+{
+    Log_Verbose("Instruction", "Deinitialize : %p", Instruction);
+    be_free(V, Instruction, sizeof(Instruction_Class));
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Deinitialize, "", "@.");
 
 void Berry_Instruction_Class_Set_Sender(Instruction_Class *Instruction, Module_Class *Sender)
 {
@@ -38,13 +45,13 @@ void *Berry_Instruction_Class_Get_Sender(Instruction_Class *Instruction)
 {
     return Instruction->Get_Sender();
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Get_Sender, "Module_Type", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Get_Sender, "c", ".");
 
-Void *Berry_Instruction_Class_Get_Receiver(Instruction_Class *Instruction)
+void *Berry_Instruction_Class_Get_Receiver(Instruction_Class *Instruction)
 {
     return Instruction->Get_Receiver();
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Get_Receiver, "Module_Type", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Get_Receiver, "c", ".");
 
 int Berry_Instruction_Class_Graphics_Get_Code(Instruction_Class *Instruction)
 {
@@ -52,21 +59,21 @@ int Berry_Instruction_Class_Graphics_Get_Code(Instruction_Class *Instruction)
 }
 BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Graphics_Get_Code, "i", ".");
 
-void *Berry_Instruction_Class_Graphics_Get_Target(Instruction_Class *Instruction)
+void *Berry_Instruction_Class_Graphics_Get_Target(bvm* V, Instruction_Class *Instruction)
 {
-    Graphics_Types::Object_Type *Object = new Graphics_Types::Object_Type();
-    *Object = Instruction->Graphics.Get_Target();
-    return Object;
+    Graphics_Types::Object_Type *Pointer = (Graphics_Types::Object_Type *)be_malloc(V, sizeof(Graphics_Types::Object_Type));
+    Log_Verbose("Instruction", "Get target : %p", Pointer);
+    return new (Pointer) Graphics_Types::Object_Type(Instruction->Graphics.Get_Target());
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Graphics_Get_Target, "Graphics.Object_Type", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Graphics_Get_Target, "Graphics.Object_Type", "@.");
 
-void *Berry_Instruction_Class_Graphics_Get_Current_Target(Instruction_Class *Instruction)
+void *Berry_Instruction_Class_Graphics_Get_Current_Target(bvm* V, Instruction_Class *Instruction)
 {
-    Graphics_Types::Object_Type *Object = new Graphics_Types::Object_Type();
-    *Object = Instruction->Graphics.Get_Current_Target();
-    return Object;
+    Graphics_Types::Object_Type *Pointer = (Graphics_Types::Object_Type *)be_malloc(V, sizeof(Graphics_Types::Object_Type));
+    Log_Verbose("Instruction", "Get current target : %p", Pointer);
+    return new (Pointer) Graphics_Types::Object_Type(Instruction->Graphics.Get_Current_Target());
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Graphics_Get_Current_Target, "Graphics.Object_Type", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_Instruction_Class_Graphics_Get_Current_Target, "Graphics.Object_Type", "@.");
 
 int Berry_Instruction_Class_Softwares_Get_Code(Instruction_Class *Instruction)
 {

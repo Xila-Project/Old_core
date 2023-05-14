@@ -16,6 +16,11 @@
 
 namespace Xila_Namespace
 {
+    enum class Text_Area_Cursor_Position_Type
+    {
+        Last = LV_TEXTAREA_CURSOR_LAST
+    };
+
     namespace Graphics_Types
     {
         typedef class Text_Area_Class : public Object_Class

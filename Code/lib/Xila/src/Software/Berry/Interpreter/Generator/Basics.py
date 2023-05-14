@@ -42,6 +42,9 @@ def Is_Declarated_Type(Declaration):
 def Get_Name(Declaration):
     return Declaration.name
 
+def Is_Function_Pointer(Declaration):
+    return Declarations.is_calldef_pointer(Declaration)
+
 def Get_Return_Type(Declaration):
     
     #print("For : ", Get_Name(Declaration), " return type : ", str(Declaration.return_type))

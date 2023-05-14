@@ -9,144 +9,372 @@ using namespace Xila_Namespace;
 using namespace Pin_Types;
 
 // - Functions
-void Berry_Pin_Class_Set_Mode_1DED5378_1A6C_4EF8_936B_5879285E8ABC(int A_0, int A_1)
+
+// - - Constructors
+
+// - - Destructors
+void Berry_Serial_Class_Deinitialize_DDA1971D_6371_4BD5_93D4_34B9832136F6(bvm* V, Xila_Namespace::Pin_Types::Serial_Class* I)
+{
+if (!I) { return; }
+I->~Serial_Class();
+be_free(V, I, sizeof(Pin_Types::Serial_Class));
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Deinitialize_DDA1971D_6371_4BD5_93D4_34B9832136F6, "", "@.");
+
+
+// - - Functions
+void Berry_Serial_Class_Begin_B16E115E_ACCB_4C69_913A_2A576778E943(Xila_Namespace::Pin_Types::Serial_Class* I, int A_0, int A_1 = (int)Xila_Namespace::Pin_Types::Serial_Configuration_Type::Data_8_Bits, int A_2 = -1, int A_3 = -1, bool A_4 = false, int A_5 = 20000)
+{
+return I->Begin((long unsigned int)A_0, (Serial_Configuration_Type)A_1, (signed char)A_2, (signed char)A_3, A_4, (long unsigned int)A_5); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Begin_B16E115E_ACCB_4C69_913A_2A576778E943, "", ".i[iiibi");
+
+void Berry_Serial_Class_End_335F0E95_E37D_4C00_AC01_313CA88F8FDE(Xila_Namespace::Pin_Types::Serial_Class* I)
+{
+return I->End(); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_End_335F0E95_E37D_4C00_AC01_313CA88F8FDE, "", ".");
+
+int Berry_Serial_Class_Available_9E6F7B53_5F5A_4B49_B076_C03DA29BBF9E(Xila_Namespace::Pin_Types::Serial_Class* I)
+{
+return (int)I->Available(); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Available_9E6F7B53_5F5A_4B49_B076_C03DA29BBF9E, "i", ".");
+
+int Berry_Serial_Class_Available_For_Write_35BF0607_40B1_4754_9B53_2328BDB3CFA9(Xila_Namespace::Pin_Types::Serial_Class* I)
+{
+return (int)I->Available_For_Write(); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Available_For_Write_35BF0607_40B1_4754_9B53_2328BDB3CFA9, "i", ".");
+
+int Berry_Serial_Class_Peek_1D2DFC97_31B6_4CA1_9233_0F2B12F1E142(Xila_Namespace::Pin_Types::Serial_Class* I)
+{
+return (int)I->Peek(); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Peek_1D2DFC97_31B6_4CA1_9233_0F2B12F1E142, "i", ".");
+
+int Berry_Serial_Class_Read_98939C55_E62E_4162_B2C6_E5B61D152651(Xila_Namespace::Pin_Types::Serial_Class* I)
+{
+return (int)I->Read(); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Read_98939C55_E62E_4162_B2C6_E5B61D152651, "i", ".");
+
+const unsigned char* Berry_Serial_Class_Read_Bytes_A4733588_957C_440F_B0C9_01DB32E00C8C(bvm* V, Xila_Namespace::Pin_Types::Serial_Class* I, int A_1)
+{
+unsigned char* S_0 = (unsigned char*)Berry_Class::Get_Instance(V)->Buffer;
+I->Read_Bytes(S_0, (A_1 > sizeof(Berry_Class::Buffer)) ? sizeof(Berry_Class::Buffer) : A_1); 
+return S_0;
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Read_Bytes_A4733588_957C_440F_B0C9_01DB32E00C8C, "s", "@.i");
+
+const char* Berry_Serial_Class_Read_String_33C50D4B_D96B_42A0_A26B_E7F2FA98160A(bvm* V, Xila_Namespace::Pin_Types::Serial_Class* I)
+{
+String_Type S_0;
+S_0.Set_Buffer((char*)Berry_Class::Get_Instance(V)->Buffer, sizeof(Berry_Class::Buffer));
+I->Read_String(S_0); 
+return S_0;
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Read_String_33C50D4B_D96B_42A0_A26B_E7F2FA98160A, "s", "@.");
+
+void Berry_Serial_Class_Flush_A3C016A4_E35B_47D9_B562_699A5E58EA07(Xila_Namespace::Pin_Types::Serial_Class* I)
+{
+return I->Flush(); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Flush_A3C016A4_E35B_47D9_B562_699A5E58EA07, "", ".");
+
+int Berry_Serial_Class_Write_8A14E16B_B8EA_4284_AC55_FE35BBB1AE37(Xila_Namespace::Pin_Types::Serial_Class* I, int A_0)
+{
+return (int)I->Write((unsigned char)A_0); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Write_8A14E16B_B8EA_4284_AC55_FE35BBB1AE37, "i", ".i");
+
+int Berry_Serial_Class_Write_Bytes_DD93D045_166B_4CB2_B64B_447DEC718466(Xila_Namespace::Pin_Types::Serial_Class* I, const unsigned char* A_0, int A_1)
+{
+return (int)I->Write_Bytes(A_0, (unsigned int)A_1); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Write_Bytes_DD93D045_166B_4CB2_B64B_447DEC718466, "i", ".si");
+
+const char* Berry_Serial_Class_Write_String_3BDCC18D_4B5B_4F62_818D_041577BA6E7E(bvm* V, Xila_Namespace::Pin_Types::Serial_Class* I)
+{
+String_Type S_0;
+S_0.Set_Buffer((char*)Berry_Class::Get_Instance(V)->Buffer, sizeof(Berry_Class::Buffer));
+I->Write_String(S_0); 
+return S_0;
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Write_String_3BDCC18D_4B5B_4F62_818D_041577BA6E7E, "s", "@.");
+
+void Berry_Serial_Class_Set_Baud_Rate_395C3E2C_D79B_40D3_AB9C_C9881832889D(Xila_Namespace::Pin_Types::Serial_Class* I, int A_0)
+{
+return I->Set_Baud_Rate((long unsigned int)A_0); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Set_Baud_Rate_395C3E2C_D79B_40D3_AB9C_C9881832889D, "", ".i");
+
+int Berry_Serial_Class_Set_Pins_E46C8243_E436_48DD_9A14_453331C766BA(Xila_Namespace::Pin_Types::Serial_Class* I, int A_0, int A_1, int A_2 = -1, int A_3 = -1)
+{
+return (int)I->Set_Pins((signed char)A_0, (signed char)A_1, (signed char)A_2, (signed char)A_3); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Set_Pins_E46C8243_E436_48DD_9A14_453331C766BA, "i", ".ii[ii");
+
+int Berry_Serial_Class_Set_Hardware_Flow_Control_8DE62A4B_036D_4AB4_ACE8_B77DA7C6A795(Xila_Namespace::Pin_Types::Serial_Class* I, bool A_0, bool A_1 = false, bool A_2 = false, int A_3 = 64)
+{
+return (int)I->Set_Hardware_Flow_Control(A_0, A_1, A_2, (signed char)A_3); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Set_Hardware_Flow_Control_8DE62A4B_036D_4AB4_ACE8_B77DA7C6A795, "i", ".b[bbi");
+
+int Berry_Serial_Class_Set_Mode_20DFA4A8_D0AD_485F_B2F9_16E26557543E(Xila_Namespace::Pin_Types::Serial_Class* I, int A_0)
+{
+return (int)I->Set_Mode((Serial_Mode_Type)A_0); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Set_Mode_20DFA4A8_D0AD_485F_B2F9_16E26557543E, "i", ".i");
+
+int Berry_Serial_Class_Set_Receive_Buffer_Size_5602D4E9_A815_422F_ABD0_46F552F21079(Xila_Namespace::Pin_Types::Serial_Class* I, int A_0)
+{
+return (int)I->Set_Receive_Buffer_Size((unsigned int)A_0); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Set_Receive_Buffer_Size_5602D4E9_A815_422F_ABD0_46F552F21079, "i", ".i");
+
+int Berry_Serial_Class_Set_Transmit_Buffer_Size_00044BDD_8231_42CA_A2F0_D1A7198CB68F(Xila_Namespace::Pin_Types::Serial_Class* I, int A_0)
+{
+return (int)I->Set_Transmit_Buffer_Size((unsigned int)A_0); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Set_Transmit_Buffer_Size_00044BDD_8231_42CA_A2F0_D1A7198CB68F, "i", ".i");
+
+void Berry_Serial_Class_Set_Receive_Invert_FFE4AAA9_E8B3_4D2B_B5A6_3D78236FE89D(Xila_Namespace::Pin_Types::Serial_Class* I, bool A_0)
+{
+return I->Set_Receive_Invert(A_0); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Set_Receive_Invert_FFE4AAA9_E8B3_4D2B_B5A6_3D78236FE89D, "", ".b");
+
+int Berry_Serial_Class_Get_Baud_Rate_FFEFD16C_BAAE_4B86_9B3C_AF479C5877FA(Xila_Namespace::Pin_Types::Serial_Class* I)
+{
+return (int)I->Get_Baud_Rate(); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Serial_Class_Get_Baud_Rate_FFEFD16C_BAAE_4B86_9B3C_AF479C5877FA, "i", ".");
+
+// - - Operators
+
+// - Berry declaration
+/* @const_object_info_begin
+class Berry_Serial_Type(scope:global, name:Serial_Type)
+{
+	_p, var
+	deinit, ctype_func(Berry_Serial_Class_Deinitialize_DDA1971D_6371_4BD5_93D4_34B9832136F6)
+	Begin, ctype_func(Berry_Serial_Class_Begin_B16E115E_ACCB_4C69_913A_2A576778E943)
+	End, ctype_func(Berry_Serial_Class_End_335F0E95_E37D_4C00_AC01_313CA88F8FDE)
+	Available, ctype_func(Berry_Serial_Class_Available_9E6F7B53_5F5A_4B49_B076_C03DA29BBF9E)
+	Available_For_Write, ctype_func(Berry_Serial_Class_Available_For_Write_35BF0607_40B1_4754_9B53_2328BDB3CFA9)
+	Peek, ctype_func(Berry_Serial_Class_Peek_1D2DFC97_31B6_4CA1_9233_0F2B12F1E142)
+	Read, ctype_func(Berry_Serial_Class_Read_98939C55_E62E_4162_B2C6_E5B61D152651)
+	Read_Bytes, ctype_func(Berry_Serial_Class_Read_Bytes_A4733588_957C_440F_B0C9_01DB32E00C8C)
+	Read_String, ctype_func(Berry_Serial_Class_Read_String_33C50D4B_D96B_42A0_A26B_E7F2FA98160A)
+	Flush, ctype_func(Berry_Serial_Class_Flush_A3C016A4_E35B_47D9_B562_699A5E58EA07)
+	Write, ctype_func(Berry_Serial_Class_Write_8A14E16B_B8EA_4284_AC55_FE35BBB1AE37)
+	Write_Bytes, ctype_func(Berry_Serial_Class_Write_Bytes_DD93D045_166B_4CB2_B64B_447DEC718466)
+	Write_String, ctype_func(Berry_Serial_Class_Write_String_3BDCC18D_4B5B_4F62_818D_041577BA6E7E)
+	Set_Baud_Rate, ctype_func(Berry_Serial_Class_Set_Baud_Rate_395C3E2C_D79B_40D3_AB9C_C9881832889D)
+	Set_Pins, ctype_func(Berry_Serial_Class_Set_Pins_E46C8243_E436_48DD_9A14_453331C766BA)
+	Set_Hardware_Flow_Control, ctype_func(Berry_Serial_Class_Set_Hardware_Flow_Control_8DE62A4B_036D_4AB4_ACE8_B77DA7C6A795)
+	Set_Mode, ctype_func(Berry_Serial_Class_Set_Mode_20DFA4A8_D0AD_485F_B2F9_16E26557543E)
+	Set_Receive_Buffer_Size, ctype_func(Berry_Serial_Class_Set_Receive_Buffer_Size_5602D4E9_A815_422F_ABD0_46F552F21079)
+	Set_Transmit_Buffer_Size, ctype_func(Berry_Serial_Class_Set_Transmit_Buffer_Size_00044BDD_8231_42CA_A2F0_D1A7198CB68F)
+	Set_Receive_Invert, ctype_func(Berry_Serial_Class_Set_Receive_Invert_FFE4AAA9_E8B3_4D2B_B5A6_3D78236FE89D)
+	Get_Baud_Rate, ctype_func(Berry_Serial_Class_Get_Baud_Rate_FFEFD16C_BAAE_4B86_9B3C_AF479C5877FA)
+
+}
+@const_object_info_end */
+
+
+extern "C"
+{
+	#include "../generate/be_fixed_Berry_Serial_Type.h"
+}
+// - Functions
+void Berry_Pin_Class_Set_Mode_15A7D866_73A4_48E7_A987_4C48535224E7(int A_0, int A_1)
 {
 return Pin.Set_Mode((unsigned char)A_0, (Mode_Type)A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Mode_1DED5378_1A6C_4EF8_936B_5879285E8ABC, "", "ii");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Mode_15A7D866_73A4_48E7_A987_4C48535224E7, "", "ii");
 
 
-int Berry_Pin_Class_Valid_Output_Pin_7C9A45D0_ACCE_483C_9E75_099185A269D3(int A_0)
+int Berry_Pin_Class_Valid_Output_Pin_DC2574B3_0DA0_4AC2_AA91_27202D47A3EA(int A_0)
 {
 return (int)Pin.Valid_Output_Pin((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Valid_Output_Pin_7C9A45D0_ACCE_483C_9E75_099185A269D3, "i", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Valid_Output_Pin_DC2574B3_0DA0_4AC2_AA91_27202D47A3EA, "i", "i");
 
 
-void Berry_Pin_Class_Digital_Write_C562A786_6BB0_4E12_95F2_95ACD82EEB00(int A_0, int A_1)
+void Berry_Pin_Class_Digital_Write_01B50737_6628_4FFC_8DBF_E56536E8117A(int A_0, int A_1)
 {
 return Pin.Digital_Write((unsigned char)A_0, (Digital_State_Type)A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Digital_Write_C562A786_6BB0_4E12_95F2_95ACD82EEB00, "", "ii");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Digital_Write_01B50737_6628_4FFC_8DBF_E56536E8117A, "", "ii");
 
 
-int Berry_Pin_Class_Digital_Read_CF1CE1FC_8DA5_4B6A_A390_528A4F445DC6(int A_0)
+int Berry_Pin_Class_Digital_Read_18770B95_1E1E_46EE_B007_E5162A4246F7(int A_0)
 {
 return (int)Pin.Digital_Read((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Digital_Read_CF1CE1FC_8DA5_4B6A_A390_528A4F445DC6, "i", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Digital_Read_18770B95_1E1E_46EE_B007_E5162A4246F7, "i", "i");
 
 
-int Berry_Pin_Class_Valid_Digital_Pin_C9056EE2_9787_4544_A8A5_AEA1058A8F09(int A_0)
+int Berry_Pin_Class_Valid_Digital_Pin_D97E3501_EF62_48A4_8CC3_20B0543DCDDE(int A_0)
 {
 return (int)Pin.Valid_Digital_Pin((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Valid_Digital_Pin_C9056EE2_9787_4544_A8A5_AEA1058A8F09, "i", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Valid_Digital_Pin_D97E3501_EF62_48A4_8CC3_20B0543DCDDE, "i", "i");
 
 
-int Berry_Pin_Class_Analog_Read_634C18C0_0166_444E_A416_1E994ABD6134(int A_0)
+int Berry_Pin_Class_Get_Pulse_In_F11645E9_969D_400C_8AB1_F9B9A17C4F5B(int A_0, int A_1, int A_2 = 1000000)
+{
+return (int)Pin.Get_Pulse_In((unsigned char)A_0, (Digital_State_Type)A_1, (unsigned int)A_2); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Get_Pulse_In_F11645E9_969D_400C_8AB1_F9B9A17C4F5B, "i", "ii[i");
+
+
+int Berry_Pin_Class_Analog_Read_BB9AFF2F_A08B_467D_A196_F07F613D3478(int A_0)
 {
 return (int)Pin.Analog_Read((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Analog_Read_634C18C0_0166_444E_A416_1E994ABD6134, "i", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Analog_Read_BB9AFF2F_A08B_467D_A196_F07F613D3478, "i", "i");
 
 
-int Berry_Pin_Class_Analog_Read_Milli_Volts_BC3E77EC_C927_4793_936F_06A19C19092F(int A_0)
+int Berry_Pin_Class_Analog_Read_Milli_Volts_6DD91174_6C79_41FD_AF5D_8997EB48DE7C(int A_0)
 {
 return (int)Pin.Analog_Read_Milli_Volts((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Analog_Read_Milli_Volts_BC3E77EC_C927_4793_936F_06A19C19092F, "i", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Analog_Read_Milli_Volts_6DD91174_6C79_41FD_AF5D_8997EB48DE7C, "i", "i");
 
 
-void Berry_Pin_Class_Set_Voltage_Reference_Pin_369B93B4_556D_417D_BB8B_AB7698334B3C(int A_0)
+void Berry_Pin_Class_Set_Voltage_Reference_Pin_3BC43961_597B_4D4A_AC13_27C1C0D178C1(int A_0)
 {
 return Pin.Set_Voltage_Reference_Pin((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Voltage_Reference_Pin_369B93B4_556D_417D_BB8B_AB7698334B3C, "", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Voltage_Reference_Pin_3BC43961_597B_4D4A_AC13_27C1C0D178C1, "", "i");
 
 
-void Berry_Pin_Class_Set_Read_Resolutions_B1D1761B_48D5_4677_9734_977034C66FE9(int A_0)
+void Berry_Pin_Class_Set_Read_Resolutions_71098371_36AD_4DE9_BCA4_C49958918C8B(int A_0)
 {
 return Pin.Set_Read_Resolutions((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Read_Resolutions_B1D1761B_48D5_4677_9734_977034C66FE9, "", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Read_Resolutions_71098371_36AD_4DE9_BCA4_C49958918C8B, "", "i");
 
 
-void Berry_Pin_Class_Set_Width_6F199650_E9B3_4A81_A122_F767F2A19DB9(int A_0)
+void Berry_Pin_Class_Set_Width_ABCFC1B0_51E6_4AE6_8511_BEA33D643CB5(int A_0)
 {
 return Pin.Set_Width((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Width_6F199650_E9B3_4A81_A122_F767F2A19DB9, "", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Width_ABCFC1B0_51E6_4AE6_8511_BEA33D643CB5, "", "i");
 
 
-void Berry_Pin_Class_Set_Clock_Divider_67753FF8_C579_4CD6_BFCF_C92F0922A260(int A_0)
+void Berry_Pin_Class_Set_Clock_Divider_BE1ED09A_4C16_4BB3_8A64_FF2DA0D7E867(int A_0)
 {
 return Pin.Set_Clock_Divider((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Clock_Divider_67753FF8_C579_4CD6_BFCF_C92F0922A260, "", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Clock_Divider_BE1ED09A_4C16_4BB3_8A64_FF2DA0D7E867, "", "i");
 
 
-void Berry_Pin_Class_Set_Attenuation_2ECF82E0_3C39_4359_ACB5_0FE00196BC36(int A_0)
+void Berry_Pin_Class_Set_Attenuation_26B5CAAE_7AD2_4217_BFB6_8DC691CE0F0C(int A_0)
 {
 return Pin.Set_Attenuation((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Attenuation_2ECF82E0_3C39_4359_ACB5_0FE00196BC36, "", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Attenuation_26B5CAAE_7AD2_4217_BFB6_8DC691CE0F0C, "", "i");
 
 
-void Berry_Pin_Class_Set_Attenuation_6B240C5A_0F3E_4797_A203_754C70BE75B5(int A_0, int A_1)
+void Berry_Pin_Class_Set_Attenuation_ADCF2F1F_076A_458A_AC1D_9499A38B529F(int A_0, int A_1)
 {
 return Pin.Set_Attenuation((unsigned char)A_0, (unsigned char)A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Attenuation_6B240C5A_0F3E_4797_A203_754C70BE75B5, "", "ii");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Set_Attenuation_ADCF2F1F_076A_458A_AC1D_9499A38B529F, "", "ii");
+
+
+void Berry_Pin_Class_Attach_Interrupt_D6A24BCE_5914_430F_ADA8_1197EAE80F8E(int A_0, void (*  A_1)(  ), int A_2)
+{
+return Pin.Attach_Interrupt((unsigned char)A_0, A_1, (Interrupt_Mode_Type)A_2); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Attach_Interrupt_D6A24BCE_5914_430F_ADA8_1197EAE80F8E, "", "i^^i");
 
 
 
-
-void Berry_Pin_Class_Detach_Interrupt_BCBAC674_D5A5_4754_9692_EA4A5F7504EA(int A_0)
+void Berry_Pin_Class_Detach_Interrupt_F6C1DC43_3C3B_414C_B329_3812B71CDA5D(int A_0)
 {
 return Pin.Detach_Interrupt((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Detach_Interrupt_BCBAC674_D5A5_4754_9692_EA4A5F7504EA, "", "i");
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Detach_Interrupt_F6C1DC43_3C3B_414C_B329_3812B71CDA5D, "", "i");
 
 
 void* Berry_Pin_Class_Get_Pointer()
 {
-	return &Pin;
+	return (Module_Type*)&Pin;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Get_Pointer, "Module_Type", "")
+BE_FUNC_CTYPE_DECLARE(Berry_Pin_Class_Get_Pointer, "c", "")
 
 // - Berry declaration
 /* @const_object_info_begin
 module Pin (scope:global)
 {
-	Set_Mode, ctype_func(Berry_Pin_Class_Set_Mode_1DED5378_1A6C_4EF8_936B_5879285E8ABC)
-	Valid_Output_Pin, ctype_func(Berry_Pin_Class_Valid_Output_Pin_7C9A45D0_ACCE_483C_9E75_099185A269D3)
-	Digital_Write, ctype_func(Berry_Pin_Class_Digital_Write_C562A786_6BB0_4E12_95F2_95ACD82EEB00)
-	Digital_Read, ctype_func(Berry_Pin_Class_Digital_Read_CF1CE1FC_8DA5_4B6A_A390_528A4F445DC6)
-	Valid_Digital_Pin, ctype_func(Berry_Pin_Class_Valid_Digital_Pin_C9056EE2_9787_4544_A8A5_AEA1058A8F09)
-	Analog_Read, ctype_func(Berry_Pin_Class_Analog_Read_634C18C0_0166_444E_A416_1E994ABD6134)
-	Analog_Read_Milli_Volts, ctype_func(Berry_Pin_Class_Analog_Read_Milli_Volts_BC3E77EC_C927_4793_936F_06A19C19092F)
-	Set_Voltage_Reference_Pin, ctype_func(Berry_Pin_Class_Set_Voltage_Reference_Pin_369B93B4_556D_417D_BB8B_AB7698334B3C)
-	Set_Read_Resolutions, ctype_func(Berry_Pin_Class_Set_Read_Resolutions_B1D1761B_48D5_4677_9734_977034C66FE9)
-	Set_Width, ctype_func(Berry_Pin_Class_Set_Width_6F199650_E9B3_4A81_A122_F767F2A19DB9)
-	Set_Clock_Divider, ctype_func(Berry_Pin_Class_Set_Clock_Divider_67753FF8_C579_4CD6_BFCF_C92F0922A260)
-	Set_Attenuation, ctype_func(Berry_Pin_Class_Set_Attenuation_2ECF82E0_3C39_4359_ACB5_0FE00196BC36)
-	Set_Attenuation, ctype_func(Berry_Pin_Class_Set_Attenuation_6B240C5A_0F3E_4797_A203_754C70BE75B5)
-	Detach_Interrupt, ctype_func(Berry_Pin_Class_Detach_Interrupt_BCBAC674_D5A5_4754_9692_EA4A5F7504EA)
+	Set_Mode, ctype_func(Berry_Pin_Class_Set_Mode_15A7D866_73A4_48E7_A987_4C48535224E7)
+	Valid_Output_Pin, ctype_func(Berry_Pin_Class_Valid_Output_Pin_DC2574B3_0DA0_4AC2_AA91_27202D47A3EA)
+	Digital_Write, ctype_func(Berry_Pin_Class_Digital_Write_01B50737_6628_4FFC_8DBF_E56536E8117A)
+	Digital_Read, ctype_func(Berry_Pin_Class_Digital_Read_18770B95_1E1E_46EE_B007_E5162A4246F7)
+	Valid_Digital_Pin, ctype_func(Berry_Pin_Class_Valid_Digital_Pin_D97E3501_EF62_48A4_8CC3_20B0543DCDDE)
+	Get_Pulse_In, ctype_func(Berry_Pin_Class_Get_Pulse_In_F11645E9_969D_400C_8AB1_F9B9A17C4F5B)
+	Analog_Read, ctype_func(Berry_Pin_Class_Analog_Read_BB9AFF2F_A08B_467D_A196_F07F613D3478)
+	Analog_Read_Milli_Volts, ctype_func(Berry_Pin_Class_Analog_Read_Milli_Volts_6DD91174_6C79_41FD_AF5D_8997EB48DE7C)
+	Set_Voltage_Reference_Pin, ctype_func(Berry_Pin_Class_Set_Voltage_Reference_Pin_3BC43961_597B_4D4A_AC13_27C1C0D178C1)
+	Set_Read_Resolutions, ctype_func(Berry_Pin_Class_Set_Read_Resolutions_71098371_36AD_4DE9_BCA4_C49958918C8B)
+	Set_Width, ctype_func(Berry_Pin_Class_Set_Width_ABCFC1B0_51E6_4AE6_8511_BEA33D643CB5)
+	Set_Clock_Divider, ctype_func(Berry_Pin_Class_Set_Clock_Divider_BE1ED09A_4C16_4BB3_8A64_FF2DA0D7E867)
+	Set_Attenuation, ctype_func(Berry_Pin_Class_Set_Attenuation_26B5CAAE_7AD2_4217_BFB6_8DC691CE0F0C)
+	Set_Attenuation, ctype_func(Berry_Pin_Class_Set_Attenuation_ADCF2F1F_076A_458A_AC1D_9499A38B529F)
+	Attach_Interrupt, ctype_func(Berry_Pin_Class_Attach_Interrupt_D6A24BCE_5914_430F_ADA8_1197EAE80F8E)
+	Detach_Interrupt, ctype_func(Berry_Pin_Class_Detach_Interrupt_F6C1DC43_3C3B_414C_B329_3812B71CDA5D)
 	Get_Pointer, ctype_func(Berry_Pin_Class_Get_Pointer)
+
+	Serial_Type, class(Berry_Serial_Type)
+
+	Serial_Configuration_Data_5_Bits, int(134217744)
+	Serial_Configuration_Data_6_Bits, int(134217748)
+	Serial_Configuration_Data_7_Bits, int(134217752)
+	Serial_Configuration_Data_8_Bits, int(134217756)
+	Serial_Configuration_Data_5_Bits_2_Stop_Bits, int(134217776)
+	Serial_Configuration_Data_6_Bits_2_Stop_Bits, int(134217780)
+	Serial_Configuration_Data_7_Bits_2_Stop_Bits, int(134217784)
+	Serial_Configuration_Data_8_Bits_2_Stop_Bits, int(134217788)
+	Serial_Configuration_Data_5_Bits_Even_Parity, int(134217746)
+	Serial_Configuration_Data_6_Bits_Even_Parity, int(134217750)
+	Serial_Configuration_Data_7_Bits_Even_Parity, int(134217754)
+	Serial_Configuration_Data_8_Bits_Even_Parity, int(134217758)
+	Serial_Configuration_Data_5_Bits_Even_Parity_2_Stop_Bits, int(134217778)
+	Serial_Configuration_Data_6_Bits_Even_Parity_2_Stop_Bits, int(134217782)
+	Serial_Configuration_Data_7_Bits_Even_Parity_2_Stop_Bits, int(134217786)
+	Serial_Configuration_Data_8_Bits_Even_Parity_2_Stop_Bits, int(134217790)
+	Serial_Configuration_Data_5_Bits_Odd_Parity, int(134217747)
+	Serial_Configuration_Data_6_Bits_Odd_Parity, int(134217751)
+	Serial_Configuration_Data_7_Bits_Odd_Parity, int(134217755)
+	Serial_Configuration_Data_8_Bits_Odd_Parity, int(134217759)
+	Serial_Configuration_Data_5_Bits_Odd_Parity_2_Stop_Bits, int(134217779)
+	Serial_Configuration_Data_6_Bits_Odd_Parity_2_Stop_Bits, int(134217783)
+	Serial_Configuration_Data_7_Bits_Odd_Parity_2_Stop_Bits, int(134217787)
+	Serial_Configuration_Data_8_Bits_Odd_Parity_2_Stop_Bits, int(134217791)
+
+	Serial_Mode_Regular, int(0)
+	Serial_Mode_RS485_Half_Duplex, int(1)
+	Serial_Mode_IRDA, int(2)
+	Serial_Mode_RS485_Collision_Detect, int(3)
+	Serial_Mode_RS485_Custom, int(4)
 
 	Digital_State_Low, int(0)
 	Digital_State_High, int(1)
 
-	Mode_Input, int(0)
-	Mode_Output, int(1)
-	Mode_Pull_Up, int(2)
-	Mode_Input_Pull_Up, int(3)
-	Mode_Pull_Down, int(4)
-	Mode_Input_Pull_Down, int(5)
-	Mode_Open_Drain, int(6)
-	Mode_Output_Open_Drain, int(7)
-	Mode_Analog, int(8)
+	Mode_Input, int(1)
+	Mode_Output, int(3)
+	Mode_Pull_Up, int(4)
+	Mode_Input_Pull_Up, int(5)
+	Mode_Pull_Down, int(8)
+	Mode_Input_Pull_Down, int(9)
+	Mode_Open_Drain, int(16)
+	Mode_Output_Open_Drain, int(18)
+	Mode_Analog, int(192)
 
 	Interrupt_Mode_Disabled, int(0)
 	Interrupt_Mode_Rising, int(1)

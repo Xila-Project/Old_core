@@ -21,9 +21,9 @@ std::vector<Software_Class *> Software_Class::List;
 ///
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
-Software_Class::Software_Class(const Software_Handle_Type *Handle_Pointer, const Accounts_Types::User_Type* Owner_User, Size_Type Main_Task_Stack_Size, Size_Type Queue_Size)
+Software_Class::Software_Class(const Software_Handle_Type& Handle_Pointer, const Accounts_Types::User_Type* Owner_User, Size_Type Main_Task_Stack_Size, Size_Type Queue_Size)
     : Module_Class(Queue_Size),
-      Main_Task(this, Start_Main_Task_Function, (const char*)Handle_Pointer->Name, Main_Task_Stack_Size, this),
+      Main_Task(this, Start_Main_Task_Function, (const char*)Handle_Pointer.Name, Main_Task_Stack_Size, this),
       Handle_Pointer(Handle_Pointer),
       Owner_User(Owner_User)
 {
@@ -54,7 +54,8 @@ Software_Class::~Software_Class() // Destructor : close
 /// @param Instance_Pointer
 void Software_Class::Start_Main_Task_Function(void *Instance_Pointer)
 {
-  static_cast<Software_Class*>(Instance_Pointer)->Main_Task.Delay(100);
+  // TODO : Find another way to wait for the constructor to initialize virtual functions -> not safe
+  static_cast<Software_Class*>(Instance_Pointer)->Main_Task.Delay(50);  // Wait for the constructor to initialize virtual functions.
   static_cast<Software_Class*>(Instance_Pointer)->Main_Task_Function();
 }
 
@@ -67,7 +68,7 @@ void Software_Class::Main_Task_Function()
 
 const Software_Handle_Type* Software_Class::Get_Handle() const
 {
-  return this->Handle_Pointer;
+  return &this->Handle_Pointer;
 }
 
 const Accounts_Types::User_Type* Software_Class::Get_Owner_User() const

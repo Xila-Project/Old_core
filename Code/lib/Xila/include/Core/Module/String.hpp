@@ -334,7 +334,7 @@ namespace Xila_Namespace
 
         /// @brief Cast the string to a boolean (return if the string is valid).
         operator bool() const;
-
+        
         /// @brief Convert and cast the string into a long real.
         explicit operator Long_Real_Type() const;
 

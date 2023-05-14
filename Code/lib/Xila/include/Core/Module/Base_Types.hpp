@@ -65,7 +65,7 @@ namespace Xila_Namespace
     typedef size_t Size_Type;
 
     /// @brief Result type.
-    enum class Result_Type
+    enum class Result_Type : Byte_Type
     {
         Error = false,
         Success = true,
@@ -73,6 +73,7 @@ namespace Xila_Namespace
         Wait,
         None
     };
+
 
     /// @brief Null pointer.
     extern void* Null;

@@ -9,6 +9,8 @@
 
 #include "Software/Berry/Berry.hpp"
 
+Berry_Class::Berry_Handle_Class Berry_Class::Handle;
+
 extern "C"
 {
 #include "berry.h"
@@ -20,25 +22,25 @@ extern "C"
 #include <string.h>
 }
 
-// - 
+// -
 
 std::vector<Berry_Class *> Berry_Class::Instances_List;
 
 char *Prompt_String;
 
-bool Berry_Class::Softwares_Handles_Loaded = false;
-
 Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User)
-    : Softwares_Types::Software_Type(&Berry_Handle, Owner_User, 8 * 1024),
+    : Softwares_Types::Software_Type(Handle, Owner_User, 8 * 1024),
       Input_String(NULL),
       Server_Task(this)
 {
     Instances_List.push_back(this);
 
+    Communication.WiFi.Station.Connect("Avrupa", "0769094509");
+
     Server_Task.Create(Start_Task_Server, "Server", 4096, this);
 }
 
-Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User, const Berry_Softwares_Handle_Class *Handle)
+Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User, const Berry_Softwares_Handle_Class &Handle)
     : Softwares_Types::Software_Type(Handle, Owner_User, 8 * 1024),
       Input_String(NULL),
       Server_Task(this)
@@ -55,27 +57,30 @@ Berry_Class::~Berry_Class()
     Instances_List.erase(std::remove(Instances_List.begin(), Instances_List.end(), this), Instances_List.end());
 }
 
-void Berry_Class::Start_Task_Server(void* Instance)
+void Berry_Class::Start_Task_Server(void *Instance)
 {
-    ((Berry_Class*)Instance)->Server_Task_Function();
+
+    ((Berry_Class *)Instance)->Server_Task_Function();
 }
 
 void Berry_Class::Server_Task_Function()
 {
+    Server.begin(80);
+
     while (1)
     {
         WiFiClient Client = Server.available();
         if (Client)
         {
             Log_Verbose("Berry", "Client connected.");
-            Drive_Types::File_Type Executable = Drive.Open("/Software/Berry/Temporary.be" , true, false, true);
+            Drive_Types::File_Type Executable = Drive.Open("/Software/Berry/Temporary.be", true, false, true);
             while (Client.connected())
             {
                 if (Client.available())
                 {
                     char Buffer[256];
                     Client.readBytes(Buffer, sizeof(Buffer));
-                    Executable.Write((uint8_t*)Buffer, sizeof(Buffer));
+                    Executable.Write((uint8_t *)Buffer, sizeof(Buffer));
                 }
             }
             Log_Verbose("Berry", "Client disconnected.");
@@ -85,9 +90,9 @@ void Berry_Class::Server_Task_Function()
     }
 }
 
-Berry_Class* Berry_Class::Get_Instance(bvm* Virtual_Machine)
+Berry_Class *Berry_Class::Get_Instance(bvm *Virtual_Machine)
 {
-    for (auto& Instance : Instances_List)
+    for (auto &Instance : Instances_List)
     {
         if (Instance->Virtual_Machine == Virtual_Machine)
             return Instance;
@@ -139,18 +144,12 @@ void Berry_Class::Main_Task_Function()
 
     Window.Create(this);
 
-    if (this->Get_Handle() == &Berry_Handle && !Softwares_Handles_Loaded)
-        Load_Softwares_Handles();
-
     Virtual_Machine_Create();
 
-    Server.begin(80);
-
-
-    Log_Verbose("Berry", "Created virtual machine : %p / %p", (Module_Class*)this, Virtual_Machine);
+    Log_Verbose("Berry", "Created virtual machine : %p / %p", (Module_Class *)this, Virtual_Machine);
 
     // - REPL
-    if (this->Get_Handle() == &Berry_Handle)
+    if (this->Get_Handle() == &Handle)
     {
 
         Log_Verbose("Berry", "Starting REPL");
@@ -173,16 +172,29 @@ void Berry_Class::Main_Task_Function()
             //   Path += Name;
             //   Path += ".Xrf";
 
-        char Prompt_String_Local[(80 + 1) * 24 + 1];
-        char Input_String[80 + 1];
+            //        char Prompt_String_Local[(80 + 1) * 24 + 1];
+            //        char Input_String[80 + 1];
+            //
+            //        Prompt_String = Prompt_String_Local;
+            //        this->Input_String = Input_String;
+            //
+            //        memset(Prompt_String, 0, (80 + 1) * 24 + 1);
+            //        memset(this->Input_String, 0, 80 + 1);
 
-        Prompt_String = Prompt_String_Local;
-        this->Input_String = Input_String;
+            Static_String_Type<32>
+                Path;
 
-        memset(Prompt_String, 0, (80 + 1) * 24 + 1);
-        memset(this->Input_String, 0, 80 + 1);
-    
-        if (Virtual_Machine_Load_File("/a.be") != Result_Type::Success)
+        Path = Software_Directory_Path;
+        Path += "/";
+        {
+            Static_String_Type<24> Name;
+            Path += Get_Handle()->Get_Name(Name);
+        }
+        Path += "/Main.be";
+
+        Log_Verbose("Berry", "Loading file : %s", (const char *)Path);
+
+        if (Virtual_Machine_Load_File(Path) != Result_Type::Success)
         {
             Log_Verbose("Berry", "Failed to load file");
             // TODO : Add dialog to show the error.
@@ -191,21 +203,21 @@ void Berry_Class::Main_Task_Function()
 
         if (Call(0) != Result_Type::Success)
         {
+
             // TODO : Add dialog
         }
 
-        Prompt_String = NULL;
-        this->Input_String = NULL;
+        //      Prompt_String = NULL;
+        //      this->Input_String = NULL;
     }
 
     delete this;
 }
 
-
 void Berry_Class::Virtual_Machine_Create()
 {
     Virtual_Machine = be_vm_new();
-    be_set_ctype_func_hanlder(Virtual_Machine, be_call_ctype_func);    
+    be_set_ctype_func_hanlder(Virtual_Machine, be_call_ctype_func);
 }
 
 void Berry_Class::Virtual_Machine_Delete()
@@ -213,56 +225,45 @@ void Berry_Class::Virtual_Machine_Delete()
     be_vm_delete(Virtual_Machine);
 }
 
-
-
 void Berry_Class::Load_Softwares_Handles()
 {
-    if (Softwares_Handles_Loaded)
-        return;
+    using namespace Drive_Types;
 
-    Drive_Types::File_Type Softwares_Folder = Drive.Open(Software_Directory_Path);
+    // - Waiting for System to start Drive module asynchrously.
+    while (Xila::Drive.Get_Type() == Xila::Drive_Types::Drive_Type_Type::None)
+    {
+        Task_Type::Delay_Static(100);
+    }
+
+    File_Type Softwares_Folder = Drive.Open(Software_Directory_Path);
+
     if (!Softwares_Folder)
         return;
 
     Softwares_Folder.Rewind_Directory();
 
-    Drive_Types::File_Type Software_Folder = Softwares_Folder.Open_Next_File();
+    File_Type Software_Folder = Softwares_Folder.Open_Next_File();
 
     while (Software_Folder)
     {
         if (!Software_Folder.Is_Directory())
             continue;
 
-        Static_String_Type<32> Manifest_Path = Software_Folder.Get_Path();
-        Manifest_Path += "/Manifest.Xrf";
-        Drive_Types::File_Type Manifest_File = Drive.Open(Manifest_Path);
+        Static_String_Type<64> Path;
+        Path = Software_Folder.Get_Path();
+        Path += "/Main.be";
 
-        StaticJsonDocument<512> Software_Manifest;
-        if (!Manifest_File || deserializeJson(Software_Manifest, Manifest_File) != DeserializationError::Ok)
+        Log_Verbose("Berry", "Checking software : %s", (const char *)Path);
+
+        if (Drive.Exists(Path))
         {
-            Software_Folder.Close();
-            continue;
+            Log_Verbose("Berry", "Registering : %s", (const char *)Path);
+            Softwares.Register_Handle(*new Berry_Softwares_Handle_Class(Software_Folder.Get_Name()));
         }
-
-        if (strcmp(Software_Manifest["Type"] | "", "Software") != 0)
-        {
-            Software_Folder.Close();
-            continue;
-        }
-
-        if (strcmp(Software_Manifest["Format"] | "", "Berry") != 0)
-        {
-            Software_Folder.Close();
-            continue;
-        }
-
-        new Berry_Softwares_Handle_Class(Software_Manifest["Type"] | "");
 
         Software_Folder.Close();
         Software_Folder = Softwares_Folder.Open_Next_File();
     }
-
-    Softwares_Handles_Loaded = true;
 }
 
 void Berry_Class::Virtual_Machine_Register_Function(const char *Name, bntvfunc Function)
@@ -292,5 +293,9 @@ Result_Type Berry_Class::Call(Integer_Type Argument_Count)
     Byte_Type Error = be_pcall(Virtual_Machine, Argument_Count);
     if (Error != BE_OK)
         return Result_Type::Error;
+
+    Log_Information("Berry", "Call returned : %i", Error);
+    be_getexcept(Virtual_Machine, Error);
+
     return Result_Type::Success;
 }

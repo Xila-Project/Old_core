@@ -17,7 +17,19 @@ using namespace Xila;
 
 class File_Manager_Class : public Softwares_Types::Software_Type
 {
+public:
+    static class File_Manager_Handle_Class : public Softwares_Types::Software_Handle_Class
+    {
+    public:
+        File_Manager_Handle_Class() : Softwares_Types::Software_Handle_Class("File manager"){};
 
+        void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
+        {
+            new File_Manager_Class(Owner_User);
+        };
+    } Handle;
+
+private:
     // - Methods
 
     // - - Constructors / destructor
@@ -78,18 +90,5 @@ class File_Manager_Class : public Softwares_Types::Software_Type
 
     friend class File_Manager_Handle_Class;
 };
-
-// - Types
-
-static class File_Manager_Handle_Class : public Softwares_Types::Software_Handle_Class
-{
-public:
-    File_Manager_Handle_Class() : Softwares_Types::Software_Handle_Class("File manager"){};
-
-    void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
-    {
-        new File_Manager_Class(Owner_User);
-    };
-} File_Manager_Handle;
 
 #endif

@@ -118,8 +118,8 @@ def Generate_Module(Global_Namespace, Xila_Namespace, Module_Name):
         if(Is_Function(Member)):
             Generated_File.write(Generate_Binding_Function(Member, Module_Name, True) + "\n")
 
-    Generated_File.write("void* Berry_" + Module_Name + "_Class_Get_Pointer()\n{\n\treturn &" + Module_Name + ";\n}\n")
-    Generated_File.write("BE_FUNC_CTYPE_DECLARE(Berry_" + Module_Name + "_Class_Get_Pointer, \"Module_Type\", \"\")\n")
+    Generated_File.write("void* Berry_" + Module_Name + "_Class_Get_Pointer()\n{\n\treturn (Module_Type*)&" + Module_Name + ";\n}\n")
+    Generated_File.write("BE_FUNC_CTYPE_DECLARE(Berry_" + Module_Name + "_Class_Get_Pointer, \"c\", \"\")\n")
     Add_Custom_Binding_Function("Get_Pointer", "Berry_" + Module_Name + "_Class_Get_Pointer")
 
     # Berry declaration part
@@ -241,11 +241,11 @@ shutil.copy(Berry_Callback_Module_Path, os.path.join(Temporary_Folder_Path, "be_
 
 COC_Path = os.path.join(Get_Code_Path(), "lib", "berry", "tools", "coc", "coc")
 
-Result = subprocess.run([COC_Path, '-o', 'generate', 'default', 'Temporary', '-c', 'default/berry_conf.h'], stdout=subprocess.PIPE)
+Result = subprocess.run([COC_Path, '-o', 'generate', 'default', 'Temporary', '-c', 'src/berry_conf.h'], stdout=subprocess.PIPE)
 
-
-print(Result.stdout.decode("utf-8"))
-
-print(Result.returncode)
+if Result.returncode != 0:
+    print("Error while generating berry sources : ", Result.stdout.decode("utf-8"))
+else:
+    print("Berry sources generated successfully.")
 
 shutil.rmtree(Temporary_Folder_Path, ignore_errors=True)

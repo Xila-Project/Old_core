@@ -7,17 +7,18 @@ extern "C"
 
 using namespace Xila_Namespace;
 
-void* Berry_Time_Type_Initialize(int Hour = 0, int Minute = 0, int Second = 0, int Milliseconds = 0)
+void* Berry_Time_Type_Initialize(bvm* V, int Hour = 0, int Minute = 0, int Second = 0, int Milliseconds = 0)
 {
-    return new Time_Type(Hour, Minute, Second, Milliseconds);
+    void* Pointer = be_malloc(V, sizeof(Time_Type));
+    return new (Pointer) Time_Type(Hour, Minute, Second, Milliseconds);
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Time_Type_Initialize, "+_p", "[iiii");
+BE_FUNC_CTYPE_DECLARE(Berry_Time_Type_Initialize, "+_p", "@[iiii");
 
-void Berry_Time_Type_Deinitialize(Time_Type* Time)
+void Berry_Time_Type_Deinitialize(bvm* V, Time_Type* Time)
 {
-    delete Time;
+    be_free(V, Time, sizeof(Time_Type));
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Time_Type_Deinitialize, "", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_Time_Type_Deinitialize, "", "@.");
 
 int Berry_Time_Type_Get_Hours(Time_Type* Time)
 {

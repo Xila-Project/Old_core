@@ -10,7 +10,9 @@
 
 #include "Software/File_Manager/File_Manager.hpp"
 
-File_Manager_Class::File_Manager_Class(const Accounts_Types::User_Type *Owner_User) : Software_Class(&File_Manager_Handle, Owner_User)
+File_Manager_Class::File_Manager_Handle_Class File_Manager_Class::Handle;
+
+File_Manager_Class::File_Manager_Class(const Accounts_Types::User_Type *Owner_User) : Software_Class(Handle, Owner_User)
 {
     Log_Verbose("File manager", "File manager software initialization");
 }
@@ -413,6 +415,16 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
         case Graphics_Types::Event_Code_Type::Defocused:
             Keyboard.Remove_Text_Area();
             break;
+        }
+    }
+    else if (Instruction.Get_Sender() == &Softwares)
+    {
+        using namespace Softwares_Types;
+        switch (Instruction.Softwares.Get_Code())
+        {
+            case Event_Code_Type::Close:
+                delete this;
+                break;
         }
     }
 }
