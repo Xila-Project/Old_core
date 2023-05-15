@@ -19,52 +19,94 @@ namespace Xila_Namespace
     namespace Graphics_Types
     {
 
-
         using Theme_Type = lv_theme_t;
+
+        /// @brief Enumerate all the available symbols (for Berry compatibility)
+        enum class Symbol_Code_Type
+        {
+            Audio,
+            Video,
+            List,
+            Ok,
+            Close,
+            Power,
+            Settings,
+            Home,
+            Download,
+            Drive,
+            Refresh,
+            Mute,
+            Volume_Medium,
+            Volume_Maximum,
+            Image,
+            Tint,
+            Previous,
+            Play,
+            Pause,
+            Stop,
+            Next,
+            Eject,
+            Left,
+            Right,
+            Plus,
+            Minus,
+            Eye_Open,
+            Eye_Close,
+            Warning,
+            Shuffle,
+            Up,
+            Down,
+            Loop,
+            Directory,
+            Upload,
+            Call,
+            Cut
+        };
 
         typedef class Symbol_Class
         {
         public:
-            const char Audio[4] = LV_SYMBOL_AUDIO;
-            const char Video[4] = LV_SYMBOL_VIDEO;
-            const char List[4] = LV_SYMBOL_LIST;
-            const char Ok[4] = LV_SYMBOL_OK;
-            const char Close[4] = LV_SYMBOL_CLOSE;
-            const char Power[4] = LV_SYMBOL_POWER;
-            const char Settings[4] = LV_SYMBOL_SETTINGS;
-            const char Home[4] = LV_SYMBOL_HOME;
-            const char Download[4] = LV_SYMBOL_DOWNLOAD;
-            const char Drive[4] = LV_SYMBOL_DRIVE;
-            const char Refresh[4] = LV_SYMBOL_REFRESH;
-            const char Mute[4] = LV_SYMBOL_MUTE;
-            const char Volume_Medium[4] = LV_SYMBOL_VOLUME_MID;
-            const char Volume_Maximum[4] = LV_SYMBOL_VOLUME_MAX;
-            const char Image[4] = LV_SYMBOL_IMAGE;
-            const char Tint[4] = LV_SYMBOL_TINT;
-            const char Previous[4] = LV_SYMBOL_PREV;
-            const char Play[4] = LV_SYMBOL_PLAY;
-            const char Pause[4] = LV_SYMBOL_PAUSE;
-            const char Stop[4] = LV_SYMBOL_STOP;
-            const char Next[4] = LV_SYMBOL_NEXT;
-            const char Eject[4] = LV_SYMBOL_EJECT;
-            const char Left[4] = LV_SYMBOL_LEFT;
-            const char Right[4] = LV_SYMBOL_RIGHT;
-            const char Plus[4] = LV_SYMBOL_PLUS;
-            const char Minus[4] = LV_SYMBOL_MINUS;
-            const char Eye_Open[4] = LV_SYMBOL_EYE_OPEN;
-            const char Eye_Close[4] = LV_SYMBOL_EYE_CLOSE;
-            const char Warning[4] = LV_SYMBOL_WARNING;
-            const char Shuffle[4] = LV_SYMBOL_SHUFFLE;
-            const char Up[4] = LV_SYMBOL_UP;
-            const char Down[4] = LV_SYMBOL_DOWN;
-            const char Loop[4] = LV_SYMBOL_LOOP;
-            const char Directory[4] = LV_SYMBOL_DIRECTORY;
-            const char Upload[4] = LV_SYMBOL_UPLOAD;
-            const char Call[4] = LV_SYMBOL_CALL;
-            const char Cut[4] = LV_SYMBOL_CUT;
+            static const char Audio[4];
+            static const char Video[4];
+            static const char List[4];
+            static const char Ok[4];
+            static const char Close[4];
+            static const char Power[4];
+            static const char Settings[4];
+            static const char Home[4];
+            static const char Download[4];
+            static const char Drive[4];
+            static const char Refresh[4];
+            static const char Mute[4];
+            static const char Volume_Medium[4];
+            static const char Volume_Maximum[4];
+            static const char Image[4];
+            static const char Tint[4];
+            static const char Previous[4];
+            static const char Play[4];
+            static const char Pause[4];
+            static const char Stop[4];
+            static const char Next[4];
+            static const char Eject[4];
+            static const char Left[4];
+            static const char Right[4];
+            static const char Plus[4];
+            static const char Minus[4];
+            static const char Eye_Open[4];
+            static const char Eye_Close[4];
+            static const char Warning[4];
+            static const char Shuffle[4];
+            static const char Up[4];
+            static const char Down[4];
+            static const char Loop[4];
+            static const char Directory[4];
+            static const char Upload[4];
+            static const char Call[4];
+            static const char Cut[4];
         } Symbol_Type;
 
-        enum class Part_Type {
+        enum class Part_Type
+        {
             Main = LV_PART_MAIN,                        /// < Main part of the object.
             Scrollbar = LV_PART_SCROLLBAR,              /// < Scrollbar part.
             Indicator = LV_PART_INDICATOR,              /// < Indicator part of a scrollbar.

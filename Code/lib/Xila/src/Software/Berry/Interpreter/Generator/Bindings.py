@@ -12,7 +12,7 @@ Binding_Function_Table = []
 
 # Function that convert function arguments to 
 def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
-  #  print("Binding : ", Declaration)
+    print("Binding : ", Declaration)
 
     # - Remove variadic functions
     if Declaration.has_ellipsis:    
@@ -127,7 +127,6 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                     Passed_Arguments += "(A_" + str(i) + " > sizeof(Berry_Class::Buffer)) ? sizeof(Berry_Class::Buffer)" + " : A_" + str(i)
                     Next_May_Be_Buffer_Size = False            
                     Optional_Already_Defined = False
-                    
                 else:
                     Base_Type = Get_Base_Type(Argument)
                     S += "int A_" + str(i)
@@ -170,13 +169,7 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
             Passed_Arguments += ", "
 
 
-    if S.endswith(", "):
-        S = S[:-2]
-
-
-    if Passed_Arguments.endswith(", "):
-        Passed_Arguments = Passed_Arguments[:-2]
-
+   
     # - Return
     if Is_Constructor(Declaration):
         R += "void *"
@@ -193,7 +186,10 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 ReturnD = "s"
             else:
                 R = "const void*"
-                ReturnD = "p"
+                ReturnD = "c"
+            
+            if Is_Reference_Type(Return_Type):
+                Return_Conversion = "&"
         else:
             if (Is_Boolean_Type(Return_Type)):
                 R = "bool"
@@ -216,7 +212,11 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                     ReturnD = "i"
                     Return_Conversion = "(int)"
                 elif Is_Class(Return_Type.declaration):
-                    Pre_Additional_Content += Get_Name(Return_Type.declaration) + "* R = new " + Get_Name(Return_Type.declaration) + "();\n *R = "
+                    Return_Type_Declaration = Return_Type.declaration.decl_string.replace("::Xila_Namespace::", "Xila_Namespace::")
+                    S = "bvm* V, " + S
+                    
+                    StringD = "@" + StringD
+                    Pre_Additional_Content += Return_Type_Declaration + "* R = (" + Return_Type_Declaration + "*) be_malloc(V, sizeof(" + Return_Type_Declaration + "));\n *R = "
                     ReturnD = Return_Type.declaration.decl_string.replace("_Types", "").replace("_Class", "_Type").replace("::Xila_Namespace::", "").replace("::", ".")
                     Post_Additional_Content += "return R;\n"
                     R = "void *"
@@ -225,6 +225,12 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
             else:
                 print("Unhandled return type : ", Return_Type, " type : ", type(Return_Type))
 
+
+    while S.endswith(" ") or S.endswith(","):
+        S = S[:-1]
+
+    while Passed_Arguments.endswith(",") or Passed_Arguments.endswith(" "):
+        Passed_Arguments = Passed_Arguments[:-1]
 
 
     # - Function name  

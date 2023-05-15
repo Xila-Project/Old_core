@@ -30,7 +30,7 @@ namespace Xila_Namespace
 
             Configuration_Type Get_Configuration()
             {
-                return Decoder.audioInfo();
+                return (Configuration_Type)Decoder.audioInfo();
             }
 
             operator audio_tools::AudioDecoder &()

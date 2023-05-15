@@ -70,7 +70,7 @@ void Preferences_Class::Refresh_Users()
 void Preferences_Class::Draw_Users()
 {
     using namespace Graphics_Types;
-    
+
     Users_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Users_Tab.Set_Style_Pad_All(0, 0);
     Users_Tab.Clear_Flag(Flag_Type::Scroll_Elastic);
@@ -131,6 +131,24 @@ void Preferences_Class::Draw_Users()
 
         Users_Roller.Create(Grid);
         Users_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Other_Accounts_Section_Row + 1, 2);
+
+        uint8_t User_Count = Accounts.Get_User_Count();
+        char User_List[User_Count * 24 + 1];
+        memset(User_List, 0, sizeof(User_List));
+        for (uint8_t i = 0; i < User_Count; i++)
+        {
+            auto User = Accounts.Get_User(i);
+            if (User)
+            {
+                Static_String_Type<25> Name;
+                if (User->Get_Name(Name) != "Xila")
+                {
+                    Name += "\n";
+                    strncat(User_List, (const char *)Name, sizeof(User_List));
+                }
+            }
+        }
+        Users_Roller.Set_Options(User_List, Roller_Mode_Type::Normal);
 
         Users_Delete_User_Button.Create(Grid, "Delete", 0, 0, this);
         Users_Delete_User_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Other_Accounts_Section_Row + 1, 1);

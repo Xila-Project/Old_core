@@ -232,6 +232,7 @@ void Berry_Class::Load_Softwares_Handles()
     // - Waiting for System to start Drive module asynchrously.
     while (Xila::Drive.Get_Type() == Xila::Drive_Types::Drive_Type_Type::None)
     {
+        Log_Verbose("Berry", "Waiting for Drive module to start...");
         Task_Type::Delay_Static(100);
     }
 
@@ -253,11 +254,8 @@ void Berry_Class::Load_Softwares_Handles()
         Path = Software_Folder.Get_Path();
         Path += "/Main.be";
 
-        Log_Verbose("Berry", "Checking software : %s", (const char *)Path);
-
         if (Drive.Exists(Path))
         {
-            Log_Verbose("Berry", "Registering : %s", (const char *)Path);
             Softwares.Register_Handle(*new Berry_Softwares_Handle_Class(Software_Folder.Get_Name()));
         }
 

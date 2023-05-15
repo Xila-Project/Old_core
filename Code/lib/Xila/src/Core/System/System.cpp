@@ -362,6 +362,7 @@ void System_Class::Load()
 
   this->Stop_Load_Animation(&Logo, Animation);
 
+
   if (Softwares.Start() != Result_Type::Success)
   {
     Panic_Handler(Panic_Type::Failed_To_Start_Softwares);

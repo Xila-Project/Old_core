@@ -9,6 +9,7 @@
 #ifndef Sound_Stream_Hpp_Included
 #define Sound_Stream_Hpp_Included
 
+#include "Core/Log/Log.hpp"
 #include "../Module/Module.hpp"
 #include "Configuration.hpp"
 
@@ -32,6 +33,7 @@ namespace Xila_Namespace
 
             Stream_Class(AudioStream &Stream) : Sound_Stream(Stream)
             {
+                Log_Verbose("Stream", "Sound stream created : %p", &Stream);
             }
 
             ~Stream_Class() {}
@@ -52,14 +54,14 @@ namespace Xila_Namespace
 
             virtual Configuration_Type Get_Configuration()
             {
-                return Sound_Stream.audioInfo();
+                return (Configuration_Type)Sound_Stream.audioInfo();
             }
 
             // - - Setters
 
             virtual void Set_Configuration(Configuration_Type Configuration)
             {
-                Sound_Stream.setAudioInfo(Configuration.Configuration);
+                Sound_Stream.setAudioInfo(Configuration.Configuration_Reference);
             }
 
             virtual void Set_Notify_Audio_Change(Stream_Class &Stream)

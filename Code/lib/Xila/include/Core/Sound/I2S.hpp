@@ -10,6 +10,7 @@
 #define Sound_I2S_Hpp_Included
 
 #include "Stream.hpp"
+#include "Core/Log/Log.hpp"
 
 namespace Xila_Namespace
 {
@@ -44,13 +45,14 @@ namespace Xila_Namespace
         public:
 
             I2S_Configuration_Class(const audio_tools::I2SConfig &I2S_Configuration)
-                : Configuration_Type(this->I2S_Configuration),
+                : Configuration_Type(&this->I2S_Configuration),
                   I2S_Configuration(I2S_Configuration)
             {
             }
 
             I2S_Configuration_Class(Mode_Type Mode = Mode_Type::Transmit)
-                : Configuration_Type(I2S_Configuration)
+                : Configuration_Type(&I2S_Configuration),
+                I2S_Configuration((RxTxMode)Mode)
             {
             }
 
@@ -123,6 +125,7 @@ namespace Xila_Namespace
             I2S_Class(int Mute_Pin = -1) : Stream_Type(I2S_Stream),
                                            I2S_Stream()
             {
+                Log_Verbose("Sound", "I2S class has been constructed.");
             }
 
             Result_Type Begin(I2S_Configuration_Type Configuration)

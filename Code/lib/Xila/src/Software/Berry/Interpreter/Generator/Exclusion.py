@@ -76,7 +76,8 @@ Functions = [
 "void Xila_Namespace::Pin_Class::Attach_Interrupt(uint8_t Pin, void (*)( void * ) Function_Pointer, void * Argument, Xila_Namespace::Pin_Types::Interrupt_Mode_Type Mode)",
 "void Xila_Namespace::Clipboard_Class::Copy(void const * Data, Xila_Namespace::Size_Type Data_Size)",
 "Xila_Namespace::Result_Type Xila_Namespace::Flash_Class::Partition_Read(esp_partition_t const *Partition, uint32_t Offset, uint32_t *Data, size_t Size)",
-
+"Decoder_Class(audio_tools::AudioDecoder &Decoder)",
+"Xila_Namespace::Sound_Types::Stream_Class::Stream_Class(audio_tools::AudioStream & Stream)"
 ]
 
 def Is_Function_Excluded(Function):

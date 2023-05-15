@@ -18,6 +18,45 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
+const char Symbol_Class::Audio[4] = LV_SYMBOL_AUDIO;
+const char Symbol_Class::Video[4] = LV_SYMBOL_VIDEO;
+const char Symbol_Class::List[4] = LV_SYMBOL_LIST;
+const char Symbol_Class::Ok[4] = LV_SYMBOL_OK;
+const char Symbol_Class::Close[4] = LV_SYMBOL_CLOSE;
+const char Symbol_Class::Power[4] = LV_SYMBOL_POWER;
+const char Symbol_Class::Settings[4] = LV_SYMBOL_SETTINGS;
+const char Symbol_Class::Home[4] = LV_SYMBOL_HOME;
+const char Symbol_Class::Download[4] = LV_SYMBOL_DOWNLOAD;
+const char Symbol_Class::Drive[4] = LV_SYMBOL_DRIVE;
+const char Symbol_Class::Refresh[4] = LV_SYMBOL_REFRESH;
+const char Symbol_Class::Mute[4] = LV_SYMBOL_MUTE;
+const char Symbol_Class::Volume_Medium[4] = LV_SYMBOL_VOLUME_MID;
+const char Symbol_Class::Volume_Maximum[4] = LV_SYMBOL_VOLUME_MAX;
+const char Symbol_Class::Image[4] = LV_SYMBOL_IMAGE;
+const char Symbol_Class::Tint[4] = LV_SYMBOL_TINT;
+const char Symbol_Class::Previous[4] = LV_SYMBOL_PREV;
+const char Symbol_Class::Play[4] = LV_SYMBOL_PLAY;
+const char Symbol_Class::Pause[4] = LV_SYMBOL_PAUSE;
+const char Symbol_Class::Stop[4] = LV_SYMBOL_STOP;
+const char Symbol_Class::Next[4] = LV_SYMBOL_NEXT;
+const char Symbol_Class::Eject[4] = LV_SYMBOL_EJECT;
+const char Symbol_Class::Left[4] = LV_SYMBOL_LEFT;
+const char Symbol_Class::Right[4] = LV_SYMBOL_RIGHT;
+const char Symbol_Class::Plus[4] = LV_SYMBOL_PLUS;
+const char Symbol_Class::Minus[4] = LV_SYMBOL_MINUS;
+const char Symbol_Class::Eye_Open[4] = LV_SYMBOL_EYE_OPEN;
+const char Symbol_Class::Eye_Close[4] = LV_SYMBOL_EYE_CLOSE;
+const char Symbol_Class::Warning[4] = LV_SYMBOL_WARNING;
+const char Symbol_Class::Shuffle[4] = LV_SYMBOL_SHUFFLE;
+const char Symbol_Class::Up[4] = LV_SYMBOL_UP;
+const char Symbol_Class::Down[4] = LV_SYMBOL_DOWN;
+const char Symbol_Class::Loop[4] = LV_SYMBOL_LOOP;
+const char Symbol_Class::Directory[4] = LV_SYMBOL_DIRECTORY;
+const char Symbol_Class::Upload[4] = LV_SYMBOL_UPLOAD;
+const char Symbol_Class::Call[4] = LV_SYMBOL_CALL;
+const char Symbol_Class::Cut[4] = LV_SYMBOL_CUT;
+
+
 Graphics_Type Xila_Namespace::Graphics;
 
 Graphics_Class::Graphics_Class() : Task(this)
@@ -64,11 +103,11 @@ Result_Type Graphics_Class::Start()
         Theme = lv_theme_default_get();
     }
 
- //   if (Load_Registry() != Result_Type::Success)
- //   {
- //       if (Create_Registry() != Result_Type::Success)
- //           return Result_Type::Error;
- //   }
+    //   if (Load_Registry() != Result_Type::Success)
+    //   {
+    //       if (Create_Registry() != Result_Type::Success)
+    //           return Result_Type::Error;
+    //   }
 
     // - Create task
     Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Priority_Type::System);
@@ -153,7 +192,87 @@ void Graphics_Class::Event_Handler(lv_event_t *Event)
     Instruction.Get_Receiver()->Send_Instruction(Instruction);
 }
 
-Object_Type Graphics_Type::Get_Top_Layer()
+const char *Graphics_Class::Get_Symbol(Symbol_Code_Type Symbol)
+{
+    switch (Symbol)
+    {
+    case Symbol_Code_Type::Audio:
+        return Symbol_Type::Audio;
+    case Symbol_Code_Type::Video:
+        return Symbol_Type::Video;
+    case Symbol_Code_Type::List:
+        return Symbol_Type::List;
+    case Symbol_Code_Type::Ok:
+        return Symbol_Type::Ok;
+    case Symbol_Code_Type::Close:
+        return Symbol_Type::Close;
+    case Symbol_Code_Type::Power:
+        return Symbol_Type::Power;
+    case Symbol_Code_Type::Settings:
+        return Symbol_Type::Settings;
+    case Symbol_Code_Type::Home:
+        return Symbol_Type::Home;
+    case Symbol_Code_Type::Download:
+        return Symbol_Type::Download;
+    case Symbol_Code_Type::Drive:
+        return Symbol_Type::Drive;
+    case Symbol_Code_Type::Refresh:
+        return Symbol_Type::Refresh;
+    case Symbol_Code_Type::Mute:
+        return Symbol_Type::Mute;
+    case Symbol_Code_Type::Volume_Medium:
+        return Symbol_Type::Volume_Medium;
+    case Symbol_Code_Type::Volume_Maximum:
+        return Symbol_Type::Volume_Maximum;
+    case Symbol_Code_Type::Image:
+        return Symbol_Type::Image;
+    case Symbol_Code_Type::Tint:
+        return Symbol_Type::Tint;
+    case Symbol_Code_Type::Previous:
+        return Symbol_Type::Previous;
+    case Symbol_Code_Type::Play:
+        return Symbol_Type::Play;
+    case Symbol_Code_Type::Pause:
+        return Symbol_Type::Pause;
+    case Symbol_Code_Type::Stop:
+        return Symbol_Type::Stop;
+    case Symbol_Code_Type::Next:
+        return Symbol_Type::Next;
+    case Symbol_Code_Type::Eject:
+        return Symbol_Type::Eject;
+    case Symbol_Code_Type::Left:
+        return Symbol_Type::Left;
+    case Symbol_Code_Type::Right:
+        return Symbol_Type::Right;
+    case Symbol_Code_Type::Plus:
+        return Symbol_Type::Plus;
+    case Symbol_Code_Type::Minus:
+        return Symbol_Type::Minus;
+    case Symbol_Code_Type::Eye_Open:
+        return Symbol_Type::Eye_Open;
+    case Symbol_Code_Type::Eye_Close:
+        return Symbol_Type::Eye_Close;
+    case Symbol_Code_Type::Warning:
+        return Symbol_Type::Warning;
+    case Symbol_Code_Type::Shuffle:
+        return Symbol_Type::Shuffle;
+    case Symbol_Code_Type::Up:
+        return Symbol_Type::Up;
+    case Symbol_Code_Type::Down:
+        return Symbol_Type::Down;
+    case Symbol_Code_Type::Loop:
+        return Symbol_Type::Loop;
+    case Symbol_Code_Type::Directory:
+        return Symbol_Type::Directory;
+    case Symbol_Code_Type::Upload:
+        return Symbol_Type::Upload;
+    case Symbol_Code_Type::Call:
+        return Symbol_Type::Call;
+    }
+        return Symbol_Type::Cut;
+}
+
+Object_Type Graphics_Class::Get_Top_Layer()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return Object_Type(lv_layer_top());

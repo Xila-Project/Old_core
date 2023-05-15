@@ -75,7 +75,7 @@ void File_Player_Class::Set_Input_File(Drive_Types::File_Type &Input_Stream)
 
 }
 
-void File_Player_Class::Set_Output_Stream(AudioStream &Output_Stream)
+void File_Player_Class::Set_Output_Stream(Sound_Types::Stream_Type& Output_Stream)
 {
 }
 

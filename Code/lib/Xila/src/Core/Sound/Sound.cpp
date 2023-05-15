@@ -22,7 +22,7 @@ using namespace Xila_Namespace::Sound_Types;
 
 Sound_Type Xila_Namespace::Sound;
 
-Sound_Class::Sound_Class() : I2S_Output_Stream(),
+Sound_Class::Sound_Class()  : I2S_Output_Stream(),
                              Volume_Stream(I2S_Output_Stream) //,
                                                               //    Mixer(Volume_Stream, 4)
 {
@@ -68,7 +68,7 @@ Result_Type Sound_Class::Stop()
 {
     // Mixer.end();
     // Volume_Stream.end();
-    I2S_Output_Stream.End();
+  //  I2S_Output_Stream.End();
 
     return this->Save_Registry();
 }
@@ -144,12 +144,13 @@ Result_Type Sound_Class::Save_Registry()
 
 Byte_Type Sound_Class::Get_Volume()
 {
+    //return 0;
     return static_cast<Byte_Type>(Volume_Stream.Get_Volume() * 255);
 }
 
 Sound_Types::Stream_Type &Sound_Class::Get_Current_Output_Stream()
 {
-    return I2S_Output_Stream;
+     return I2S_Output_Stream;
 }
 
 // - - Setters
@@ -158,5 +159,5 @@ void Sound_Class::Set_Volume(Byte_Type Volume)
 {
     //  Log_Verbose("Sound", "Set volume: %d", Volume);
     //  Log_Verbose("Sound", "Set volume res: %f", static_cast<float>(Volume) / 255);
-    //  Volume_Stream.setVolume(static_cast<float>(Volume) / 255);
+    Volume_Stream.Set_Volume(static_cast<float>(Volume) / 255);
 }

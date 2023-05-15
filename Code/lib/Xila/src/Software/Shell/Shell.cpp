@@ -150,10 +150,8 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
 
     if (Login_Class::Is_Openned(this))
     {
-        Log_Verbose("Shell", "Instruction received");
         if (Login_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized)
         {
-            Log_Verbose("Shell", "Instruction received");
             Login_Pointer->Execute_Instruction(Instruction);
             return;
         }

@@ -11,6 +11,8 @@
 
 #include "Stream.hpp"
 
+#include "Core/Log/Log.hpp"
+
 namespace Xila_Namespace
 {
     namespace Sound_Types
@@ -21,12 +23,14 @@ namespace Xila_Namespace
             // - Methods
 
             Volume_Configuration_Class(const VolumeStreamConfig &Volume_Configuration)
-                : Configuration_Type(this->Volume_Configuration),
+                : Configuration_Type(&this->Volume_Configuration),
                   Volume_Configuration(Volume_Configuration)
             {
             }
 
-            Volume_Configuration_Class() : Configuration_Type(Volume_Configuration), Volume_Configuration()
+            Volume_Configuration_Class()
+                : Configuration_Type(&Volume_Configuration),
+                  Volume_Configuration()
             {
             }
 
@@ -52,15 +56,14 @@ namespace Xila_Namespace
             void Set_Volume(float Volume)
             {
                 Volume_Configuration.volume = Volume;
-            }           
+            }
 
-            operator VolumeStreamConfig&()
+            operator VolumeStreamConfig &()
             {
                 return Volume_Configuration;
             }
 
         private:
-
             VolumeStreamConfig Volume_Configuration;
 
         } Volume_Configuration_Type;
@@ -75,8 +78,9 @@ namespace Xila_Namespace
             Volume_Class() = delete;
             Volume_Class(Stream_Type &Output)
                 : Stream_Type(Volume_Stream),
-                Volume_Stream(Output)
+                  Volume_Stream(Output)
             {
+                Log_Verbose("Sound", "Volume stream created : %p / %p", &Output, &Volume_Stream);
             }
 
             // - - Operations
@@ -93,7 +97,7 @@ namespace Xila_Namespace
                 return Volume_Stream.defaultConfig();
             }
 
-            float Get_Volume(int8_t Channel = - 1)
+            float Get_Volume(int8_t Channel = -1)
             {
                 if (Channel != -1)
                     return Volume_Stream.volume(Channel);
@@ -109,8 +113,6 @@ namespace Xila_Namespace
                 else
                     Volume_Stream.setVolume(Volume);
             }
-
-            
 
         private:
             VolumeStream Volume_Stream;

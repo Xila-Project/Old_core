@@ -11,213 +11,219 @@ using namespace Drive_Types;
 // - Functions
 
 // - - Constructors
-void * Berry_File_Class_Initialize_93583D14_A572_4E93_AC74_874EC6399EB8(bvm* V)
+void * Berry_File_Class_Initialize_5DA8F2AD_C9A8_4B58_B56F_1933D84B89BF(bvm* V)
 {
 void* Pointer = be_malloc(V, sizeof(Drive_Types::File_Class));
 return new (Pointer) Drive_Types::File_Class(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Initialize_93583D14_A572_4E93_AC74_874EC6399EB8, "+_p", "@");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Initialize_5DA8F2AD_C9A8_4B58_B56F_1933D84B89BF, "+_p", "@");
 
-void * Berry_File_Class_Initialize_DAAF2316_FE74_4BFF_8AB4_1C9E39B52B36(bvm* V)
+void * Berry_File_Class_Initialize_4C6E38B7_E661_4C87_B4E3_9D793A5052AE(bvm* V)
 {
 void* Pointer = be_malloc(V, sizeof(Drive_Types::File_Class));
 return new (Pointer) Drive_Types::File_Class(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Initialize_DAAF2316_FE74_4BFF_8AB4_1C9E39B52B36, "+_p", "@");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Initialize_4C6E38B7_E661_4C87_B4E3_9D793A5052AE, "+_p", "@");
 
 
 // - - Destructors
-void Berry_File_Class_Deinitialize_71405CDC_C3B9_4567_8476_DF0C76D2861F(bvm* V, Xila_Namespace::Drive_Types::File_Class* I)
+void Berry_File_Class_Deinitialize_9CA9C8D4_590E_4C13_99A8_583039034EA4(bvm* V, Xila_Namespace::Drive_Types::File_Class* I)
 {
 if (!I) { return; }
 I->~File_Class();
 be_free(V, I, sizeof(Drive_Types::File_Class));
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Deinitialize_71405CDC_C3B9_4567_8476_DF0C76D2861F, "", "@.");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Deinitialize_9CA9C8D4_590E_4C13_99A8_583039034EA4, "", "@.");
 
 
 // - - Functions
-int Berry_File_Class_write_10310B78_F111_44C8_BEE5_1EE5A732EE07(Xila_Namespace::Drive_Types::File_Class* I, int A_0)
+int Berry_File_Class_write_151C792E_B8A0_43EC_9F82_EE68E58C5B84(Xila_Namespace::Drive_Types::File_Class* I, int A_0)
 {
 return (int)I->write((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_write_10310B78_F111_44C8_BEE5_1EE5A732EE07, "i", ".i");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_write_151C792E_B8A0_43EC_9F82_EE68E58C5B84, "i", ".i");
 
-int Berry_File_Class_write_1C0A5FDA_2131_4D9E_96FD_98B8CA6D3AB1(Xila_Namespace::Drive_Types::File_Class* I, const unsigned char* A_0, int A_1)
+int Berry_File_Class_write_3282230E_2EC5_452C_8D17_EBB1FD5E8CCC(Xila_Namespace::Drive_Types::File_Class* I, const unsigned char* A_0, int A_1)
 {
 return (int)I->write(A_0, (unsigned int)A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_write_1C0A5FDA_2131_4D9E_96FD_98B8CA6D3AB1, "i", ".si");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_write_3282230E_2EC5_452C_8D17_EBB1FD5E8CCC, "i", ".si");
 
-int Berry_File_Class_available_5E731108_3AA3_4ED8_998E_ABA364BBE5A5(Xila_Namespace::Drive_Types::File_Class* I)
+int Berry_File_Class_available_DF922D69_128E_4DBC_8B4F_5F329886541D(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return (int)I->available(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_available_5E731108_3AA3_4ED8_998E_ABA364BBE5A5, "i", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_available_DF922D69_128E_4DBC_8B4F_5F329886541D, "i", ".");
 
-int Berry_File_Class_read_272647DD_31CA_48D4_B882_EE6E6938408B(Xila_Namespace::Drive_Types::File_Class* I)
+int Berry_File_Class_read_5646BE5B_88EC_429C_8456_F63F4ECC3230(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return (int)I->read(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_read_272647DD_31CA_48D4_B882_EE6E6938408B, "i", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_read_5646BE5B_88EC_429C_8456_F63F4ECC3230, "i", ".");
 
-int Berry_File_Class_peek_FDFF4D4B_13AF_4BE4_BADD_FF80796FC37F(Xila_Namespace::Drive_Types::File_Class* I)
+int Berry_File_Class_peek_96919CA2_BC4D_4840_9E7E_38535C337090(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return (int)I->peek(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_peek_FDFF4D4B_13AF_4BE4_BADD_FF80796FC37F, "i", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_peek_96919CA2_BC4D_4840_9E7E_38535C337090, "i", ".");
 
-void Berry_File_Class_flush_680162F5_E86E_4BDF_A67C_EE72C77BADE2(Xila_Namespace::Drive_Types::File_Class* I)
+void Berry_File_Class_flush_46F397E2_3AA4_4733_AE79_1946B52C7786(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return I->flush(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_flush_680162F5_E86E_4BDF_A67C_EE72C77BADE2, "", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_flush_46F397E2_3AA4_4733_AE79_1946B52C7786, "", ".");
 
-const char* Berry_File_Class_readBytes_36F32719_B49A_44E1_B3C6_FB626B528484(bvm* V, Xila_Namespace::Drive_Types::File_Class* I, int A_1)
+const char* Berry_File_Class_readBytes_6FA33390_C00E_4335_9958_003EE804A782(bvm* V, Xila_Namespace::Drive_Types::File_Class* I, int A_1)
 {
 char* S_0 = (char*)Berry_Class::Get_Instance(V)->Buffer;
 I->readBytes(S_0, (A_1 > sizeof(Berry_Class::Buffer)) ? sizeof(Berry_Class::Buffer) : A_1); 
 return S_0;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_readBytes_36F32719_B49A_44E1_B3C6_FB626B528484, "s", "@.i");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_readBytes_6FA33390_C00E_4335_9958_003EE804A782, "s", "@.i");
 
-int Berry_File_Class_Write_BA7F943F_5577_4DB4_A719_46791F112894(Xila_Namespace::Drive_Types::File_Class* I, int A_0)
+int Berry_File_Class_Write_3058D5E4_4166_40A1_BAC2_15E25A122261(Xila_Namespace::Drive_Types::File_Class* I, int A_0)
 {
 return (int)I->Write((unsigned char)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Write_BA7F943F_5577_4DB4_A719_46791F112894, "i", ".i");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Write_3058D5E4_4166_40A1_BAC2_15E25A122261, "i", ".i");
 
-int Berry_File_Class_Write_A2BE2F61_88F0_477B_B875_F17348706E7D(Xila_Namespace::Drive_Types::File_Class* I, const unsigned char* A_0, int A_1)
+int Berry_File_Class_Write_FF7C7C28_6A4D_4F6E_8307_558E6247D689(Xila_Namespace::Drive_Types::File_Class* I, const unsigned char* A_0, int A_1)
 {
 return (int)I->Write(A_0, (unsigned int)A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Write_A2BE2F61_88F0_477B_B875_F17348706E7D, "i", ".si");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Write_FF7C7C28_6A4D_4F6E_8307_558E6247D689, "i", ".si");
 
-int Berry_File_Class_Available_6643C48D_17AD_4952_8786_C8A801352F42(Xila_Namespace::Drive_Types::File_Class* I)
+int Berry_File_Class_Available_9A43351C_D6E6_44F9_BDB2_4A5641E2E590(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return (int)I->Available(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Available_6643C48D_17AD_4952_8786_C8A801352F42, "i", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Available_9A43351C_D6E6_44F9_BDB2_4A5641E2E590, "i", ".");
 
-int Berry_File_Class_Read_7524BDC5_7739_4331_9773_EC620E472DDB(Xila_Namespace::Drive_Types::File_Class* I)
+int Berry_File_Class_Read_0BEB6FDC_CCE0_4A28_A4B4_A8EB518E074A(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return (int)I->Read(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Read_7524BDC5_7739_4331_9773_EC620E472DDB, "i", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Read_0BEB6FDC_CCE0_4A28_A4B4_A8EB518E074A, "i", ".");
 
-int Berry_File_Class_Peek_7E10E103_6CAC_4751_8371_7AF2A6A407D6(Xila_Namespace::Drive_Types::File_Class* I)
+int Berry_File_Class_Peek_0CD8F7B9_31EA_40FC_8F33_C7C0EF6E283C(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return (int)I->Peek(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Peek_7E10E103_6CAC_4751_8371_7AF2A6A407D6, "i", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Peek_0CD8F7B9_31EA_40FC_8F33_C7C0EF6E283C, "i", ".");
 
-void Berry_File_Class_Flush_D925123F_F9A3_461A_866C_4C2EDDDE03C7(Xila_Namespace::Drive_Types::File_Class* I)
+void Berry_File_Class_Flush_2080A064_60E6_430D_9207_4DB6F38FC63B(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return I->Flush(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Flush_D925123F_F9A3_461A_866C_4C2EDDDE03C7, "", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Flush_2080A064_60E6_430D_9207_4DB6F38FC63B, "", ".");
 
-bool Berry_File_Class_Is_Valid_EEA9092C_00B3_4BBE_8C5F_DA9701334D80(Xila_Namespace::Drive_Types::File_Class* I)
+bool Berry_File_Class_Is_Valid_8941A715_72B6_4D10_A8D7_674DE4570228(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return I->Is_Valid(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Is_Valid_EEA9092C_00B3_4BBE_8C5F_DA9701334D80, "b", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Is_Valid_8941A715_72B6_4D10_A8D7_674DE4570228, "b", ".");
 
-const char* Berry_File_Class_Read_String_633926BB_93DE_4C01_82B1_F753461C4C2B(bvm* V, Xila_Namespace::Drive_Types::File_Class* I, int A_1)
+const char* Berry_File_Class_Read_String_7AA57AE8_0B8B_4156_80F3_19CD37ACD441(bvm* V, Xila_Namespace::Drive_Types::File_Class* I, int A_1)
 {
 char* S_0 = (char*)Berry_Class::Get_Instance(V)->Buffer;
 I->Read_String(S_0, (A_1 > sizeof(Berry_Class::Buffer)) ? sizeof(Berry_Class::Buffer) : A_1); 
 return S_0;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Read_String_633926BB_93DE_4C01_82B1_F753461C4C2B, "s", "@.i");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Read_String_7AA57AE8_0B8B_4156_80F3_19CD37ACD441, "s", "@.i");
 
-const unsigned char* Berry_File_Class_Read_Bytes_2F538C2E_E1DE_4133_B1EC_E26BD5F16867(bvm* V, Xila_Namespace::Drive_Types::File_Class* I, int A_1)
+const unsigned char* Berry_File_Class_Read_Bytes_EAF71068_6739_4C6B_A6F0_2ABDD6F808BD(bvm* V, Xila_Namespace::Drive_Types::File_Class* I, int A_1)
 {
 unsigned char* S_0 = (unsigned char*)Berry_Class::Get_Instance(V)->Buffer;
 I->Read_Bytes(S_0, (A_1 > sizeof(Berry_Class::Buffer)) ? sizeof(Berry_Class::Buffer) : A_1); 
 return S_0;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Read_Bytes_2F538C2E_E1DE_4133_B1EC_E26BD5F16867, "s", "@.i");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Read_Bytes_EAF71068_6739_4C6B_A6F0_2ABDD6F808BD, "s", "@.i");
 
-bool Berry_File_Class_Seek_1DD54A9A_010F_44CE_9A78_F5D25077FB9E(Xila_Namespace::Drive_Types::File_Class* I, int A_0, int A_1)
+bool Berry_File_Class_Seek_EA595183_3A0F_45A9_B107_BDCC7C801E48(Xila_Namespace::Drive_Types::File_Class* I, int A_0, int A_1)
 {
 return I->Seek((unsigned int)A_0, (Seek_Mode_Type)A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Seek_1DD54A9A_010F_44CE_9A78_F5D25077FB9E, "b", ".ii");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Seek_EA595183_3A0F_45A9_B107_BDCC7C801E48, "b", ".ii");
 
-bool Berry_File_Class_Seek_45EC2DFA_5CB0_4165_BC2A_DE51A27AF225(Xila_Namespace::Drive_Types::File_Class* I, int A_0)
+bool Berry_File_Class_Seek_8E4E68C8_B6E0_46EB_8CC2_C78DDE96F1B4(Xila_Namespace::Drive_Types::File_Class* I, int A_0)
 {
 return I->Seek((unsigned int)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Seek_45EC2DFA_5CB0_4165_BC2A_DE51A27AF225, "b", ".i");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Seek_8E4E68C8_B6E0_46EB_8CC2_C78DDE96F1B4, "b", ".i");
 
-int Berry_File_Class_Get_Position_ABEA58A6_7DD6_489B_A5B5_F91B1F957CC8(Xila_Namespace::Drive_Types::File_Class* I)
+int Berry_File_Class_Get_Position_BCBDF05B_DBA1_49D2_9C47_AE0FE7F204B8(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return (int)I->Get_Position(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Position_ABEA58A6_7DD6_489B_A5B5_F91B1F957CC8, "i", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Position_BCBDF05B_DBA1_49D2_9C47_AE0FE7F204B8, "i", ".");
 
-int Berry_File_Class_Get_Size_F34E02FF_ED13_49F1_8C7F_D27A4F3C94F9(Xila_Namespace::Drive_Types::File_Class* I)
+int Berry_File_Class_Get_Size_6AB39B03_1F80_4147_8D02_B4D6ABE2034A(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return (int)I->Get_Size(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Size_F34E02FF_ED13_49F1_8C7F_D27A4F3C94F9, "i", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Size_6AB39B03_1F80_4147_8D02_B4D6ABE2034A, "i", ".");
 
-int Berry_File_Class_Set_Buffer_Size_433E7398_906C_4390_8305_4978BE944283(Xila_Namespace::Drive_Types::File_Class* I, int A_0)
+int Berry_File_Class_Set_Buffer_Size_B4CEA938_35A4_42CD_A0C8_CFB972F755A2(Xila_Namespace::Drive_Types::File_Class* I, int A_0)
 {
 return (int)I->Set_Buffer_Size((unsigned int)A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Set_Buffer_Size_433E7398_906C_4390_8305_4978BE944283, "i", ".i");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Set_Buffer_Size_B4CEA938_35A4_42CD_A0C8_CFB972F755A2, "i", ".i");
 
-void Berry_File_Class_Close_A0992C63_8E10_4B90_A036_EFF121A247FA(Xila_Namespace::Drive_Types::File_Class* I)
+void Berry_File_Class_Close_F439CBD3_BE48_4E1A_A6D1_6A91AABC48CC(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return I->Close(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Close_A0992C63_8E10_4B90_A036_EFF121A247FA, "", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Close_F439CBD3_BE48_4E1A_A6D1_6A91AABC48CC, "", ".");
 
-int Berry_File_Class_Get_Modification_Time_385306A8_1BF5_42AC_9682_9429D61EFBA7(Xila_Namespace::Drive_Types::File_Class* I)
+int Berry_File_Class_Get_Modification_Time_A30D06EB_2AD1_4B47_928A_B124D280C669(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return (int)I->Get_Modification_Time(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Modification_Time_385306A8_1BF5_42AC_9682_9429D61EFBA7, "i", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Modification_Time_A30D06EB_2AD1_4B47_928A_B124D280C669, "i", ".");
 
-const char* Berry_File_Class_Get_Path_22CE9FEB_6B00_49D4_93D3_20686E66A168(Xila_Namespace::Drive_Types::File_Class* I)
+const char* Berry_File_Class_Get_Path_5F5F6822_7BF2_420D_B00E_329FB59414FD(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return I->Get_Path(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Path_22CE9FEB_6B00_49D4_93D3_20686E66A168, "s", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Path_5F5F6822_7BF2_420D_B00E_329FB59414FD, "s", ".");
 
-const char* Berry_File_Class_Get_Name_F00979AA_6B58_49E4_8FAC_0D14D58D3908(Xila_Namespace::Drive_Types::File_Class* I)
+const char* Berry_File_Class_Get_Name_D29FC392_F513_49D5_A10D_CA97CAA9672C(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return I->Get_Name(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Name_F00979AA_6B58_49E4_8FAC_0D14D58D3908, "s", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Name_D29FC392_F513_49D5_A10D_CA97CAA9672C, "s", ".");
 
-bool Berry_File_Class_Is_Directory_7BF7071C_CDAD_464F_BB72_934D77EEE250(Xila_Namespace::Drive_Types::File_Class* I)
+const char* Berry_File_Class_Get_Extension_306536AA_EC54_49CD_A2D6_E6E7F2108C6B(Xila_Namespace::Drive_Types::File_Class* I)
+{
+return I->Get_Extension(); 
+}
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Get_Extension_306536AA_EC54_49CD_A2D6_E6E7F2108C6B, "s", ".");
+
+bool Berry_File_Class_Is_Directory_86E8E729_F932_468C_AA18_505C5DA89A52(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return I->Is_Directory(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Is_Directory_7BF7071C_CDAD_464F_BB72_934D77EEE250, "b", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Is_Directory_86E8E729_F932_468C_AA18_505C5DA89A52, "b", ".");
 
-void * Berry_File_Class_Open_Next_File_A4CB12C0_23D4_462C_8A7B_A7437DA9EEDB(Xila_Namespace::Drive_Types::File_Class* I, bool A_0 = false, bool A_1 = false)
+void * Berry_File_Class_Open_Next_File_18830E9E_DE12_4447_93BB_33CE066B894C(bvm* V, Xila_Namespace::Drive_Types::File_Class* I, bool A_0 = false, bool A_1 = false)
 {
-File_Class* R = new File_Class();
+Xila_Namespace::Drive_Types::File_Class* R = (Xila_Namespace::Drive_Types::File_Class*) be_malloc(V, sizeof(Xila_Namespace::Drive_Types::File_Class));
  *R = I->Open_Next_File(A_0, A_1); 
 return R;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Open_Next_File_A4CB12C0_23D4_462C_8A7B_A7437DA9EEDB, "Drive.File_Type", ".[bb");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Open_Next_File_18830E9E_DE12_4447_93BB_33CE066B894C, "Drive.File_Type", "@.[bb");
 
-void Berry_File_Class_Rewind_Directory_7F4DF965_1970_4A46_82EF_5D217C75FFB3(Xila_Namespace::Drive_Types::File_Class* I)
+void Berry_File_Class_Rewind_Directory_DC717E07_7942_4657_9341_9D3B9091B480(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return I->Rewind_Directory(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Rewind_Directory_7F4DF965_1970_4A46_82EF_5D217C75FFB3, "", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Rewind_Directory_DC717E07_7942_4657_9341_9D3B9091B480, "", ".");
 
-int Berry_File_Class_Count_Items_4FB1ACC4_7BB3_4263_ACBA_D5DE8AD4D4D2(Xila_Namespace::Drive_Types::File_Class* I)
+int Berry_File_Class_Count_Items_0E30FCEA_A733_45B6_96D9_B03AF5311BD4(Xila_Namespace::Drive_Types::File_Class* I)
 {
 return (int)I->Count_Items(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Count_Items_4FB1ACC4_7BB3_4263_ACBA_D5DE8AD4D4D2, "i", ".");
+BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Count_Items_0E30FCEA_A733_45B6_96D9_B03AF5311BD4, "i", ".");
 
 // - - Operators
 
@@ -226,38 +232,39 @@ BE_FUNC_CTYPE_DECLARE(Berry_File_Class_Count_Items_4FB1ACC4_7BB3_4263_ACBA_D5DE8
 class Berry_File_Type(scope:global, name:File_Type)
 {
 	_p, var
-	init, ctype_func(Berry_File_Class_Initialize_93583D14_A572_4E93_AC74_874EC6399EB8)
-	init, ctype_func(Berry_File_Class_Initialize_DAAF2316_FE74_4BFF_8AB4_1C9E39B52B36)
-	deinit, ctype_func(Berry_File_Class_Deinitialize_71405CDC_C3B9_4567_8476_DF0C76D2861F)
-	write, ctype_func(Berry_File_Class_write_10310B78_F111_44C8_BEE5_1EE5A732EE07)
-	write, ctype_func(Berry_File_Class_write_1C0A5FDA_2131_4D9E_96FD_98B8CA6D3AB1)
-	available, ctype_func(Berry_File_Class_available_5E731108_3AA3_4ED8_998E_ABA364BBE5A5)
-	read, ctype_func(Berry_File_Class_read_272647DD_31CA_48D4_B882_EE6E6938408B)
-	peek, ctype_func(Berry_File_Class_peek_FDFF4D4B_13AF_4BE4_BADD_FF80796FC37F)
-	flush, ctype_func(Berry_File_Class_flush_680162F5_E86E_4BDF_A67C_EE72C77BADE2)
-	readBytes, ctype_func(Berry_File_Class_readBytes_36F32719_B49A_44E1_B3C6_FB626B528484)
-	Write, ctype_func(Berry_File_Class_Write_BA7F943F_5577_4DB4_A719_46791F112894)
-	Write, ctype_func(Berry_File_Class_Write_A2BE2F61_88F0_477B_B875_F17348706E7D)
-	Available, ctype_func(Berry_File_Class_Available_6643C48D_17AD_4952_8786_C8A801352F42)
-	Read, ctype_func(Berry_File_Class_Read_7524BDC5_7739_4331_9773_EC620E472DDB)
-	Peek, ctype_func(Berry_File_Class_Peek_7E10E103_6CAC_4751_8371_7AF2A6A407D6)
-	Flush, ctype_func(Berry_File_Class_Flush_D925123F_F9A3_461A_866C_4C2EDDDE03C7)
-	Is_Valid, ctype_func(Berry_File_Class_Is_Valid_EEA9092C_00B3_4BBE_8C5F_DA9701334D80)
-	Read_String, ctype_func(Berry_File_Class_Read_String_633926BB_93DE_4C01_82B1_F753461C4C2B)
-	Read_Bytes, ctype_func(Berry_File_Class_Read_Bytes_2F538C2E_E1DE_4133_B1EC_E26BD5F16867)
-	Seek, ctype_func(Berry_File_Class_Seek_1DD54A9A_010F_44CE_9A78_F5D25077FB9E)
-	Seek, ctype_func(Berry_File_Class_Seek_45EC2DFA_5CB0_4165_BC2A_DE51A27AF225)
-	Get_Position, ctype_func(Berry_File_Class_Get_Position_ABEA58A6_7DD6_489B_A5B5_F91B1F957CC8)
-	Get_Size, ctype_func(Berry_File_Class_Get_Size_F34E02FF_ED13_49F1_8C7F_D27A4F3C94F9)
-	Set_Buffer_Size, ctype_func(Berry_File_Class_Set_Buffer_Size_433E7398_906C_4390_8305_4978BE944283)
-	Close, ctype_func(Berry_File_Class_Close_A0992C63_8E10_4B90_A036_EFF121A247FA)
-	Get_Modification_Time, ctype_func(Berry_File_Class_Get_Modification_Time_385306A8_1BF5_42AC_9682_9429D61EFBA7)
-	Get_Path, ctype_func(Berry_File_Class_Get_Path_22CE9FEB_6B00_49D4_93D3_20686E66A168)
-	Get_Name, ctype_func(Berry_File_Class_Get_Name_F00979AA_6B58_49E4_8FAC_0D14D58D3908)
-	Is_Directory, ctype_func(Berry_File_Class_Is_Directory_7BF7071C_CDAD_464F_BB72_934D77EEE250)
-	Open_Next_File, ctype_func(Berry_File_Class_Open_Next_File_A4CB12C0_23D4_462C_8A7B_A7437DA9EEDB)
-	Rewind_Directory, ctype_func(Berry_File_Class_Rewind_Directory_7F4DF965_1970_4A46_82EF_5D217C75FFB3)
-	Count_Items, ctype_func(Berry_File_Class_Count_Items_4FB1ACC4_7BB3_4263_ACBA_D5DE8AD4D4D2)
+	init, ctype_func(Berry_File_Class_Initialize_5DA8F2AD_C9A8_4B58_B56F_1933D84B89BF)
+	init, ctype_func(Berry_File_Class_Initialize_4C6E38B7_E661_4C87_B4E3_9D793A5052AE)
+	deinit, ctype_func(Berry_File_Class_Deinitialize_9CA9C8D4_590E_4C13_99A8_583039034EA4)
+	write, ctype_func(Berry_File_Class_write_151C792E_B8A0_43EC_9F82_EE68E58C5B84)
+	write, ctype_func(Berry_File_Class_write_3282230E_2EC5_452C_8D17_EBB1FD5E8CCC)
+	available, ctype_func(Berry_File_Class_available_DF922D69_128E_4DBC_8B4F_5F329886541D)
+	read, ctype_func(Berry_File_Class_read_5646BE5B_88EC_429C_8456_F63F4ECC3230)
+	peek, ctype_func(Berry_File_Class_peek_96919CA2_BC4D_4840_9E7E_38535C337090)
+	flush, ctype_func(Berry_File_Class_flush_46F397E2_3AA4_4733_AE79_1946B52C7786)
+	readBytes, ctype_func(Berry_File_Class_readBytes_6FA33390_C00E_4335_9958_003EE804A782)
+	Write, ctype_func(Berry_File_Class_Write_3058D5E4_4166_40A1_BAC2_15E25A122261)
+	Write, ctype_func(Berry_File_Class_Write_FF7C7C28_6A4D_4F6E_8307_558E6247D689)
+	Available, ctype_func(Berry_File_Class_Available_9A43351C_D6E6_44F9_BDB2_4A5641E2E590)
+	Read, ctype_func(Berry_File_Class_Read_0BEB6FDC_CCE0_4A28_A4B4_A8EB518E074A)
+	Peek, ctype_func(Berry_File_Class_Peek_0CD8F7B9_31EA_40FC_8F33_C7C0EF6E283C)
+	Flush, ctype_func(Berry_File_Class_Flush_2080A064_60E6_430D_9207_4DB6F38FC63B)
+	Is_Valid, ctype_func(Berry_File_Class_Is_Valid_8941A715_72B6_4D10_A8D7_674DE4570228)
+	Read_String, ctype_func(Berry_File_Class_Read_String_7AA57AE8_0B8B_4156_80F3_19CD37ACD441)
+	Read_Bytes, ctype_func(Berry_File_Class_Read_Bytes_EAF71068_6739_4C6B_A6F0_2ABDD6F808BD)
+	Seek, ctype_func(Berry_File_Class_Seek_EA595183_3A0F_45A9_B107_BDCC7C801E48)
+	Seek, ctype_func(Berry_File_Class_Seek_8E4E68C8_B6E0_46EB_8CC2_C78DDE96F1B4)
+	Get_Position, ctype_func(Berry_File_Class_Get_Position_BCBDF05B_DBA1_49D2_9C47_AE0FE7F204B8)
+	Get_Size, ctype_func(Berry_File_Class_Get_Size_6AB39B03_1F80_4147_8D02_B4D6ABE2034A)
+	Set_Buffer_Size, ctype_func(Berry_File_Class_Set_Buffer_Size_B4CEA938_35A4_42CD_A0C8_CFB972F755A2)
+	Close, ctype_func(Berry_File_Class_Close_F439CBD3_BE48_4E1A_A6D1_6A91AABC48CC)
+	Get_Modification_Time, ctype_func(Berry_File_Class_Get_Modification_Time_A30D06EB_2AD1_4B47_928A_B124D280C669)
+	Get_Path, ctype_func(Berry_File_Class_Get_Path_5F5F6822_7BF2_420D_B00E_329FB59414FD)
+	Get_Name, ctype_func(Berry_File_Class_Get_Name_D29FC392_F513_49D5_A10D_CA97CAA9672C)
+	Get_Extension, ctype_func(Berry_File_Class_Get_Extension_306536AA_EC54_49CD_A2D6_E6E7F2108C6B)
+	Is_Directory, ctype_func(Berry_File_Class_Is_Directory_86E8E729_F932_468C_AA18_505C5DA89A52)
+	Open_Next_File, ctype_func(Berry_File_Class_Open_Next_File_18830E9E_DE12_4447_93BB_33CE066B894C)
+	Rewind_Directory, ctype_func(Berry_File_Class_Rewind_Directory_DC717E07_7942_4657_9341_9D3B9091B480)
+	Count_Items, ctype_func(Berry_File_Class_Count_Items_0E30FCEA_A733_45B6_96D9_B03AF5311BD4)
 
 }
 @const_object_info_end */
@@ -268,132 +275,132 @@ extern "C"
 	#include "../generate/be_fixed_Berry_File_Type.h"
 }
 // - Functions
-int Berry_Drive_Class_Get_Size_C6DEDB60_6AF0_449B_87A0_F1FC00FBA715()
+int Berry_Drive_Class_Get_Size_58641EA9_EC62_446A_A2C1_18D4434A414D()
 {
 return (int)Drive.Get_Size(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Get_Size_C6DEDB60_6AF0_449B_87A0_F1FC00FBA715, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Get_Size_58641EA9_EC62_446A_A2C1_18D4434A414D, "i", "");
 
 
-int Berry_Drive_Class_Get_Type_B6CCC1FE_927E_44F7_9A31_D0D9EEABFA0F()
+int Berry_Drive_Class_Get_Type_F7A2E693_3889_433D_ACF6_E9392A024EC0()
 {
 return (int)Drive.Get_Type(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Get_Type_B6CCC1FE_927E_44F7_9A31_D0D9EEABFA0F, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Get_Type_F7A2E693_3889_433D_ACF6_E9392A024EC0, "i", "");
 
 
-int Berry_Drive_Class_Get_Total_Size_DCEAB5F6_7E5D_4114_9C52_D23870557AAD()
+int Berry_Drive_Class_Get_Total_Size_57DAC25D_6E9F_434C_B25F_D1FD42BB3566()
 {
 return (int)Drive.Get_Total_Size(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Get_Total_Size_DCEAB5F6_7E5D_4114_9C52_D23870557AAD, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Get_Total_Size_57DAC25D_6E9F_434C_B25F_D1FD42BB3566, "i", "");
 
 
-int Berry_Drive_Class_Get_Used_Size_E54306ED_933E_4886_A2B4_C0841B038106()
+int Berry_Drive_Class_Get_Used_Size_D773F68A_9B68_4B49_8AB1_31122593D2CE()
 {
 return (int)Drive.Get_Used_Size(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Get_Used_Size_E54306ED_933E_4886_A2B4_C0841B038106, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Get_Used_Size_D773F68A_9B68_4B49_8AB1_31122593D2CE, "i", "");
 
 
-bool Berry_Drive_Class_Exists_63B3A557_FECB_4A4C_81FA_AA70400662A6(const char* A_0)
+bool Berry_Drive_Class_Exists_E0A5217D_E14E_4112_8E01_D3C14D6BA6D2(const char* A_0)
 {
 return Drive.Exists(A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Exists_63B3A557_FECB_4A4C_81FA_AA70400662A6, "b", "s");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Exists_E0A5217D_E14E_4112_8E01_D3C14D6BA6D2, "b", "s");
 
 
-int Berry_Drive_Class_Make_Directory_BDDA9818_2D05_4756_B89D_9FA1BEAA87CA(const char* A_0)
+int Berry_Drive_Class_Make_Directory_CA0C4564_4D4F_4376_A9CD_7E2688328CED(const char* A_0)
 {
 return (int)Drive.Make_Directory(A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Make_Directory_BDDA9818_2D05_4756_B89D_9FA1BEAA87CA, "i", "s");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Make_Directory_CA0C4564_4D4F_4376_A9CD_7E2688328CED, "i", "s");
 
 
-int Berry_Drive_Class_Remove_Directory_3C6F05E4_3242_48B3_A2AE_8065FDB6D265(const char* A_0)
+int Berry_Drive_Class_Remove_Directory_3D7CF583_2D8C_46CB_A4AB_29ED3F61C5C3(const char* A_0)
 {
 return (int)Drive.Remove_Directory(A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Remove_Directory_3C6F05E4_3242_48B3_A2AE_8065FDB6D265, "i", "s");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Remove_Directory_3D7CF583_2D8C_46CB_A4AB_29ED3F61C5C3, "i", "s");
 
 
-int Berry_Drive_Class_Remove_Directory_D5572DCE_93EB_43F1_B135_11AE5A4FA83F(const char* A_0, bool A_1)
+int Berry_Drive_Class_Remove_Directory_DF9E624B_E71F_4D28_91A7_6900BAAD0E10(const char* A_0, bool A_1)
 {
 return (int)Drive.Remove_Directory(A_0, A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Remove_Directory_D5572DCE_93EB_43F1_B135_11AE5A4FA83F, "i", "sb");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Remove_Directory_DF9E624B_E71F_4D28_91A7_6900BAAD0E10, "i", "sb");
 
 
-int Berry_Drive_Class_Remove_D7A08B72_8354_4B1E_A888_E8F703D00D08(const char* A_0)
+int Berry_Drive_Class_Remove_EF6000CA_7488_473A_BAA0_9F27C9C3DC87(const char* A_0)
 {
 return (int)Drive.Remove(A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Remove_D7A08B72_8354_4B1E_A888_E8F703D00D08, "i", "s");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Remove_EF6000CA_7488_473A_BAA0_9F27C9C3DC87, "i", "s");
 
 
-void * Berry_Drive_Class_Open_3F0AA84E_3997_468F_AD48_4271826441A0(const char* A_0, bool A_1 = false, bool A_2 = false, bool A_3 = true)
+void * Berry_Drive_Class_Open_A1E11E01_1C62_4390_AA59_A0305E25B134(bvm* V, const char* A_0, bool A_1 = false, bool A_2 = false, bool A_3 = true)
 {
-File_Class* R = new File_Class();
+Xila_Namespace::Drive_Types::File_Class* R = (Xila_Namespace::Drive_Types::File_Class*) be_malloc(V, sizeof(Xila_Namespace::Drive_Types::File_Class));
  *R = Drive.Open(A_0, A_1, A_2, A_3); 
 return R;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Open_3F0AA84E_3997_468F_AD48_4271826441A0, "Drive.File_Type", "s[bbb");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Open_A1E11E01_1C62_4390_AA59_A0305E25B134, "Drive.File_Type", "@s[bbb");
 
 
-int Berry_Drive_Class_Remove_File_4EA2594D_365F_462D_ACD9_E4DDF2AEB8CB(const char* A_0)
+int Berry_Drive_Class_Remove_File_AB2A9548_5E6C_4648_B5CE_859F088D5527(const char* A_0)
 {
 return (int)Drive.Remove_File(A_0); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Remove_File_4EA2594D_365F_462D_ACD9_E4DDF2AEB8CB, "i", "s");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Remove_File_AB2A9548_5E6C_4648_B5CE_859F088D5527, "i", "s");
 
 
-int Berry_Drive_Class_Rename_ACD8389F_E619_409A_B731_3E08FA731A4B(const char* A_0, const char* A_1)
+int Berry_Drive_Class_Rename_D3E17F64_4E8F_4E39_8E19_9BE3DA481226(const char* A_0, const char* A_1)
 {
 return (int)Drive.Rename(A_0, A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Rename_ACD8389F_E619_409A_B731_3E08FA731A4B, "i", "ss");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Rename_D3E17F64_4E8F_4E39_8E19_9BE3DA481226, "i", "ss");
 
 
-int Berry_Drive_Class_Copy_098ECD98_BCCB_4BA7_A131_86198ECCDCED(::Xila_Namespace::Drive_Types::File_Class* A_0, ::Xila_Namespace::Drive_Types::File_Class* A_1)
+int Berry_Drive_Class_Copy_E0526F94_9104_4097_9921_263B2DC5A98B(::Xila_Namespace::Drive_Types::File_Class* A_0, ::Xila_Namespace::Drive_Types::File_Class* A_1)
 {
 return (int)Drive.Copy(*A_0, *A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Copy_098ECD98_BCCB_4BA7_A131_86198ECCDCED, "i", "..");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Copy_E0526F94_9104_4097_9921_263B2DC5A98B, "i", "..");
 
 
-int Berry_Drive_Class_Copy_6C9E38CD_E4D9_44A2_AEC5_BAA86C380C06(const char* A_0, const char* A_1)
+int Berry_Drive_Class_Copy_CD239965_6D35_4151_957A_882A5FD6D0FF(const char* A_0, const char* A_1)
 {
 return (int)Drive.Copy(A_0, A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Copy_6C9E38CD_E4D9_44A2_AEC5_BAA86C380C06, "i", "ss");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Copy_CD239965_6D35_4151_957A_882A5FD6D0FF, "i", "ss");
 
 
-int Berry_Drive_Class_Cut_0DAD13AB_B70A_48DD_8EC9_F90A645DC931(::Xila_Namespace::Drive_Types::File_Class* A_0, ::Xila_Namespace::Drive_Types::File_Class* A_1)
+int Berry_Drive_Class_Cut_1894EAE4_6072_4C52_9E16_916847ABA69D(::Xila_Namespace::Drive_Types::File_Class* A_0, ::Xila_Namespace::Drive_Types::File_Class* A_1)
 {
 return (int)Drive.Cut(*A_0, *A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Cut_0DAD13AB_B70A_48DD_8EC9_F90A645DC931, "i", "..");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Cut_1894EAE4_6072_4C52_9E16_916847ABA69D, "i", "..");
 
 
-int Berry_Drive_Class_Cut_F71A58EC_C349_4154_B3BA_13E169FD4B6C(const char* A_0, const char* A_1)
+int Berry_Drive_Class_Cut_33225915_765C_4F22_9382_795B3B27B492(const char* A_0, const char* A_1)
 {
 return (int)Drive.Cut(A_0, A_1); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Cut_F71A58EC_C349_4154_B3BA_13E169FD4B6C, "i", "ss");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Cut_33225915_765C_4F22_9382_795B3B27B492, "i", "ss");
 
 
-void Berry_Drive_Class_End_56557808_93DA_4648_BF15_9128B0C231C9()
+void Berry_Drive_Class_End_55022169_2D5E_48BC_A0AD_84BF9A117226()
 {
 return Drive.End(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_End_56557808_93DA_4648_BF15_9128B0C231C9, "", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_End_55022169_2D5E_48BC_A0AD_84BF9A117226, "", "");
 
 
-int Berry_Drive_Class_Start_0C095F69_2D41_4A51_BAA9_A54AAB315385()
+int Berry_Drive_Class_Start_DE8F3868_2BEA_477F_A601_BCE3F2046AA2()
 {
 return (int)Drive.Start(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Start_0C095F69_2D41_4A51_BAA9_A54AAB315385, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Start_DE8F3868_2BEA_477F_A601_BCE3F2046AA2, "i", "");
 
 
 void* Berry_Drive_Class_Get_Pointer()
@@ -406,24 +413,24 @@ BE_FUNC_CTYPE_DECLARE(Berry_Drive_Class_Get_Pointer, "c", "")
 /* @const_object_info_begin
 module Drive (scope:global)
 {
-	Get_Size, ctype_func(Berry_Drive_Class_Get_Size_C6DEDB60_6AF0_449B_87A0_F1FC00FBA715)
-	Get_Type, ctype_func(Berry_Drive_Class_Get_Type_B6CCC1FE_927E_44F7_9A31_D0D9EEABFA0F)
-	Get_Total_Size, ctype_func(Berry_Drive_Class_Get_Total_Size_DCEAB5F6_7E5D_4114_9C52_D23870557AAD)
-	Get_Used_Size, ctype_func(Berry_Drive_Class_Get_Used_Size_E54306ED_933E_4886_A2B4_C0841B038106)
-	Exists, ctype_func(Berry_Drive_Class_Exists_63B3A557_FECB_4A4C_81FA_AA70400662A6)
-	Make_Directory, ctype_func(Berry_Drive_Class_Make_Directory_BDDA9818_2D05_4756_B89D_9FA1BEAA87CA)
-	Remove_Directory, ctype_func(Berry_Drive_Class_Remove_Directory_3C6F05E4_3242_48B3_A2AE_8065FDB6D265)
-	Remove_Directory, ctype_func(Berry_Drive_Class_Remove_Directory_D5572DCE_93EB_43F1_B135_11AE5A4FA83F)
-	Remove, ctype_func(Berry_Drive_Class_Remove_D7A08B72_8354_4B1E_A888_E8F703D00D08)
-	Open, ctype_func(Berry_Drive_Class_Open_3F0AA84E_3997_468F_AD48_4271826441A0)
-	Remove_File, ctype_func(Berry_Drive_Class_Remove_File_4EA2594D_365F_462D_ACD9_E4DDF2AEB8CB)
-	Rename, ctype_func(Berry_Drive_Class_Rename_ACD8389F_E619_409A_B731_3E08FA731A4B)
-	Copy, ctype_func(Berry_Drive_Class_Copy_098ECD98_BCCB_4BA7_A131_86198ECCDCED)
-	Copy, ctype_func(Berry_Drive_Class_Copy_6C9E38CD_E4D9_44A2_AEC5_BAA86C380C06)
-	Cut, ctype_func(Berry_Drive_Class_Cut_0DAD13AB_B70A_48DD_8EC9_F90A645DC931)
-	Cut, ctype_func(Berry_Drive_Class_Cut_F71A58EC_C349_4154_B3BA_13E169FD4B6C)
-	End, ctype_func(Berry_Drive_Class_End_56557808_93DA_4648_BF15_9128B0C231C9)
-	Start, ctype_func(Berry_Drive_Class_Start_0C095F69_2D41_4A51_BAA9_A54AAB315385)
+	Get_Size, ctype_func(Berry_Drive_Class_Get_Size_58641EA9_EC62_446A_A2C1_18D4434A414D)
+	Get_Type, ctype_func(Berry_Drive_Class_Get_Type_F7A2E693_3889_433D_ACF6_E9392A024EC0)
+	Get_Total_Size, ctype_func(Berry_Drive_Class_Get_Total_Size_57DAC25D_6E9F_434C_B25F_D1FD42BB3566)
+	Get_Used_Size, ctype_func(Berry_Drive_Class_Get_Used_Size_D773F68A_9B68_4B49_8AB1_31122593D2CE)
+	Exists, ctype_func(Berry_Drive_Class_Exists_E0A5217D_E14E_4112_8E01_D3C14D6BA6D2)
+	Make_Directory, ctype_func(Berry_Drive_Class_Make_Directory_CA0C4564_4D4F_4376_A9CD_7E2688328CED)
+	Remove_Directory, ctype_func(Berry_Drive_Class_Remove_Directory_3D7CF583_2D8C_46CB_A4AB_29ED3F61C5C3)
+	Remove_Directory, ctype_func(Berry_Drive_Class_Remove_Directory_DF9E624B_E71F_4D28_91A7_6900BAAD0E10)
+	Remove, ctype_func(Berry_Drive_Class_Remove_EF6000CA_7488_473A_BAA0_9F27C9C3DC87)
+	Open, ctype_func(Berry_Drive_Class_Open_A1E11E01_1C62_4390_AA59_A0305E25B134)
+	Remove_File, ctype_func(Berry_Drive_Class_Remove_File_AB2A9548_5E6C_4648_B5CE_859F088D5527)
+	Rename, ctype_func(Berry_Drive_Class_Rename_D3E17F64_4E8F_4E39_8E19_9BE3DA481226)
+	Copy, ctype_func(Berry_Drive_Class_Copy_E0526F94_9104_4097_9921_263B2DC5A98B)
+	Copy, ctype_func(Berry_Drive_Class_Copy_CD239965_6D35_4151_957A_882A5FD6D0FF)
+	Cut, ctype_func(Berry_Drive_Class_Cut_1894EAE4_6072_4C52_9E16_916847ABA69D)
+	Cut, ctype_func(Berry_Drive_Class_Cut_33225915_765C_4F22_9382_795B3B27B492)
+	End, ctype_func(Berry_Drive_Class_End_55022169_2D5E_48BC_A0AD_84BF9A117226)
+	Start, ctype_func(Berry_Drive_Class_Start_DE8F3868_2BEA_477F_A601_BCE3F2046AA2)
 	Get_Pointer, ctype_func(Berry_Drive_Class_Get_Pointer)
 
 	File_Type, class(Berry_File_Type)

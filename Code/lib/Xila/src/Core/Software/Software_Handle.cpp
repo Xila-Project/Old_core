@@ -23,7 +23,6 @@ std::list<Software_Handle_Class*> Software_Handle_Class::List;
 Software_Handle_Class::Software_Handle_Class(const char* Name)
     : Name(Name)
 {
- // Log_Verbose("Software", "Software handle constructor %s", Name);
 }
 
 Software_Handle_Class::~Software_Handle_Class()

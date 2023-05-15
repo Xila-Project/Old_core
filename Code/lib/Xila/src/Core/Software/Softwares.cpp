@@ -20,6 +20,7 @@ Softwares_Type Xila_Namespace::Softwares;
 
 Result_Type Softwares_Class::Start()
 {
+    Log_Trace();
     Static_String_Type<24> Shell_Name("Shell");
 
     return this->Open(Shell_Name);
@@ -73,7 +74,9 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
 
 Result_Type Softwares_Class::Open(const char *Name, const Accounts_Types::User_Type *Owner_User)
 {
+    Log_Trace();
     const Software_Handle_Type *Handle = this->Find_Handle(Name);
+    Log_Trace();
 
     return this->Open(Handle, Owner_User);
 }
@@ -107,7 +110,6 @@ Result_Type Softwares_Class::Kill(Software_Type *Software)
 
 void Softwares_Class::Register_Handle(Softwares_Types::Software_Handle_Type& Software_Handle)
 {
-    Log_Verbose("Softwares", "Softwares_Class::Register_Handle() : Registering software handle %s.", (const char*)Software_Handle.Name);
     Software_Handle_Class::List.push_back(&Software_Handle);
 }
 

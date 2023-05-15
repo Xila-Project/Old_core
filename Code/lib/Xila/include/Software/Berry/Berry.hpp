@@ -36,7 +36,6 @@ public:
     public:
         Berry_Handle_Class() : Softwares_Types::Software_Handle_Type("Berry")
         {
-            Berry_Class::Load_Softwares_Handles();
         };
 
         void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override

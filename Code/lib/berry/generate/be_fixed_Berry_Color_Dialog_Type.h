@@ -1,11 +1,11 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Color_Dialog_Type_map) {
-    { be_const_key(Get_Color, -1), be_const_ctype_func(Berry_Color_Dialog_Class_Get_Color_0860F7BA_99BE_4660_9FA2_F4A9BDD33A7D) },
-    { be_const_key(Set_Color, -1), be_const_ctype_func(Berry_Color_Dialog_Class_Set_Color_DF8A3743_A2BE_456E_9417_7D523EA826A1) },
-    { be_const_key(deinit, 3), be_const_ctype_func(Berry_Color_Dialog_Class_Deinitialize_8730B1D6_E21D_4C71_8EFD_802D29DF334D) },
+    { be_const_key(Get_Color, -1), be_const_ctype_func(Berry_Color_Dialog_Class_Get_Color_E1F2FEBC_B18C_4209_A56D_416C545CFEF9) },
+    { be_const_key(Set_Color, -1), be_const_ctype_func(Berry_Color_Dialog_Class_Set_Color_1008B598_D720_4583_9F96_99F87072C603) },
+    { be_const_key(deinit, 3), be_const_ctype_func(Berry_Color_Dialog_Class_Deinitialize_FA769D83_0246_4D2D_8DD0_323BF00B6C07) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Create, 0), be_const_ctype_func(Berry_Color_Dialog_Class_Create_0B9FDC76_3527_4954_A809_656328403CE0) },
+    { be_const_key(Create, 0), be_const_ctype_func(Berry_Color_Dialog_Class_Create_CAE9E9CC_C35D_4F0E_9D69_DC498EBCBB24) },
 };
 
 static be_define_const_map(

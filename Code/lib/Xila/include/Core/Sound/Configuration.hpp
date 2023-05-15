@@ -10,6 +10,7 @@
 #define Sound_Configuration_Hpp_Included
 
 #include "AudioTools.h"
+#include "Core/Log/Log.hpp"
 
 namespace Xila_Namespace
 {
@@ -22,80 +23,90 @@ namespace Xila_Namespace
 
             // - - Constructors / Destructors
 
-            Configuration_Class() = delete;
+            Configuration_Class(AudioInfo *Configuration)
+                : Configuration_Reference(*Configuration)
+            {
+            }
 
-            Configuration_Class(AudioInfo Configuration, int Sample_Rate = -1, int Channel_Count = -1, int Bits_Per_Sample = -1)
-                : Configuration(Configuration)
+            Configuration_Class(AudioInfo Configuration)
+                : Configuration_Reference(Configuration)
+            {
+            }
+
+            Configuration_Class(int Sample_Rate = -1, int Channel_Count = -1, int Bits_Per_Sample = -1)
+                : Configuration_Reference(Configuration)
             {
                 Set(Sample_Rate, Channel_Count, Bits_Per_Sample);
+                Log_Verbose("Sound", "Sound configuration created.");
             }
 
             // - - Getters
 
             int Get_Sample_Rate()
             {
-                return Configuration.sample_rate;
+                return Configuration_Reference.sample_rate;
             }
 
             int Get_Channel_Count()
             {
-                return Configuration.channels;
+                return Configuration_Reference.channels;
             }
 
             int Get_Bits_Per_Sample()
             {
-                return Configuration.bits_per_sample;
+                return Configuration_Reference.bits_per_sample;
             }
 
             // - - Setters
 
             void Set_Sample_Rate(int Sample_Rate)
             {
-                Configuration.sample_rate = Sample_Rate;
+                Configuration_Reference.sample_rate = Sample_Rate;
             }
 
             void Set_Channel_Count(int8_t Channel_Count)
             {
-                Configuration.channels = Channel_Count;
+                Configuration_Reference.channels = Channel_Count;
             }
 
             void Set_Bits_Per_Sample(int Bits_Per_Sample)
             {
-                Configuration.bits_per_sample = Bits_Per_Sample;
+                Configuration_Reference.bits_per_sample = Bits_Per_Sample;
             }
 
             void Set(int Sample_Rate = -1, int Channel_Count = -1, int Bits_Per_Sample = -1)
             {
                 if (Sample_Rate != -1)
-                    Configuration.sample_rate = Sample_Rate;
+                    Configuration_Reference.sample_rate = Sample_Rate;
                 if (Channel_Count != -1)
-                    Configuration.channels = Channel_Count;
+                    Configuration_Reference.channels = Channel_Count;
                 if (Bits_Per_Sample != -1)
-                    Configuration.bits_per_sample = Bits_Per_Sample;
+                    Configuration_Reference.bits_per_sample = Bits_Per_Sample;
             }
 
             // - - Operators
 
             Configuration_Class &operator=(const Configuration_Class &Configuration)
             {
-                this->Configuration = Configuration.Configuration;
+                this->Configuration_Reference = Configuration.Configuration_Reference;
                 return *this;
             }
 
             bool operator==(const Configuration_Class &Configuration)
             {
-                return this->Configuration == Configuration.Configuration;
+                return this->Configuration_Reference == Configuration.Configuration_Reference;
             }
 
             bool operator!=(const Configuration_Class &Configuration)
             {
-                return this->Configuration != Configuration.Configuration;
+                return this->Configuration_Reference != Configuration.Configuration_Reference;
             }
 
         private:
             // - Attributes
 
-            AudioInfo &Configuration;
+            AudioInfo &Configuration_Reference;
+            AudioInfo Configuration; // TODO : Find another way
 
             friend class Stream_Class;
 

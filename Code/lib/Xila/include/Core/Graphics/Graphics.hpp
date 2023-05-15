@@ -85,6 +85,8 @@ namespace Xila_Namespace
         static void Task_Start_Function(void *Instance_Pointer);
         void Task_Function();
 
+        const char* Get_Symbol(Graphics_Types::Symbol_Code_Type Symbol);
+
         // - - Instruction
         void Execute_Instruction(Instruction_Class Instruction);
         static void Event_Handler(lv_event_t *Event);

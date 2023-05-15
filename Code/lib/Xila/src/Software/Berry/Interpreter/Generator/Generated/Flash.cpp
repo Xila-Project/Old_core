@@ -9,59 +9,59 @@ using namespace Xila_Namespace;
 using namespace Flash_Types;
 
 // - Functions
-int Berry_Flash_Class_Get_Size_2E59799C_8754_4E04_BC3F_25993665409E()
+int Berry_Flash_Class_Get_Size_AE5F7EE1_F0F9_42FE_A5FE_AB90F20E5C8A()
 {
 return (int)Flash.Get_Size(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Size_2E59799C_8754_4E04_BC3F_25993665409E, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Size_AE5F7EE1_F0F9_42FE_A5FE_AB90F20E5C8A, "i", "");
 
 
-int Berry_Flash_Class_Get_Speed_594AC40F_894A_4E00_97D4_572AE8458346()
+int Berry_Flash_Class_Get_Speed_A7A5B7DA_C7DB_4080_B855_AA2AAE295C34()
 {
 return (int)Flash.Get_Speed(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Speed_594AC40F_894A_4E00_97D4_572AE8458346, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Speed_A7A5B7DA_C7DB_4080_B855_AA2AAE295C34, "i", "");
 
 
-int Berry_Flash_Class_Get_Mode_B53EB17F_7CB6_416F_ABC2_F01DE633ECC8()
+int Berry_Flash_Class_Get_Mode_306364B6_60CF_455C_AF50_0A31D7CE0802()
 {
 return (int)Flash.Get_Mode(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Mode_B53EB17F_7CB6_416F_ABC2_F01DE633ECC8, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Mode_306364B6_60CF_455C_AF50_0A31D7CE0802, "i", "");
 
 
-const unsigned int* Berry_Flash_Class_Read_247D349C_7FDE_4FD3_BC0B_B596CB40E607(bvm* V, int A_0, int A_2)
+const unsigned int* Berry_Flash_Class_Read_0C4E4706_6887_4E49_A55E_7C3EB65E069A(bvm* V, int A_0, int A_2)
 {
 unsigned int* S_1 = (unsigned int*)Berry_Class::Get_Instance(V)->Buffer;
 Flash.Read((unsigned int)A_0, S_1, (A_2 > sizeof(Berry_Class::Buffer)) ? sizeof(Berry_Class::Buffer) : A_2); 
 return S_1;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Read_247D349C_7FDE_4FD3_BC0B_B596CB40E607, "s", "@ii");
+BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Read_0C4E4706_6887_4E49_A55E_7C3EB65E069A, "s", "@ii");
 
 
 
-int Berry_Flash_Class_Get_Sketch_Size_945F1B6A_E3DB_4863_BDCA_F3C15D12330C()
+int Berry_Flash_Class_Get_Sketch_Size_C4233A48_EF7B_4E9E_8FAB_6F0642F5D508()
 {
 return (int)Flash.Get_Sketch_Size(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Sketch_Size_945F1B6A_E3DB_4863_BDCA_F3C15D12330C, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Sketch_Size_C4233A48_EF7B_4E9E_8FAB_6F0642F5D508, "i", "");
 
 
-const char* Berry_Flash_Class_Get_Sketch_MD5_F1B5E198_51B6_4D9D_A15B_BEC1D7F51DDB(bvm* V)
+const char* Berry_Flash_Class_Get_Sketch_MD5_BD570CDC_CC46_4406_8DCD_2E59486ABE73(bvm* V)
 {
 String_Type S_0;
 S_0.Set_Buffer((char*)Berry_Class::Get_Instance(V)->Buffer, sizeof(Berry_Class::Buffer));
 Flash.Get_Sketch_MD5(S_0); 
 return S_0;
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Sketch_MD5_F1B5E198_51B6_4D9D_A15B_BEC1D7F51DDB, "s", "@");
+BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Sketch_MD5_BD570CDC_CC46_4406_8DCD_2E59486ABE73, "s", "@");
 
 
-int Berry_Flash_Class_Get_Sketch_Free_Space_229A4F25_4083_43E4_87CF_08D8027C98DA()
+int Berry_Flash_Class_Get_Sketch_Free_Space_EB5732ED_3AB2_48CA_87DF_F04CE16355AC()
 {
 return (int)Flash.Get_Sketch_Free_Space(); 
 }
-BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Sketch_Free_Space_229A4F25_4083_43E4_87CF_08D8027C98DA, "i", "");
+BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Sketch_Free_Space_EB5732ED_3AB2_48CA_87DF_F04CE16355AC, "i", "");
 
 
 void* Berry_Flash_Class_Get_Pointer()
@@ -74,13 +74,13 @@ BE_FUNC_CTYPE_DECLARE(Berry_Flash_Class_Get_Pointer, "c", "")
 /* @const_object_info_begin
 module Flash (scope:global)
 {
-	Get_Size, ctype_func(Berry_Flash_Class_Get_Size_2E59799C_8754_4E04_BC3F_25993665409E)
-	Get_Speed, ctype_func(Berry_Flash_Class_Get_Speed_594AC40F_894A_4E00_97D4_572AE8458346)
-	Get_Mode, ctype_func(Berry_Flash_Class_Get_Mode_B53EB17F_7CB6_416F_ABC2_F01DE633ECC8)
-	Read, ctype_func(Berry_Flash_Class_Read_247D349C_7FDE_4FD3_BC0B_B596CB40E607)
-	Get_Sketch_Size, ctype_func(Berry_Flash_Class_Get_Sketch_Size_945F1B6A_E3DB_4863_BDCA_F3C15D12330C)
-	Get_Sketch_MD5, ctype_func(Berry_Flash_Class_Get_Sketch_MD5_F1B5E198_51B6_4D9D_A15B_BEC1D7F51DDB)
-	Get_Sketch_Free_Space, ctype_func(Berry_Flash_Class_Get_Sketch_Free_Space_229A4F25_4083_43E4_87CF_08D8027C98DA)
+	Get_Size, ctype_func(Berry_Flash_Class_Get_Size_AE5F7EE1_F0F9_42FE_A5FE_AB90F20E5C8A)
+	Get_Speed, ctype_func(Berry_Flash_Class_Get_Speed_A7A5B7DA_C7DB_4080_B855_AA2AAE295C34)
+	Get_Mode, ctype_func(Berry_Flash_Class_Get_Mode_306364B6_60CF_455C_AF50_0A31D7CE0802)
+	Read, ctype_func(Berry_Flash_Class_Read_0C4E4706_6887_4E49_A55E_7C3EB65E069A)
+	Get_Sketch_Size, ctype_func(Berry_Flash_Class_Get_Sketch_Size_C4233A48_EF7B_4E9E_8FAB_6F0642F5D508)
+	Get_Sketch_MD5, ctype_func(Berry_Flash_Class_Get_Sketch_MD5_BD570CDC_CC46_4406_8DCD_2E59486ABE73)
+	Get_Sketch_Free_Space, ctype_func(Berry_Flash_Class_Get_Sketch_Free_Space_EB5732ED_3AB2_48CA_87DF_F04CE16355AC)
 	Get_Pointer, ctype_func(Berry_Flash_Class_Get_Pointer)
 
 	Partition_Subtype_Enumeration_Bootloader_Partition, int(0)

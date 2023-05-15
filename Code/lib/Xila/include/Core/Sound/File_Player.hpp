@@ -22,8 +22,6 @@ namespace Xila_Namespace
     namespace Sound_Types
     {
 
-        using WAV_Decoder = WAVDecoder;
-
         using Encoded_Stream_Type = EncodedAudioStream;
         using Stream_Copier_Type = StreamCopy;
 
@@ -78,7 +76,7 @@ namespace Xila_Namespace
 
             void Set_Input_File(Drive_Types::File_Type &Input_Stream);
 
-            void Set_Output_Stream(AudioStream &Output_Stream);
+            void Set_Output_Stream(Sound_Types::Stream_Type& Output_Stream);
 
         private:
             Decoder_Type& Decoder;
