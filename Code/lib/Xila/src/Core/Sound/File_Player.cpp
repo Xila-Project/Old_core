@@ -11,23 +11,14 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Sound_Types;
 
-File_Player_Class::File_Player_Class(Decoder_Type &Decoder)
-    : Encoded_Stream(&Decoder),
-      Decoder(Decoder)
-{
-}
-
-File_Player_Class::File_Player_Class(Drive_Types::File_Type &Input_File, AudioStream &Output_Stream, Decoder_Type &Decoder)
-    : Encoded_Stream(&Output_Stream, &Decoder),
+File_Player_Class::File_Player_Class(Sound_Types::Stream_Type& Output_Stream, Drive_Types::File_Type &Input_File, Decoder_Type &Decoder)
+    : Stream_Type(Encoded_Stream),
+    Encoded_Stream(&(AudioStream&)Output_Stream, &(AudioDecoder&)Decoder),
       Decoder(Decoder),
-      Stream_Copier(Encoded_Stream, Input_File),
-      Input_File(Input_File)
+      Input_File(Input_File),
+      Stream_Copier(Encoded_Stream, this->Input_File)
 {
     Encoded_Stream.setNotifyAudioChange(Output_Stream);
-}
-
-File_Player_Class::~File_Player_Class()
-{
 }
 
 /// @brief Set the player time.
@@ -62,9 +53,10 @@ uint32_t File_Player_Class::Get_Total_Time()
     return (Input_File.Get_Size() - 44) / (Get_Sample_Rate() * Get_Channels() * (Get_Bits_Per_Sample() / 8));
 }
 
-void File_Player_Class::Start()
+Result_Type File_Player_Class::Begin()
 {
-    Encoded_Stream.begin();
+    Stream_Copier.begin();
+    return (Result_Type)Encoded_Stream.begin();
 }
 
 void File_Player_Class::Stop()
@@ -78,25 +70,26 @@ Size_Type File_Player_Class::Loop()
     return Stream_Copier.copy();
 }
 
-void File_Player_Class::Set_Input_Stream(Stream &Input_Stream)
+void File_Player_Class::Set_Input_File(Drive_Types::File_Type &Input_Stream)
 {
+
 }
 
 void File_Player_Class::Set_Output_Stream(AudioStream &Output_Stream)
 {
 }
 
-uint32_t File_Player_Class::Get_Sample_Rate()
+int File_Player_Class::Get_Sample_Rate()
 {
-    return Decoder.audioInfo().sample_rate;
+    return Decoder.Get_Configuration().Get_Sample_Rate();
 }
 
-Byte_Type File_Player_Class::Get_Bits_Per_Sample()
+int File_Player_Class::Get_Bits_Per_Sample()
 {
-    return Decoder.audioInfo().bits_per_sample;
+    return Decoder.Get_Configuration().Get_Bits_Per_Sample();
 }
 
-Byte_Type File_Player_Class::Get_Channels()
+int File_Player_Class::Get_Channels()
 {
-    return Decoder.audioInfo().channels;
+    return Decoder.Get_Configuration().Get_Channel_Count();
 }

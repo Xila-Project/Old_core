@@ -213,6 +213,7 @@ Generate_Module(Global_Namespace, Xila_Namespace, "Pin")
 Generate_Module(Global_Namespace, Xila_Namespace, "Flash")
 Generate_Module(Global_Namespace, Xila_Namespace, "Clipboard")
 Generate_Module(Global_Namespace, Xila_Namespace, "Graphics")
+Generate_Module(Global_Namespace, Xila_Namespace, "Sound")
 
 Temporary_Folder_Path = os.path.join(Get_Code_Path(), "lib", "berry", "Temporary")
 

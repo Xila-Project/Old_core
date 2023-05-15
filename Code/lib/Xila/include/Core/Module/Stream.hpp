@@ -6,6 +6,9 @@
 ///
 /// @copyright Copyright (c) 2023
 
+#ifndef Stream_Hpp_Included
+#define Stream_Hpp_Included
+
 #include "Arduino.h"
 #include "Base_Types.hpp"
 #include "String.hpp"
@@ -111,3 +114,5 @@ namespace Xila_Namespace
 
     } Stream_Type;
 }
+
+#endif

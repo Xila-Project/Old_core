@@ -16,6 +16,10 @@
 #include "AudioTools.h"
 
 #include "File_Player.hpp"
+#include "I2S.hpp"
+#include "Stream.hpp"
+#include "Volume.hpp"
+#include "Decoder.hpp"
 
 //==============================================================================//
 
@@ -25,8 +29,6 @@ namespace Xila_Namespace
     {
         // - Types
 
-        using Stream_Type = AudioStream;
-
         // - - Mixer
         template<typename Type>
         using Input_Mixer_Type = InputMixer<Type>;
@@ -34,7 +36,7 @@ namespace Xila_Namespace
         using Output_Mixer_Type = OutputMixer<Type>;
 
         // - - Volume
-        using Volume_Stream_Type = VolumeStream;
+      
 
         // - - Input
 
@@ -45,8 +47,6 @@ namespace Xila_Namespace
 
 
         // - - Output
-
-        using I2S_Stream_Type = I2SStream;
         
 
 
@@ -81,10 +81,10 @@ namespace Xila_Namespace
         // - Attributes
 
         /// @brief Output stream.
-        Sound_Types::I2S_Stream_Type I2S_Output_Stream;
+        Sound_Types::I2S_Type I2S_Output_Stream;
 
         /// @brief Stream volume.
-     Sound_Types::Volume_Stream_Type Volume_Stream;
+     Sound_Types::Volume_Type Volume_Stream;
 
         /// @brief Outputs mixer.
    //     Sound_Types::Output_Mixer_Type<int16_t> Mixer;

@@ -12,32 +12,32 @@
 #include "../Drive/Drive.hpp"
 #include "../Module/Module.hpp"
 
-#include "AudioTools.h"
+#include "Core/Module/Stream.hpp"
+#include "Stream.hpp"
+#include "Decoder.hpp"
+
 
 namespace Xila_Namespace
 {
     namespace Sound_Types
     {
-        using Decoder_Type = AudioDecoder;
 
         using WAV_Decoder = WAVDecoder;
 
         using Encoded_Stream_Type = EncodedAudioStream;
         using Stream_Copier_Type = StreamCopy;
 
-        typedef class File_Player_Class
+        typedef class File_Player_Class : public Stream_Type
         {
         public:
             // - Methods
             // - - Constructors / Destructor
-            File_Player_Class(Decoder_Type &Decoder);
-            File_Player_Class(Drive_Types::File_Type &Input_File, AudioStream &Output_Stream, Decoder_Type &Decoder);
+            File_Player_Class(Sound_Types::Stream_Type& Output_Stream, Drive_Types::File_Type &Input_File, Decoder_Type &Decoder);
 
-            ~File_Player_Class();
 
             // - - Operations
 
-            void Start();
+            Result_Type Begin() override;
 
             void Stop();
 
@@ -54,17 +54,17 @@ namespace Xila_Namespace
             /// @brief Get the sample rate of the current playing file.
             /// @note At least one sample have to be played to get the sample rate.
             /// @return uint32_t Sample rate.
-            uint32_t Get_Sample_Rate();
+            int Get_Sample_Rate();
 
             /// @brief Get the bits per sample of the current playing file.
             /// @note At least one sample have to be played to get the bits per sample.
             /// @return Byte_Type Bits per sample.
-            Byte_Type Get_Bits_Per_Sample();
+            int Get_Bits_Per_Sample();
 
             /// @brief Get the number of channels of the current playing file.
             /// @note At least one sample have to be played to get the number of channels.
             /// @return Byte_Type Number of channels.
-            Byte_Type Get_Channels();
+            int Get_Channels();
 
             // - - Setters
 
@@ -76,12 +76,12 @@ namespace Xila_Namespace
             /// @param Time Time
             void Set_Time(Time_Type Time);
 
-            void Set_Input_Stream(Stream &Input_Stream);
+            void Set_Input_File(Drive_Types::File_Type &Input_Stream);
 
             void Set_Output_Stream(AudioStream &Output_Stream);
 
         private:
-            Decoder_Type &Decoder;
+            Decoder_Type& Decoder;
             Drive_Types::File_Type Input_File;
             Encoded_Stream_Type Encoded_Stream;
             Stream_Copier_Type Stream_Copier;
