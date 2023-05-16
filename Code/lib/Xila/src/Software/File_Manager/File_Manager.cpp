@@ -17,6 +17,13 @@ File_Manager_Class::File_Manager_Class(const Accounts_Types::User_Type *Owner_Us
     Log_Verbose("File manager", "File manager software initialization");
 }
 
+File_Manager_Class::~File_Manager_Class()
+{
+    Log_Verbose("File manager", "Destructor");
+    Log_Verbose("File manager", "Path: %p", this);
+    Window.Delete();
+}
+
 void File_Manager_Class::Set_Interface()
 {
     using namespace Xila::Graphics_Types;
@@ -103,12 +110,6 @@ void File_Manager_Class::Set_Interface()
     this->Refresh();
 }
 
-File_Manager_Class::~File_Manager_Class()
-{
-    Log_Verbose("File manager", "Destructor");
-    Log_Verbose("File manager", "Path: %p", this);
-    Window.Delete();
-}
 
 void File_Manager_Class::Main_Task_Function()
 {

@@ -18,6 +18,7 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
+const char Symbol_Class::Bullet[4] = LV_SYMBOL_BULLET;
 const char Symbol_Class::Audio[4] = LV_SYMBOL_AUDIO;
 const char Symbol_Class::Video[4] = LV_SYMBOL_VIDEO;
 const char Symbol_Class::List[4] = LV_SYMBOL_LIST;
@@ -55,7 +56,30 @@ const char Symbol_Class::Directory[4] = LV_SYMBOL_DIRECTORY;
 const char Symbol_Class::Upload[4] = LV_SYMBOL_UPLOAD;
 const char Symbol_Class::Call[4] = LV_SYMBOL_CALL;
 const char Symbol_Class::Cut[4] = LV_SYMBOL_CUT;
-
+const char Symbol_Class::Copy[4] = LV_SYMBOL_COPY;
+const char Symbol_Class::Save[4] = LV_SYMBOL_SAVE;
+const char Symbol_Class::Bars[4] = LV_SYMBOL_BARS;
+const char Symbol_Class::Envelope[4] = LV_SYMBOL_ENVELOPE;
+const char Symbol_Class::Charge[4] = LV_SYMBOL_CHARGE;
+const char Symbol_Class::Paste[4] = LV_SYMBOL_PASTE;
+const char Symbol_Class::Bell[4] = LV_SYMBOL_BELL;
+const char Symbol_Class::Keyboard[4] = LV_SYMBOL_KEYBOARD;
+const char Symbol_Class::GPS[4] = LV_SYMBOL_GPS;
+const char Symbol_Class::File[4] = LV_SYMBOL_FILE;
+const char Symbol_Class::WiFi[4] = LV_SYMBOL_WIFI;
+const char Symbol_Class::Battery_Full[4] = LV_SYMBOL_BATTERY_FULL;
+const char Symbol_Class::Battery_Three_Quarters[4] = LV_SYMBOL_BATTERY_3;
+const char Symbol_Class::Battery_Half[4] = LV_SYMBOL_BATTERY_2;
+const char Symbol_Class::Battery_Quarter[4] = LV_SYMBOL_BATTERY_1;
+const char Symbol_Class::Battery_Empty[4] = LV_SYMBOL_BATTERY_EMPTY;
+const char Symbol_Class::USB[4] = LV_SYMBOL_USB;
+const char Symbol_Class::Bluetooth[4] = LV_SYMBOL_BLUETOOTH;
+const char Symbol_Class::Trash[4] = LV_SYMBOL_TRASH;
+const char Symbol_Class::Edit[4] = LV_SYMBOL_EDIT;
+const char Symbol_Class::Backspace[4] = LV_SYMBOL_BACKSPACE;
+const char Symbol_Class::SD_Card[4] = LV_SYMBOL_SD_CARD;
+const char Symbol_Class::New_Line[4] = LV_SYMBOL_NEW_LINE;
+const char Symbol_Class::Dummy[4] = LV_SYMBOL_DUMMY;
 
 Graphics_Type Xila_Namespace::Graphics;
 
@@ -91,7 +115,7 @@ Result_Type Graphics_Class::Start()
 
     // - Initialize semaphore
 
-    if (Semaphore.Create(Semaphore_Type::Type_Type::Recursive_Mutex) != Result_Type::Success)
+    if (Semaphore.Create(Semaphore_Type_Type::Recursive_Mutex) != Result_Type::Success)
     {
         return Result_Type::Error;
     }
@@ -196,6 +220,8 @@ const char *Graphics_Class::Get_Symbol(Symbol_Code_Type Symbol)
 {
     switch (Symbol)
     {
+    case Symbol_Code_Type::Bullet:
+        return Symbol_Class::Bullet;
     case Symbol_Code_Type::Audio:
         return Symbol_Type::Audio;
     case Symbol_Code_Type::Video:
@@ -268,8 +294,56 @@ const char *Graphics_Class::Get_Symbol(Symbol_Code_Type Symbol)
         return Symbol_Type::Upload;
     case Symbol_Code_Type::Call:
         return Symbol_Type::Call;
-    }
+    case Symbol_Code_Type::Cut:
         return Symbol_Type::Cut;
+    case Symbol_Code_Type::Copy:
+        return Symbol_Type::Copy;
+    case Symbol_Code_Type::Save:
+        return Symbol_Type::Save;
+    case Symbol_Code_Type::Bars:
+        return Symbol_Type::Bars;
+    case Symbol_Code_Type::Envelope:
+        return Symbol_Type::Envelope;
+    case Symbol_Code_Type::Charge:
+        return Symbol_Type::Charge;
+    case Symbol_Code_Type::Paste:
+        return Symbol_Type::Paste;
+    case Symbol_Code_Type::Bell:
+        return Symbol_Type::Bell;
+    case Symbol_Code_Type::Keyboard:
+        return Symbol_Type::Keyboard;
+    case Symbol_Code_Type::GPS:
+        return Symbol_Type::GPS;
+    case Symbol_Code_Type::File:
+        return Symbol_Type::File;
+    case Symbol_Code_Type::WiFi:
+        return Symbol_Type::WiFi;
+    case Symbol_Code_Type::Battery_Full:
+        return Symbol_Type::Battery_Full;
+    case Symbol_Code_Type::Battery_Three_Quarters:
+        return Symbol_Type::Battery_Three_Quarters;
+    case Symbol_Code_Type::Battery_Half:
+        return Symbol_Type::Battery_Half;
+    case Symbol_Code_Type::Battery_Quarter:
+        return Symbol_Type::Battery_Quarter;
+    case Symbol_Code_Type::Battery_Empty:
+        return Symbol_Type::Battery_Empty;
+    case Symbol_Code_Type::USB:
+        return Symbol_Type::USB;
+    case Symbol_Code_Type::Bluetooth:
+        return Symbol_Type::Bluetooth;
+    case Symbol_Code_Type::Trash:
+        return Symbol_Type::Trash;
+    case Symbol_Code_Type::Edit:
+        return Symbol_Type::Edit;
+    case Symbol_Code_Type::Backspace:
+        return Symbol_Type::Backspace;
+    case Symbol_Code_Type::SD_Card:
+        return Symbol_Type::SD_Card;
+    case Symbol_Code_Type::New_Line:
+        return Symbol_Type::New_Line;
+    }
+    return Symbol_Type::Dummy;
 }
 
 Object_Type Graphics_Class::Get_Top_Layer()

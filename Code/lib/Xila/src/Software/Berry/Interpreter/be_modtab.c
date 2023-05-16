@@ -36,7 +36,7 @@ be_extern_native_module(Clipboard);
 be_extern_native_module(Sound);
 be_extern_native_module(Communication);
 be_extern_native_module(Mathematics);
-//be_extern_native_module(Foo);
+be_extern_native_module(Softwares);
 /* user-defined modules declare end */
 
 /* module list declaration */
@@ -101,6 +101,8 @@ BERRY_LOCAL const bntvmodule_t* const be_module_table[] = {
     &be_native_module(Communication),
 
     &be_native_module(Mathematics),
+
+    &be_native_module(Softwares),
     /* user-defined modules register end */
     NULL /* do not remove */
 };

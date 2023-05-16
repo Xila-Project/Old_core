@@ -64,6 +64,10 @@ namespace Xila_Namespace
         void Send_Instruction_Softwares(const Instruction_Type& Instruction);
         uint8_t Get_User_Softwares_Count(const Accounts_Types::User_Type* User);
         const Softwares_Types::Software_Type* Get_User_Softwares(const Accounts_Types::User_Type* User, uint8_t Index);
+   
+    private:
+
+    
     } Softwares_Type;
 
     extern Softwares_Type Softwares;

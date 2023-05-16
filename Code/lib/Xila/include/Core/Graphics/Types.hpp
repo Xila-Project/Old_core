@@ -24,6 +24,7 @@ namespace Xila_Namespace
         /// @brief Enumerate all the available symbols (for Berry compatibility)
         enum class Symbol_Code_Type
         {
+            Bullet,
             Audio,
             Video,
             List,
@@ -60,12 +61,37 @@ namespace Xila_Namespace
             Directory,
             Upload,
             Call,
-            Cut
+            Cut,
+            Copy,
+            Save,
+            Bars,
+            Envelope,
+            Charge,
+            Paste,
+            Bell,
+            Keyboard,
+            GPS,
+            File,
+            WiFi,
+            Battery_Full,
+            Battery_Three_Quarters,
+            Battery_Half,
+            Battery_Quarter,
+            Battery_Empty,
+            USB,
+            Bluetooth,
+            Trash,
+            Edit,
+            Backspace,
+            SD_Card,
+            New_Line,
+            Dummy,
         };
 
         typedef class Symbol_Class
         {
         public:
+            static const char Bullet[4];
             static const char Audio[4];
             static const char Video[4];
             static const char List[4];
@@ -103,6 +129,30 @@ namespace Xila_Namespace
             static const char Upload[4];
             static const char Call[4];
             static const char Cut[4];
+            static const char Copy[4];
+            static const char Save[4];
+            static const char Bars[4];
+            static const char Envelope[4];
+            static const char Charge[4];
+            static const char Paste[4];
+            static const char Bell[4];
+            static const char Keyboard[4];
+            static const char GPS[4];
+            static const char File[4];
+            static const char WiFi[4];
+            static const char Battery_Full[4];
+            static const char Battery_Three_Quarters[4];
+            static const char Battery_Half[4];
+            static const char Battery_Quarter[4];
+            static const char Battery_Empty[4];
+            static const char USB[4];
+            static const char Bluetooth[4];
+            static const char Trash[4];
+            static const char Edit[4];
+            static const char Backspace[4];
+            static const char SD_Card[4];
+            static const char New_Line[4];
+            static const char Dummy[4];
         } Symbol_Type;
 
         enum class Part_Type

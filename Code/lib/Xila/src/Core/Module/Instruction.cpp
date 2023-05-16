@@ -31,9 +31,7 @@ Instruction_Class::Instruction_Class()
 }
 
 Instruction_Class::~Instruction_Class()
-{
-    Log_Verbose("Instruction", "Instruction deleted : %p", this);
-}
+{}
 
 Module_Class *Instruction_Class::Get_Sender() const
 {

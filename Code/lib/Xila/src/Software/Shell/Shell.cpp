@@ -22,7 +22,6 @@ Shell_Class::Shell_Class(const Accounts_Types::User_Type *Owner_User)
       Installer_Pointer(NULL),
       Login_Pointer(NULL)
 {
-    Log_Verbose("Shell", "Shell_Class::Shell_Class()");
 }
 
 /// @brief Shell destructor.
@@ -110,7 +109,7 @@ void Shell_Class::Main_Task_Function()
             {
                 Refresh_Overlay();
 
-                Desk.Refresh();
+                //Desk.Refresh();
 
                 Next_Refresh = System.Get_Up_Time_Milliseconds() + 5000;
             }

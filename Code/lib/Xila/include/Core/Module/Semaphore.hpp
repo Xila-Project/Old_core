@@ -21,19 +21,19 @@ namespace Xila_Namespace
     typedef class Task_Class Task_Type;
 
     typedef class Auto_Semaphore_Class Auto_Semaphore_Type;
+
+    enum class Semaphore_Type_Type
+    {
+        Binary,
+        Counting,
+        Mutex,
+        Recursive_Mutex
+    };
     
     /// @brief Xila Semaphore type.
     typedef class Semaphore_Class
     {
     public:
-        enum class Type_Type 
-        {
-            Binary,
-            Counting,
-            Mutex,
-            Recursive_Mutex
-        };
-
         // - Methods
         // - - Constructors / destructors
 
@@ -46,7 +46,7 @@ namespace Xila_Namespace
         /// @param Initial_Count Initial count (for Counting semaphore).
         /// @param Maximum_Count Maximum count (for Counting semaphore).
         /// @return `Result_Type::Success` if the semaphore was created, Result_Type::Error otherwise.
-        Result_Type Create(Type_Type Type, unsigned int Initial_Count = 0, unsigned int Maximum_Count = 1);
+        Result_Type Create(Semaphore_Type_Type Type, unsigned int Initial_Count = 0, unsigned int Maximum_Count = 1);
 
         /// @brief Delete the Semaphore.
         void Delete();
@@ -69,9 +69,8 @@ namespace Xila_Namespace
 
         /// @brief Take and give the Semaphore automatically by using the scope of the returned variable.
         /// @param Timeout Timeout to take the semaphore in milliseconds.
-        /// @return 
+        /// @return
         Auto_Semaphore_Type Take_Auto(uint32_t Timeout = 0xFFFFFFFF);
-
 
         /// @brief Give the Semaphore.
         void Give();
@@ -95,7 +94,7 @@ namespace Xila_Namespace
         /// @brief Return if a Semaphore is valid (created).
         /// @return `true` if the Semaphore is valid, `false` otherwise.
         bool Is_Valid();
-        
+
     private:
         // - Attributes
 
@@ -113,12 +112,11 @@ namespace Xila_Namespace
 
         /// @brief Construct a new Auto Semaphore object and take the Semaphore.
 
-        //Auto_Semaphore_Class(Semaphore_Type Semaphore, uint32_t Timeout = 0xFFFFFFFF);
-        Auto_Semaphore_Class(Semaphore_Type& Semaphore, uint32_t Timeout = 0xFFFFFFFF);
+        // Auto_Semaphore_Class(Semaphore_Type Semaphore, uint32_t Timeout = 0xFFFFFFFF);
+        Auto_Semaphore_Class(Semaphore_Type &Semaphore, uint32_t Timeout = 0xFFFFFFFF);
 
         /// @brief Copy constructor.
         Auto_Semaphore_Class(const Auto_Semaphore_Class &);
-
 
         ~Auto_Semaphore_Class();
 

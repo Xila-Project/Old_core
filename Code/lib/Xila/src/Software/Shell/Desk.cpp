@@ -259,19 +259,29 @@ void Shell_Class::Desk_Class::Refresh()
     // Delete grid items except the dock.
 
     // - If the dock is hidden, do nothing.
+    Log_Trace();
+
     if (Dock.Has_Flag(Graphics_Types::Flag_Type::Hidden))
     {
         return;
     }
     // - Refresh dock software list.
 
+    Log_Trace();
+
     // If there are too many buttons, delete some.
 
-    uint8_t User_Softwares_Count = Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User());
+    const uint8_t User_Softwares_Count = Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User());
+
+    Log_Verbose("Shell", "User softwares count : %u", User_Softwares_Count);
+
     while (Dock_List.Get_Child_Count() > (User_Softwares_Count - 1))
     {
+        Log_Verbose("Shell", "Deleting dock icon %u", Dock_List.Get_Child_Count() - 1);
         Dock_List.Get_Child(Dock_List.Get_Child_Count() - 1).Delete();
     }
+
+    Log_Trace();
 
     // If there is not enough icons, create more.
     {
@@ -280,6 +290,7 @@ void Shell_Class::Desk_Class::Refresh()
         while (Dock_List.Get_Child_Count() < (User_Softwares_Count - 1))
         {
 
+            Log_Verbose("Shell", "Creating dock icon %u", Dock_List.Get_Child_Count());
             Icon_Container.Create(Dock_List);
             Icon_Label.Create(Icon_Container);
             Icon_Container.Set_Alignment(Graphics_Types::Alignment_Type::Top_Middle);
@@ -291,6 +302,9 @@ void Shell_Class::Desk_Class::Refresh()
         }
     }
 
+
+    Log_Trace();
+
     // - - Set dock software icons.
     {
         Graphics_Types::Object_Type Icon_Container;
@@ -300,9 +314,11 @@ void Shell_Class::Desk_Class::Refresh()
         uint8_t j = 0;
         for (uint8_t i = 0; i < User_Softwares_Count; i++)
         {
+            Log_Verbose("Shell", "Dock icon %u", i);
             Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
-            if (Software_Pointer != Shell_Pointer)
+            if (Software_Pointer && (Software_Pointer != Shell_Pointer))
             {
+                Log_Verbose("Shell", "Dock icon %u is not the shell", i);
                 Icon_Container = Dock_List.Get_Child(j++); // Get the icon container and increment the counter (after).
 
                 Software_Pointer->Get_Handle()->Get_Name(Name);
@@ -313,6 +329,7 @@ void Shell_Class::Desk_Class::Refresh()
             }
         }
     }
+    Log_Trace();
 }
 
 void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instruction)
@@ -324,6 +341,12 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
         Dock_Options.Add_Flag(Flag_Type::Hidden);
         switch (Instruction.Graphics.Get_Code())
         {
+        case Event_Code_Type::Child_Changed:
+            if (Current_Target == Shell_Pointer->Screen)
+            {
+                Refresh();
+            }
+            break;
         case Event_Code_Type::Pressed:
             if (Current_Target == Menu_Button)
             {
@@ -345,7 +368,6 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
                 Ignore_Button = Current_Target;
                 Dock_Options.Set_Alignment(Alignment_Type::Out_Top_Left, 0, -16, &Current_Target);
                 Dock_Options.Clear_Flag(Flag_Type::Hidden);
-                Log_Verbose("Shell", "Dock's button long pressed !");
             }
             break;
         case Event_Code_Type::Clicked:
@@ -353,14 +375,12 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
                 Shell_Pointer->Drawer.Open();
             else if ((Current_Target == Dock_Close_Button) && Selected_Button)
             {
-                Log_Verbose("Shell", "Dock's close clicked");
                 Softwares.Close(const_cast<Softwares_Types::Software_Type *>(Get_Software_Pointer_From_Dock(Dock_List.Get_Child_Index(Selected_Button))));
                 Refresh();
                 Selected_Button.Clear_Pointer();
             }
             else if ((Current_Target == Dock_Maximize_Button) && Selected_Button)
             {
-                Log_Verbose("Shell", "Dock's maximize clicked");
                 Set_Software_Window_State(Get_Software_Pointer_From_Dock(Dock_List.Get_Child_Index(Selected_Button)), Window_State_Type::Maximized);
                 Selected_Button.Clear_Pointer();
             }
@@ -373,8 +393,6 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
                 }
                 else
                 {
-                    Log_Verbose("Shell", "Dock's button clicked");
-
                     Set_Software_Window_State(Get_Software_Pointer_From_Dock(Dock_List.Get_Child_Index(Current_Target)), Window_State_Type::Maximized);
                 }
             }

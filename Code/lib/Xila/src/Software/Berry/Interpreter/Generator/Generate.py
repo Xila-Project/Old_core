@@ -216,6 +216,7 @@ Generate_Module(Global_Namespace, Xila_Namespace, "Graphics")
 Generate_Module(Global_Namespace, Xila_Namespace, "Sound")
 Generate_Module(Global_Namespace, Xila_Namespace, "Communication")
 Generate_Module(Global_Namespace, Xila_Namespace, "Mathematics")
+Generate_Module(Global_Namespace, Xila_Namespace, "Softwares")
 
 Temporary_Folder_Path = os.path.join(Get_Code_Path(), "lib", "berry", "Temporary")
 

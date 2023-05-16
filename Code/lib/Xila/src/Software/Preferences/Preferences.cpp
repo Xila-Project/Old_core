@@ -17,7 +17,6 @@ Preferences_Class::Preferences_Class(const Accounts_Types::User_Type *Owner_User
 Preferences_Class::~Preferences_Class()
 {
     Window.Delete();
-    Main_Task.Delete();
 }
 
 void Preferences_Class::Set_Interface()

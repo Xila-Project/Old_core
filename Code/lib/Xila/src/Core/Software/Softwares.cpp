@@ -20,9 +20,7 @@ Softwares_Type Xila_Namespace::Softwares;
 
 Result_Type Softwares_Class::Start()
 {
-    Log_Trace();
     Static_String_Type<24> Shell_Name("Shell");
-
     return this->Open(Shell_Name);
 }
 
@@ -74,10 +72,8 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
 
 Result_Type Softwares_Class::Open(const char *Name, const Accounts_Types::User_Type *Owner_User)
 {
-    Log_Trace();
     const Software_Handle_Type *Handle = this->Find_Handle(Name);
-    Log_Trace();
-
+ 
     return this->Open(Handle, Owner_User);
 }
 
@@ -108,7 +104,7 @@ Result_Type Softwares_Class::Kill(Software_Type *Software)
     return Result_Type::Success;
 }
 
-void Softwares_Class::Register_Handle(Softwares_Types::Software_Handle_Type& Software_Handle)
+void Softwares_Class::Register_Handle(Softwares_Types::Software_Handle_Type &Software_Handle)
 {
     Software_Handle_Class::List.push_back(&Software_Handle);
 }
@@ -125,7 +121,7 @@ Software_Type *Softwares_Class::Find(const Software_Handle_Type *Handle)
     return NULL;
 }
 
-Software_Handle_Type* Softwares_Class::Find_Handle(const char *Name)
+Software_Handle_Type *Softwares_Class::Find_Handle(const char *Name)
 {
     Static_String_Type<Default_Software_Name_Length> Software_Name;
 
@@ -146,12 +142,10 @@ Software_Handle_Type* Softwares_Class::Find_Handle(const char *Name)
 
 const Software_Handle_Type *Softwares_Class::Get_Handle(Size_Type Index)
 {
-    if (Index >= Software_Handle_Class::List.size()) 
+    if (Index >= Software_Handle_Class::List.size())
         return NULL;
 
-    Log_Verbose("Software Handle", "Index : %d", Index);
     return *std::next(Software_Handle_Class::List.begin(), Index);
-
 }
 
 Software_Type *Softwares_Class::Get(uint8_t Index)

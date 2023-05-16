@@ -74,6 +74,8 @@ void Screen_Class::Create(const Softwares_Types::Software_Type *Owner_Software)
         this->Set_User_Data(const_cast<Softwares_Types::Software_Type *>(Owner_Software));
 
         this->List.push_back(this);
+
+        this->Add_Event(const_cast<Softwares_Types::Software_Type *>(Owner_Software), Event_Code_Type::Child_Changed);
     }
 }
 

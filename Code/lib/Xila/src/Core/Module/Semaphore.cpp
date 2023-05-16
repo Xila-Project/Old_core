@@ -27,7 +27,7 @@ Semaphore_Class::Semaphore_Class(const Semaphore_Class& Semaphore_To_Copy) : Sem
 {
 }
 
-Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
+Result_Type Semaphore_Class::Create(Semaphore_Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
 {
     if (Semaphore_Handle != NULL)
     {
@@ -36,16 +36,16 @@ Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, 
 
     switch (Type)
     {
-    case Type_Type::Binary:
+    case Semaphore_Type_Type::Binary:
         Semaphore_Handle = xSemaphoreCreateBinary();
         break;
-    case Type_Type::Counting:
+    case Semaphore_Type_Type::Counting:
         Semaphore_Handle = xSemaphoreCreateCounting(Maximum_Count, Initial_Count);
         break;
-    case Type_Type::Mutex:
+    case Semaphore_Type_Type::Mutex:
         Semaphore_Handle = xSemaphoreCreateMutex();
         break;
-    case Type_Type::Recursive_Mutex:
+    case Semaphore_Type_Type::Recursive_Mutex:
         Semaphore_Handle = xSemaphoreCreateRecursiveMutex();
         break;
     default:

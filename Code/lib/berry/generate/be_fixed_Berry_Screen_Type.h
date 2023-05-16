@@ -1,14 +1,14 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Screen_Type_map) {
-    { be_const_key(Get_User_Screen, 7), be_const_ctype_func(Berry_Screen_Class_Get_User_Screen_91F1C884_F317_41E1_B2DB_0415AC7E4EB8) },
-    { be_const_key(Load, -1), be_const_ctype_func(Berry_Screen_Class_Load_2EE400A8_51A6_4006_B471_188E7E9474CE) },
-    { be_const_key(Delete, 4), be_const_ctype_func(Berry_Screen_Class_Delete_4A495957_B985_4EBE_BCFD_7820133FA473) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Screen_Class_Initialize_1F8E3325_19CC_4FBB_9371_8AEBDBBB35DA) },
-    { be_const_key(Get_Active, 6), be_const_ctype_func(Berry_Screen_Class_Get_Active_C0D0AD30_B493_416A_B4A1_89BDD65EBF38) },
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Screen_Class_Create_144C342C_D123_409F_8A65_C352888BFB3D) },
+    { be_const_key(Get_User_Screen, 7), be_const_ctype_func(Berry_Screen_Class_Get_User_Screen_E5CA9EE0_8CFF_4805_ABA5_845D3C1F6479) },
+    { be_const_key(Load, -1), be_const_ctype_func(Berry_Screen_Class_Load_1831D3CF_BE31_4C84_AF30_513D3833CAD9) },
+    { be_const_key(Delete, 4), be_const_ctype_func(Berry_Screen_Class_Delete_7AE06E01_9B19_4B07_BF5D_5CB0CC519B09) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Screen_Class_Initialize_92031701_0D9F_4B8B_89CB_8E685C6EDF6A) },
+    { be_const_key(Get_Active, 6), be_const_ctype_func(Berry_Screen_Class_Get_Active_A2214EBA_5B98_4053_962B_FA6815977B25) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Screen_Class_Create_7739C98A_D307_4680_817E_D9448F72AA11) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Screen_Class_Deinitialize_07109497_7E8B_4017_8C6C_E089FCF8C39D) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Screen_Class_Deinitialize_B06E66C4_4AF7_4096_B01E_0BBF650F2FF9) },
 };
 
 static be_define_const_map(

@@ -18,33 +18,15 @@ Mathematics_Type Xila_Namespace::Mathematics;
 const Mathematics_Types::Rational_Type Mathematics_Class::Pi(355, 113);
 const Mathematics_Types::Rational_Type Mathematics_Class::Euler(2718281828459045, 1000000000000000);
 
-
-
-
-
-
-
 bool Xila_Namespace::Mathematics_Class::Is_NAN(double Number)
 {
     return isnan(Number);
 }
 
-
-
-
-
-
-
 bool Xila_Namespace::Mathematics_Class::Is_Infinite(double Number)
 {
     return isinf(Number);
 }
-
-
-
-
-
-
 
 double Xila_Namespace::Mathematics_Class::Copy_Sign(double Number_1, double Number_2)
 {
@@ -61,21 +43,11 @@ double Xila_Namespace::Mathematics_Class::Modulo(double Number_1, double Number_
     return fmod(Number_1, Number_2);
 }
 
-
-
-
-
-
 Rational_Type Xila_Namespace::Mathematics_Class::Radians(Rational_Type Degrees)
 {
     using namespace Xila_Namespace::Mathematics_Types;
     return Rational_Type(Pi, Rational_Type(360)) * Degrees;
 }
-
-
-
-
-
 
 Rational_Type Xila_Namespace::Mathematics_Class::Degrees(Rational_Type Radians)
 {
@@ -83,140 +55,70 @@ Rational_Type Xila_Namespace::Mathematics_Class::Degrees(Rational_Type Radians)
     return Radians * Rational_Type(Rational_Type(360), Pi);
 }
 
-
-
-
-
-
 double Xila_Namespace::Mathematics_Class::Sine(double Number)
 {
     return sin(Number);
 }
-
-
-
-
-
 
 double Xila_Namespace::Mathematics_Class::Cosine(double Number)
 {
     return cos(Number);
 }
 
-
-
-
-
-
 double Xila_Namespace::Mathematics_Class::Tangent(double Number)
 {
     return tan(Number);
 }
-
-
-
-
-
 
 double Xila_Namespace::Mathematics_Class::Secant(double Number)
 {
     return 1 / Cosine(Number);
 }
 
-
-
-
-
-
 double Xila_Namespace::Mathematics_Class::Cosecant(double Number)
 {
     return 1 / Sine(Number);
 }
-
-
-
-
-
 
 double Xila_Namespace::Mathematics_Class::Cotangent(double Number)
 {
     return 1 / Tangent(Number);
 }
 
-
-
-
-
-
 double Xila_Namespace::Mathematics_Class::Arc_Sine(double Number)
 {
     return asin(Number);
 }
-
-
-
-
-
 
 double Xila_Namespace::Mathematics_Class::Arc_Cosine(double Number)
 {
     return acos(Number);
 }
 
-
-
-
-
-
 double Xila_Namespace::Mathematics_Class::Arc_Tangent(double Number)
 {
     return atan(Number);
 }
-
-
-
-
-
 
 double Xila_Namespace::Mathematics_Class::Arc_Secant(double Number)
 {
     return Arc_Cosine(1 / Number);
 }
 
-
-
-
-
-
 double Xila_Namespace::Mathematics_Class::Arc_Cosecant(double Number)
 {
     return Arc_Sine(1 / Number);
 }
-
-
-
-
-
 
 double Xila_Namespace::Mathematics_Class::Arc_Cotangent(double Number)
 {
     return static_cast<Long_Real_Type>((Pi / 2) - Arc_Tangent(Number));
 }
 
-
-
-
-
-
 double Xila_Namespace::Mathematics_Class::Hyperbolic_Sine(double Number)
 {
     return sinh(Number);
 }
-
-
-
-
-
 
 double Xila_Namespace::Mathematics_Class::Hyperbolic_Cosine(double Number)
 {
@@ -320,23 +222,10 @@ uint32_t Xila_Namespace::Mathematics_Class::Random(uint32_t Lower_Bound, uint32_
     return Random(diff) + Lower_Bound;
 }
 
-
-
-
-
-
 double Xila_Namespace::Mathematics_Class::String_To_Float(const char *String)
 {
     return atof(String);
 }
-
-
-
-
-
-
-
-
 
 char *Xila_Namespace::Mathematics_Class::Float_To_String(double Number, int8_t Width, uint8_t Precision, char *String)
 {
