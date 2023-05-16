@@ -13,6 +13,7 @@
 
 #include "IP_Address.hpp"
 #include "WiFi.hpp"
+#include "HTTP_Client.hpp"
 
 namespace Xila_Namespace
 {

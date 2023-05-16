@@ -124,6 +124,9 @@ def Get_Modules_List():
 
     return Modules
 
+def Get_Size(Declaration):
+    return Declaration.byte_size
+
 def Get_Generated_Folder_Path():
     Path = os.path.join(os.path.dirname(__file__), "Generated")
     if not os.path.exists(Path):

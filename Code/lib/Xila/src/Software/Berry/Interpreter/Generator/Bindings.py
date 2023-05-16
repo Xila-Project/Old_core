@@ -70,8 +70,6 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
         if not(Is_Integral_Type(Argument)):
             Next_May_Be_Buffer_Size = False
 
-        
-
         if Is_Pointer_Type(Argument) or Is_Reference_Type(Argument):
             Base_Type = Get_Base_Type(Argument)
             #print("Pointer : ", Raw_Argument)
@@ -121,7 +119,12 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 StringD += "b"
                 Passed_Arguments += "A_" + str(i) + ", "
             elif Is_Integral_Type(Argument):
-                if Next_May_Be_Buffer_Size:
+                print("Integral : ", str(Argument.byte_size))
+                if Get_Size(Argument) > 4:
+                    S += str(Get_Base_Type(Argument)) + "*A_" + str(i)
+                    StringD += "."
+                    Passed_Arguments += "*A_" + str(i)
+                elif Next_May_Be_Buffer_Size:
                     S += "int A_" + str(i)
                     StringD += "i"
                     Passed_Arguments += "(A_" + str(i) + " > sizeof(Berry_Class::Buffer)) ? sizeof(Berry_Class::Buffer)" + " : A_" + str(i)
@@ -133,10 +136,15 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                     StringD += "i"
                     Passed_Arguments += "(" + str(Base_Type) + ")A_" + str(i) # Conversion from int to desired type
             elif Is_Float_Type(Argument):
-                Base_Type = Get_Base_Type(Argument)
-                S += "float A_" + str(i)
-                StringD += "f"
-                Passed_Arguments += "(" + str(Base_Type) + ")A_" + str(i)
+                if Get_Size(Argument) > 4:
+                    S += str(Get_Base_Type(Argument)) + "* A_" + str(i)
+                    StringD += "."
+                    Passed_Arguments += "*A_" + str(i)
+                else:
+                    Base_Type = Get_Base_Type(Argument)
+                    S += "float A_" + str(i)
+                    StringD += "f"
+                    Passed_Arguments += "(" + str(Base_Type) + ")A_" + str(i)
             elif Is_Declarated_Type(Argument):
                 if Is_Enumeration_Type(Argument.declaration):
                     S += "int A_" + str(i)
@@ -156,7 +164,7 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
 
 
         # - - Default arguments
-        if Is_Optional(Raw_Argument):
+        if Is_Optional(Raw_Argument) and not(S.endswith(", ")):
             S += " = " 
             if (Is_Declarated_Type(Argument) and Is_Enumeration_Type(Argument.declaration)):
                 S += "(int)"    # Add explicit cast for enum (enum class doesn't allow implicit cast)
@@ -195,13 +203,29 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 R = "bool"
                 ReturnD = "b"
             elif (Is_Integral_Type(Return_Type)):
-                R = "int"
-                ReturnD = "i"
-                Return_Conversion = "(int)"
+                if Get_Size(Return_Type) > 4:
+                    S = "bvm* V, " + S
+                    StringD = "@" + StringD
+                    Pre_Additional_Content += "int64_t* R = (int64_t*) be_malloc(V, sizeof(int64_t));\n *R = "
+                    Post_Additional_Content += "return R;\n"
+                    R = "void *"
+                    ReturnD = "Long_Integer_Type"
+                else:
+                    R = "int"
+                    ReturnD = "i"
+                    Return_Conversion = "(int)"
             elif Is_Float_Type(Return_Type):
-                R = "float"
-                ReturnD = "f"
-                Return_Conversion = "(float)"
+                if Get_Size(Return_Type) > 4:
+                    S = "bvm* V, " + S
+                    StringD = "@" + StringD
+                    Pre_Additional_Content += "double* R = (double*) be_malloc(V, sizeof(double));\n *R = "
+                    Post_Additional_Content += "return R;\n"
+                    R = "void *"
+                    ReturnD = "Long_Real_Type"
+                else:
+                    R = "float"
+                    ReturnD = "f"
+                    Return_Conversion = "(float)"
             
             elif Is_Void_Type(Return_Type):
                 R = "void"
@@ -214,7 +238,6 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
                 elif Is_Class(Return_Type.declaration):
                     Return_Type_Declaration = Return_Type.declaration.decl_string.replace("::Xila_Namespace::", "Xila_Namespace::")
                     S = "bvm* V, " + S
-                    
                     StringD = "@" + StringD
                     Pre_Additional_Content += Return_Type_Declaration + "* R = (" + Return_Type_Declaration + "*) be_malloc(V, sizeof(" + Return_Type_Declaration + "));\n *R = "
                     ReturnD = Return_Type.declaration.decl_string.replace("_Types", "").replace("_Class", "_Type").replace("::Xila_Namespace::", "").replace("::", ".")

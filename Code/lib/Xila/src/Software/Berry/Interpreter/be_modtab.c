@@ -25,11 +25,17 @@ be_extern_native_module(strict);
 be_extern_native_module(undefined);
 
 /* user-defined modules declare start */
-be_extern_native_module(System);
-be_extern_native_module(Memory);
-be_extern_native_module(Graphics);
 be_extern_native_module(Drive);
+be_extern_native_module(Memory);
+be_extern_native_module(System);
+be_extern_native_module(Graphics);
 be_extern_native_module(This);
+be_extern_native_module(Pin);
+be_extern_native_module(Flash);
+be_extern_native_module(Clipboard);
+be_extern_native_module(Sound);
+be_extern_native_module(Communication);
+be_extern_native_module(Mathematics);
 //be_extern_native_module(Foo);
 /* user-defined modules declare end */
 
@@ -83,6 +89,18 @@ BERRY_LOCAL const bntvmodule_t* const be_module_table[] = {
     &be_native_module(System),
     
     &be_native_module(This),
+
+    &be_native_module(Pin),
+
+    &be_native_module(Flash),
+
+    &be_native_module(Clipboard),
+
+    &be_native_module(Sound),
+
+    &be_native_module(Communication),
+
+    &be_native_module(Mathematics),
     /* user-defined modules register end */
     NULL /* do not remove */
 };

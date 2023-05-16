@@ -15,8 +15,8 @@ Mathematics_Type Xila_Namespace::Mathematics;
 
 // - Attributes
 
-static const Mathematics_Types::Rational_Type Pi(355, 113);
-static const Mathematics_Types::Rational_Type Euler(2718281828459045, 1000000000000000);
+const Mathematics_Types::Rational_Type Mathematics_Class::Pi(355, 113);
+const Mathematics_Types::Rational_Type Mathematics_Class::Euler(2718281828459045, 1000000000000000);
 
 
 

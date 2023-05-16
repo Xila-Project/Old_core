@@ -36,7 +36,7 @@ Shell_Class::Login_Class::Login_Class(Shell_Class *Shell_Pointer) : Shell_Pointe
     Password_Input.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Focused);
     Password_Input.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Defocused);
 
-    Login_Button.Create(Dialog.Get_Body(), "Login", Percentage(50), 40);
+    Login_Button.Create(Dialog.Get_Body(), "Login");
     Login_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 }
 

@@ -1,19 +1,19 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_I2S_Configuration_Type_map) {
-    { be_const_key(Set_Bit_Clock_Pin, 2), be_const_ctype_func(Berry_I2S_Configuration_Class_Set_Bit_Clock_Pin_F9E3943C_E01A_464B_AF51_66F05F23D62F) },
-    { be_const_key(Get_Mode, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Get_Mode_C3C9BEA5_DB8A_4142_AA7F_F3CAD2BD154F) },
-    { be_const_key(Get_Format, 9), be_const_ctype_func(Berry_I2S_Configuration_Class_Get_Format_4C3117F9_E396_4394_BB93_9DE123859D4B) },
-    { be_const_key(Get_Clock_Data_Pin, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Get_Clock_Data_Pin_BA92C2C6_CA47_4AE8_B02D_1BE24339EB5D) },
-    { be_const_key(Get_Bit_Clock_Pin, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Get_Bit_Clock_Pin_A8CF1261_56AB_408F_9AA3_B1FF9C48CAAA) },
-    { be_const_key(Set_Word_Select_Clock_Pin, 1), be_const_ctype_func(Berry_I2S_Configuration_Class_Set_Word_Select_Clock_Pin_F0875157_9CC1_418F_BA66_F705E70DBE38) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Initialize_0C1909D6_261B_4BE8_84EF_35091D24F3D6) },
-    { be_const_key(Get_Word_Select_Clock_Pin, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Get_Word_Select_Clock_Pin_E265476E_C8C9_4079_B33C_5ED4B8258050) },
-    { be_const_key(Set_Mode, 3), be_const_ctype_func(Berry_I2S_Configuration_Class_Set_Mode_E1A6980D_45E7_461E_BC31_A3F14D2D8C43) },
-    { be_const_key(Set_Format, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Set_Format_58FCDEF9_A802_4BE6_89EB_3AC022D4A669) },
-    { be_const_key(Set_Data_Pin, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Set_Data_Pin_5A974BFB_DD39_4875_A765_434A1AADB65E) },
+    { be_const_key(Set_Bit_Clock_Pin, 2), be_const_ctype_func(Berry_I2S_Configuration_Class_Set_Bit_Clock_Pin_4CF52A01_E460_4D12_8A76_E20B9975BF99) },
+    { be_const_key(Get_Mode, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Get_Mode_36A85073_F93B_4684_95EE_E73AF2CD23DE) },
+    { be_const_key(Get_Format, 9), be_const_ctype_func(Berry_I2S_Configuration_Class_Get_Format_70CE389E_AA46_4B4F_88C0_5FE2DD97E362) },
+    { be_const_key(Get_Clock_Data_Pin, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Get_Clock_Data_Pin_AA652BF3_265E_4BD3_A7C7_243ACE5D35C4) },
+    { be_const_key(Get_Bit_Clock_Pin, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Get_Bit_Clock_Pin_E60C8086_A3F3_4D18_9C61_708F2E625F92) },
+    { be_const_key(Set_Word_Select_Clock_Pin, 1), be_const_ctype_func(Berry_I2S_Configuration_Class_Set_Word_Select_Clock_Pin_265A6F47_0C51_4D52_B094_6701ECCB5002) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Initialize_53155D70_8E73_4735_8E5F_05C0C6204D7F) },
+    { be_const_key(Get_Word_Select_Clock_Pin, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Get_Word_Select_Clock_Pin_C961A0CB_DC71_432F_8CA5_B18DAC7AFFA1) },
+    { be_const_key(Set_Mode, 3), be_const_ctype_func(Berry_I2S_Configuration_Class_Set_Mode_E27BFA1F_1484_481F_81CD_FF93D39C1715) },
+    { be_const_key(Set_Format, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Set_Format_1B513518_A476_48D9_A89A_9F2408847ECB) },
+    { be_const_key(Set_Data_Pin, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Set_Data_Pin_8A693EAF_C200_4F62_8CFD_14FE8EB65026) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Deinitialize_68BFC5C3_EBAA_4D31_8F8E_095173778C4F) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_I2S_Configuration_Class_Deinitialize_1B7D664A_B696_46DC_85A6_2FE15CCFA5E0) },
 };
 
 static be_define_const_map(

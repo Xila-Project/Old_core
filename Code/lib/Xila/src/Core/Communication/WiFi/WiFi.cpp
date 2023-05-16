@@ -13,6 +13,7 @@
 #include "Core/Communication/WiFi.hpp"
 #include "Core/Drive/Drive.hpp"
 #include "Core/Log/Log.hpp"
+#include "HTTPClient.h"
 
 // - Namespaces
 

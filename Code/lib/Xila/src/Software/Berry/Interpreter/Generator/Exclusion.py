@@ -1,4 +1,4 @@
-Classes = ["Graphics_Types::Animation_Class", "Graphics_Types::Symbol_Class", "Canvas_Class"
+Classes = ["Graphics_Types::Animation_Class", "Graphics_Types::Symbol_Class", "Canvas_Class", "Communication_Types::WiFi_Class"
 ]
 
 def Is_Class_Excluded(Class):
@@ -77,7 +77,8 @@ Functions = [
 "void Xila_Namespace::Clipboard_Class::Copy(void const * Data, Xila_Namespace::Size_Type Data_Size)",
 "Xila_Namespace::Result_Type Xila_Namespace::Flash_Class::Partition_Read(esp_partition_t const *Partition, uint32_t Offset, uint32_t *Data, size_t Size)",
 "Decoder_Class(audio_tools::AudioDecoder &Decoder)",
-"Xila_Namespace::Sound_Types::Stream_Class::Stream_Class(audio_tools::AudioStream & Stream)"
+"Xila_Namespace::Sound_Types::Stream_Class::Stream_Class(audio_tools::AudioStream & Stream)",
+"void Xila_Namespace::Communication_Types::HTTPS_Client_Class::Collect_Headers(char const * * Header_Keys, Xila_Namespace::Size_Type Header_Keys_Count)"
 ]
 
 def Is_Function_Excluded(Function):

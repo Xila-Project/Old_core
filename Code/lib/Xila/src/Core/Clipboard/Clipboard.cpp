@@ -10,7 +10,7 @@
 
 using namespace Xila_Namespace;
 
-Clipboard_Type Clipboard();
+Clipboard_Type Xila_Namespace::Clipboard;
 
 Clipboard_Class::Clipboard_Class()
 {
@@ -46,7 +46,7 @@ void Clipboard_Class::Copy(QWord_Type Value_To_Copy)
 
 void Clipboard_Class::Copy(const char *String_To_Copy)
 {
-  this->String = String_To_Copy;
+  strlcpy((char*)Data, String_To_Copy, sizeof(Data));
 }
 
 void Clipboard_Class::Copy(const void *Data, Size_Type Data_Size)
@@ -78,11 +78,14 @@ uint64_t Clipboard_Class::Paste() const
 /// @return Result_Type
 void Clipboard_Class::Paste(char *Destination_Char_Array, Size_Type Char_Array_Length) const
 {
-  strlcpy(Destination_Char_Array, String, Char_Array_Length);
+  strlcpy(Destination_Char_Array, (char*)Data, Char_Array_Length);
 }
 
 String_Type& Clipboard_Class::Paste(String_Type &Destination_String) const
 {
-  Destination_String.Copy(String);
+  if (!Destination_String)
+    return Destination_String;
+
+  Destination_String = (char*)Data;
   return Destination_String;
 }

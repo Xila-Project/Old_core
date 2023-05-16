@@ -14,6 +14,7 @@
 #include "../Module/Module.hpp"
 
 #include "IP_Address.hpp"
+#include "WiFi_Client.hpp"
 
 namespace Xila_Namespace
 {

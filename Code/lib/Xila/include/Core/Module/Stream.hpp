@@ -19,11 +19,27 @@ namespace Xila_Namespace
     {
         // - Methods
 
+        // - Virtual
+
         virtual int Available() = 0;
         virtual int Read() = 0;
         virtual int Peek() = 0;
         virtual Size_Type Read_Bytes(Byte_Type *Buffer, Size_Type Length) = 0;
         virtual String_Type &Read_String(String_Type &String) = 0;
+
+        virtual int Available_For_Write() {return 0;};
+        virtual Size_Type Write(uint8_t Byte) = 0;
+        virtual Size_Type Write_String(const char *String) = 0;
+        virtual Size_Type Write_Bytes(const uint8_t *Buffer, Size_Type Size) = 0;
+        virtual void Flush() = 0;
+       
+        // - - Operations
+
+        Size_Type Print(const char *String) { return print(String); }
+        Size_Type Print_Line(const char *String) { return println(String); }
+        Size_Type Print_Format(const char* Format, ...) { va_list Arguments; va_start(Arguments, Format); Size_Type Result = printf(Format, Arguments); va_end(Arguments); return Result; }
+
+        void Clear_Write_Error() { clearWriteError(); }
 
         // - - Parsing
 
@@ -91,6 +107,7 @@ namespace Xila_Namespace
         // - - Getters
 
         unsigned long Get_Timeout() { return getTimeout(); }
+        int Get_Write_Error() { return getWriteError(); }
 
         // - - Stream methods overrides (ensure the compatibility with Arduino Stream class)
 
@@ -111,6 +128,12 @@ namespace Xila_Namespace
             }
             return S;
         }
+
+        // - - Print methods overrides (ensure the compatibility with Arduino Print class)
+        size_t write(uint8_t Byte) override { return Write(Byte); }
+        size_t write(const uint8_t *Buffer, size_t Size) override { return Write_Bytes(Buffer, Size); }
+        int availableForWrite() override { return Available_For_Write(); }
+        void flush() override { Flush(); }
 
     } Stream_Type;
 }

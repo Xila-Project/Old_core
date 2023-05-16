@@ -36,10 +36,10 @@ namespace Xila_Namespace
             int Read() override;
             Size_Type Read_Bytes(Byte_Type *Buffer, Size_Type Length) override;
             String_Type &Read_String(String_Type &String) override;
-            void Flush();
 
-            Size_Type Write(Byte_Type Data);
-            Size_Type Write_Bytes(const Byte_Type *Data, Size_Type Size);
+            void Flush() override;
+            Size_Type Write(Byte_Type Data) override;
+            Size_Type Write_Bytes(const Byte_Type *Data, Size_Type Size) override;
 
             Size_Type Slave_Write(const Byte_Type *Data, Size_Type Size);
 

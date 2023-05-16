@@ -29,6 +29,7 @@
 #include "Date.hpp"
 #include "Time.hpp"
 #include "Registry.hpp"
+#include "Stream.hpp"
 
 #include "../Configuration/Path.hpp"
 

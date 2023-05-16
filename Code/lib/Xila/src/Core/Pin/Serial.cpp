@@ -67,7 +67,7 @@ Size_Type Serial_Class::Write_Bytes(const Byte_Type* Buffer, Size_Type Length)
     return Serial.write(Buffer, Length);
 }
 
-Size_Type Serial_Class::Write_String(String_Type& String)
+Size_Type Serial_Class::Write_String(const char* String)
 {
     return Serial.write((const char*)String);
 }
@@ -112,6 +112,11 @@ Result_Type Serial_Class::Set_Receive_Buffer_Size(Size_Type Size)
 Result_Type Serial_Class::Set_Transmit_Buffer_Size(Size_Type Size)
 {
     return (Result_Type)Serial.setTxBufferSize(Size);
+}
+
+void Serial_Class::Set_Receive_Invert(bool State)
+{
+    Serial.setRxInvert(State);
 }
 
 uint32_t Serial_Class::Get_Baud_Rate()

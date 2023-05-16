@@ -63,16 +63,16 @@ namespace Xila_Namespace
             void End();
 
             int Available() override;
-            int Available_For_Write();
             int Peek() override;
             int Read() override;
             Size_Type Read_Bytes(Byte_Type *Buffer, Size_Type Length) override;
             String_Type &Read_String(String_Type &String) override;
 
-            void Flush();
-            Size_Type Write(Byte_Type Byte);
-            Size_Type Write_Bytes(const Byte_Type *Buffer, Size_Type Length);
-            Size_Type Write_String(String_Type &String);
+            int Available_For_Write() override;
+            void Flush() override;
+            Size_Type Write(Byte_Type Byte) override;
+            Size_Type Write_Bytes(const Byte_Type *Buffer, Size_Type Length) override;
+            Size_Type Write_String(const char* String) override;
 
             // - - Setters
             void Set_Baud_Rate(unsigned long Baud_Rate);

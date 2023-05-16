@@ -52,7 +52,6 @@ namespace Xila_Namespace
         {
             uint8_t Split_Number[8];
             QWord_Type Number;
-            Static_String_Type<Xila_Default_Clipboard_Size> String;
             Byte_Type Data[Xila_Default_Clipboard_Size + 1];
   
         };
