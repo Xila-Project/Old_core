@@ -46,7 +46,7 @@ namespace Xila_Namespace
             // - - Constructor / Destructor
             Software_Class() = delete;
             Software_Class(const Software_Handle_Type& Handle, const Accounts_Types::User_Type *Owner_User, Size_Type Main_Task_Stack_Size = Default_Main_Task_Stack_Size, Size_Type Queue_Size = Default_Instruction_Queue_Size);
-            ~Software_Class();
+            virtual ~Software_Class();
 
             // - - Task
 

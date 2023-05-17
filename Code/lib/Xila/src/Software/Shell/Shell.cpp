@@ -30,6 +30,7 @@ Shell_Class::~Shell_Class()
     this->Save_Registry();
     Login_Class::Close(this);
     Installer_Class::Close(this);
+    Power_Class::Close(*this);
 }
 
 void Shell_Class::Set_Interface()
