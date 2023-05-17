@@ -156,18 +156,13 @@ bool Object_Class::Remove_All_Events()
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
 
     uint16_t i = 0;
-    while (lv_obj_remove_event_cb(Get_Pointer(), Graphics_Class::Event_Handler) == true)
+    while (lv_obj_remove_event_cb(Get_Pointer(), NULL))
     {
     }
 
     if (i == 0)
-    {
         return false;
-    }
-    else
-    {
-        return true;
-    }
+    return true;
 }
 
 void Object_Class::Send_Event(Event_Code_Type Event_Code)
@@ -233,10 +228,7 @@ bool Object_Class::Check_Class(const Class_Type *Class_To_Check) const
 const Class_Type *Object_Class::Get_Class() const
 {
     if (!Is_Valid())
-    {
-        Log_Verbose("Object", "Object is not valid");
         return NULL;
-    }
 
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_class(Get_Pointer());
@@ -245,9 +237,8 @@ const Class_Type *Object_Class::Get_Class() const
 bool Object_Class::Is_Valid() const
 {
     if (Get_Pointer() == NULL)
-    {
         return false;
-    }
+
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_is_valid(Get_Pointer());
 }
@@ -1039,7 +1030,7 @@ Object_Class Object_Class::Get_Child(uint16_t Index)
 
 /// @brief Get the number of children objects of an object.
 /// @return The number of children objects.
-Size_Type Object_Class::Get_Child_Count()
+Size_Type Object_Class::Get_Children_Count()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_child_cnt(Get_Pointer());
@@ -1053,7 +1044,7 @@ Object_Class Object_Class::Get_Parent()
 
 Size_Type Object_Class::Get_Child_Index(Object_Type Child)
 {
-    Size_Type Child_Count = Get_Child_Count();
+    Size_Type Child_Count = Get_Children_Count();
     for (Size_Type i = 0; i < Child_Count; i++)
     {
         if (Get_Child(i) == Child)

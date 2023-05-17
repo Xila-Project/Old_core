@@ -113,7 +113,7 @@ namespace Xila_Namespace
             const Class_Type *Get_Class() const;
             bool Has_Class(const Class_Type *Class) const;
             bool Check_Class(const Class_Type *Class) const;
-            bool Is_Valid() const;
+            virtual bool Is_Valid() const;
 
             void Add_Style(Style_Type &Style, Style_Selector_Type Style_Selector);
 
@@ -305,7 +305,7 @@ namespace Xila_Namespace
 
             // Family relationship.
             Object_Class Get_Parent();
-            Size_Type Get_Child_Count();
+            Size_Type Get_Children_Count();
             Object_Class Get_Child(uint16_t Index);
             Size_Type Get_Child_Index(Object_Type Child);
 

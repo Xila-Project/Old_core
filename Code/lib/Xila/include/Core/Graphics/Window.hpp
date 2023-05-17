@@ -54,6 +54,8 @@ namespace Xila_Namespace
 
             virtual void Delete() override;
 
+            virtual bool Is_Valid() const override;
+
             // - - Setters
 
             /// @brief Set the title of the window.
@@ -79,12 +81,20 @@ namespace Xila_Namespace
 
             /// @brief Get the body of the window.
             /// @return Body of the window.
-            Object_Class Get_Body();
+            Object_Type Get_Body();
 
             /// @brief Get the header of the window.
             /// @return Header of the window.
-            Object_Class Get_Header();
+            Object_Type Get_Header();
 
+            /// @brief Get the close button of the window.
+            /// @return Close button of the window.
+            Button_Type Get_Close_Button();
+
+            /// @brief Get the minimize button of the window.
+            /// @return Minimize button of the window.
+            Button_Type Get_Minimize_Button();
+    
             /// @brief Get the title label of the window.
             /// @return Title label of the window.
             const Softwares_Types::Software_Type *Get_Owner_Software() const;

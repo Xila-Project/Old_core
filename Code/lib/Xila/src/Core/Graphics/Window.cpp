@@ -113,6 +113,16 @@ void Window_Class::Delete()
     }
 }
 
+bool Window_Class::Is_Valid() const
+{
+    if ((Get_Pointer() == NULL) || !Data)
+        return false;
+    return true;
+
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    return lv_obj_is_valid(Get_Pointer());
+}
+
 void Window_Class::Set_Interface()
 {
 
@@ -201,10 +211,13 @@ void Window_Class::Set_State(Window_State_Type State)
 
 Window_State_Type Window_Class::Get_State()
 {
+    // - Hidden
     if (Has_Flag(Flag_Type::Hidden))
         return Window_State_Type::Minimized;
+    // - Not hidden, but header is hidden
     else if (Get_Header().Has_Flag(Flag_Type::Hidden))
         return Window_State_Type::Full_screen;
+    // - Not hidden, header is not hidden
     else
         return Window_State_Type::Maximized;
 }
@@ -233,14 +246,32 @@ void Window_Class::Set_Title(const char *Title)
 
 // - - Getters
 
-Object_Class Window_Class::Get_Body()
+Object_Type Window_Class::Get_Body()
 {
+    if (!Is_Valid())
+        return Object_Type();
     return Data->Body;
 }
 
-Object_Class Window_Class::Get_Header()
+Object_Type Window_Class::Get_Header()
 {
+    if (!Is_Valid())
+        return Object_Type();
     return Data->Header;
+}
+
+Button_Type Window_Class::Get_Close_Button()
+{
+    if (!Is_Valid())
+        return Button_Type();
+    return Data->Close_Button;
+}
+
+Button_Type Window_Class::Get_Minimize_Button()
+{
+    if (!Is_Valid())
+        return Button_Type();
+    return Data->Minimize_Button;
 }
 
 const Softwares_Types::Software_Type *Window_Class::Get_Owner_Software() const
@@ -261,22 +292,25 @@ void Window_Class::Set_Minimize_Button_Hidden(bool Hidden)
 
 void Window_Class::Event_Callback(lv_event_t *Event)
 {
+    Window_Type *Window = static_cast<Window_Type *>(lv_event_get_user_data(Event));
+
+    if (!Window || !Window->Is_Valid())
+        return;
 
     if (lv_event_get_code(Event) == LV_EVENT_CLICKED)
     {
-
-        Window_Type *Window = static_cast<Window_Type *>(lv_event_get_user_data(Event));
-
-
         if (lv_event_get_target(Event) == Window->Data->Close_Button)
         {
-
             Window->Delete();
+            return;
         }
         else if (lv_event_get_target(Event) == Window->Data->Minimize_Button)
         {
-
             Window->Set_State(Window_State_Type::Minimized);
+            return;
         }
     }
+
+    if (Window->Is_Valid() && Window->Data->Owner_Software)
+        Graphics.Event_Handler(Event);
 }

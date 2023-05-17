@@ -83,7 +83,7 @@ void Preferences_Class::Execute_Personal_Instruction(const Instruction_Type &Ins
         Graphics.Set_Theme_Dark_Mode(Personal_Dark_Mode_Switch.Has_State(State_Type::Checked));
     else if (Instruction.Graphics.Get_Code() ==  Event_Code_Type::Clicked)
     {
-        for (uint8_t i = Personal_Tab.Get_Child(0).Get_Child_Count() - 1; i > 0; i--)
+        for (uint8_t i = Personal_Tab.Get_Child(0).Get_Children_Count() - 1; i > 0; i--)
         {
             Object_Type Checkbox = Personal_Tab.Get_Child(0).Get_Child(i);
 

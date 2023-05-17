@@ -146,7 +146,6 @@ private:
         static void Open(Shell_Class *Shell_Pointer);
         static bool Is_Openned(Shell_Class *Shell_Pointer);
         static void Close(Shell_Class *Shell_Pointer);
-        static bool Is_Maximized(Shell_Class *Shell_Pointer);
 
         void Execute_Instruction(const Instruction_Type &Instruction);
 
@@ -179,7 +178,6 @@ private:
 
         static void Open(Shell_Class *Shell_Pointer);
         static bool Is_Openned(Shell_Class *Shell_Pointer);
-        static bool Is_Maximized(Shell_Class *Shell_Pointer);
         static void Close(Shell_Class *Shell_Pointer);
 
         void Execute_Instruction(const Instruction_Type &Instruction);
@@ -205,15 +203,17 @@ private:
         Shell_Class *Shell_Pointer;
     } *Installer_Pointer;
 
-    class Power_CLass
+    class Power_Class
     {
     public:
         // - Methods
 
-        static void Open(Shell_Class *Shell_Pointer);
-        static bool Is_Openned(Shell_Class *Shell_Pointer);
-        static bool Is_Maximized(Shell_Class *Shell_Pointer);
-        static void Close(Shell_Class *Shell_Pointer);
+        Power_Class(Shell_Class &Shell);
+        ~Power_Class();
+
+        static void Open(Shell_Class &Shell);
+        static bool Is_Openned(Shell_Class &Shell);
+        static void Close(Shell_Class &Shell);
 
         void Execute_Instruction(const Instruction_Type &Instruction);
 
@@ -221,10 +221,12 @@ private:
         // - Methods
 
         // - Attributes
-
+        Graphics_Types::Button_Type Shutdown_Button;
+        Graphics_Types::Button_Type Restart_Button;
+        Graphics_Types::Button_Type Logout_Button;
         Graphics_Types::Dialog_Type Dialog;
 
-        Shell_Class *Shell_Pointer;
+        Shell_Class &Shell;
 
     } *Power_Pointer;
 
@@ -242,6 +244,10 @@ private:
     void Execute_Instruction(Instruction_Type Instruction);
     void Main_Task_Function() override;
     void Refresh_Overlay();
+
+    /// @brief Check for opened softwares without a window and close them.
+    /// @details This function is necessary since can be closed by the user without closing the software.
+    void Clean_Softwares();
 
     /// @brief Check for opened softwares.
 

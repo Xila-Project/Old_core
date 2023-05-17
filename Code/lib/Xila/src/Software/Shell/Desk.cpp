@@ -27,6 +27,10 @@ void Shell_Class::Desk_Class::Set_Interface()
     Window.Set_Minimize_Button_Hidden(true);
     Window.Set_Title("Desk");
 
+    // - Override close button event handler
+    Window.Get_Close_Button().Remove_All_Events();
+    Window.Get_Close_Button().Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+
     // Create grid
     Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
     Window.Get_Body().Set_Style_Flex_Cross_Place(Flex_Alignment_Type::Center, 0);
@@ -213,7 +217,7 @@ void Shell_Class::Desk_Class::Set_Software_Window_State(const Softwares_Types::S
     if (!Software_Pointer)
         return;
 
-    Size_Type Screen_Child_Count = Shell_Pointer->Screen.Get_Child_Count();
+    Size_Type Screen_Child_Count = Shell_Pointer->Screen.Get_Children_Count();
     for (uint8_t i = 0; i < Screen_Child_Count; i++)
     {
         Window_Type Child_Window = Shell_Pointer->Screen.Get_Child(i);
@@ -275,10 +279,10 @@ void Shell_Class::Desk_Class::Refresh()
 
     Log_Verbose("Shell", "User softwares count : %u", User_Softwares_Count);
 
-    while (Dock_List.Get_Child_Count() > (User_Softwares_Count - 1))
+    while (Dock_List.Get_Children_Count() > (User_Softwares_Count - 1))
     {
-        Log_Verbose("Shell", "Deleting dock icon %u", Dock_List.Get_Child_Count() - 1);
-        Dock_List.Get_Child(Dock_List.Get_Child_Count() - 1).Delete();
+        Log_Verbose("Shell", "Deleting dock icon %u", Dock_List.Get_Children_Count() - 1);
+        Dock_List.Get_Child(Dock_List.Get_Children_Count() - 1).Delete();
     }
 
     Log_Trace();
@@ -287,10 +291,10 @@ void Shell_Class::Desk_Class::Refresh()
     {
         Graphics_Types::Object_Type Icon_Container;
         Graphics_Types::Label_Type Icon_Label;
-        while (Dock_List.Get_Child_Count() < (User_Softwares_Count - 1))
+        while (Dock_List.Get_Children_Count() < (User_Softwares_Count - 1))
         {
 
-            Log_Verbose("Shell", "Creating dock icon %u", Dock_List.Get_Child_Count());
+            Log_Verbose("Shell", "Creating dock icon %u", Dock_List.Get_Children_Count());
             Icon_Container.Create(Dock_List);
             Icon_Label.Create(Icon_Container);
             Icon_Container.Set_Alignment(Graphics_Types::Alignment_Type::Top_Middle);
@@ -345,12 +349,13 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
             if (Current_Target == Shell_Pointer->Screen)
             {
                 Refresh();
+                Shell_Pointer->Refresh_Overlay();
             }
             break;
         case Event_Code_Type::Pressed:
             if (Current_Target == Menu_Button)
             {
-                for (uint8_t i = Menu_Button.Get_Child_Count(); i > 0; i--)
+                for (uint8_t i = Menu_Button.Get_Children_Count(); i > 0; i--)
                     Menu_Button.Get_Child(i - 1).Add_State(State_Type::Pressed);
             }
             Ignore_Button.Clear_Pointer();
@@ -358,7 +363,7 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
         case Event_Code_Type::Released:
             if (Current_Target == Menu_Button)
             {
-                for (uint8_t i = Menu_Button.Get_Child_Count(); i > 0; i--)
+                for (uint8_t i = Menu_Button.Get_Children_Count(); i > 0; i--)
                     Menu_Button.Get_Child(i - 1).Clear_State(State_Type::Pressed);
             }
             break;
@@ -392,9 +397,11 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
                     Selected_Button = Current_Target;
                 }
                 else
-                {
                     Set_Software_Window_State(Get_Software_Pointer_From_Dock(Dock_List.Get_Child_Index(Current_Target)), Window_State_Type::Maximized);
-                }
+            }
+            else if (Current_Target == Window.Get_Close_Button())
+            {
+                Shell_Class::Power_Class::Open(*Shell_Pointer);
             }
             Ignore_Button.Clear_Pointer();
             break;

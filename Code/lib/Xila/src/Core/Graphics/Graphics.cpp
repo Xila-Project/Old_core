@@ -202,9 +202,13 @@ void Graphics_Class::Execute_Instruction(Instruction_Type Instruction)
 
 void Graphics_Class::Event_Handler(lv_event_t *Event)
 {
-    static Instruction_Type Instruction;
-    Instruction.Set_Sender(&Graphics);
+    Instruction_Type Instruction;
 
+    Module_Class *Module = (Module_Class *)lv_event_get_user_data(Event);
+    if (!Module)
+        return;
+
+    Instruction.Set_Sender(&Graphics);
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         Instruction.Set_Receiver((Module_Class *)lv_event_get_user_data(Event));

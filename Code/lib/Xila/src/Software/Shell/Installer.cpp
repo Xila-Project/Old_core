@@ -119,7 +119,11 @@ void Shell_Class::Installer_Class::Close(Shell_Class *Shell_Pointer)
 
 bool Shell_Class::Installer_Class::Is_Openned(Shell_Class *Shell_Pointer)
 {
-    return (Shell_Pointer->Installer_Pointer != NULL);
+    using namespace Graphics_Types;
+    if (!Shell_Pointer->Installer_Pointer)
+        return false;
+
+    return Shell_Pointer->Installer_Pointer->Dialog.Get_State() == Window_State_Type::Maximized;
 }
 
 void Shell_Class::Installer_Class::Execute_Instruction(const Instruction_Type &Instruction)

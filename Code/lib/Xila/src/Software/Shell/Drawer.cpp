@@ -115,7 +115,6 @@ void Shell_Class::Drawer_Class::Execute_Instruction(const Instruction_Type &Inst
 
 void Shell_Class::Drawer_Class::Open()
 {
-    Log_Verbose("Drawer", "Opening drawer");
     using namespace Graphics_Types;
 
     if (!Is_Openned())
@@ -132,5 +131,10 @@ void Shell_Class::Drawer_Class::Close()
 
 bool Shell_Class::Drawer_Class::Is_Openned()
 {
-    return Window.Is_Valid();
+    using namespace Graphics_Types;
+    
+    if (!Window)
+        return false;
+
+    return Window.Get_State() != Window_State_Type::Maximized;
 }

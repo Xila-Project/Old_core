@@ -105,13 +105,11 @@ void Shell_Class::Main_Task_Function()
                 Main_Task.Delay(100);
             }
 
+            // - Refresh the overlay every 10 seconds
             else if (System.Get_Up_Time_Milliseconds() > Next_Refresh)
             {
                 Refresh_Overlay();
-
-                //Desk.Refresh();
-
-                Next_Refresh = System.Get_Up_Time_Milliseconds() + 5000;
+                Next_Refresh = System.Get_Up_Time_Milliseconds() + 10000;
             }
 
             Main_Task.Delay(40);
@@ -131,34 +129,36 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
         }
         return;
     }
-
-    if (Drawer.Is_Openned())
+    else if (Instruction.Get_Sender() == &Graphics)
     {
-        Drawer.Execute_Instruction(Instruction);
-        return;
-    }
-
-    if (Installer_Class::Is_Openned(this))
-    {
-        if (Installer_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized)
+        if (Power_Class::Is_Openned(*this))
         {
-            Installer_Pointer->Execute_Instruction(Instruction);
+            Power_Pointer->Execute_Instruction(Instruction);
             return;
         }
-    }
 
-    if (Login_Class::Is_Openned(this))
-    {
-        if (Login_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized)
+        if (Login_Class::Is_Openned(this))
         {
             Login_Pointer->Execute_Instruction(Instruction);
             return;
         }
-    }
 
-    Log_Verbose("Shell", "Instruction received");
-    Desk.Execute_Instruction(Instruction);
-    return;
+        if (Installer_Class::Is_Openned(this))
+        {
+
+            Installer_Pointer->Execute_Instruction(Instruction);
+            return;
+        }
+
+        if (Drawer.Is_Openned())
+        {
+            Drawer.Execute_Instruction(Instruction);
+            return;
+        }
+
+        Desk.Execute_Instruction(Instruction);
+        return;
+    }
 }
 
 // -- Shell registry management -- //
@@ -232,9 +232,6 @@ Result_Type Shell_Class::Save_Registry()
     }
 
     // - Save registry values
-
-    
-
 
     // - Write registry
     if (serializeJson(Shell_Registry, Registry_File) == 0)
@@ -367,7 +364,7 @@ void Shell_Class::Refresh_Overlay()
     }
 }
 
-void Shell_Class::Get_Software_Icon(Graphics_Types::Object_Type &Icon_Container, const String_Type& Name)
+void Shell_Class::Get_Software_Icon(Graphics_Types::Object_Type &Icon_Container, const String_Type &Name)
 {
     using namespace Xila::Graphics_Types;
 
@@ -407,4 +404,41 @@ void Shell_Class::Get_Software_Icon(Graphics_Types::Object_Type &Icon_Container,
         Icon_Container.Set_Style_Background_Color(Color_Type(Color[0], Color[1], Color[2]), 0);
     else
         Icon_Container.Set_Style_Background_Color(Color_Type(Color[2], Color[1], Color[0]), 0);
+}
+
+void Shell_Class::Clean_Softwares()
+{
+    using namespace Graphics_Types;
+
+    uint8_t User_Softwares_Count = Softwares.Get_User_Softwares_Count(Get_Owner_User());
+
+    for (uint8_t i = 0; i < User_Softwares_Count; i++)
+    {
+        // - Get software pointer
+        const Softwares_Types::Software_Type* Software_Pointer = Softwares.Get_User_Softwares(Get_Owner_User(), i);
+
+        bool Window_Found = false;
+
+        uint8_t Screen_Children_Count = Screen.Get_Children_Count();
+        
+        // - Check if a window exist for a given software.
+        for (uint8_t j = 0; j < Screen_Children_Count; j++)
+        {
+            Window_Type Child_Window = Window_Type(Screen.Get_Child(j));
+            if (Child_Window && Child_Window.Get_Owner_Software() == Software_Pointer)
+            {
+                Window_Found = true;
+                break;
+            }
+        }
+
+        // - If no window found for a given software, close it.
+        if (!Window_Found)
+        {
+            Softwares.Close(const_cast<Softwares_Types::Software_Type*>(Software_Pointer));
+            // TODO : Add wait time and then kill the software.
+
+        }
+        
+    }
 }

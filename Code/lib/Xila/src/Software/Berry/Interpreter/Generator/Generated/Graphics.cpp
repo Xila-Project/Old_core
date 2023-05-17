@@ -875,7 +875,7 @@ BE_FUNC_CTYPE_DECLARE(Berry_Object_Class_Get_Parent_88B734A0_9D07_4905_AE40_1FB3
 
 int Berry_Object_Class_Get_Child_Count_C3FA68EE_2CC2_4773_AF50_09E57F9CD0EC(Xila_Namespace::Graphics_Types::Object_Class* I)
 {
-return (int)I->Get_Child_Count(); 
+return (int)I->Get_Children_Count(); 
 }
 BE_FUNC_CTYPE_DECLARE(Berry_Object_Class_Get_Child_Count_C3FA68EE_2CC2_4773_AF50_09E57F9CD0EC, "i", ".");
 

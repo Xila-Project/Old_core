@@ -162,7 +162,7 @@ void File_Manager_Class::Refresh()
     // - If there are not enough checkboxes, create more
     {
         Graphics_Types::Checkbox_Class Checkbox;
-        while (Flexbox.Get_Child_Count() < Item_Count)
+        while (Flexbox.Get_Children_Count() < Item_Count)
         {
             Checkbox.Create(Flexbox);
             Checkbox.Set_Alignment(Alignment_Type::Out_Left_Middle);
@@ -173,7 +173,7 @@ void File_Manager_Class::Refresh()
         }
     }
 
-    Log_Verbose("File manager", "Checkbox count: %d", Flexbox.Get_Child_Count());
+    Log_Verbose("File manager", "Checkbox count: %d", Flexbox.Get_Children_Count());
 
     Folder.Rewind_Directory();
 
@@ -210,7 +210,7 @@ void File_Manager_Class::Refresh()
     }
 
     // - Hide remaining unused checkboxes instead of deleting them to avoid memory fragmentation.
-    Size_Type Flexbox_Child_Count = Flexbox.Get_Child_Count();
+    Size_Type Flexbox_Child_Count = Flexbox.Get_Children_Count();
     for (uint8_t i = Item_Count; i < Flexbox_Child_Count; i++)
     {
         Log_Verbose("File manager", "Hide checkbox %d", i);
@@ -247,7 +247,7 @@ void File_Manager_Class::Enable_Selection_Mode(bool Multiple = false)
         Paste_Button.Clear_Flag(Flag_Type::Hidden);
         Details_Button.Clear_Flag(Flag_Type::Hidden);
 
-        for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
+        for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
         {
             Flexbox.Get_Child(i).Clear_State(Graphics_Types::State_Type::Checked);
             Flexbox.Set_Style_Opacity(Opacity_Type::Cover, LV_PART_INDICATOR);
@@ -268,7 +268,7 @@ void File_Manager_Class::Disable_Selection_Mode()
     Cut_Button.Add_Flag(Flag_Type::Hidden);
     Details_Button.Add_Flag(Flag_Type::Hidden);
 
-    for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
+    for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
     {
         Flexbox.Get_Child(i).Clear_State(Graphics_Types::State_Type::Checked);
         Flexbox.Set_Style_Opacity(Opacity_Type::Transparent, LV_PART_INDICATOR);
@@ -279,7 +279,7 @@ void File_Manager_Class::Disable_Selection_Mode()
 uint8_t File_Manager_Class::Count_Selected_Items()
 {
     uint8_t Selected_Item_Count = 0;
-    for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
+    for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
     {
         if (Flexbox.Get_Child(i).Has_State(Graphics_Types::State_Type::Checked))
         {
@@ -348,7 +348,7 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
             else
             {
                 Log_Verbose("File manager", "Maybe Checkbox clicked !");
-                Size_Type Flexbox_Child_Count = Flexbox.Get_Child_Count();
+                Size_Type Flexbox_Child_Count = Flexbox.Get_Children_Count();
                 for (uint8_t i = 0; i < Flexbox_Child_Count; i++)
                 {
                     if (Target == Flexbox.Get_Child(i))
@@ -389,7 +389,7 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
             break;
 
         case Graphics_Types::Event_Code_Type::Long_Pressed:
-            for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
+            for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
             {
                 if (Target == Flexbox.Get_Child(i))
                 {
@@ -432,7 +432,7 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
 
 void File_Manager_Class::Details()
 {
-    for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
+    for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
     {
         if (Flexbox.Get_Child(i).Has_State(Graphics_Types::State_Type::Checked))
         {
@@ -486,7 +486,7 @@ void File_Manager_Class::Details()
 
 void File_Manager_Class::Rename()
 {
-    for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
+    for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
     {
         if (Flexbox.Get_Child(i).Has_State(Graphics_Types::State_Type::Checked))
         {
@@ -514,7 +514,7 @@ void File_Manager_Class::Rename()
 void File_Manager_Class::Delete()
 {
 
-    for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
+    for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
     {
         if (Flexbox.Get_Child(i).Has_State(Graphics_Types::State_Type::Checked))
         {
