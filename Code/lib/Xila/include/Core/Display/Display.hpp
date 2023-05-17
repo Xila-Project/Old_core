@@ -25,23 +25,49 @@ namespace Xila_Namespace
         Result_Type Stop();
 
         // - - Management
+
+        /// @brief 
+
+        /// @brief Calibrate the touch screen.
         void Calibrate();
 
-    
+        /// @brief Get the horizontal definition of the display.
         uint16_t Get_Horizontal_Definition();
+
+        /// @brief Get the vertical definition of the display.
         uint16_t Get_Vertical_Definition();
 
         // - - Getters
+
+        /// @brief Get the brightness of the display.
+        /// @return uint8_t Brightness of the display (0-255).
         uint8_t Get_Brightness();
+
+        /// @brief Get the standby time of the display.
+        /// @return uint16_t Standby time of the display in seconds.
         uint16_t Get_Standby_Time();
 
         // - - Setters
+
+        /// @brief Set the brightness of the display.
+        /// @param Brightness Brightness of the display (0-255).
         void Set_Brightness(uint8_t Brightness);
+
+        /// @brief Set the standby time of the display.
+        /// @param Standby_Time Standby time of the display in seconds.
         void Set_Standby_Time(uint16_t Standby_Time);
 
         // - - LVGL interface
 
+        /// @brief Display output flush callback function for Graphics module.
+        /// @param Display_Driver_Interface LVGL display driver interface.
+        /// @param Area LVGL area to flush.
+        /// @param Buffer LVGL buffer to flush.
         static IRAM_ATTR void Output_Flush(lv_disp_drv_t *Display_Driver_Interface, const lv_area_t *Area, lv_color_t *Buffer);
+
+        /// @brief Display input read callback function for Graphics module.
+        /// @param Input_Device_Driver_Interface LVGL input device driver interface.
+        /// @param Data LVGL input data written by the callback.
         static IRAM_ATTR void Input_Read(lv_indev_drv_t *Input_Device_Driver_Interface, lv_indev_data_t *Data);
         
     private:
@@ -52,12 +78,24 @@ namespace Xila_Namespace
         void Wake_Up();
         
         // - - Registry
+
+        /// @brief Create the registry of the display module.
+        /// @return Result_Type
         Result_Type Create_Registry();
+
+         /// @brief Load the registry of the display module. 
+         /// 
+         /// @return Result_Type 
         Result_Type Load_Registry();
+
+        /// @brief Save the registry of the display module.
+        /// @return Result_Type
         Result_Type Save_Registry();
 
     
         // - Attributes
+
+        /// @brief Display standy time in seconds.
         uint16_t Standby_Time;
         uint8_t Brightness;
 

@@ -53,7 +53,7 @@ namespace Xila_Namespace
     {
     public:
         // - Methods
-
+        
         // - - Constructor / Destructor
         System_Class();
         ~System_Class();

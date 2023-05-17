@@ -227,7 +227,7 @@ double Xila_Namespace::Mathematics_Class::String_To_Float(const char *String)
     return atof(String);
 }
 
-char *Xila_Namespace::Mathematics_Class::Float_To_String(double Number, int8_t Width, uint8_t Precision, char *String)
+char *Xila_Namespace::Mathematics_Class::Real_To_String(double Number, int8_t Width, uint8_t Precision, char *String)
 {
     dtostrf(Number, Width, Precision, String);
     // -- Delete unwanted zeros

@@ -34,13 +34,36 @@ namespace Xila_Namespace
         static const Mathematics_Types::Rational_Type Euler;
 
         // -- Methods -- //
-        double String_To_Float(const char *String); // --
-        char *Float_To_String(double Number, int8_t Width, uint8_t Precision, char *String);
 
+        /// @brief Convert a string to a real.
+        /// @param String String to convert.
+        /// @return double Converted string.
+        double String_To_Float(const char *String);
+
+        /// @brief Convert a string to a real.
+        /// @param String String to convert.
+        /// @return double Converted string.
+        char *Real_To_String(double Number, int8_t Width, uint8_t Precision, char *String);
+
+        /// @brief Check if a real is not a number.
+        /// @param Number  Real to check.
+        /// @return true If the real is not a number.
         bool Is_NAN(double Number);
+
+        /// @brief Check if a real is infinite.
+        /// @param Number Real to check.
+        /// @return true If the real is infinite.
         bool Is_Infinite(double Number);
 
+        /// @brief Copy the sign of a real to another.
+        /// @param Number_1 
+        /// @param Number_2 
+        /// @return 
         double Copy_Sign(double Number_1, double Number_2);
+
+        /// @brief 
+        /// @param Number 
+        /// @return 
         double Floor(double Number);
         double Modulo(double Number_1, double Number_2);
 

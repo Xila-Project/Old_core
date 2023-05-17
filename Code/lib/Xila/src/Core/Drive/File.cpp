@@ -7,10 +7,10 @@
 /// @copyright Copyright (c) 2023
 
 #include "Core/Drive/Drive.hpp"
+#include "Core/System/System.hpp"
 
 using namespace Xila_Namespace;
 using namespace Drive_Types;
-
 
 File_Class::File_Class()
 {
@@ -85,7 +85,7 @@ void File_Class::Flush()
     File.flush();
 }
 
-Size_Type File_Class::Read_String(char* Buffer, Size_Type Size)
+Size_Type File_Class::Read_String(char *Buffer, Size_Type Size)
 {
     return File.readBytes(Buffer, Size);
 }
@@ -124,6 +124,45 @@ Result_Type File_Class::Set_Buffer_Size(Size_Type Size)
     return Result_Type::Error;
 }
 
+Result_Type File_Class::Copy(File_Class &Destination_File)
+{
+    uint8_t Buffer[256];
+
+    // - Check if the file is valid
+    if (!this->Is_Valid() || !Destination_File || this->Is_Directory() || Destination_File.Is_Directory())
+        return Result_Type::Error;
+
+    auto Next_Pause = System.Get_Up_Time_Milliseconds() + 100;
+
+    this->Seek(0);
+    Destination_File.Seek(0);
+
+    while (this->Available() > 0)
+    {
+        Size_Type Read_Bytes = this->Read_Bytes(Buffer, sizeof(Buffer));
+        Destination_File.write(Buffer, Read_Bytes);
+
+        if (System.Get_Up_Time_Milliseconds() > Next_Pause)
+        {
+            Task_Type::Delay_Static(10); // Let the system breath.
+            Next_Pause = System.Get_Up_Time_Milliseconds() + 100;
+        }
+    }
+    return Result_Type::Success;
+}
+
+Result_Type File_Class::Cut(File_Class &Destination_File)
+{
+    if (this->Copy(Destination_File) == Result_Type::Success)
+    {
+        Drive.Remove(this->Get_Path());
+        this->Close();
+        
+        return Result_Type::Success;
+    }
+    return Result_Type::Error;
+}
+
 void File_Class::Close()
 {
     File.close();
@@ -134,19 +173,19 @@ time_t File_Class::Get_Modification_Time()
     return File.getLastWrite();
 }
 
-const char* File_Class::Get_Name() const
+const char *File_Class::Get_Name() const
 {
     return File.name();
 }
 
-const char* File_Class::Get_Path() const
+const char *File_Class::Get_Path() const
 {
     return File.path();
 }
 
-const char* File_Class::Get_Extension() const
+const char *File_Class::Get_Extension() const
 {
-    char* Extension = strrchr(Get_Name(), '.');
+    char *Extension = strrchr(Get_Name(), '.');
     if (Extension != NULL)
         return Extension;
     return "";
@@ -191,7 +230,7 @@ uint16_t File_Class::Count_Items()
     {
         return 0;
     }
-    
+
     Rewind_Directory();
     Drive_Types::File_Type Temporary_File = Open_Next_File();
     uint16_t i;

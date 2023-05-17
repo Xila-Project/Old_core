@@ -1,20 +1,20 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Slider_Type_map) {
-    { be_const_key(Set_Left_Value, -1), be_const_ctype_func(Berry_Slider_Class_Set_Left_Value_02FF9DDD_05C4_4288_825D_60E797CD2FC6) },
-    { be_const_key(Get_Value, -1), be_const_ctype_func(Berry_Slider_Class_Get_Value_697E7D62_10AF_480A_B777_9941A7C8FBE3) },
-    { be_const_key(Get_Mode, 13), be_const_ctype_func(Berry_Slider_Class_Get_Mode_4B738E04_9759_40F2_A2C9_F25F82F673F3) },
-    { be_const_key(Create, 2), be_const_ctype_func(Berry_Slider_Class_Create_743F942D_5720_4B32_BA1A_6D2032432D79) },
-    { be_const_key(Get_Minimum_Value, -1), be_const_ctype_func(Berry_Slider_Class_Get_Minimum_Value_29409C74_94C6_41CA_8CAC_8AF2DF11E574) },
-    { be_const_key(init, 3), be_const_ctype_func(Berry_Slider_Class_Initialize_79A74EF3_6A2A_4CB4_BDC2_9BC05924F098) },
-    { be_const_key(Get_Maximum_Value, 10), be_const_ctype_func(Berry_Slider_Class_Get_Maximum_Value_CD2FF2C3_DD86_4DB3_BE60_9B2D6E048573) },
-    { be_const_key(Set_Range, -1), be_const_ctype_func(Berry_Slider_Class_Set_Range_D7F44F1C_B828_42EB_8FD9_E73FCABA401A) },
-    { be_const_key(Is_Dragged, -1), be_const_ctype_func(Berry_Slider_Class_Is_Dragged_43C44703_7547_4D98_A6AD_28BAA2D7E663) },
-    { be_const_key(Get_Left_Value, 0), be_const_ctype_func(Berry_Slider_Class_Get_Left_Value_4F1797D3_0705_4528_87FA_475FAE754E87) },
+    { be_const_key(Set_Left_Value, -1), be_const_ctype_func(Berry_Slider_Class_Set_Left_Value_08322497_FEE4_4165_9FC0_3450B88F35F4) },
+    { be_const_key(Get_Value, -1), be_const_ctype_func(Berry_Slider_Class_Get_Value_B8978EB1_CAD8_419E_AD60_24926D60AAE3) },
+    { be_const_key(Get_Mode, 13), be_const_ctype_func(Berry_Slider_Class_Get_Mode_9529FAB2_57E4_404E_964C_BDB021480875) },
+    { be_const_key(Create, 2), be_const_ctype_func(Berry_Slider_Class_Create_6D4D817E_E5DF_461B_9E11_A6BA84964F98) },
+    { be_const_key(Get_Minimum_Value, -1), be_const_ctype_func(Berry_Slider_Class_Get_Minimum_Value_31A92EAE_60DE_40EC_AD2C_6758A0CE5DCF) },
+    { be_const_key(init, 3), be_const_ctype_func(Berry_Slider_Class_Initialize_2A02AD7A_BB39_4714_BB3C_193802303BAB) },
+    { be_const_key(Get_Maximum_Value, 10), be_const_ctype_func(Berry_Slider_Class_Get_Maximum_Value_F92D7216_E91F_480A_AE3A_1E0B8CB80FF9) },
+    { be_const_key(Set_Range, -1), be_const_ctype_func(Berry_Slider_Class_Set_Range_077B833F_FBDD_4F36_BCA4_005E820C7AA7) },
+    { be_const_key(Is_Dragged, -1), be_const_ctype_func(Berry_Slider_Class_Is_Dragged_0C9D0054_22B1_466D_ADC3_3D21E32CD572) },
+    { be_const_key(Get_Left_Value, 0), be_const_ctype_func(Berry_Slider_Class_Get_Left_Value_E5EDDAFC_0925_4BD9_9D3C_682FD1A22D83) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Set_Mode, -1), be_const_ctype_func(Berry_Slider_Class_Set_Mode_F708078E_9987_41D1_857D_4F90517A66FE) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Slider_Class_Deinitialize_3ADF40AB_FF37_46FB_97B3_D17FF9C47F3A) },
-    { be_const_key(Set_Value, -1), be_const_ctype_func(Berry_Slider_Class_Set_Value_452E41B0_F2F2_4F0D_9608_3EC9A7CE91AC) },
+    { be_const_key(Set_Mode, -1), be_const_ctype_func(Berry_Slider_Class_Set_Mode_439F4754_BDC2_4516_BB6F_1DBF55110F04) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Slider_Class_Deinitialize_6D8453C2_9E17_4CCA_8879_B544CE348DA0) },
+    { be_const_key(Set_Value, -1), be_const_ctype_func(Berry_Slider_Class_Set_Value_80316560_890A_4577_A2BD_09C40DD2F33F) },
 };
 
 static be_define_const_map(

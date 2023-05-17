@@ -74,6 +74,18 @@ namespace Xila_Namespace
 
             Any = ESP_PARTITION_SUBTYPE_ANY, //!< Used to search for partitions with any subtype
         } Partition_Subtype_Type;
+    
+        /// @brief Flash mode type
+        enum class Flash_Mode_Type
+        {
+            QIO = FM_QIO,
+            QOUT = FM_QOUT,
+            DIO = FM_DIO,
+            DOUT = FM_DOUT,
+            Fast_Read = FM_FAST_READ,
+            Slow_Read = FM_SLOW_READ,
+            Unknown = FM_UNKNOWN
+        };
     }
 
     typedef class Flash_Class : public Module_Class
@@ -83,14 +95,47 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Getters
+
+        /// @brief Get the size the of the flash.
+        /// @return Size in bytes.
         uint32_t Get_Size();
+
+        /// @brief Get the flash speed.
+        /// @return Speed in hertz.
         uint32_t Get_Speed();
-        FlashMode_t Get_Mode();
+
+        /// @brief Get flash chip mode.
+        /// @return Flash_Mode_Type
+        Flash_Types::Flash_Mode_Type Get_Mode();
+
+        /// @brief Read data from flash chip. 
+        /// @param Offset Offset of the data to read.
+        /// @param Data Data buffer pointer.
+        /// @param Size Size of the data to read.
+        /// @return Result_Type
         Result_Type Read(uint32_t Offset, uint32_t *Data, size_t Size);
+    
+        /// @brief Read data from partition.
+        /// @param Partition Partition to read from.
+        /// @param Offset Offset of the data to read.
+        /// @param Data Data buffer pointer.
+        /// @param Size Size of the data to read.
+        /// @return Result_Type
         Result_Type Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size);
-        uint32_t Get_Sketch_Size();
+        
+         /// @brief Get the sketch size.
+         /// 
+         /// @return uint32_t Sketch size in bytes.
+        Size_Type Get_Sketch_Size();
+        
+        /// @brief Get sketch MD5 hash.
+        /// @param String MD5 hash.
+        /// @return String_Type& String of the hash.
         String_Type& Get_Sketch_MD5(String_Type& String);
-        uint32_t Get_Sketch_Free_Space();
+
+        /// @brief Get sketch free space.
+        /// @return Free space int bytes.
+        Size_Type Get_Sketch_Free_Space();
 
     private:
         // -- Methods
@@ -103,9 +148,6 @@ namespace Xila_Namespace
         Result_Type Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size);
 
         static uint32_t Sketch_Size(sketchSize_t Response);
-        uint32_t Magic_Size(uint8_t Byte);
-        uint32_t Magic_Speed(uint8_t Byte);
-        FlashMode_t Magic_Mode(uint8_t Byte);
 
         friend class System_Class;
     } Flash_Type;

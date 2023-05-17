@@ -108,21 +108,6 @@ namespace Xila_Namespace
         /// @return `true` if the file / folder was renamed, `false` otherwise.
         Result_Type Rename(const char *Path_From, const char *Path_To);
 
-        /// @brief Copy a file / folder.
-        /// @param Path_From Path of the file / folder to copy.
-        /// @param Path_To Path of the destination file / folder.
-        /// @return `true` if the file / folder was copied, `false` otherwise.
-        Result_Type Copy(Drive_Types::File_Type &Origin_File, Drive_Types::File_Type &Destination_File);
-
-        /// @brief Copy a file / folder.
-        /// @param Path_From Path of the file / folder to copy.
-        /// @param Path_To Path of the destination file / folder.
-        /// @return `true` if the file / folder was copied, `false` otherwise.
-        Result_Type Copy(const char *Path_From, const char *Path_To);
-
-        Result_Type Cut(Drive_Types::File_Type &Origin_File, Drive_Types::File_Type &Destination_File);
-        Result_Type Cut(const char *Path_From, const char *Path_To);
-
         void End();
 
         Result_Type Start();

@@ -17,38 +17,6 @@ Drive_Type Xila_Namespace::Drive;
 
 // Custom methods
 
-Result_Type Drive_Class::Copy(Drive_Types::File_Type &Origin_File, Drive_Types::File_Type &Destination_File)
-{
-    uint8_t Readed_Bytes;
-    uint8_t Buffer[256];
-    if (!Origin_File || !Destination_File)
-    {
-        return Result_Type::Error;
-    }
-
-    auto Next_Pause = System.Get_Up_Time_Milliseconds() + 100;
-
-    while (Origin_File.Available() > 0)
-    {
-        Size_Type Readed_Bytes = Origin_File.Read_Bytes(Buffer, sizeof(Buffer));
-        Destination_File.write(Buffer, Readed_Bytes);
-        
-        if (System.Get_Up_Time_Milliseconds() > Next_Pause)
-        {
-            Task_Type::Delay_Static(10);    // Let the system breath.
-            Next_Pause = System.Get_Up_Time_Milliseconds() + 100;
-        }
-    }
-    return Result_Type::Success;
-}
-
-Result_Type Drive_Class::Copy(const char *Origin_Path, const char *Destination_Path)
-{
-    Drive_Types::File_Type Origin_File = Open(Origin_Path);
-    Drive_Types::File_Type Destination_File = Open(Destination_Path, true);
-    return Copy(Origin_File, Destination_File);
-}
-
 Result_Type Drive_Class::Remove_Directory(const char* Path, bool Recursive)
 {
     if (!Recursive)
@@ -85,14 +53,4 @@ Result_Type Drive_Class::Remove(const char *Path)
         return Remove_Directory(Path, true);
     else
         return Remove_File(Path);
-}
-
-Result_Type Drive_Class::Cut(Drive_Types::File_Type &Origin_File, Drive_Types::File_Type &Destination_File)
-{
-    return Result_Type::Error;
-}
-
-Result_Type Drive_Class::Cut(const char *Path_From, const char *Path_To)
-{
-    return Result_Type::Error;
 }

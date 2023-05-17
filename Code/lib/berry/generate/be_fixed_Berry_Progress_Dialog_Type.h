@@ -1,8 +1,8 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Progress_Dialog_Type_map) {
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Progress_Dialog_Class_Create_F3F8EAF7_9741_41EF_874D_4A52571EB40D) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Progress_Dialog_Class_Deinitialize_7C6EDABF_13FA_4519_A4D3_D8B2FE87A2EA) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Progress_Dialog_Class_Create_CE0C4233_1433_42A9_9228_74DAE7EC68E0) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Progress_Dialog_Class_Deinitialize_7271B594_CB07_43AA_8724_D4A26ED9C2DF) },
     { be_const_key(_p, -1), be_const_var(0) },
 };
 
