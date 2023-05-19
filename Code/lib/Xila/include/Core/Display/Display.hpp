@@ -32,14 +32,16 @@ namespace Xila_Namespace
         void Calibrate();
 
         /// @brief Get the horizontal definition of the display.
+        /// @return uint16_t Horizontal definition of the display in pixels.
         uint16_t Get_Horizontal_Definition();
 
         /// @brief Get the vertical definition of the display.
+        /// @return uint16_t Vertical definition of the display in pixels.
         uint16_t Get_Vertical_Definition();
 
         // - - Getters
 
-        /// @brief Get the brightness of the display.
+        /// @brief Get the brightness of the display.Xila_Namespace
         /// @return uint8_t Brightness of the display (0-255).
         uint8_t Get_Brightness();
 

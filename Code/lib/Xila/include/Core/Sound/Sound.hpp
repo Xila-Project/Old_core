@@ -46,16 +46,28 @@ namespace Xila_Namespace
 
         Sound_Class();
 
+        /// @brief Start the sound module.
+        /// @return Result_Type
         Result_Type Start();
+
+        /// @brief Stop the sound module.
+        /// @return Result_Type
         Result_Type Stop();
 
         // - - Getters
 
+        /// @brief Get the general volume.
+        /// @return Byte_Type Volume (0-255).
         Byte_Type Get_Volume();
+
+        /// @brief Get the stream of the current output.
+        /// @return Sound_Types::Stream_Type& Stream of the current output.
         Sound_Types::Stream_Type& Get_Current_Output_Stream();
 
         // - - Setters
 
+        /// @brief Set the general volume.
+        /// @param Volume Volume (0-255).
         void Set_Volume(Byte_Type Volume);
 
         // - - Operation
@@ -63,10 +75,10 @@ namespace Xila_Namespace
         //   protected:
         // - Attributes
 
-        /// @brief Output stream.
+        /// @brief I2S output stream.
         Sound_Types::I2S_Type I2S_Output_Stream;
 
-        /// @brief Stream volume.
+        /// @brief Volume stream used to control the general volume.
         Sound_Types::Volume_Type Volume_Stream;
 
         /// @brief Outputs mixer.

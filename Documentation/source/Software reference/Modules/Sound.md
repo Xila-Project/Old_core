@@ -24,14 +24,25 @@ flowchart LR
     Volume-->Outputs
 ```
 
+## Types
+
+The sound module is using the following types :
+
+```{toctree}
+    :maxdepth: 1
+
+Sound/I2S_Stream
+
+
+
 ## Example
 
 ```cpp
+    using namespace Xila_Namespace;
 
-    if (Xila.Sound.Get_Volume() > 128)  // -- Check if the volume is greater than half.
-    {
-        Xila.Sound.Set_Volume(128); // -- Set the volume to half.
-    }
+    auto Volume = Sound.Get_Volume();
+
+
     Xila.Sound.Set_Balance(0);  // -- Set balance to neutral position.
     Xila.Sound.Play("/Music.mp3");  // -- Play a music file from SD.
     Xila.Sound.Set_Loop(true);      // -- Loops playback
