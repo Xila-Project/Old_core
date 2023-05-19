@@ -20,7 +20,8 @@ Shell_Class::Shell_Class(const Accounts_Types::User_Type *Owner_User)
       Screen(this),
       Drawer(this),
       Installer_Pointer(NULL),
-      Login_Pointer(NULL)
+      Login_Pointer(NULL),
+      Power_Pointer(NULL)
 {
 }
 
@@ -134,12 +135,14 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
     {
         if (Power_Class::Is_Openned(*this))
         {
+
             Power_Pointer->Execute_Instruction(Instruction);
             return;
         }
 
         if (Login_Class::Is_Openned(this))
         {
+
             Login_Pointer->Execute_Instruction(Instruction);
             return;
         }
@@ -153,6 +156,7 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
 
         if (Drawer.Is_Openned())
         {
+
             Drawer.Execute_Instruction(Instruction);
             return;
         }
@@ -416,12 +420,12 @@ void Shell_Class::Clean_Softwares()
     for (uint8_t i = 0; i < User_Softwares_Count; i++)
     {
         // - Get software pointer
-        const Softwares_Types::Software_Type* Software_Pointer = Softwares.Get_User_Softwares(Get_Owner_User(), i);
+        const Softwares_Types::Software_Type *Software_Pointer = Softwares.Get_User_Softwares(Get_Owner_User(), i);
 
         bool Window_Found = false;
 
         uint8_t Screen_Children_Count = Screen.Get_Children_Count();
-        
+
         // - Check if a window exist for a given software.
         for (uint8_t j = 0; j < Screen_Children_Count; j++)
         {
@@ -436,10 +440,8 @@ void Shell_Class::Clean_Softwares()
         // - If no window found for a given software, close it.
         if (!Window_Found)
         {
-            Softwares.Close(const_cast<Softwares_Types::Software_Type*>(Software_Pointer));
+            Softwares.Close(const_cast<Softwares_Types::Software_Type *>(Software_Pointer));
             // TODO : Add wait time and then kill the software.
-
         }
-        
     }
 }

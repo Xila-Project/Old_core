@@ -52,7 +52,7 @@ namespace Xila_Namespace
         // - - Getters
 
         Byte_Type Get_Volume();
-        Sound_Types::Stream_Type &Get_Current_Output_Stream();
+        Sound_Types::Stream_Type& Get_Current_Output_Stream();
 
         // - - Setters
 

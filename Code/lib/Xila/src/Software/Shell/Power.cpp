@@ -18,6 +18,8 @@ Shell_Class::Power_Class::Power_Class(Shell_Class &Shell) : Shell(Shell)
     Dialog.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
     Dialog.Get_Body().Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
 
+    Dialog.Add_Event(&Shell, Event_Code_Type::Delete);
+
     Shutdown_Button.Create(Dialog.Get_Body(), LV_SYMBOL_POWER "Shutdown");
     Shutdown_Button.Add_Event(&Shell, Graphics_Types::Event_Code_Type::Clicked);
     
@@ -78,6 +80,9 @@ void Shell_Class::Power_Class::Execute_Instruction(const Instruction_Type& Instr
             System.Restart();
         else if (Current_Target == Logout_Button)
             const_cast<Accounts_Types::User_Type*>(Shell.Get_Owner_User())->Logout();
+        break;
+    case Event_Code_Type::Delete:
+        Close(Shell);
         break;
     }
 }

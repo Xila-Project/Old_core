@@ -25,7 +25,6 @@ std::vector<Task_Class *> Task_Class::List;
 
 Task_Class::Task_Class(Module_Class *Owner_Module) : Owner_Module(Owner_Module), Task_Handle(NULL)
 {
-    
 }
 
 Task_Class::Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Task_Priority_Type Priority) : Owner_Module(Owner_Module), Task_Handle(NULL)
@@ -94,7 +93,7 @@ uint32_t Task_Class::Get_Watchdog_Timeout()
     return Watchdog_Timeout;
 }
 
-char* Task_Class::Get_Name()
+char *Task_Class::Get_Name()
 {
     return pcTaskGetName(Task_Handle);
 }
@@ -207,14 +206,14 @@ void Task_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
     }
 }
 
-const Module_Type* Task_Class::Get_Owner_Module()
+const Module_Type *Task_Class::Get_Owner_Module()
 {
     return Owner_Module;
 }
 
-void Task_Class::Delete_Module_Tasks(Module_Type* Module)
+void Task_Class::Delete_Module_Tasks(Module_Type *Module)
 {
-    for (auto & Task_Pointer : List)
+    for (auto &Task_Pointer : List)
     {
         if (Task_Pointer->Get_Owner_Module() == Module)
         {

@@ -479,14 +479,14 @@ int be_call_c_func(bvm *vm, const void * func, const char * return_type, const c
       case 'c':   be_pushcomptr(vm, (void*) ret); break;
       case 's':   if (ret) {be_pushstring(vm, (const char*) ret);} else {be_pushnil(vm);} break;  // push `nil` if no string
       case '$':   if (ret) {be_pushstring(vm, (const char*) ret);  free((void*)ret);} else {be_pushnil(vm);} break;
-      case '&':   be_pushbytes(vm, (void*) ret, return_len); break;
+      case '&':   if (ret) {be_pushbytes(vm, (void*) ret, return_len);} else {be_pushnil(vm);} break;
       default:    be_raise(vm, "internal_error", "Unsupported return type"); break;
     }
     be_return(vm);
   } else { // class name
     be_find_global_or_module_member(vm, return_type);
     be_pushcomptr(vm, (void*) ret);         // stack = class, ptr
-    be_call(vm, 1);                 // instanciate with 2 arguments, stack = instance, ptr, -1
+    be_call(vm, 1);                 // instanciate with 1 argument (ptr)
     be_pop(vm, 1);                  // stack = instance
     be_return(vm);
   }

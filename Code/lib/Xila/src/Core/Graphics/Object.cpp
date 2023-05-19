@@ -236,7 +236,7 @@ const Class_Type *Object_Class::Get_Class() const
 
 bool Object_Class::Is_Valid() const
 {
-    if (Get_Pointer() == NULL)
+    if (!Get_Pointer())
         return false;
 
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();

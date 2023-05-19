@@ -44,13 +44,11 @@ private:
 
     void Refresh();
 
-    void Enable_Selection_Mode(bool Multiple);
+    void Enable_Selection_Mode();
     void Disable_Selection_Mode();
-    uint8_t Count_Selected_Items();
 
     void Paste();
     void Details();
-    void Go_Parent_Folder();
     void Click();
     void Rename();
     void Delete();
@@ -65,7 +63,7 @@ private:
     Graphics_Types::Window_Type Window;
 
     Graphics_Types::Object_Type Grid;
-    Graphics_Types::Object_Type Flexbox;
+    Graphics_Types::File_Explorer_Type File_Explorer;
     Graphics_Types::Text_Area_Type Path_Text_Area;
     Graphics_Types::List_Type List;
     Graphics_Types::Object_Type Parent_Folder_Button;

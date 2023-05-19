@@ -54,8 +54,6 @@ namespace Xila_Namespace
 
             virtual void Delete() override;
 
-            virtual bool Is_Valid() const override;
-
             // - - Setters
 
             /// @brief Set the title of the window.

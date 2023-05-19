@@ -138,7 +138,7 @@ namespace Xila_Namespace
 
             /// @brief Get the number of items in the directory.
             /// @return Number of items in the directory.
-            uint16_t Count_Items();
+            Size_Type Get_Items_Count();
 
             // - - Getters
 

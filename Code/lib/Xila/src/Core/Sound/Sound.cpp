@@ -22,7 +22,7 @@ using namespace Xila_Namespace::Sound_Types;
 
 Sound_Type Xila_Namespace::Sound;
 
-Sound_Class::Sound_Class()  : I2S_Output_Stream(),
+Sound_Class::Sound_Class() : I2S_Output_Stream(),
                              Volume_Stream(I2S_Output_Stream) //,
                                                               //    Mixer(Volume_Stream, 4)
 {
@@ -43,19 +43,19 @@ Result_Type Sound_Class::Start()
         Configuration.Set_Bit_Clock_Pin(36);
         Configuration.Set_Data_Pin(37);
 
+        Configuration.Set_Sample_Rate(44100);
+        Configuration.Set_Channel_Count(1);
+        Configuration.Set_Bits_Per_Sample(16);
+
         //  Configuration.sample_rate = 44100;
         //  Configuration.channels = 1;
         //  Configuration.bits_per_sample = 16;
 
         if (I2S_Output_Stream.Begin(Configuration) != Result_Type::Success)
             return Result_Type::Error;
-    
-    }
-    {
-        auto Configuration = Volume_Stream.Get_Default_Configuration();
-        Volume_Stream.Begin(Configuration);
-        Configuration.Set_Volume(0.5);
 
+        Volume_Stream.Begin(Configuration);
+        Volume_Stream.Set_Volume(0.5);
     }
     //  Mixer.begin();
 
@@ -68,7 +68,7 @@ Result_Type Sound_Class::Stop()
 {
     // Mixer.end();
     // Volume_Stream.end();
-  //  I2S_Output_Stream.End();
+    //  I2S_Output_Stream.End();
 
     return this->Save_Registry();
 }
@@ -144,13 +144,14 @@ Result_Type Sound_Class::Save_Registry()
 
 Byte_Type Sound_Class::Get_Volume()
 {
-    //return 0;
+    // return 0;
     return static_cast<Byte_Type>(Volume_Stream.Get_Volume() * 255);
 }
 
-Sound_Types::Stream_Type &Sound_Class::Get_Current_Output_Stream()
+Sound_Types::Stream_Type& Sound_Class::Get_Current_Output_Stream()
 {
-     return I2S_Output_Stream;
+    Log_Verbose("Sound", "Get current output stream : %p", &Volume_Stream);
+    return Volume_Stream;
 }
 
 // - - Setters

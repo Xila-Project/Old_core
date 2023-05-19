@@ -33,7 +33,7 @@ namespace Xila_Namespace
     {
 
         /// @brief Object class.
-        typedef class Object_Class 
+        typedef class Object_Class
         {
         public:
             // - Types
@@ -59,19 +59,17 @@ namespace Xila_Namespace
 
             bool operator==(const Object_Class &Other) const
             {
-                if ((this->Get_Pointer() == nullptr) || ((lv_obj_t*)Other == nullptr))
-                {
+                if ((this->Get_Pointer() == NULL) || ((lv_obj_t *)Other == NULL))
                     return false;
-                }
+
                 return (this->Get_Pointer() == Other);
             }
 
             bool operator!=(const Object_Class &Other) const
             {
-                if ((this->Get_Pointer() == nullptr) || ((lv_obj_t*)Other == nullptr))
-                {
+                if ((this->Get_Pointer() == NULL) || ((lv_obj_t *)Other == NULL))
                     return true;
-                }
+
                 return (this->Get_Pointer() != Other);
             }
 
@@ -113,7 +111,7 @@ namespace Xila_Namespace
             const Class_Type *Get_Class() const;
             bool Has_Class(const Class_Type *Class) const;
             bool Check_Class(const Class_Type *Class) const;
-            virtual bool Is_Valid() const;
+            bool Is_Valid() const;
 
             void Add_Style(Style_Type &Style, Style_Selector_Type Style_Selector);
 
@@ -128,8 +126,8 @@ namespace Xila_Namespace
             // - - - Position and size.
             void Set_Position_X(Coordinate_Type X);
             void Set_Position_Y(Coordinate_Type Y);
-            void Set_Position(Coordinate_Type X, Coordinate_Type Y);                                  
-            void Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset = 0, Coordinate_Type Y_Offset = 0, Object_Class* Object_To_Align_With = NULL);
+            void Set_Position(Coordinate_Type X, Coordinate_Type Y);
+            void Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset = 0, Coordinate_Type Y_Offset = 0, Object_Class *Object_To_Align_With = NULL);
             void Set_Size(Coordinate_Type Width, Coordinate_Type Height);
             void Set_Width(Coordinate_Type Width);
             void Set_Height(Coordinate_Type Height);
@@ -342,7 +340,7 @@ namespace Xila_Namespace
             Color_Type Get_Style_Background_Image_Recolor_Filtered(Part_Type Part);
             Opacity_Type Get_Style_Background_Image_Recolor_Opacity(Part_Type Part);
             bool Get_Style_Background_Image_Tiled(Part_Type Part);
-            
+
             Blend_Mode_Type Get_Style_Blend_Mode(Part_Type Part);
 
             // - - - Scroll
@@ -465,7 +463,7 @@ namespace Xila_Namespace
             // - - Operator
             operator bool();
 
-            operator lv_obj_t*() const
+            operator lv_obj_t *() const
             {
                 return LVGL_Object_Pointer;
             }

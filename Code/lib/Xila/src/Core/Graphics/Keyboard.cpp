@@ -10,6 +10,7 @@
 
 #include "Core/Graphics/Keyboard.hpp"
 #include "Core/Graphics/Graphics.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
@@ -35,23 +36,25 @@ Keyboard_Class::Keyboard_Class(const Object_Class &Object_To_Copy)
 
 void Keyboard_Class::Create(Object_Class Parent_Object)
 {
-    if (Parent_Object)
+    if (!Parent_Object)
+        return;
+
     {
-        {
-            Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-            this->LVGL_Object_Pointer = lv_keyboard_create(Parent_Object);
-            if (!Is_Valid())
-                return;
-        }
-        this->Set_Pop_Overs(true);
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_keyboard_create(Parent_Object);
     }
+
+    if (!Is_Valid())
+    {
+        Log_Trace();
+        return;
+    }
+
+    this->Add_Flag(Flag_Type::Floating);
+    this->Set_Pop_Overs(true);
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Setters
-//
-// ------------------------------------------------------------------------- //
+// - - Setters
 
 bool Keyboard_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
@@ -71,7 +74,7 @@ bool Keyboard_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 void Keyboard_Class::Set_Map(Mode_Type Mode, const char *Map[], const Button_Matrix_Control_Type Control_Map[])
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_keyboard_set_map(Get_Pointer(), Mode, Map, reinterpret_cast<const lv_btnmatrix_ctrl_t*>(Control_Map));
+    lv_keyboard_set_map(Get_Pointer(), Mode, Map, reinterpret_cast<const lv_btnmatrix_ctrl_t *>(Control_Map));
 }
 
 void Keyboard_Class::Set_Mode(Mode_Type Mode)
@@ -97,11 +100,7 @@ void Keyboard_Class::Set_Text_Area(Text_Area_Class &Text_Area, bool Show)
     }
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Getters
-//
-// ------------------------------------------------------------------------- //
+// - - Getters
 
 const char *Keyboard_Class::Get_Button_Text(uint16_t Button_Identifier)
 {

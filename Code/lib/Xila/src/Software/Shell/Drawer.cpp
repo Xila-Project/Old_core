@@ -136,5 +136,5 @@ bool Shell_Class::Drawer_Class::Is_Openned()
     if (!Window)
         return false;
 
-    return Window.Get_State() != Window_State_Type::Maximized;
+    return Window.Get_State() == Window_State_Type::Maximized;
 }

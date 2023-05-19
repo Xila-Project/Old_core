@@ -171,7 +171,7 @@ void Shell_Class::Desk_Class::Set_Interface()
         {
             Drive_Types::File_Type Users_Folder = Drive.Open(Users_Directory_Path);
 
-            if (Users_Folder && Users_Folder.Is_Directory() && (Users_Folder.Count_Items() > 0))
+            if (Users_Folder && Users_Folder.Is_Directory() && (Users_Folder.Get_Items_Count() > 0))
                 Shell_Class::Login_Class::Open(Shell_Pointer);
 
             else
@@ -285,8 +285,6 @@ void Shell_Class::Desk_Class::Refresh()
         Dock_List.Get_Child(Dock_List.Get_Children_Count() - 1).Delete();
     }
 
-    Log_Trace();
-
     // If there is not enough icons, create more.
     {
         Graphics_Types::Object_Type Icon_Container;
@@ -318,11 +316,9 @@ void Shell_Class::Desk_Class::Refresh()
         uint8_t j = 0;
         for (uint8_t i = 0; i < User_Softwares_Count; i++)
         {
-            Log_Verbose("Shell", "Dock icon %u", i);
             Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
             if (Software_Pointer && (Software_Pointer != Shell_Pointer))
             {
-                Log_Verbose("Shell", "Dock icon %u is not the shell", i);
                 Icon_Container = Dock_List.Get_Child(j++); // Get the icon container and increment the counter (after).
 
                 Software_Pointer->Get_Handle()->Get_Name(Name);
@@ -333,7 +329,6 @@ void Shell_Class::Desk_Class::Refresh()
             }
         }
     }
-    Log_Trace();
 }
 
 void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instruction)

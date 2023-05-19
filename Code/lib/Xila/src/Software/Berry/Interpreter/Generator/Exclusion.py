@@ -78,7 +78,8 @@ Functions = [
 "Xila_Namespace::Result_Type Xila_Namespace::Flash_Class::Partition_Read(esp_partition_t const *Partition, uint32_t Offset, uint32_t *Data, size_t Size)",
 "Decoder_Class(audio_tools::AudioDecoder &Decoder)",
 "Xila_Namespace::Sound_Types::Stream_Class::Stream_Class(audio_tools::AudioStream & Stream)",
-"void Xila_Namespace::Communication_Types::HTTPS_Client_Class::Collect_Headers(char const * * Header_Keys, Xila_Namespace::Size_Type Header_Keys_Count)"
+"void Xila_Namespace::Communication_Types::HTTPS_Client_Class::Collect_Headers(char const * * Header_Keys, Xila_Namespace::Size_Type Header_Keys_Count)",
+"static void Xila_Namespace::Graphics_Types::File_Explorer_Class::Event_Callback(lv_event_t * Event)"
 ]
 
 def Is_Function_Excluded(Function):

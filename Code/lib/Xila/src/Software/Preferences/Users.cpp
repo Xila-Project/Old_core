@@ -143,7 +143,8 @@ void Preferences_Class::Draw_Users()
                 Static_String_Type<25> Name;
                 if (User->Get_Name(Name) != "Xila")
                 {
-                    Name += "\n";
+                    if (i != 0)
+                        Name += "\n";
                     strncat(User_List, (const char *)Name, sizeof(User_List));
                 }
             }

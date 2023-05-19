@@ -39,11 +39,10 @@ namespace Xila_Namespace
         typedef class I2S_Configuration_Class : public Configuration_Type
         {
 
-        private:
+        public:
             audio_tools::I2SConfig I2S_Configuration;
 
         public:
-
             I2S_Configuration_Class(const audio_tools::I2SConfig &I2S_Configuration)
                 : Configuration_Type(&this->I2S_Configuration),
                   I2S_Configuration(I2S_Configuration)
@@ -52,7 +51,7 @@ namespace Xila_Namespace
 
             I2S_Configuration_Class(Mode_Type Mode = Mode_Type::Transmit)
                 : Configuration_Type(&I2S_Configuration),
-                I2S_Configuration((RxTxMode)Mode)
+                  I2S_Configuration((RxTxMode)Mode)
             {
             }
 
@@ -73,7 +72,7 @@ namespace Xila_Namespace
                 return I2S_Configuration.pin_bck;
             }
 
-            int Get_Clock_Data_Pin()
+            int Get_Data_Pin()
             {
                 return I2S_Configuration.pin_data;
             }
@@ -111,8 +110,8 @@ namespace Xila_Namespace
             }
 
             // - - Operators
-            
-            operator audio_tools::I2SConfig& ()
+
+            operator audio_tools::I2SConfig &()
             {
                 return I2S_Configuration;
             }
@@ -121,6 +120,9 @@ namespace Xila_Namespace
 
         typedef class I2S_Class : public Stream_Type
         {
+        private:
+            I2SStream I2S_Stream;
+
         public:
             I2S_Class(int Mute_Pin = -1) : Stream_Type(I2S_Stream),
                                            I2S_Stream()
@@ -130,18 +132,36 @@ namespace Xila_Namespace
 
             Result_Type Begin(I2S_Configuration_Type Configuration)
             {
-                return (Result_Type)I2S_Stream.begin(Configuration);
+
+                Log_Verbose("Sound", "I2S begin : ");
+                Log_Verbose("Sound", "Word Select Clock Pin : %i", Configuration.Get_Word_Select_Clock_Pin());
+                Log_Verbose("Sound", "Bit Clock Pin : %i", Configuration.Get_Bit_Clock_Pin());
+                Log_Verbose("Sound", "Data Pin : %i", Configuration.Get_Data_Pin());
+                Log_Verbose("Sound", "Bits per sample : %i", Configuration.Get_Bits_Per_Sample());
+                Log_Verbose("Sound", "Sample rate : %i", Configuration.Get_Sample_Rate());
+                Log_Verbose("Sound", "Channel number : %i", Configuration.Get_Channel_Count());
+
+                return (Result_Type)I2S_Stream.begin((audio_tools::I2SConfig&)Configuration);
             }
 
             // - - Getters
 
             I2S_Configuration_Type Get_Default_Configuration(Mode_Type Mode = Mode_Type::Transmit)
             {
+                auto C = (I2S_Configuration_Type)I2S_Stream.defaultConfig((RxTxMode)Mode);
+
+                Log_Verbose("Sound", "I2S default configuration has been retrieved.");
+                Log_Verbose("Sound", "I2S default configuration :");
+                Log_Verbose("Sound", "Word Select Clock Pin : %i", C.Get_Word_Select_Clock_Pin());
+                Log_Verbose("Sound", "Bit Clock Pin : %i", C.Get_Bit_Clock_Pin());
+                Log_Verbose("Sound", "Data Pin : %i", C.Get_Data_Pin());
+                Log_Verbose("Sound", "Bits per sample : %i", C.Get_Bits_Per_Sample());
+                Log_Verbose("Sound", "Sample rate : %i", C.Get_Sample_Rate());
+                Log_Verbose("Sound", "Channel number : %i", C.Get_Channel_Count());
+
                 return (I2S_Configuration_Type)I2S_Stream.defaultConfig((RxTxMode)Mode);
             }
 
-        private:
-            I2SStream I2S_Stream;
         } I2S_Type;
 
     }

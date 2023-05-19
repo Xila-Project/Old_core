@@ -102,6 +102,11 @@ namespace Xila_Namespace
                 return this->Configuration_Reference != Configuration.Configuration_Reference;
             }
 
+            operator AudioInfo&()
+            {
+                return Configuration_Reference;
+            }
+
         private:
             // - Attributes
 

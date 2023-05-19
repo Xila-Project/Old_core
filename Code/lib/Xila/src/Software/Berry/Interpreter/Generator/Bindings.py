@@ -192,6 +192,13 @@ def Generate_Binding_Function(Declaration, Module_Name, Is_Module):
             if (str(Base_Type) == "char") or (str(Base_Type) == "unsigned char"):
                 R = "const char*"
                 ReturnD = "s"
+           # if Is_Declarated_Type(Base_Type):
+           #     if Is_Class(Base_Type.declaration):
+           #         R = "const void*"
+           #         ReturnD =  Base_Type.declaration.decl_string.replace("::Xila_Namespace::", "").replace("_Types", "").replace("_Class", "_Type").replace("::", ".")
+           #     else:
+           #         R = "const void*"
+           #         ReturnD = "c"
             else:
                 R = "const void*"
                 ReturnD = "c"

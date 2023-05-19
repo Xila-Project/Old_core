@@ -14,7 +14,6 @@ File_Manager_Class::File_Manager_Handle_Class File_Manager_Class::Handle;
 
 File_Manager_Class::File_Manager_Class(const Accounts_Types::User_Type *Owner_User) : Software_Class(Handle, Owner_User)
 {
-    Log_Verbose("File manager", "File manager software initialization");
 }
 
 File_Manager_Class::~File_Manager_Class()
@@ -41,12 +40,9 @@ void File_Manager_Class::Set_Interface()
     Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
     Grid.Set_Style_Pad_All(0, 0);
 
-    Flexbox.Create(Grid);
-    Flexbox.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 1, Grid_Alignment_Type::Stretch, 1, 1);
-    Flexbox.Set_Flex_Flow(Flex_Flow_Type::Column_Wrap_Reverse);
-    Flexbox.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
-    // Flexbox.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Start, Flex_Alignment_Type::Start);
-    Flexbox.Set_Style_Background_Color(Color_Type::Red[5], 0);
+    File_Explorer.Create(Grid);
+    File_Explorer.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 1, Grid_Alignment_Type::Stretch, 1, 1);
+    File_Explorer.Add_Event(this, Event_Code_Type::Value_Changed);
 
     Path_Text_Area.Create(Grid);
     Path_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 1, Grid_Alignment_Type::Stretch, 0, 1);
@@ -101,15 +97,15 @@ void File_Manager_Class::Set_Interface()
     Details_Dialog.Set_Title("Details");
 
     Details_Table.Create(Details_Dialog);
-    Details_Table.Set_Size(Percentage(100), Percentage(100));
+    Details_Table.Set_Width(Percentage(100));
     Details_Table.Set_Alignment(Alignment_Type::Center);
 
-    Keyboard.Create(Window);
+    Keyboard.Create(Window.Get_Body());
     Keyboard.Add_Flag(Flag_Type::Hidden);
+    Keyboard.Add_Flag(Flag_Type::Floating);
 
     this->Refresh();
 }
-
 
 void File_Manager_Class::Main_Task_Function()
 {
@@ -136,124 +132,21 @@ void File_Manager_Class::Main_Task_Function()
 
 void File_Manager_Class::Refresh()
 {
-    using namespace Graphics_Types;
-
-    Log_Verbose("File manager", "Refresh");
-
-    Log_Verbose("File manager", "Path: %s", Path_Text_Area.Get_Text());
-
-    Drive_Types::File_Type Folder = Drive.Open(Path_Text_Area.Get_Text());
-
-    if ((!Folder) || (!Folder.Is_Directory()))
-    {
-        Log_Warning("File manager", "Invalid folder: %s", Path_Text_Area.Get_Text());
-
-        Folder.Close();
-        Path_Text_Area.Set_Text("/");
-        Folder = Drive.Open("/");
-    }
-
-    Log_Verbose("File manager", "Folder: %s", Path_Text_Area.Get_Text());
-
-    uint8_t Item_Count = Folder.Count_Items();
-
-    Log_Verbose("File manager", "Item count: %d", Item_Count);
-
-    // - If there are not enough checkboxes, create more
-    {
-        Graphics_Types::Checkbox_Class Checkbox;
-        while (Flexbox.Get_Children_Count() < Item_Count)
-        {
-            Checkbox.Create(Flexbox);
-            Checkbox.Set_Alignment(Alignment_Type::Out_Left_Middle);
-            Checkbox.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
-            Checkbox.Add_Event(this, Graphics_Types::Event_Code_Type::Long_Pressed);
-            Checkbox.Set_Style_Opacity(Opacity_Type::Transparent, LV_PART_INDICATOR);
-            Checkbox.Clear_Pointer();
-        }
-    }
-
-    Log_Verbose("File manager", "Checkbox count: %d", Flexbox.Get_Children_Count());
-
-    Folder.Rewind_Directory();
-
-    Graphics_Types::Checkbox_Type Checkbox;
-    Static_String_Type<32> Item_Name;
-
-    Drive_Types::File_Type File;
-
-    for (uint8_t i = 0; i < Item_Count; i++)
-    {
-        File = Folder.Open_Next_File();
-
-        if (!File)
-        {
-            Log_Verbose("File mana", "!File !!!!");
-            break;
-        }
-
-        Checkbox = Flexbox.Get_Child(i);
-        Checkbox.Clear_Flag(Flag_Type::Hidden);
-
-        if (File.Is_Directory())
-            Item_Name = LV_SYMBOL_DIRECTORY;
-        else
-            Item_Name = LV_SYMBOL_FILE;
-
-        Item_Name += " ";
-        Item_Name += File.Get_Name();
-
-        Checkbox.Set_Text((const char *)Item_Name);
-
-        Checkbox.Clear_Pointer();
-        File.Close();
-    }
-
-    // - Hide remaining unused checkboxes instead of deleting them to avoid memory fragmentation.
-    Size_Type Flexbox_Child_Count = Flexbox.Get_Children_Count();
-    for (uint8_t i = Item_Count; i < Flexbox_Child_Count; i++)
-    {
-        Log_Verbose("File manager", "Hide checkbox %d", i);
-        Checkbox = Flexbox.Get_Child(i);
-        Checkbox.Add_Flag(Flag_Type::Hidden);
-    }
-
-    Folder.Close();
+    File_Explorer.Set_Path(Path_Text_Area.Get_Text());
 }
 
-void File_Manager_Class::Enable_Selection_Mode(bool Multiple = false)
-{   
+void File_Manager_Class::Enable_Selection_Mode()
+{
     using namespace Graphics_Types;
 
-    if (Multiple)
-    {
-        Select_Button.Add_Flag(Flag_Type::Hidden);
-        Deselect_Button.Clear_Flag(Flag_Type::Hidden);
-        Delete_Button.Clear_Flag(Flag_Type::Hidden);
-        Rename_Button.Add_Flag(Flag_Type::Hidden);
-        Copy_Button.Clear_Flag(Flag_Type::Hidden);
-        Cut_Button.Clear_Flag(Flag_Type::Hidden);
-        Paste_Button.Clear_Flag(Flag_Type::Hidden);
-        Details_Button.Add_Flag(Flag_Type::Hidden);
-    }
-    else
-    {
-        Select_Button.Add_Flag(Flag_Type::Hidden);
-        Deselect_Button.Clear_Flag(Flag_Type::Hidden);
-        Delete_Button.Clear_Flag(Flag_Type::Hidden);
-        Rename_Button.Clear_Flag(Flag_Type::Hidden);
-        Copy_Button.Clear_Flag(Flag_Type::Hidden);
-        Cut_Button.Clear_Flag(Flag_Type::Hidden);
-        Paste_Button.Clear_Flag(Flag_Type::Hidden);
-        Details_Button.Clear_Flag(Flag_Type::Hidden);
-
-        for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
-        {
-            Flexbox.Get_Child(i).Clear_State(Graphics_Types::State_Type::Checked);
-            Flexbox.Set_Style_Opacity(Opacity_Type::Cover, LV_PART_INDICATOR);
-            // Flexbox.Get_Child(i).Clear_State(Graphics_Types::State_Type::Disabled);
-        }
-    }
+    Select_Button.Add_Flag(Flag_Type::Hidden);
+    Deselect_Button.Clear_Flag(Flag_Type::Hidden);
+    Delete_Button.Clear_Flag(Flag_Type::Hidden);
+    Rename_Button.Add_Flag(Flag_Type::Hidden);
+    Copy_Button.Clear_Flag(Flag_Type::Hidden);
+    Cut_Button.Clear_Flag(Flag_Type::Hidden);
+    Paste_Button.Clear_Flag(Flag_Type::Hidden);
+    Details_Button.Add_Flag(Flag_Type::Hidden);
 }
 
 void File_Manager_Class::Disable_Selection_Mode()
@@ -267,33 +160,14 @@ void File_Manager_Class::Disable_Selection_Mode()
     Copy_Button.Add_Flag(Flag_Type::Hidden);
     Cut_Button.Add_Flag(Flag_Type::Hidden);
     Details_Button.Add_Flag(Flag_Type::Hidden);
-
-    for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
-    {
-        Flexbox.Get_Child(i).Clear_State(Graphics_Types::State_Type::Checked);
-        Flexbox.Set_Style_Opacity(Opacity_Type::Transparent, LV_PART_INDICATOR);
-        // Flexbox.Get_Child(i).Add_State(Graphics_Types::State_Type::Disabled);
-    }
-}
-
-uint8_t File_Manager_Class::Count_Selected_Items()
-{
-    uint8_t Selected_Item_Count = 0;
-    for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
-    {
-        if (Flexbox.Get_Child(i).Has_State(Graphics_Types::State_Type::Checked))
-        {
-            Selected_Item_Count++;
-        }
-    }
-    return Selected_Item_Count;
+    File_Explorer.Set_Selection_State(false);
 }
 
 void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
 {
     if (Instruction.Get_Sender() == &Graphics)
     {
-        Log_Verbose("File manager", "Instruction !");
+        Log_Verbose("File manager", "Instruction : %d", Instruction.Graphics.Get_Code());
 
         Graphics_Types::Object_Type Target = Instruction.Graphics.Get_Target();
 
@@ -301,18 +175,24 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
         {
         case Graphics_Types::Event_Code_Type::Clicked:
             if (Target == Parent_Folder_Button)
-                Go_Parent_Folder();
+            {
+                File_Explorer.Go_Parent_Folder();
+                Path_Text_Area.Set_Text(File_Explorer.Get_Path());
+            }
             else if (Target == Home_Folder_Button)
             {
-                Static_String_Type<32> Home_Folder_Path;
+                Static_String_Type<64> Home_Folder_Path;
                 Accounts.Get_Logged_User()->Get_Home_Folder_Path(Home_Folder_Path);
                 Path_Text_Area.Set_Text(Home_Folder_Path);
                 Refresh();
+                Path_Text_Area.Set_Text(File_Explorer.Get_Path());
+                
             }
             else if (Target == Root_Folder_Button)
             {
                 Path_Text_Area.Set_Text("/");
                 Refresh();
+                Path_Text_Area.Set_Text(File_Explorer.Get_Path());
             }
             else if (Target == Refresh_Button)
                 Refresh();
@@ -321,7 +201,7 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
             else if (Target == New_Folder_Button)
                 Create_Folder();
             else if (Target == Select_Button)
-                Enable_Selection_Mode(false);
+                Enable_Selection_Mode();
             else if (Target == Deselect_Button)
                 Disable_Selection_Mode();
             else if (Target == Delete_Button)
@@ -345,76 +225,20 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
             }
             else if (Target == Details_Button)
                 Details();
-            else
-            {
-                Log_Verbose("File manager", "Maybe Checkbox clicked !");
-                Size_Type Flexbox_Child_Count = Flexbox.Get_Children_Count();
-                for (uint8_t i = 0; i < Flexbox_Child_Count; i++)
-                {
-                    if (Target == Flexbox.Get_Child(i))
-                    {
-                        Log_Verbose("File manager", "Checkbox %u clicked", i);
-                        Graphics_Types::Checkbox_Type Checkbox = Flexbox.Get_Child(i);
-                        if (Checkbox.Is_Valid())
-                        {
-                            Disable_Selection_Mode();
-                            Buffer = Path_Text_Area.Get_Text();
-                            if (Buffer != "/")
-                                Buffer += "/";
-
-                            Log_Verbose("File manager", "Checkbox. : %p", Checkbox.Get_Text());
-                            Log_Verbose("File manager", "Checkbox + 2 : %p", Checkbox.Get_Text() + 2);
-                            Log_Verbose("File manager", "Checkbox + 2 : %p", Checkbox.Get_Text()[2]);
-
-                            Buffer += &(Checkbox.Get_Text()[sizeof(LV_SYMBOL_DIRECTORY)]); // Skip the first characters (symbol + space)
-
-                            Drive_Types::File_Type Item = Drive.Open(Buffer);
-
-                            if (!Item || !Item.Is_Directory())
-                            {
-                                Item.Close();
-                                Log_Verbose("File manager", "Not a directory or invalid : %s ", (const char *)Buffer);
-                                return;
-                            }
-
-                            Item.Close();
-
-                            Path_Text_Area.Set_Text((const char *)Buffer);
-                            Refresh();
-                        }
-                        break;
-                    }
-                }
-            }
-            break;
-
-        case Graphics_Types::Event_Code_Type::Long_Pressed:
-            for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
-            {
-                if (Target == Flexbox.Get_Child(i))
-                {
-                    if (Count_Selected_Items() == 0)
-                    {
-                        Enable_Selection_Mode();
-                    }
-                    else
-                    {
-                        Enable_Selection_Mode(true);
-                    }
-
-                    Flexbox.Get_Child(i).Add_State(Graphics_Types::State_Type::Checked);
-                    break;
-                }
-            }
             break;
         case Graphics_Types::Event_Code_Type::Focused:
             if (Target == Path_Text_Area)
-            {
                 Keyboard.Set_Text_Area(Path_Text_Area);
-            }
             break;
         case Graphics_Types::Event_Code_Type::Defocused:
             Keyboard.Remove_Text_Area();
+            break;
+        case Graphics_Types::Event_Code_Type::Value_Changed:
+            if (Target == File_Explorer)
+            {
+                Log_Verbose("File manager", "File explorer value changed : ", File_Explorer.Get_Path());
+                Path_Text_Area.Set_Text(File_Explorer.Get_Path());
+            }
             break;
         }
     }
@@ -423,122 +247,86 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
         using namespace Softwares_Types;
         switch (Instruction.Softwares.Get_Code())
         {
-            case Event_Code_Type::Close:
-                delete this;
-                break;
+        case Event_Code_Type::Close:
+            delete this;
+            break;
         }
     }
 }
 
 void File_Manager_Class::Details()
 {
-    for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
-    {
-        if (Flexbox.Get_Child(i).Has_State(Graphics_Types::State_Type::Checked))
-        {
-            Graphics_Types::Checkbox_Type Checkbox = Flexbox.Get_Child(i);
-            if (!Checkbox.Is_Valid())
-                return;
+    Buffer = Path_Text_Area.Get_Text();
+    Buffer += "/";
+    Buffer += File_Explorer.Get_Selected_Name(0);
 
-            Buffer = Path_Text_Area.Get_Text();
-            Buffer += "/";
-            Buffer += Checkbox.Get_Text();
+    Drive_Types::File_Type Item = Drive.Open(Buffer);
 
-            Drive_Types::File_Type Item = Drive.Open(Buffer);
+    if (!Item)
+        return;
 
-            if (!Item)
-                return;
+    Details_Table.Set_Row_Count(0);
+    Details_Table.Set_Column_Count(0);
 
-            Details_Table.Set_Row_Count(0);
-            Details_Table.Set_Column_Count(0);
+    Details_Table.Set_Cell_Value(0, 0, "Attribute");
+    Details_Table.Set_Cell_Value(0, 1, "Value");
 
-            Details_Table.Set_Cell_Value(0, 0, "Attribute");
-            Details_Table.Set_Cell_Value(0, 1, "Value");
+    Details_Table.Set_Cell_Value(1, 0, "Name");
+    Details_Table.Set_Cell_Value(1, 1, Item.Get_Name());
 
-            Details_Table.Set_Cell_Value(1, 0, "Name");
-            Details_Table.Set_Cell_Value(1, 1, Item.Get_Name());
+    Details_Table.Set_Cell_Value(1, 0, "Type");
+    if (Item.Is_Directory())
+        Details_Table.Set_Cell_Value(2, 1, "Directory");
+    else
+        Details_Table.Set_Cell_Value(2, 1, "File");
 
-            Details_Table.Set_Cell_Value(1, 0, "Type");
-            if (Item.Is_Directory())
-                Details_Table.Set_Cell_Value(2, 1, "Directory");
-            else
-                Details_Table.Set_Cell_Value(2, 1, "File");
+    Details_Table.Set_Cell_Value(3, 0, "Size");
+    // TODO : Replace with regular char.
+    Details_Table.Set_Cell_Value(3, 1, String(Item.Get_Size()).c_str());
 
-            Details_Table.Set_Cell_Value(3, 0, "Size");
-            // TODO : Replace with regular char.
-            Details_Table.Set_Cell_Value(3, 1, String(Item.Get_Size()).c_str());
+    // TODO : Do creation date.
+    // Details_Table.Set_Cell_Value(4, 0, "Last write");
+    // Detials_Table.Set_Cell_Value(4, 1, Item.getLastWrite());
+    // time_t File_Last_Write_Time = Temporary_Item.getLastWrite();
+    // tm *File_Last_Write = localtime(&File_Last_Write_Time);
+    // sprintf(Temporary_Char_Array, "%02d/%02d/%d %02d:%02d:%02d\n", File_Last_Write->tm_mday, (File_Last_Write->tm_mon) + 1, (File_Last_Write->tm_year) + 1900, File_Last_Write->tm_hour, File_Last_Write->tm_min, File_Last_Write->tm_sec);
 
-            // TODO : Do creation date.
-            // Details_Table.Set_Cell_Value(4, 0, "Last write");
-            // Detials_Table.Set_Cell_Value(4, 1, Item.getLastWrite());
-            // time_t File_Last_Write_Time = Temporary_Item.getLastWrite();
-            // tm *File_Last_Write = localtime(&File_Last_Write_Time);
-            // sprintf(Temporary_Char_Array, "%02d/%02d/%d %02d:%02d:%02d\n", File_Last_Write->tm_mday, (File_Last_Write->tm_mon) + 1, (File_Last_Write->tm_year) + 1900, File_Last_Write->tm_hour, File_Last_Write->tm_min, File_Last_Write->tm_sec);
+    Details_Dialog.Clear_Flag(Graphics_Types::Flag_Type::Hidden);
 
-            Details_Dialog.Clear_Flag(Graphics_Types::Flag_Type::Hidden);
-
-            Item.Close();
-
-            break;
-        }
-    }
+    Item.Close();
 }
 
 void File_Manager_Class::Rename()
 {
-    for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
-    {
-        if (Flexbox.Get_Child(i).Has_State(Graphics_Types::State_Type::Checked))
-        {
+    Buffer = Path_Text_Area.Get_Text();
+    Buffer += "/";
+    Buffer += File_Explorer.Get_Selected_Name(0);
 
-            Graphics_Types::Checkbox_Type Checkbox = Flexbox.Get_Child(i);
-            if (!Checkbox.Is_Valid())
-                return;
+    Static_String_Type<256> Buffer_2; // Destination path.
 
-            Buffer = Path_Text_Area.Get_Text();
-            Buffer += "/";
-            Buffer += Checkbox.Get_Text();
+    // TODO : Add dialog
 
-            Static_String_Type<256> Buffer_2; // Destination path.
-
-            // TODO : Add dialog
-
-            Drive.Rename(Buffer, Buffer_2);
-
-            break;
-        }
-    }
-    Refresh();
+    Drive.Rename(Buffer, Buffer_2);
 }
 
 void File_Manager_Class::Delete()
 {
+    Size_Type Selected_Count = File_Explorer.Get_Selected_Count();
 
-    for (uint8_t i = 0; i < Flexbox.Get_Children_Count(); i++)
+    for (Size_Type i = 0; i < Selected_Count; i++)
     {
-        if (Flexbox.Get_Child(i).Has_State(Graphics_Types::State_Type::Checked))
+        Buffer = Path_Text_Area.Get_Text();
+        Buffer += "/";
+        Buffer += File_Explorer.Get_Selected_Name(i);
+
+        Drive_Types::File_Type Item = Drive.Open(Buffer);
+
+        if (Item)
         {
-            Graphics_Types::Checkbox_Type Checkbox = Flexbox.Get_Child(i);
-
-            if (!Checkbox.Is_Valid())
-                return;
-
-            Buffer = Path_Text_Area.Get_Text();
-            Buffer += "/";
-            Buffer += Checkbox.Get_Text();
-
-            Drive_Types::File_Type Item = Drive.Open(Buffer);
-
-            if (Item)
-            {
-                if (Item.Is_Directory())
-                    Drive.Remove_Directory(Buffer);
-                else
-                    Drive.Remove_File(Buffer);
-            }
-
-            // TODO : Add dialog for error.
+            Drive.Remove(Buffer);
         }
+
+        // TODO : Add dialog for error.
     }
     Refresh();
 }
@@ -632,33 +420,5 @@ void File_Manager_Class::Create_Folder()
             break;
         }
     }
-    Refresh();
-}
-
-void File_Manager_Class::Go_Parent_Folder()
-{
-    Log_Verbose("Shell", "Going to parent folder.");
-
-    Buffer = Path_Text_Area.Get_Text();
-
-    for (uint8_t i = Buffer.Get_Length() - 1; i > 0; i--)
-    {
-        Log_Verbose("Shell", "Character: %s", (const char *)Buffer);
-        Log_Verbose("Shell", "Index: %d", i);
-
-        if (Buffer.Get_Character(i) == '/')
-        {
-            Buffer.Set_Character(i, '\0');
-
-            Log_Verbose("Shell", "New path: %s", (const char *)Buffer);
-            break;
-        }
-        else
-        {
-            Buffer.Set_Character(i, '\0');
-        }
-    }
-
-    Path_Text_Area.Set_Text(Buffer);
     Refresh();
 }

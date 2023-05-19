@@ -1,21 +1,21 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Color_Type_map) {
-    { be_const_key(init, 14), be_const_ctype_func(Berry_Color_Class_Initialize_36C08B82_B9EC_40B0_93ED_D7D5A8FFDB14) },
-    { be_const_key(Set_RGB, -1), be_const_ctype_func(Berry_Color_Class_Set_RGB_0A8F9C88_5832_409A_9403_0FF5C2F385E7) },
-    { be_const_key(Get_RGB_16_Bits, 11), be_const_ctype_func(Berry_Color_Class_Get_RGB_16_Bits_F7C93BF8_66D5_4D9F_99EF_518986B37A0C) },
-    { be_const_key(Set_HSV, -1), be_const_ctype_func(Berry_Color_Class_Set_HSV_F89AFD5E_9ED5_4CB7_9B0A_2606BCB7F8CF) },
-    { be_const_key(Get_RGB_1_Bit, -1), be_const_ctype_func(Berry_Color_Class_Get_RGB_1_Bit_26B5C265_495A_4CA3_8D51_A8D1EB615C71) },
-    { be_const_key(Get_Brightness, -1), be_const_ctype_func(Berry_Color_Class_Get_Brightness_C88AA321_05F5_4A91_A35A_A5642F79C743) },
-    { be_const_key(Set_Darker, -1), be_const_ctype_func(Berry_Color_Class_Set_Darker_064CE556_2C59_487A_8EC8_BD41F9A8CE5C) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Color_Class_Deinitialize_BD4E7270_345A_4DD5_8690_539F7F7EAA70) },
-    { be_const_key(Get_RGB_8_Bits, 9), be_const_ctype_func(Berry_Color_Class_Get_RGB_8_Bits_397C2E4D_9A10_4D12_B57D_39C5AAC32DDA) },
-    { be_const_key(Set_To_Black, -1), be_const_ctype_func(Berry_Color_Class_Set_To_Black_0F097E72_874F_48CF_9DA4_E590B3C92C64) },
-    { be_const_key(Set_Lighter, 5), be_const_ctype_func(Berry_Color_Class_Set_Lighter_96E8B7AF_238A_462B_989E_AD222BEFA846) },
+    { be_const_key(init, 14), be_const_ctype_func(Berry_Color_Class_Initialize_4326436E_30C1_4984_A56F_D07B73870C2A) },
+    { be_const_key(Set_RGB, -1), be_const_ctype_func(Berry_Color_Class_Set_RGB_1E9C8A2A_44BE_4267_BEFD_4ACE245D497F) },
+    { be_const_key(Get_RGB_16_Bits, 11), be_const_ctype_func(Berry_Color_Class_Get_RGB_16_Bits_9972BDE6_B24B_4A14_A692_2670B092B8BE) },
+    { be_const_key(Set_HSV, -1), be_const_ctype_func(Berry_Color_Class_Set_HSV_1AFDCF0F_D333_46AC_8FD3_E71F571FE3C2) },
+    { be_const_key(Get_RGB_1_Bit, -1), be_const_ctype_func(Berry_Color_Class_Get_RGB_1_Bit_2129809A_6829_4343_94B6_B241A02E25D3) },
+    { be_const_key(Get_Brightness, -1), be_const_ctype_func(Berry_Color_Class_Get_Brightness_251B505E_9DF2_461C_B512_BA29338A4FED) },
+    { be_const_key(Set_Darker, -1), be_const_ctype_func(Berry_Color_Class_Set_Darker_5FE3BF1B_B360_4D44_AE15_88F2D0E22208) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Color_Class_Deinitialize_BA5FF67D_6F48_43D8_9BBD_49026C6E8DC1) },
+    { be_const_key(Get_RGB_8_Bits, 9), be_const_ctype_func(Berry_Color_Class_Get_RGB_8_Bits_D733605B_C56D_4978_863F_F5C5D361A5ED) },
+    { be_const_key(Set_To_Black, -1), be_const_ctype_func(Berry_Color_Class_Set_To_Black_A14BCDD2_B532_410A_83CE_5B6CD1D87D22) },
+    { be_const_key(Set_Lighter, 5), be_const_ctype_func(Berry_Color_Class_Set_Lighter_5B010B49_BC15_47E0_8B5E_372C51B08426) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Change_Lightness, -1), be_const_ctype_func(Berry_Color_Class_Change_Lightness_E438972D_0A16_430F_926D_155C3DF2FB40) },
-    { be_const_key(Set_To_White, -1), be_const_ctype_func(Berry_Color_Class_Set_To_White_FEC02BBE_01A6_4EE3_8008_0665A20EDCBA) },
-    { be_const_key(Get_RGB_32_Bits, -1), be_const_ctype_func(Berry_Color_Class_Get_RGB_32_Bits_7411564E_CF96_40FB_8C1A_E09D7270C5A0) },
+    { be_const_key(Change_Lightness, -1), be_const_ctype_func(Berry_Color_Class_Change_Lightness_EB11C2F2_068B_4481_BB25_78B92D6CEE84) },
+    { be_const_key(Set_To_White, -1), be_const_ctype_func(Berry_Color_Class_Set_To_White_1B56721F_9584_4953_A8D0_323DB976E3BE) },
+    { be_const_key(Get_RGB_32_Bits, -1), be_const_ctype_func(Berry_Color_Class_Get_RGB_32_Bits_361ECCA8_A3C2_49EB_94B7_7C3E09877610) },
 };
 
 static be_define_const_map(

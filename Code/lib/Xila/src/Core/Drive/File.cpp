@@ -224,7 +224,7 @@ void File_Class::Rewind_Directory()
     File.rewindDirectory();
 }
 
-uint16_t File_Class::Count_Items()
+Size_Type File_Class::Get_Items_Count()
 {
     if (!Is_Valid() || !Is_Directory())
     {
@@ -233,18 +233,15 @@ uint16_t File_Class::Count_Items()
 
     Rewind_Directory();
     Drive_Types::File_Type Temporary_File = Open_Next_File();
-    uint16_t i;
-    for (i = 0; i < 0xFFFF; i++)
+    Size_Type Count = 0;
+    
+    while (Temporary_File)
     {
-        if (!Temporary_File)
-        {
-            Temporary_File.Close();
-            break;
-        }
+        Count++;
 
         Temporary_File.Close();
         Temporary_File = Open_Next_File();
     }
-
-    return i;
+    
+    return Count;
 }

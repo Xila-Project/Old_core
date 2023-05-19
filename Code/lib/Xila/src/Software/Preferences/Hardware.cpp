@@ -128,11 +128,11 @@ void Preferences_Class::Draw_Hardware()
         Label.Clear_Pointer();
 
         Label.Create(Grid, "Brightness :");
-        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 3, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 2, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
         Label.Clear_Pointer();
 
         Hardware_Display_Brightness_Slider.Create(Grid);
-        Hardware_Display_Brightness_Slider.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 4, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
+        Hardware_Display_Brightness_Slider.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 2, 4, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
         Hardware_Display_Brightness_Slider.Set_Range(10, 100);
         Hardware_Display_Brightness_Slider.Add_Event(this, Event_Code_Type::Value_Changed);
 
@@ -149,7 +149,7 @@ void Preferences_Class::Draw_Hardware()
         Label.Clear_Pointer();
 
         Label.Create(Grid, "Volume :");
-        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Sound_Section_Row + 1, 1);
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 2, Grid_Alignment_Type::Center, Sound_Section_Row + 1, 1);
         Label.Clear_Pointer();
 
         Hardware_Sound_Volume_Slider.Create(Grid);

@@ -22,7 +22,7 @@ namespace Xila_Namespace
     namespace Sound_Types
     {
 
-        using Encoded_Stream_Type = EncodedAudioStream;
+        using Encoded_Stream_Type = EncodedAudioStream;                 
         using Stream_Copier_Type = StreamCopy;
 
         typedef class File_Player_Class : public Stream_Type

@@ -115,13 +115,15 @@ Result_Type Graphics_Class::Start()
 
     // - Initialize semaphore
 
+    Log_Verbose("Graphics", "Initializing semaphore.");
     if (Semaphore.Create(Semaphore_Type_Type::Recursive_Mutex) != Result_Type::Success)
     {
+        Log_Verbose("Graphics", "Impossible to create semaphore.");
         return Result_Type::Error;
     }
 
     // - Initialize the default theme
-
+    Log_Verbose("Graphics", "Initializing theme.");
     {
         auto Semaphore = Take_Semaphore_Auto();
         Theme = lv_theme_default_get();

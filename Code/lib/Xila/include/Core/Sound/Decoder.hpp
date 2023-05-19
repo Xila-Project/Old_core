@@ -47,6 +47,8 @@ namespace Xila_Namespace
         public:
             WAV_Decoder_Class() : Decoder_Class(WAV_Decoder)
             {
+
+                Log_Verbose("Sound", "WAV decoder created : %p", this);
             }
         } WAV_Decoder_Type;
 

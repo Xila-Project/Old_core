@@ -70,6 +70,12 @@ namespace Xila_Namespace
         public:
             virtual void Create(Object_Class Parent_Object) override;
 
+            
+
+        private:
+
+
+
         } Message_Dialog_Type;
 
     };

@@ -84,7 +84,7 @@ bool Label_Class::Is_Char_Under_Position(Point_Type& Position)
 
 void Label_Class::Set_Text(const char *Text)
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    auto Semaphore = Graphics.Take_Semaphore_Auto();
     lv_label_set_text(Get_Pointer(), Text);
 }
 

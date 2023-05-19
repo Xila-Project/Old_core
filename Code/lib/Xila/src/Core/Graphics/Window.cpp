@@ -85,7 +85,7 @@ void Window_Class::Create(Object_Class Parent_Object)
         return;
 
     {
-        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        auto Semaphore = Graphics.Take_Semaphore_Auto();
         this->LVGL_Object_Pointer = lv_obj_create(Parent_Object);
 
         if (this->LVGL_Object_Pointer == NULL)
@@ -103,24 +103,14 @@ void Window_Class::Create(Object_Class Parent_Object)
 
 void Window_Class::Delete()
 {
-    if (this->Is_Valid())
-    {
-        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        lv_obj_del_async(this->Get_Pointer());
-        this->LVGL_Object_Pointer = NULL;
-        delete Data;
-        Data = NULL;
-    }
-}
+    if (!this->Is_Valid())
+        return;
 
-bool Window_Class::Is_Valid() const
-{
-    if ((Get_Pointer() == NULL) || !Data)
-        return false;
-    return true;
-
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_obj_is_valid(Get_Pointer());
+    auto Semaphore = Graphics.Take_Semaphore_Auto();
+    lv_obj_del_async(this->Get_Pointer());
+    this->Clear_Pointer();
+    delete Data;
+    Data = NULL;
 }
 
 void Window_Class::Set_Interface()
@@ -292,25 +282,31 @@ void Window_Class::Set_Minimize_Button_Hidden(bool Hidden)
 
 void Window_Class::Event_Callback(lv_event_t *Event)
 {
+    auto Semaphore = Graphics.Take_Semaphore_Auto();
+ 
     Window_Type *Window = static_cast<Window_Type *>(lv_event_get_user_data(Event));
+
+Log_Trace();
 
     if (!Window || !Window->Is_Valid())
         return;
 
+Log_Trace();
+
     if (lv_event_get_code(Event) == LV_EVENT_CLICKED)
     {
-        if (lv_event_get_target(Event) == Window->Data->Close_Button)
+        Log_Trace();
+        if (lv_event_get_target(Event) == (lv_obj_t*)Window->Get_Close_Button())
         {
+            Log_Trace();
             Window->Delete();
             return;
         }
-        else if (lv_event_get_target(Event) == Window->Data->Minimize_Button)
+        else if (lv_event_get_target(Event) == (lv_obj_t*)Window->Get_Minimize_Button())
         {
+            Log_Trace();
             Window->Set_State(Window_State_Type::Minimized);
             return;
         }
     }
-
-    if (Window->Is_Valid() && Window->Data->Owner_Software)
-        Graphics.Event_Handler(Event);
 }
