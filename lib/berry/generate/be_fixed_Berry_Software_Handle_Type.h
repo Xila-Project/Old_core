@@ -1,14 +1,14 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Software_Handle_Type_map) {
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Software_Handle_Class_Deinitialize_691B0EBD_6EC0_45DF_9A3D_D2596C2D4207) },
-    { be_const_key(Create_Instance, -1), be_const_ctype_func(Berry_Software_Handle_Class_Create_Instance_657C4500_8C39_4CF3_BD78_624D3B943BF7) },
-    { be_const_key(Is_Equal, 6), be_const_ctype_func(Berry_Software_Handle_Class_Is_Equal_60EAD659_FD8D_47B9_8114_EAA1B430F482) },
-    { be_const_key(Get_Name, 5), be_const_ctype_func(Berry_Software_Handle_Class_Get_Name_7F54F61B_81F8_4942_8551_AD3E14F397D8) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Software_Handle_Class_Initialize_16D7E537_7D4C_41BE_B29F_E22D2E7F2F11) },
-    { be_const_key(_X21_X3D, 4), be_const_ctype_func(Berry_Software_Handle_Class_Operator_850AE5E3_0CD9_42E9_ACF3_CB3F10917468) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Software_Handle_Class_Deinitialize_73083E8A_BFA3_4EA6_BDB4_8A00E3A1933E) },
+    { be_const_key(Create_Instance, -1), be_const_ctype_func(Berry_Software_Handle_Class_Create_Instance_0A0D4EF8_9803_4053_A411_8AD056A76634) },
+    { be_const_key(Is_Equal, 6), be_const_ctype_func(Berry_Software_Handle_Class_Is_Equal_4C0B126E_6AC5_402C_AC8A_51F36AA8FF82) },
+    { be_const_key(Get_Name, 5), be_const_ctype_func(Berry_Software_Handle_Class_Get_Name_CB2BBE09_C0B8_422D_8F2E_E40E1FA27085) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Software_Handle_Class_Initialize_4CE0BE03_2CB6_4BE8_9C70_AE0F476EFAA8) },
+    { be_const_key(_X21_X3D, 4), be_const_ctype_func(Berry_Software_Handle_Class_Operator_9CB6D069_C3C2_4076_ADC3_DF85899ADEA8) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(_X3D_X3D, -1), be_const_ctype_func(Berry_Software_Handle_Class_Operator_8EA35188_E497_4B7F_BB67_678BA1125B73) },
+    { be_const_key(_X3D_X3D, -1), be_const_ctype_func(Berry_Software_Handle_Class_Operator_94A49035_145C_46C3_B049_89B757176CA2) },
 };
 
 static be_define_const_map(

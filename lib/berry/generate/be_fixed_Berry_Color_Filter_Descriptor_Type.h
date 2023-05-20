@@ -2,7 +2,7 @@
 
 static be_define_const_map_slots(Berry_Color_Filter_Descriptor_Type_map) {
     { be_const_key(_p, 1), be_const_var(0) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Color_Filter_Descriptor_Class_Deinitialize_C412E546_5222_4094_B6C9_6EAC96784A61) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Color_Filter_Descriptor_Class_Deinitialize_CDFA5179_BF70_4871_965A_39961FD8D16F) },
 };
 
 static be_define_const_map(

@@ -1,12 +1,12 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Checkbox_Type_map) {
-    { be_const_key(init, 1), be_const_ctype_func(Berry_Checkbox_Class_Initialize_F1541488_41DB_459F_9C83_6F783DDAC23F) },
-    { be_const_key(Set_Text, -1), be_const_ctype_func(Berry_Checkbox_Class_Set_Text_D0A9F2E1_D21E_40B5_88ED_076F86621E31) },
-    { be_const_key(Create, 0), be_const_ctype_func(Berry_Checkbox_Class_Create_98387866_1BAC_4439_8D38_C714F64D626E) },
-    { be_const_key(Get_Text, -1), be_const_ctype_func(Berry_Checkbox_Class_Get_Text_3C1AA2FD_A763_4C2F_A1A9_42626D9D2DDA) },
-    { be_const_key(Set_Text_Static, -1), be_const_ctype_func(Berry_Checkbox_Class_Set_Text_Static_38B6931A_C953_4454_85D3_10E1D26CBB61) },
-    { be_const_key(deinit, 2), be_const_ctype_func(Berry_Checkbox_Class_Deinitialize_E7F9347D_7E80_41CB_86E8_EFC3741E7A5F) },
+    { be_const_key(init, 1), be_const_ctype_func(Berry_Checkbox_Class_Initialize_503E3119_9171_4F0B_A2A2_0102E36535DD) },
+    { be_const_key(Set_Text, -1), be_const_ctype_func(Berry_Checkbox_Class_Set_Text_56C05182_58B5_40F0_B3D1_26E3849E1719) },
+    { be_const_key(Create, 0), be_const_ctype_func(Berry_Checkbox_Class_Create_9E61D55A_C458_4DB5_B119_AE76DA612ACA) },
+    { be_const_key(Get_Text, -1), be_const_ctype_func(Berry_Checkbox_Class_Get_Text_D37BDC2B_A7FD_43B7_9862_A4EC5E52BA5D) },
+    { be_const_key(Set_Text_Static, -1), be_const_ctype_func(Berry_Checkbox_Class_Set_Text_Static_A9326CAB_053C_4DDD_8A3D_B1F72920DB13) },
+    { be_const_key(deinit, 2), be_const_ctype_func(Berry_Checkbox_Class_Deinitialize_630205AB_5536_4506_9E43_81DC4F159C13) },
     { be_const_key(_p, -1), be_const_var(0) },
 };
 

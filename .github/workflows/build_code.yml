@@ -21,4 +21,4 @@ jobs:
         run: pip install --upgrade platformio
 
       - name: Build PlatformIO Project
-        run: pio run --project-dir="./Code/"
+        run: pio run --project-dir="./"
