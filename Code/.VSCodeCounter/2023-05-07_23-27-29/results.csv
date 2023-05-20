@@ -1,9 +1,0 @@
-"filename", "language", "C++", "comment", "blank", "total"
-"/home/alix_anneraud/Git/Xila/Code/lib/Xila/src/Software/Berry/Interpreter/Generator/Generated/Clipboard.cpp", "C++", 57, 17, 21, 95
-"/home/alix_anneraud/Git/Xila/Code/lib/Xila/src/Software/Berry/Interpreter/Generator/Generated/Drive.cpp", "C++", 276, 83, 78, 437
-"/home/alix_anneraud/Git/Xila/Code/lib/Xila/src/Software/Berry/Interpreter/Generator/Generated/Flash.cpp", "C++", 52, 48, 19, 119
-"/home/alix_anneraud/Git/Xila/Code/lib/Xila/src/Software/Berry/Interpreter/Generator/Generated/Graphics.cpp", "C++", 3740, 1446, 915, 6101
-"/home/alix_anneraud/Git/Xila/Code/lib/Xila/src/Software/Berry/Interpreter/Generator/Generated/Memory.cpp", "C++", 52, 17, 20, 89
-"/home/alix_anneraud/Git/Xila/Code/lib/Xila/src/Software/Berry/Interpreter/Generator/Generated/Pin.cpp", "C++", 82, 45, 34, 161
-"/home/alix_anneraud/Git/Xila/Code/lib/Xila/src/Software/Berry/Interpreter/Generator/Generated/System.cpp", "C++", 134, 47, 49, 230
-"Total", "-", 4393, 1703, 1136, 7232

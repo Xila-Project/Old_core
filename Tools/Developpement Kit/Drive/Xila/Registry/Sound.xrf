@@ -1,8 +1,0 @@
-{
-    "Registry": "Sound",
-    "Volume": 255,
-    "Output": 1,
-    "Clock Pin": 23,
-    "Word Select Pin": 26,
-    "Data Pin": 25
-}

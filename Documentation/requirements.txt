@@ -1,7 +1,0 @@
-breathe
-myst-parser
-linkify-it-py
-sphinx-book-theme
-sphinx-copybutton
-sphinxcontrib-mermaid
-sphinx-design

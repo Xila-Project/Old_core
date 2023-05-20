@@ -1,6 +1,0 @@
-"Key","Description","Default"
-"Volume","Volume level, between 0 and 255.",255
-"Output","Selected output (0: internal DAC / 1: external DAC).",0
-"Clock Pin","Clock pin for the external DAC.",23
-"Word Select Pin","Word Select pin for the external DAC.",26
-"Data Pin","Data pin for the external DAC.",25

@@ -1,6 +1,0 @@
-{
-    "esbonio.sphinx.buildDir" : "${workspaceFolder}/build",
-    "esbonio.sphinx.confDir"  : "${workspaceFolder}/source",
-    "esbonio.sphinx.srcDir": "${workspaceFolder}/source",
-    "commentTranslate.source": "intellsmi.deepl-translate-deepl"
-}

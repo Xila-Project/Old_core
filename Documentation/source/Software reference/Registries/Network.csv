@@ -1,8 +1,0 @@
-"Key","Description","Default"
-"WiFi","Object containing all the WiFi configuration."," "
-"Host name","Host name","ESP32"
-"Name","Name of the wifi access point."," "
-"Password","Password of the wifi access point."," "
-"IP Address","IP adress"," "
-"Subnet mask","Subnet mask"," "
-"Default gateway","Default gateway"," "
