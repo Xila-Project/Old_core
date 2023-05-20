@@ -9,7 +9,7 @@
 #ifndef Unit_Test_String_Hpp_Included
 #define Unit_Test_String_Hpp_Included
 
-#include "Core/Module/String.hpp"
+#include "Module/String.hpp"
 
 #include "unity.h"
 

@@ -1,0 +1,12 @@
+[submodule "lib/File_Manager"]
+	path = lib/File_Manager
+	url = https://github.com/Xila-Project/File_Manager.git
+[submodule "lib/Preferences"]
+	path = lib/Preferences
+	url = https://github.com/Xila-Project/Preferences.git
+[submodule "lib/Berry"]
+	path = lib/Berry
+	url = https://github.com/Xila-Project/Berry.git
+[submodule "lib/Shell"]
+	path = lib/Shell
+	url = https://github.com/Xila-Project/Shell.git

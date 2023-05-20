@@ -1,7 +1,7 @@
 #ifndef Xila_Hpp_Included
 #define Xila_Hpp_Included
 
-#include "Core/Core.hpp"                                 
+#include "Core.hpp"                                 
 
 /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||               __________   __   __  _____   _                              ||

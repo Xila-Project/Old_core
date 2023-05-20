@@ -1,13 +1,13 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Stream_Type_map) {
-    { be_const_key(Begin, -1), be_const_ctype_func(Berry_Stream_Class_Begin_C2E0C403_64CF_41A9_8FE3_662DCA7824FB) },
+    { be_const_key(Begin, -1), be_const_ctype_func(Berry_Stream_Class_Begin_6A0B789C_4E59_4C37_ACE9_1C9A9E68C656) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Set_Notify_Audio_Change, 1), be_const_ctype_func(Berry_Stream_Class_Set_Notify_Audio_Change_E8341B52_BD60_4C09_BBF1_6C60B1247AD5) },
-    { be_const_key(Set_Configuration, 0), be_const_ctype_func(Berry_Stream_Class_Set_Configuration_9E16E7EC_6340_461C_AC2B_4CD252144663) },
-    { be_const_key(End, -1), be_const_ctype_func(Berry_Stream_Class_End_70D4EDC9_A613_494C_BDE1_D32947D15724) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Stream_Class_Deinitialize_62ACE6F5_99A5_47EF_800A_B48EA9520688) },
-    { be_const_key(Get_Configuration, 2), be_const_ctype_func(Berry_Stream_Class_Get_Configuration_B01A749F_85BE_490E_82D8_2539A13D0D4C) },
+    { be_const_key(Set_Notify_Audio_Change, 1), be_const_ctype_func(Berry_Stream_Class_Set_Notify_Audio_Change_13319474_AA05_4EE0_BAD8_CBB451E5E598) },
+    { be_const_key(Set_Configuration, 0), be_const_ctype_func(Berry_Stream_Class_Set_Configuration_F52FE95F_2AB7_4F0D_8DCA_7ED949156F5D) },
+    { be_const_key(End, -1), be_const_ctype_func(Berry_Stream_Class_End_688788BD_FD4E_419D_8B9A_0A35A6001F86) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Stream_Class_Deinitialize_01033885_C873_4B51_93AD_207A810F5AE3) },
+    { be_const_key(Get_Configuration, 2), be_const_ctype_func(Berry_Stream_Class_Get_Configuration_542286A4_D004_4DC9_A79C_91B1287AE1D5) },
 };
 
 static be_define_const_map(

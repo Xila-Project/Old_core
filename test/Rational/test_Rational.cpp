@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include "Core/Mathematics/Rational.hpp"
+#include "Mathematics/Rational.hpp"
 
 #include <unity.h>
 
