@@ -9,8 +9,6 @@
 
 #include "Software/Berry/Berry.hpp"
 
-Berry_Class::Berry_Handle_Class Berry_Class::Handle;
-
 extern "C"
 {
 #include "berry.h"
@@ -26,23 +24,8 @@ extern "C"
 
 std::vector<Berry_Class *> Berry_Class::Instances_List;
 
-char *Prompt_String;
-
-Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User)
-    : Softwares_Types::Software_Type(Handle, Owner_User, 8 * 1024),
-      Input_String(NULL),
-      Server_Task(this)
-{
-    Instances_List.push_back(this);
-
-    Communication.WiFi.Station.Connect("Avrupa", "0769094509");
-
-    Server_Task.Create(Start_Task_Server, "Server", 4096, this);
-}
-
 Berry_Class::Berry_Class(const Accounts_Types::User_Type *Owner_User, const Berry_Softwares_Handle_Class &Handle)
     : Softwares_Types::Software_Type(Handle, Owner_User, 8 * 1024),
-      Input_String(NULL),
       Server_Task(this)
 {
     Instances_List.push_back(this);
@@ -100,115 +83,38 @@ Berry_Class *Berry_Class::Get_Instance(bvm *Virtual_Machine)
     return NULL;
 }
 
-void Berry_Class::Execute_Instruction(const Instruction_Type &Instruction)
-{
-    if (Instruction.Get_Sender() == &Softwares)
-    {
-        if (Instruction.Softwares.Get_Code() == Softwares_Types::Event_Code_Type::Close)
-        {
-            delete this;
-        }
-    }
-    else
-    {
-        if (Instruction.Get_Sender() == &Graphics)
-        {
-            switch (Instruction.Graphics.Get_Code())
-            {
-            case Graphics_Types::Event_Code_Type::Clicked:
-                break;
-
-            case Graphics_Types::Event_Code_Type::Focused:
-                if (Instruction.Graphics.Get_Target() == Input_Text_Area)
-                    Keyboard.Set_Text_Area(Input_Text_Area);
-                break;
-            case Graphics_Types::Event_Code_Type::Defocused:
-                if (Instruction.Graphics.Get_Target() == Input_Text_Area)
-                    Keyboard.Remove_Text_Area();
-                break;
-            case Graphics_Types::Event_Code_Type::Ready:
-                if (Instruction.Graphics.Get_Target() == Keyboard)
-                {
-                    strlcpy(Input_String, Input_Text_Area.Get_Text(), 80 + 1);
-                    Input_Text_Area.Set_Text("");
-                }
-                break;
-            }
-        }
-    }
-}
-
 void Berry_Class::Main_Task_Function()
 {
-    Instruction_Type Instruction;
-
     Window.Create(this);
 
     Virtual_Machine_Create();
 
     Log_Verbose("Berry", "Created virtual machine : %p / %p", (Module_Class *)this, Virtual_Machine);
 
-    // - REPL
-    if (this->Get_Handle() == &Handle)
+    Log_Verbose("Berry", "Starting custom software")
+
+    Static_String_Type<32> Path;
+
+    Path = Software_Directory_Path;
+    Path += "/";
     {
-
-        Log_Verbose("Berry", "Starting REPL");
-
-        REPL();
+        Static_String_Type<24> Name;
+        Path += Get_Handle()->Get_Name(Name);
     }
-    // - Other
-    else
+    Path += "/Main.be";
+
+    Log_Verbose("Berry", "Loading file : %s", (const char *)Path);
+
+    if (Virtual_Machine_Load_File(Path) != Result_Type::Success)
     {
-        Log_Verbose("Berry", "Starting custom software")
+        Log_Verbose("Berry", "Failed to load file");
+        // TODO : Add dialog to show the error.
+        delete this;
+    }
 
-            //   Static_String_Type<32> Name;
-            //   this->Get_Handle()->Get_Name(Name);
-            //
-            //   Window.Set_Title(Name);
-            //
-            //   Static_String_Type<64> Path;
-            //   Path = Software_Directory_Path;
-            //   Path += "/";
-            //   Path += Name;
-            //   Path += ".Xrf";
-
-            //        char Prompt_String_Local[(80 + 1) * 24 + 1];
-            //        char Input_String[80 + 1];
-            //
-            //        Prompt_String = Prompt_String_Local;
-            //        this->Input_String = Input_String;
-            //
-            //        memset(Prompt_String, 0, (80 + 1) * 24 + 1);
-            //        memset(this->Input_String, 0, 80 + 1);
-
-            Static_String_Type<32>
-                Path;
-
-        Path = Software_Directory_Path;
-        Path += "/";
-        {
-            Static_String_Type<24> Name;
-            Path += Get_Handle()->Get_Name(Name);
-        }
-        Path += "/Main.be";
-
-        Log_Verbose("Berry", "Loading file : %s", (const char *)Path);
-
-        if (Virtual_Machine_Load_File(Path) != Result_Type::Success)
-        {
-            Log_Verbose("Berry", "Failed to load file");
-            // TODO : Add dialog to show the error.
-            delete this;
-        }
-
-        if (Call(0) != Result_Type::Success)
-        {
-
-            // TODO : Add dialog
-        }
-
-        //      Prompt_String = NULL;
-        //      this->Input_String = NULL;
+    if (Call(0) != Result_Type::Success)
+    {
+        // TODO : Add dialog
     }
 
     delete this;

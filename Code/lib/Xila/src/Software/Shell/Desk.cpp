@@ -376,6 +376,7 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
             else if ((Current_Target == Dock_Close_Button) && Selected_Button)
             {
                 Softwares.Close(const_cast<Softwares_Types::Software_Type *>(Get_Software_Pointer_From_Dock(Dock_List.Get_Child_Index(Selected_Button))));
+                Shell_Pointer->Main_Task.Delay(100);
                 Refresh();
                 Selected_Button.Clear_Pointer();
             }

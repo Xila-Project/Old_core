@@ -31,18 +31,6 @@ class Berry_Softwares_Handle_Class;
 class Berry_Class : public Softwares_Types::Software_Type
 {
 public:
-    static class Berry_Handle_Class : public Softwares_Types::Software_Handle_Type
-    {
-    public:
-        Berry_Handle_Class() : Softwares_Types::Software_Handle_Type("Berry")
-        {
-        };
-
-        void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
-        {
-            new Berry_Class(Owner_User);
-        }
-    } Handle;
 
     class Berry_Softwares_Handle_Class : public Softwares_Types::Software_Handle_Type
     {
@@ -64,15 +52,12 @@ protected:
     // - Methods
 
     // - - Constructors / destructor
-    Berry_Class(const Accounts_Types::User_Type *Owner_User);
     Berry_Class(const Accounts_Types::User_Type *Owner_User, const Berry_Softwares_Handle_Class& Handle);
     ~Berry_Class();
 
     // - - Task
     void Main_Task_Function() override;
 
-    // - - Others
-    void Execute_Instruction(const Instruction_Type &Instruction);
 
     // - - - Berry
 
@@ -84,16 +69,6 @@ protected:
 
     Result_Type Call(Integer_Type);
 
-    // - - - - REPL
-    void REPL();
-    int REPL_Run();
-    int REPL_Try_Return(const char *line);
-    bool REPL_Is_Multiline();
-    int REPL_Compile(char *line);
-    int REPL_Call_Script();
-    void REPL_Free_Line(char *);
-    char *REPL_Get_Line(const char *);
-
     // - - - Softwares
 
     static void Start_Task_Server(void *);
@@ -104,8 +79,6 @@ protected:
     WiFiServer Server;
 
     Task_Type Server_Task;
-
-    char *Input_String;
 
     bvm *Virtual_Machine;
 
@@ -123,7 +96,5 @@ protected:
     friend Graphics_Types::Window_Type *Berry_This_Get_Window(bvm *);
     friend void Berry_This_Delay(bvm *, int);
 };
-
-extern char *Prompt_String;
 
 #endif

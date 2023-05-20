@@ -9,6 +9,7 @@
 ///
 
 #include "Core/Pin/Pin.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 using namespace Pin_Types;
@@ -78,7 +79,10 @@ Result_Type Pin_Class::Valid_Digital_Pin(uint8_t Pin)
 
 uint32_t Pin_Class::Get_Pulse_In(uint8_t Pin, Digital_State_Type State, uint32_t Timeout)
 {
-    return pulseIn(Pin, (uint8_t)State, Timeout);
+    auto Pulse = pulseIn(Pin, (uint8_t)State, Timeout);
+    Log_Verbose("Pin", "Pulse on pin %d in : %d with timeout : %d", Pin, Pulse, Timeout);
+
+    return Pulse;
 }
 
 

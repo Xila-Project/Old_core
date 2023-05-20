@@ -219,6 +219,8 @@ void File_Explorer_Class::Event_Callback(lv_event_t *Event)
     if (!Current_Target.Is_Valid())
         return;
 
+    Log_Verbose("File explo", "Code : %d", lv_event_get_code(Event));
+
     switch (lv_event_get_code(Event))
     {
     case LV_EVENT_CLICKED:
@@ -226,11 +228,12 @@ void File_Explorer_Class::Event_Callback(lv_event_t *Event)
         {
             if (Current_Target == Ignore_Clicked)
             {
+                Log_Trace();
                 Ignore_Clicked.Clear_Pointer();
             }
             else
             {
-
+                Log_Trace();
                 Static_String_Type<256> New_Path = File_Explorer->Data->Path;
 
                 if (New_Path != "/")
@@ -252,8 +255,11 @@ void File_Explorer_Class::Event_Callback(lv_event_t *Event)
                 // - Update the path and refresh the file explorer.
                 File_Explorer->Data->Path = New_Path;
                 File_Explorer->Data->Focused_Name = "";
-                File_Explorer->Clear_Selection();
-                File_Explorer->Set_Selection_State(false);
+                if (File_Explorer->Get_Selection_State())
+                {
+                    File_Explorer->Clear_Selection();
+                    File_Explorer->Set_Selection_State(false);
+                }
                 File_Explorer->Refresh();
             }
         }
@@ -341,7 +347,6 @@ Size_Type File_Explorer_Class::Get_Selected_Count()
 
 const char *File_Explorer_Class::Get_Selected_Name(Size_Type Index)
 {
-
     if (!this->Is_Valid() || !Data)
         return nullptr;
 

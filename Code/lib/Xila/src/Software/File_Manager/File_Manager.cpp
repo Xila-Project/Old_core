@@ -103,6 +103,7 @@ void File_Manager_Class::Set_Interface()
     Keyboard.Create(Window.Get_Body());
     Keyboard.Add_Flag(Flag_Type::Hidden);
     Keyboard.Add_Flag(Flag_Type::Floating);
+    Keyboard.Set_Alignment(Alignment_Type::Bottom_Middle);
 
     this->Refresh();
 }
@@ -147,6 +148,7 @@ void File_Manager_Class::Enable_Selection_Mode()
     Cut_Button.Clear_Flag(Flag_Type::Hidden);
     Paste_Button.Clear_Flag(Flag_Type::Hidden);
     Details_Button.Add_Flag(Flag_Type::Hidden);
+    File_Explorer.Set_Selection_State(true);
 }
 
 void File_Manager_Class::Disable_Selection_Mode()
@@ -169,17 +171,17 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
     {
         Log_Verbose("File manager", "Instruction : %d", Instruction.Graphics.Get_Code());
 
-        Graphics_Types::Object_Type Target = Instruction.Graphics.Get_Target();
+        Graphics_Types::Object_Type Current_Target = Instruction.Graphics.Get_Current_Target();
 
         switch (Instruction.Graphics.Get_Code())
         {
         case Graphics_Types::Event_Code_Type::Clicked:
-            if (Target == Parent_Folder_Button)
+            if (Current_Target == Parent_Folder_Button)
             {
                 File_Explorer.Go_Parent_Folder();
                 Path_Text_Area.Set_Text(File_Explorer.Get_Path());
             }
-            else if (Target == Home_Folder_Button)
+            else if (Current_Target == Home_Folder_Button)
             {
                 Static_String_Type<64> Home_Folder_Path;
                 Accounts.Get_Logged_User()->Get_Home_Folder_Path(Home_Folder_Path);
@@ -188,53 +190,53 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
                 Path_Text_Area.Set_Text(File_Explorer.Get_Path());
                 
             }
-            else if (Target == Root_Folder_Button)
+            else if (Current_Target == Root_Folder_Button)
             {
                 Path_Text_Area.Set_Text("/");
                 Refresh();
                 Path_Text_Area.Set_Text(File_Explorer.Get_Path());
             }
-            else if (Target == Refresh_Button)
+            else if (Current_Target == Refresh_Button)
                 Refresh();
-            else if (Target == New_File_Button)
+            else if (Current_Target == New_File_Button)
                 Create_File();
-            else if (Target == New_Folder_Button)
+            else if (Current_Target == New_Folder_Button)
                 Create_Folder();
-            else if (Target == Select_Button)
+            else if (Current_Target == Select_Button)
                 Enable_Selection_Mode();
-            else if (Target == Deselect_Button)
+            else if (Current_Target == Deselect_Button)
                 Disable_Selection_Mode();
-            else if (Target == Delete_Button)
+            else if (Current_Target == Delete_Button)
                 Delete();
-            else if (Target == Rename_Button)
+            else if (Current_Target == Rename_Button)
                 Rename();
-            else if (Target == Copy_Button)
+            else if (Current_Target == Copy_Button)
             {
                 Cut = false;
                 Paste_Button.Clear_Flag(Graphics_Types::Flag_Type::Hidden);
             }
-            else if (Target == Cut_Button)
+            else if (Current_Target == Cut_Button)
             {
                 Cut = true;
                 Paste_Button.Clear_Flag(Graphics_Types::Flag_Type::Hidden);
             }
-            else if (Target == Paste_Button)
+            else if (Current_Target == Paste_Button)
             {
 
                 Paste_Button.Add_Flag(Graphics_Types::Flag_Type::Hidden);
             }
-            else if (Target == Details_Button)
+            else if (Current_Target == Details_Button)
                 Details();
             break;
         case Graphics_Types::Event_Code_Type::Focused:
-            if (Target == Path_Text_Area)
+            if (Current_Target == Path_Text_Area)
                 Keyboard.Set_Text_Area(Path_Text_Area);
             break;
         case Graphics_Types::Event_Code_Type::Defocused:
             Keyboard.Remove_Text_Area();
             break;
         case Graphics_Types::Event_Code_Type::Value_Changed:
-            if (Target == File_Explorer)
+            if (Current_Target == File_Explorer)
             {
                 Log_Verbose("File manager", "File explorer value changed : ", File_Explorer.Get_Path());
                 Path_Text_Area.Set_Text(File_Explorer.Get_Path());

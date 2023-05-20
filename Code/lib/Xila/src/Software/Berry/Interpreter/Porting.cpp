@@ -22,23 +22,13 @@ extern "C"
 
 BERRY_API void be_writebuffer(const char *buffer, size_t length)
 {
-    //strlcat(Prompt_String, buffer, (80 + 1) * 24 + 1);
-    Log.Print(buffer);
-    // be_fwrite(stdout, buffer, length);
+    Log_Verbose("Berry", "Print : %s", buffer);
 }
 
 BERRY_API char *be_readstring(char *buffer, size_t size)
 {
-    //strlcat(Prompt_String, buffer, (80 + 1) * 24 + 1);
-    Log.Print(buffer);
-    while (true)
-   {
-       Task_Type::Delay_Static(100);
-   }
-    
+    Log_Verbose("Berry", "Read input : %s", buffer);
     return NULL;
-
-    // return be_fgets(stdin, buffer, (int)size);
 }
 
 void *be_fopen(const char *filename, const char *modes)
