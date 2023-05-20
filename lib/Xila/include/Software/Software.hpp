@@ -1,4 +1,3 @@
-///
 /// @file Software.hpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
@@ -6,7 +5,6 @@
 /// @date 20-07-2022
 ///
 /// @copyright Copyright (c) 2022
-///
 
 #ifndef Software_Hpp_Included
 #define Software_Hpp_Included
@@ -28,6 +26,7 @@ namespace Xila_Namespace
 
     typedef class Softwares_Class Softwares_Type;
 
+    /// @brief Software base class.
     namespace Softwares_Types
     {
         typedef class Software_Class : public Module_Class
@@ -37,7 +36,12 @@ namespace Xila_Namespace
 
             // - Getters
 
+            /// @brief Get the software's handle.
+            /// @return const Software_Handle_Type*
             const Software_Handle_Type *Get_Handle() const;
+
+            /// @brief Get the software's owner user.
+            /// @return const Accounts_Types::User_Type*
             const Accounts_Types::User_Type *Get_Owner_User() const;
 
         protected:
@@ -45,6 +49,9 @@ namespace Xila_Namespace
 
             // - - Constructor / Destructor
             Software_Class() = delete;
+
+            /// @brief Construct a new Software_Class object.
+            /// @param Handle Software handle.
             Software_Class(const Software_Handle_Type& Handle, const Accounts_Types::User_Type *Owner_User, Size_Type Main_Task_Stack_Size = Default_Main_Task_Stack_Size, Size_Type Queue_Size = Default_Instruction_Queue_Size);
             virtual ~Software_Class();
 

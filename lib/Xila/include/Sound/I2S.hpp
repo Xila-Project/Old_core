@@ -17,14 +17,16 @@ namespace Xila_Namespace
     namespace Sound_Types
     {
 
+        /// @brief I2S Mode enumeration.
         enum class Mode_Type
         {
-            Undefined = UNDEFINED_MODE,
-            Transmit = TX_MODE,
-            Receive = RX_MODE,
-            Receive_Transmit = RXTX_MODE
+            Undefined = UNDEFINED_MODE,     ///< Undefined mode.
+            Transmit = TX_MODE,             ///< Transmit mode.
+            Receive = RX_MODE,              ///< Receive mode.
+            Receive_Transmit = RXTX_MODE    ///< Receive and transmit mode.
         };
 
+        /// @brief I2S Format enumeration.
         enum class Format_Type
         {
             Standard = I2S_STD_FORMAT,
@@ -36,6 +38,7 @@ namespace Xila_Namespace
             Pulse_Code_Modulation = I2S_PCM
         };
 
+        /// @brief I2S configuration class.
         typedef class I2S_Configuration_Class : public Configuration_Type
         {
 
@@ -43,12 +46,20 @@ namespace Xila_Namespace
             audio_tools::I2SConfig I2S_Configuration;
 
         public:
+            // - Methods
+
+            // - - Constructors
+
+            /// @brief Construct a new I2S_Configuration_Class object from audio_tools::I2SConfig.
+            /// @param I2S_Configuration audio_tools::I2SConfig.
             I2S_Configuration_Class(const audio_tools::I2SConfig &I2S_Configuration)
                 : Configuration_Type(&this->I2S_Configuration),
                   I2S_Configuration(I2S_Configuration)
             {
             }
 
+            /// @brief Construct a new I2S_Configuration_Class object.
+            /// @param Mode  I2S mode.
             I2S_Configuration_Class(Mode_Type Mode = Mode_Type::Transmit)
                 : Configuration_Type(&I2S_Configuration),
                   I2S_Configuration((RxTxMode)Mode)
@@ -57,26 +68,37 @@ namespace Xila_Namespace
 
             // - - Getters
 
+            /// @brief Get I2S mode.
+            /// @return Mode_Type I2S mode.
             Mode_Type Get_Mode()
             {
                 return (Mode_Type)I2S_Configuration.rx_tx_mode;
             }
 
+            /// @brief Get I2S word select clock pin.
+            /// @return  int I2S word select clock pin.
             int Get_Word_Select_Clock_Pin()
             {
                 return I2S_Configuration.pin_ws;
             }
 
+
+            /// @brief Get I2S bit clock pin.
+            /// @return  int I2S bit clock pin.
             int Get_Bit_Clock_Pin()
             {
                 return I2S_Configuration.pin_bck;
             }
 
+            /// @brief Get I2S data pin.
+            /// @return  int I2S data pin.
             int Get_Data_Pin()
             {
                 return I2S_Configuration.pin_data;
             }
 
+            /// @brief Get I2S bits per sample.
+            /// @return  int I2S bits per sample.
             Format_Type Get_Format()
             {
                 return (Format_Type)I2S_Configuration.i2s_format;
@@ -84,26 +106,36 @@ namespace Xila_Namespace
 
             // - - Setters
 
+            /// @brief Set I2S mode.
+            /// @param Mode I2S mode.
             void Set_Mode(Mode_Type Mode)
             {
                 I2S_Configuration.rx_tx_mode = (RxTxMode)Mode;
             }
 
+            /// @brief Set I2S word select clock pin.
+            /// @param Pin I2S word select clock pin.
             void Set_Word_Select_Clock_Pin(int Pin)
             {
                 I2S_Configuration.pin_ws = Pin;
             }
 
+            /// @brief Set I2S bit clock pin.
+            /// @param Pin I2S bit clock pin.
             void Set_Bit_Clock_Pin(int Pin)
             {
                 I2S_Configuration.pin_bck = Pin;
             }
 
+            /// @brief Set I2S data pin.
+            /// @param Pin I2S data pin.
             void Set_Data_Pin(int Pin)
             {
                 I2S_Configuration.pin_data = Pin;
             }
 
+            /// @brief Set I2S bits per sample.
+            /// @param Format I2S bits per sample.
             void Set_Format(Format_Type Format)
             {
                 I2S_Configuration.i2s_format = (I2SFormat)Format;
@@ -111,6 +143,8 @@ namespace Xila_Namespace
 
             // - - Operators
 
+            /// @brief Cast operator to audio_tools::I2SConfig.
+            /// @return audio_tools::I2SConfig
             operator audio_tools::I2SConfig &()
             {
                 return I2S_Configuration;
@@ -118,18 +152,24 @@ namespace Xila_Namespace
 
         } I2S_Configuration_Type;
 
+        /// @brief I2S stream class.
         typedef class I2S_Class : public Stream_Type
         {
         private:
             I2SStream I2S_Stream;
 
         public:
+            /// @brief Construct a new I2S_Class object.
+            /// @param Mute_Pin Mute pin.
             I2S_Class(int Mute_Pin = -1) : Stream_Type(I2S_Stream),
                                            I2S_Stream()
             {
                 Log_Verbose("Sound", "I2S class has been constructed.");
             }
 
+            /// @brief Start I2S stream.
+            /// @param Configuration I2S configuration.
+            /// @return Result_Type
             Result_Type Begin(I2S_Configuration_Type Configuration)
             {
 
@@ -141,11 +181,14 @@ namespace Xila_Namespace
                 Log_Verbose("Sound", "Sample rate : %i", Configuration.Get_Sample_Rate());
                 Log_Verbose("Sound", "Channel number : %i", Configuration.Get_Channel_Count());
 
-                return (Result_Type)I2S_Stream.begin((audio_tools::I2SConfig&)Configuration);
+                return (Result_Type)I2S_Stream.begin((audio_tools::I2SConfig &)Configuration);
             }
 
             // - - Getters
 
+            /// @brief Get I2S default configuration.
+            /// @param Mode I2S mode.
+            /// @return I2S_Configuration_Type I2S configuration.
             I2S_Configuration_Type Get_Default_Configuration(Mode_Type Mode = Mode_Type::Transmit)
             {
                 auto C = (I2S_Configuration_Type)I2S_Stream.defaultConfig((RxTxMode)Mode);
