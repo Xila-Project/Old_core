@@ -122,7 +122,7 @@ namespace Xila_Namespace
             /// @brief Set the host name.
             /// @param Host_Name Host name.
             /// @return `Result_Type::Success` if the host name has been set, `Result_Type::Error` otherwise.
-            Result_Type Set_Host_Name(const char* Host_Name);
+            Result_Type Set_Host_Name(const char *Host_Name);
 
             // Result_Type Set_Antennas(uint8_t GPIO_1, uint8_t GPIO_2);
             // - -
@@ -147,7 +147,7 @@ namespace Xila_Namespace
                 /// @param Password Password of the network to connect to.
                 /// @param Channel Channel of the network to connect to.
                 /// @param BSSID An array of 6 bytes containing the BSSID of the network to connect to.
-                void Connect(const char*SSID, const char*Password = "", int32_t Channel = 0, const uint8_t *BSSID = NULL);
+                void Connect(const char *SSID, const char *Password = "", int32_t Channel = 0, const uint8_t *BSSID = NULL);
 
                 // Result_Type Connect(const char* WPA2_SSID, WiFi_Types::WPA2_Authentication_Method_Type, const char* Identity = NULL, const char* Username = NULL, const char* Password = NULL, const char* CA_PEM = NULL, const char* Client_CRT = NULL, const char* Client_Key = NULL, int32_t Channel = 0, const uint8_t* BSSID = 0);
 
@@ -161,7 +161,7 @@ namespace Xila_Namespace
                 /// @param SSID SSID of the network to remove.
                 /// @param Channel Channel of the network to remove.
                 /// @return `Result_Type::Success` if the network has been removed, `Result_Type::Error` otherwise.
-                Result_Type Remove(const char*SSID, int32_t Channel = 0);
+                Result_Type Remove(const char *SSID, int32_t Channel = 0);
 
                 /// @brief Add a network to the registry.
                 /// @param SSID SSID of the network to add.
@@ -169,14 +169,21 @@ namespace Xila_Namespace
                 /// @param Channel Channel of the network to add.
                 /// @param BSSID An array of 6 bytes containing the BSSID of the network to add.
                 /// @return `Result_Type::Success` if the network has been added, `Result_Type::Error` otherwise.
-                Result_Type Add(const char*SSID, const char*Password, int32_t Channel = 0, const uint8_t *BSSID = NULL);
+                Result_Type Add(const char *SSID, const char *Password, int32_t Channel = 0, const uint8_t *BSSID = NULL);
 
                 /// @brief Check if a network is known in the registry.
                 /// @param SSID SSID of the network to check.
                 /// @param Password Password of the network to check.
                 /// @param Channel Channel of the network to check.
                 /// @return `true` if the network is known, `false` otherwise.
-                bool Is_Known(const char*SSID, const char*Password = String_Type(), int32_t Channel = 0);
+                bool Is_Known(const char *SSID, const char *Password = NULL, int32_t Channel = 0);
+
+                /// @brief Get the informations from a network in the registry.
+                /// @param SSID SSID of the network to get the informations from.
+                /// @param Password Reference to a `String_Type` where the password will be stored.
+                /// @param Channel Reference to an `int32_t` where the channel will be stored.
+                /// @return `Result_Type::Success` if the informations have been retrieved, `Result_Type::Error` otherwise.
+                Result_Type Get_Informations(const char* SSID, String_Type& Password, int32_t& Channel);
 
                 // - - Getters
 
@@ -297,7 +304,7 @@ namespace Xila_Namespace
                 /// @param Hidden `true` to hide the access point, `false` otherwise.
                 /// @param Maximum_Stations Maximum number of stations that can be connected to the access point.
                 /// @param FTM_Responder `true` to enable FTM responder, `false` otherwise.
-                Result_Type Create(const char*SSID, const char*Password = "", int32_t Channel = 1, bool Hidden = 0, uint8_t Maximum_Stations = 4, bool FTM_Responder = false);
+                Result_Type Create(const char *SSID, const char *Password = "", int32_t Channel = 1, bool Hidden = 0, uint8_t Maximum_Stations = 4, bool FTM_Responder = false);
 
                 // - - Getters
 
@@ -404,7 +411,7 @@ namespace Xila_Namespace
                 /// @param SSID SSID to scan.
                 /// @param BSSID BSSID to scan.
                 /// @return The number of networks found or (-1) if the scan is not complete.
-                int16_t Start(bool Asynchronous = false, bool Show_Hidden = false, bool Passive = false, uint32_t Maximum_Milliseconds_Per_Channel = 300, uint8_t Channel = 0, const char*SSID = NULL, const uint8_t *BSSID = NULL);
+                int16_t Start(bool Asynchronous = false, bool Show_Hidden = false, bool Passive = false, uint32_t Maximum_Milliseconds_Per_Channel = 300, uint8_t Channel = 0, const char *SSID = NULL, const uint8_t *BSSID = NULL);
 
                 /// @brief Check if the scan is complete.
                 /// @return `true` if the scan is complete, `false` otherwise.

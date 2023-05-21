@@ -10,7 +10,7 @@
 
 #include <WiFi.h>
 
-WiFiClass& ESP32_WiFi = WiFi;
+WiFiClass &ESP32_WiFi = WiFi;
 
 #include "Communication/WiFi.hpp"
 #include "Drive/Drive.hpp"
@@ -203,7 +203,7 @@ int16_t WiFi_Class::Get_Transmission_Power()
     return ESP32_WiFi.getTxPower();
 }
 
-String_Type& WiFi_Class::Get_Host_Name(String_Type& Host_Name)
+String_Type &WiFi_Class::Get_Host_Name(String_Type &Host_Name)
 {
     Host_Name = ESP32_WiFi.getHostname();
     return Host_Name;
@@ -224,7 +224,7 @@ Result_Type WiFi_Class::Set_Transmission_Power(int16_t Power)
     return Result_Type::Error;
 }
 
-Result_Type WiFi_Class::Set_Host_Name(const char* Host_Name)
+Result_Type WiFi_Class::Set_Host_Name(const char *Host_Name)
 {
     if (Host_Name)
     {
@@ -243,19 +243,23 @@ void WiFi_Class::Station_Class::Turn_On()
     ESP32_WiFi.mode(WIFI_STA);
 }
 
-void WiFi_Class::Station_Class::Connect(const char* SSID, const char* Password, int32_t Channel, const uint8_t *BSSID)
+void WiFi_Class::Station_Class::Connect(const char *SSID, const char *Password, int32_t Channel, const uint8_t *BSSID)
 {
-  //  if (this->Is_Known(SSID, Password, Channel))
-  //  {
-  //      Log_Trace();
-  //      ESP32_WiFi.begin(SSID, Password, Channel, BSSID, true);
-  //  }
- //   if (this->Add(SSID, Password, Channel, BSSID) == Result_Type::Success)
- //   {
-  //      Log_Trace();
-        ESP32_WiFi.begin(SSID, Password, Channel, BSSID, true);
- //   }
-  //  Log_Trace();
+    Static_String_Type<64> Temporary_Password;
+    int32_t Temporary_Channel = Channel;
+
+    if (this->Get_Informations(SSID, Temporary_Password, Temporary_Channel) != Result_Type::Success)
+    {
+        this->Add(SSID, Password, Channel, BSSID);
+
+        if (Password)
+            Temporary_Password = Password;
+
+        Temporary_Channel = Channel;
+    }
+
+    ESP32_WiFi.begin(SSID, Temporary_Password, Temporary_Channel, BSSID, true);
+    Log_Trace();
 }
 
 Result_Type WiFi_Class::Station_Class::Disconnect()
@@ -281,13 +285,13 @@ Communication_Types::Status_Type WiFi_Class::Station_Class::Get_Status(bool Wait
     return Convert_Status(ESP32_WiFi.status());
 }
 
-String_Type& WiFi_Class::Station_Class::Get_SSID(String_Type& SSID)
+String_Type &WiFi_Class::Station_Class::Get_SSID(String_Type &SSID)
 {
     SSID = ESP32_WiFi.SSID().c_str();
     return SSID;
 }
 
-String_Type& WiFi_Class::Station_Class::Get_Pre_Shared_Key(String_Type& Pre_Shared_Key)
+String_Type &WiFi_Class::Station_Class::Get_Pre_Shared_Key(String_Type &Pre_Shared_Key)
 {
     Pre_Shared_Key = ESP32_WiFi.psk().c_str();
     return Pre_Shared_Key;
@@ -393,7 +397,7 @@ void WiFi_Class::Station_Class::Set_Sort_Method(bool Signal)
 
 // - Access point
 
-Result_Type WiFi_Class::Access_Point_Class::Create(const char* SSID, const char* Password, int32_t Channel, bool Hidden, uint8_t Maximum_Stations, bool FTM_Responder)
+Result_Type WiFi_Class::Access_Point_Class::Create(const char *SSID, const char *Password, int32_t Channel, bool Hidden, uint8_t Maximum_Stations, bool FTM_Responder)
 {
     if (strlen(Password) <= this->Password.Get_Length())
     {
@@ -409,13 +413,13 @@ Result_Type WiFi_Class::Access_Point_Class::Create(const char* SSID, const char*
     return Result_Type::Error;
 }
 
-String_Type& WiFi_Class::Access_Point_Class::Get_SSID(String_Type& SSID)
+String_Type &WiFi_Class::Access_Point_Class::Get_SSID(String_Type &SSID)
 {
     SSID = ESP32_WiFi.softAPSSID().c_str();
     return SSID;
 }
 
-String_Type& WiFi_Class::Access_Point_Class::Get_Password(String_Type& Password)
+String_Type &WiFi_Class::Access_Point_Class::Get_Password(String_Type &Password)
 {
     Password = this->Password;
     return Password;
@@ -509,7 +513,7 @@ Result_Type WiFi_Class::Access_Point_Class::Set_Configuration(IP_Address_Type Lo
 
 // - - Scan
 
-int16_t WiFi_Class::Scan_Class::Start(bool Asynchronous, bool Show_Hidden, bool Passive, uint32_t Maximum_Milliseconds_Per_Channel, uint8_t Channel, const char* SSID, const uint8_t *BSSID)
+int16_t WiFi_Class::Scan_Class::Start(bool Asynchronous, bool Show_Hidden, bool Passive, uint32_t Maximum_Milliseconds_Per_Channel, uint8_t Channel, const char *SSID, const uint8_t *BSSID)
 {
     return ESP32_WiFi.scanNetworks(Asynchronous, Show_Hidden, Passive, Maximum_Milliseconds_Per_Channel, Channel, SSID, BSSID);
 }
@@ -533,7 +537,7 @@ void WiFi_Class::Scan_Class::Delete()
     ESP32_WiFi.scanDelete();
 }
 
-Result_Type WiFi_Class::Scan_Class::Get_Informations(uint8_t Index, String_Type& SSID, uint8_t &Encryption_Type, int32_t &RSSI, uint8_t *&BSSID, int32_t &Channel)
+Result_Type WiFi_Class::Scan_Class::Get_Informations(uint8_t Index, String_Type &SSID, uint8_t &Encryption_Type, int32_t &RSSI, uint8_t *&BSSID, int32_t &Channel)
 {
     String SSID_String = "";
     if (ESP32_WiFi.getNetworkInfo(Index, SSID_String, Encryption_Type, RSSI, BSSID, Channel))
@@ -544,7 +548,7 @@ Result_Type WiFi_Class::Scan_Class::Get_Informations(uint8_t Index, String_Type&
     return Result_Type::Error;
 }
 
-String_Type& WiFi_Class::Scan_Class::Get_SSID(uint8_t Index, String_Type& SSID)
+String_Type &WiFi_Class::Scan_Class::Get_SSID(uint8_t Index, String_Type &SSID)
 {
     SSID = ESP32_WiFi.SSID(Index).c_str();
     return SSID;

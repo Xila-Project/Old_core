@@ -53,40 +53,39 @@ Screen_Class::Screen_Class(const Object_Class &Object_To_Copy)
 
 void Screen_Class::Create(const Softwares_Types::Software_Type *Owner_Software)
 {
+    if (!Owner_Software)
+        return;
 
-    if (Owner_Software != NULL)
     {
-        {
 
-            Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
 
-            this->LVGL_Object_Pointer = lv_obj_create(NULL);
+        this->LVGL_Object_Pointer = lv_obj_create(NULL);
 
-            if (this->LVGL_Object_Pointer == NULL)
-            {
+        if (!this->LVGL_Object_Pointer)
+            return;
 
-                return;
-            }
-
-            this->LVGL_Object_Pointer->class_p = &Screen_Class::Class;
-        }
-
-        this->Set_User_Data(const_cast<Softwares_Types::Software_Type *>(Owner_Software));
-
-        this->List.push_back(this);
-
-        this->Add_Event(const_cast<Softwares_Types::Software_Type *>(Owner_Software), Event_Code_Type::Child_Changed);
+        this->LVGL_Object_Pointer->class_p = &Screen_Class::Class;
     }
+
+    this->Set_User_Data(const_cast<Softwares_Types::Software_Type *>(Owner_Software));
+
+    this->List.push_back(this);
+
+    this->Add_Event(const_cast<Softwares_Types::Software_Type *>(Owner_Software), Event_Code_Type::Child_Changed);
 }
 
-void Screen_Class::Delete()
+void Screen_Class::Delete(bool Asynchronous)
 {
     if (!this->Is_Valid())
         return;
 
     {
         Auto_Semaphore_Class Semaphore = Graphics.Take_Semaphore_Auto();
-        lv_obj_del_async(Get_Pointer());
+        if (Asynchronous)
+            lv_obj_del_async(Get_Pointer());
+        else
+            lv_obj_del(Get_Pointer());    
     }
 
     this->List.remove(this);

@@ -122,7 +122,7 @@ Result_Type Accounts_Class::Save_Registry()
 ///
 /// @param Enable true to enable and false to disable autologin.
 /// @return Result_Type
-Result_Type Accounts_Class::Set_Autologin(bool Enable, const char*Name, const char*Password)
+Result_Type Accounts_Class::Set_Autologin(bool Enable, const char *Name, const char *Password)
 {
   Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Account"), true);
   StaticJsonDocument<256> Account_Registry;
@@ -195,7 +195,7 @@ const Accounts_Types::User_Type *Accounts_Class::Get_User(uint8_t Index)
 /// @param Username Username of the new user.
 /// @param Password Password of the new user.
 /// @return Result_Type
-Result_Type Accounts_Class::Create(const char*User_Name, const char*Password)
+Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
 {
   Static_String_Type<64> Temporary_String;
   Temporary_String = Users_Directory_Path;
@@ -220,16 +220,27 @@ Result_Type Accounts_Class::Create(const char*User_Name, const char*Password)
     Log_Verbose("Accounts", "Failed to create user %s", (const char *)User_Name);
     return Result_Type::Error;
   }
+
+  Temporary_String += "/Registry";
+
   //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry", User_Name);
-  //  if (Drive.Make_Directory(Temporary_Path) == false)
-  //  {
-  //    return Result_Type::Error;
-  //  }
-  //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Desk", User_Name);
-  //  if (Drive.Make_Directory(Temporary_Path) == false)
-  //  {
-  //    return Result_Type::Error;
-  //  }
+  if (Drive.Make_Directory(Temporary_String) != Result_Type::Success)
+  {
+    Log_Verbose("Accounts", "Failed to create user dir !");
+    return Result_Type::Error;
+  }
+
+  Temporary_String.Remove(Temporary_String.Get_Length() - sizeof("/Registry") + 1, sizeof("/Registry") - 1);
+
+  Log_Verbose("Accounts", "Temporary string is %s", (const char *)Temporary_String);
+
+  Temporary_String += "/Desk";
+  if (Drive.Make_Directory(Temporary_String) != Result_Type::Success)
+  {
+    return Result_Type::Error;
+  }
+  Temporary_String.Remove(Temporary_String.Get_Length() - sizeof("/Desk") + 1, sizeof("/Desk") - 1);
+
   //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Images", User_Name);
   //  if (Drive.Make_Directory(Temporary_Path) == false)
   //  {
@@ -324,7 +335,7 @@ Result_Type Accounts_Class::Create(const char*User_Name, const char*Password)
 ///
 /// @param Target_User User to delete.
 /// @return Result_Type
-Result_Type Accounts_Class::Delete(const char*User_Name, const char*Password)
+Result_Type Accounts_Class::Delete(const char *User_Name, const char *Password)
 {
   if (Check_Credentials(User_Name, Password) != Result_Type::Success)
   {
@@ -359,7 +370,7 @@ Result_Type Accounts_Class::Delete(const char*User_Name, const char*Password)
 /// @param Target_User User to rename.
 /// @param New_Username New account name.
 /// @return Result_Type
-Result_Type Accounts_Class::Change_Name(const char*Current_Name, const char*New_Name, const char*Password)
+Result_Type Accounts_Class::Change_Name(const char *Current_Name, const char *New_Name, const char *Password)
 {
   if (Check_Credentials(Current_Name, Password) == Result_Type::Error)
   {
@@ -408,7 +419,7 @@ Result_Type Accounts_Class::Change_Name(const char*Current_Name, const char*New_
 /// @param Target_User User to change password.
 /// @param Password_To_Set New password.
 /// @return Result_Type
-Result_Type Accounts_Class::Change_Password(const char*Name, const char*Current_Password, const char*New_Password)
+Result_Type Accounts_Class::Change_Password(const char *Name, const char *Current_Password, const char *New_Password)
 {
   using namespace Xila_Namespace::Mathematics_Types;
 
@@ -454,7 +465,7 @@ Result_Type Accounts_Class::Change_Password(const char*Name, const char*Current_
 /// @param Username_To_Check User account name.
 /// @param Password_To_Check User account password.
 /// @return Result_Type
-Result_Type Accounts_Class::Check_Credentials(const char*Username_To_Check, const char*Password_To_Check)
+Result_Type Accounts_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   using namespace Xila_Namespace::Mathematics_Types;
 
@@ -467,25 +478,11 @@ Result_Type Accounts_Class::Check_Credentials(const char*Username_To_Check, cons
     Temporary_Path += Username_To_Check;
     Temporary_Path += "/Registry/User.xrf";
 
-    Log_Verbose("Accounts", "Temporary_Path : %s", (const char *)Temporary_Path);
-
     Drive_Types::File_Type Temporary_File = Drive.Open(Temporary_Path);
     StaticJsonDocument<512> User_Registry;
 
     if (!Temporary_File)
-    {
-      Log_Verbose("Accounts", "Temporary_File failed");
       return Result_Type::Error;
-    }
-
-    // Print the file content.
-    Log_Verbose("Accounts", "File content : ");
-    while (Temporary_File.available())
-    {
-      log_printf("%c", Temporary_File.read());
-    }
-    log_printf("\n");
-    Temporary_File.Seek(0);
 
     if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -555,10 +552,10 @@ Result_Type Accounts_Class::Check_Credentials(const char*Username_To_Check, cons
 /// @param Username_To_Check User account name.
 /// @param Password_To_Check User account password.
 /// @return Result_Type
-Result_Type Accounts_Class::Login(const char*Name, const char*Password, bool Lock_Other_User)
+Result_Type Accounts_Class::Login(const char *Name, const char *Password, bool Lock_Other_User)
 {
   // - Check if user is already logged.
-  for (auto& User_Iterator : User_List)
+  for (auto &User_Iterator : User_List)
   {
     if (User_Iterator.Name == Name)
       return Result_Type::Error;
@@ -579,7 +576,7 @@ Result_Type Accounts_Class::Login(const char*Name, const char*Password, bool Loc
   return Result_Type::Success;
 }
 
-uint8_t Accounts_Class::Find_User(const char*Name)
+uint8_t Accounts_Class::Find_User(const char *Name)
 {
   User_Type User(Name);
 
@@ -602,7 +599,7 @@ uint8_t Accounts_Class::Get_User_Count()
   return User_List.size();
 }
 
-Result_Type Accounts_Type::Hash_Password(const char*Password, uint8_t *Hash_Buffer)
+Result_Type Accounts_Type::Hash_Password(const char *Password, uint8_t *Hash_Buffer)
 {
   using namespace Xila_Namespace::Mathematics_Types;
 
@@ -655,7 +652,7 @@ Result_Type Accounts_Type::Hash_Password(const char*Password, uint8_t *Hash_Buff
   return Result_Type::Success;
 }
 
-String_Type& Accounts_Type::Salt_Password(String_Type &Password, char Pepper_Character)
+String_Type &Accounts_Type::Salt_Password(String_Type &Password, char Pepper_Character)
 {
   Password += Pepper_Character;
   Password += "Xila";

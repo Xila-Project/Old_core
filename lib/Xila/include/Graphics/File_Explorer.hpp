@@ -28,7 +28,7 @@ namespace Xila_Namespace
             // - - Manipulation
 
             virtual void Create(Object_Class Parent_Object) override;
-            virtual void Delete() override;
+            virtual void Delete(bool Asynchronous = false) override;
 
             void Refresh();
             void Go_Parent_Folder();

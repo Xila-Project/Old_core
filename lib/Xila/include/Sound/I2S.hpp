@@ -172,15 +172,6 @@ namespace Xila_Namespace
             /// @return Result_Type
             Result_Type Begin(I2S_Configuration_Type Configuration)
             {
-
-                Log_Verbose("Sound", "I2S begin : ");
-                Log_Verbose("Sound", "Word Select Clock Pin : %i", Configuration.Get_Word_Select_Clock_Pin());
-                Log_Verbose("Sound", "Bit Clock Pin : %i", Configuration.Get_Bit_Clock_Pin());
-                Log_Verbose("Sound", "Data Pin : %i", Configuration.Get_Data_Pin());
-                Log_Verbose("Sound", "Bits per sample : %i", Configuration.Get_Bits_Per_Sample());
-                Log_Verbose("Sound", "Sample rate : %i", Configuration.Get_Sample_Rate());
-                Log_Verbose("Sound", "Channel number : %i", Configuration.Get_Channel_Count());
-
                 return (Result_Type)I2S_Stream.begin((audio_tools::I2SConfig &)Configuration);
             }
 
@@ -191,17 +182,6 @@ namespace Xila_Namespace
             /// @return I2S_Configuration_Type I2S configuration.
             I2S_Configuration_Type Get_Default_Configuration(Mode_Type Mode = Mode_Type::Transmit)
             {
-                auto C = (I2S_Configuration_Type)I2S_Stream.defaultConfig((RxTxMode)Mode);
-
-                Log_Verbose("Sound", "I2S default configuration has been retrieved.");
-                Log_Verbose("Sound", "I2S default configuration :");
-                Log_Verbose("Sound", "Word Select Clock Pin : %i", C.Get_Word_Select_Clock_Pin());
-                Log_Verbose("Sound", "Bit Clock Pin : %i", C.Get_Bit_Clock_Pin());
-                Log_Verbose("Sound", "Data Pin : %i", C.Get_Data_Pin());
-                Log_Verbose("Sound", "Bits per sample : %i", C.Get_Bits_Per_Sample());
-                Log_Verbose("Sound", "Sample rate : %i", C.Get_Sample_Rate());
-                Log_Verbose("Sound", "Channel number : %i", C.Get_Channel_Count());
-
                 return (I2S_Configuration_Type)I2S_Stream.defaultConfig((RxTxMode)Mode);
             }
 

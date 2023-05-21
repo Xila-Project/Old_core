@@ -52,7 +52,7 @@ namespace Xila_Namespace
             virtual void Create(const Softwares_Types::Software_Type *Owner_Module);
 
 
-            virtual void Delete() override;
+            virtual void Delete(bool Asynchronous = false) override;
 
             // - - Setters
 
@@ -72,6 +72,8 @@ namespace Xila_Namespace
             // - - Getters
 
             void Set_Minimize_Button_Hidden(bool Hidden);
+
+            void Set_Close_Button_Hidden(bool Hidden);
 
             /// @brief Get the state of the window.
             /// @return State of the window.

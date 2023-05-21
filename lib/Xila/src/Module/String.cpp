@@ -383,7 +383,7 @@ int8_t String_Class::Compare(const String_Class &String) const
 
 Result_Type String_Class::Remove(Size_Type Position, Size_Type Size)
 {
-    if (Position >= Get_Size() || !Is_Valid())
+    if (Position >= Get_Length() || !Is_Valid())
     {
         return Result_Type::Error;
     }
@@ -398,7 +398,7 @@ Result_Type String_Class::Remove(Size_Type Position, Size_Type Size)
         Size = Get_Length() - Position;
     }
 
-    memmove(Characters_Pointer + Position, Characters_Pointer + Position + Size, Get_Length() - Position - Size + 1);
+    memset(Characters_Pointer + Position, 0, Size);
 
     Characters_Pointer[Get_Size() - 1] = '\0';
 

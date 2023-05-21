@@ -92,11 +92,6 @@ namespace Xila_Namespace
             
             Result_Type Begin(Configuration_Type Configuration)
             {
-                Log_Verbose("Sound", "Volume stream begin.");
-                Log_Verbose("Sound", "Bits per sample : %i",Configuration.Get_Bits_Per_Sample());
-                Log_Verbose("Sound", "Sample rate : %i", Configuration.Get_Sample_Rate());
-                Log_Verbose("Sound", "Channel number : %i", Configuration.Get_Channel_Count());
-
                 return (Result_Type)Volume_Stream.begin((audio_tools::AudioInfo &)Configuration);
             }
 

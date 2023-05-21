@@ -1,36 +1,28 @@
 ///
- /// @file Time.cpp
- /// @author Alix ANNERAUD (alix@anneraud.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 04-03-2023
- /// 
- /// @copyright Copyright (c) 2023
- /// 
+/// @file Time.cpp
+/// @author Alix ANNERAUD (alix@anneraud.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 04-03-2023
+///
+/// @copyright Copyright (c) 2023
+///
 
-#ifndef Defaut_Daylight_Offset
-    #define Defaut_Daylight_Offset 0
-#endif
-#ifndef Defaut_UTC_Offset
-    #define Defaut_UTC_Offset 0
-#endif
-#ifndef Default_NTP_Server
-    #define Default_NTP_Server "pool.ntp.org"
-#endif
 
- #include "System/System.hpp"
+
+#include "System/System.hpp"
+#include "Log/Log.hpp"
 
 using namespace Xila_Namespace;
-
 
 // - Methods
 
 // - - Getters
 
-Time_Type System_Class::Get_Time()
+Time_Type System_Class::Get_Time(uint32_t Synchronization_Timeout)
 {
-  struct tm Time_Info;
-  if (!getLocalTime(&Time_Info))
+  tm Time_Info;
+  if (!getLocalTime(&Time_Info, Synchronization_Timeout))
   {
     return Time_Type();
   }
@@ -92,8 +84,14 @@ void System_Class::Set_Time_Zone(uint32_t UTC_Offset, uint16_t Daylight_Offset)
   configTime(this->UTC_Offset, this->Daylight_Offset, this->NTP_Server);
 }
 
-void System_Class::Set_NTP_Server(const char*NTP_Server)
+void System_Class::Set_NTP_Server(const char *NTP_Server)
 {
+  Log_Verbose("System", "Set NTP server to %s.", NTP_Server);
   this->NTP_Server = NTP_Server;
+  configTime(this->UTC_Offset, this->Daylight_Offset, this->NTP_Server);
+}
+
+void System_Class::Refresh_NTP_Client()
+{
   configTime(this->UTC_Offset, this->Daylight_Offset, this->NTP_Server);
 }

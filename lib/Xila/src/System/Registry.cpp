@@ -33,9 +33,6 @@ Result_Type System_Class::Create_Registry()
   return Result_Type::Success;
 }
 
-/// @brief Load System registry.
-///
-/// @return Result_Type
 Result_Type System_Class::Load_Registry()
 {
   Log_Information("System", "Load system registry...");
@@ -63,13 +60,16 @@ Result_Type System_Class::Load_Registry()
 
   this->Device_Name = System_Registry["Device Name"] | static_cast<const char*>(this->Device_Name);
 
+  this->Set_NTP_Server(System_Registry["NTP Server"] | Default_NTP_Server);
+  this->Set_Time_Zone(System_Registry["UTC Offset"] | Default_UTC_Offset, System_Registry["Daylight Offset"] | Default_Daylight_Offset);
+
+  Log_Verbose("System", "NTF Server : %s", (const char*)this->NTP_Server);
+  Log_Verbose("System", "UTC Offset : %u", this->UTC_Offset);
+  Log_Verbose("System", "Daylight Offset : %u", this->Daylight_Offset);
+
   return Result_Type::Success;
 }
 
-///
-/// @brief Save System registry.
-///
-/// @return Result_Type
 Result_Type System_Class::Save_Registry()
 {
   // - Open current registry
@@ -92,7 +92,7 @@ Result_Type System_Class::Save_Registry()
     Time["NTP Server"] = static_cast<const char*>(this->NTP_Server);
   }
 
-  // - Serialise
+  // - Serialize
   if (serializeJson(System_Registry, Temporary_File) == 0)
   {
     Temporary_File.Close();

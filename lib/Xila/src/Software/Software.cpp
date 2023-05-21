@@ -31,10 +31,8 @@ Software_Class::Software_Class(const Software_Handle_Type& Handle_Pointer, const
   {
     delete this;
     return;
-    
   }
   
-  Log_Verbose("Software", "Software constructor");
   List.reserve(10);
   List.push_back(this); // Add software to the list.
 }
@@ -42,11 +40,8 @@ Software_Class::Software_Class(const Software_Handle_Type& Handle_Pointer, const
 /// @brief Destroy the Xila_Class::Software object
 Software_Class::~Software_Class() // Destructor : close
 {
-  Log_Verbose("Software", "Before Software destructor : %u", List.size());
   // Don't forget to remove the software pointer from the software list.
   List.erase(std::remove(List.begin(), List.end(), this), List.end());
-
-  Log_Verbose("Software", "After Software destructor : %u", List.size());
 
   // Delete the main task of software at the end to allow the software to close itself.
   Main_Task.Delete();

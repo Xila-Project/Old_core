@@ -101,13 +101,18 @@ void Window_Class::Create(Object_Class Parent_Object)
     this->Set_Interface();
 }
 
-void Window_Class::Delete()
+void Window_Class::Delete(bool Asynchronous)
 {
     if (!this->Is_Valid())
         return;
 
     auto Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_del_async(this->Get_Pointer());
+
+    if (Asynchronous)
+        lv_obj_del_async(this->Get_Pointer());
+    else
+        lv_obj_del(this->Get_Pointer());
+        
     this->Clear_Pointer();
     delete Data;
     Data = NULL;
@@ -184,6 +189,7 @@ void Window_Class::Set_State(Window_State_Type State)
         break;
     case Window_State_Type::Minimized:
         // - Set window hidden
+
         Add_Flag(Flag_Type::Hidden);
         break;
     case Window_State_Type::Full_screen:
@@ -197,6 +203,7 @@ void Window_Class::Set_State(Window_State_Type State)
         Move_Foreground();
         break;
     }
+    this->Get_Parent().Send_Event(Event_Code_Type::Child_Changed); // Send event to parent, if it's a screen, it will refresh also the overlay.
 }
 
 Window_State_Type Window_Class::Get_State()
@@ -280,31 +287,35 @@ void Window_Class::Set_Minimize_Button_Hidden(bool Hidden)
         Data->Minimize_Button.Clear_Flag(Flag_Type::Hidden);
 }
 
+void Window_Class::Set_Close_Button_Hidden(bool Hidden)
+{
+    if (Data == NULL || !Data->Close_Button.Is_Valid())
+        return;
+
+    if (Hidden)
+        Data->Close_Button.Add_Flag(Flag_Type::Hidden);
+    else
+        Data->Close_Button.Clear_Flag(Flag_Type::Hidden);
+}
+
 void Window_Class::Event_Callback(lv_event_t *Event)
 {
     auto Semaphore = Graphics.Take_Semaphore_Auto();
- 
-    Window_Type *Window = static_cast<Window_Type *>(lv_event_get_user_data(Event));
 
-Log_Trace();
+    Window_Type *Window = static_cast<Window_Type *>(lv_event_get_user_data(Event));
 
     if (!Window || !Window->Is_Valid())
         return;
 
-Log_Trace();
-
     if (lv_event_get_code(Event) == LV_EVENT_CLICKED)
     {
-        Log_Trace();
-        if (lv_event_get_target(Event) == (lv_obj_t*)Window->Get_Close_Button())
+        if (lv_event_get_target(Event) == (lv_obj_t *)Window->Get_Close_Button())
         {
-            Log_Trace();
             Window->Delete();
             return;
         }
-        else if (lv_event_get_target(Event) == (lv_obj_t*)Window->Get_Minimize_Button())
+        else if (lv_event_get_target(Event) == (lv_obj_t *)Window->Get_Minimize_Button())
         {
-            Log_Trace();
             Window->Set_State(Window_State_Type::Minimized);
             return;
         }

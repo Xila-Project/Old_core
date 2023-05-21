@@ -16,6 +16,16 @@
 #include "../Graphics/Graphics.hpp"
 #include "../Drive/Drive.hpp"
 
+#ifndef Default_Daylight_Offset
+#define Default_Daylight_Offset 60 * 60
+#endif
+#ifndef Default_UTC_Offset
+#define Default_UTC_Offset 60 * 60
+#endif
+#ifndef Default_NTP_Server
+#define Default_NTP_Server "0.fr.pool.ntp.org"
+#endif
+
 //==============================================================================//
 
 ///
@@ -29,7 +39,7 @@ namespace Xila_Namespace
         /// @brief Panic codes used by the panic handler.
         enum class Panic_Type : uint32_t
         {
-            Missing_System_Files,  ///< Missing system files (registries).
+            Missing_System_Files,     ///< Missing system files (registries).
             Failed_To_Update_Display, ///< Failed to update display.
             Damaged_System_Registry,  ///< Damaged system registry.
             Installation_Conflict,    ///< Installation conflict (between MCU and Drive).
@@ -42,7 +52,6 @@ namespace Xila_Namespace
             Failed_To_Start_Accounts,
             Failed_To_Start_Drive,
             Failed_To_Start_Softwares,
-            
 
             Low_Memory,        ///< Low memory (fragmentation, too much software openned).
             Memory_Corruption, ///< Memory corruption.
@@ -53,26 +62,26 @@ namespace Xila_Namespace
     {
     public:
         // - Methods
-        
+
         // - - Constructor / Destructor
         System_Class();
         ~System_Class();
 
         // - - Device
 
-        String_Type& Get_Device_Name(String_Type &Device_Name);
+        String_Type &Get_Device_Name(String_Type &Device_Name);
         uint64_t Get_eFuse_MAC();
         uint8_t Get_Chip_Revision();
         const char *Get_Chip_Model();
         uint32_t Get_Chip_Cores();
         uint32_t Get_CPU_Frequency();
 
-        void Set_Device_Name(const char* Device_Name);
+        void Set_Device_Name(const char *Device_Name);
 
         // - - Time
 
         // - - - Getters
-        Time_Type Get_Time();
+        Time_Type Get_Time(uint32_t Synchronization_Timeout = 5000);
         Date_Type Get_Date();
         uint32_t Get_Cycles_Count();
         Time_Type Get_Up_Time();
@@ -85,7 +94,8 @@ namespace Xila_Namespace
 
         // - - - Setters
         void Set_Time_Zone(uint32_t UTC_Offset, uint16_t Daylight_Offset);
-        void Set_NTP_Server(const char*NTP_Server);
+        void Set_NTP_Server(const char *NTP_Server);
+        void Refresh_NTP_Client();
 
         // - - System
 
@@ -123,7 +133,7 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Animation
-        void Start_Load_Animation(Graphics_Types::Object_Type*, Graphics_Types::Animation_Type*);
+        void Start_Load_Animation(Graphics_Types::Object_Type *, Graphics_Types::Animation_Type *);
         static void Load_Animation_Callback(void *Object, int32_t Value);
         void Stop_Load_Animation(Graphics_Types::Object_Type *, Graphics_Types::Animation_Type *);
 
@@ -142,7 +152,6 @@ namespace Xila_Namespace
         void Panic_Handler(System_Types::Panic_Type Panic_Code);
 
         // - - Animation
-
 
     } System_Type;
 

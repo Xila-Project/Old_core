@@ -41,38 +41,24 @@ void Dialog_Class::Create(const Softwares_Types::Software_Type* Owner_Software)
 {
     if (Owner_Software == NULL)
         return;
-    
-    Log_Trace();
 
     Screen_Type User_Screen = Screen_Type::Get_User_Screen(Owner_Software->Get_Owner_User());
-
-    Log_Trace();
 
     if (!User_Screen.Is_Valid())
         return;
 
-    Log_Trace();
-
     {
-        Log_Trace();
-
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         this->LVGL_Object_Pointer = lv_obj_create(User_Screen);
         if (!Is_Valid())
             return;
-       
-        Log_Trace();
-
+    
         this->LVGL_Object_Pointer->class_p = &Dialog_Class::Class;
-
-        Log_Trace();
     }
 
     Data = new Data_Type;
     Set_User_Data(Data);
     Data->Owner_Software = Owner_Software;
-
-    Log_Trace();
 
     this->Set_Interface();
     this->Set_Size(Percentage(70), Percentage(65));
@@ -81,13 +67,9 @@ void Dialog_Class::Create(const Softwares_Types::Software_Type* Owner_Software)
     this->Set_Minimize_Button_Hidden(true);
     this->Set_Style_Radius(5, 0);
 
-    Log_Trace();
-
     this->Set_Style_Shadow_Opacity(Opacity_Type::Opacity_20_Percent, 0);
     this->Set_Style_Shadow_Width(50, 0);
     this->Set_Style_Shadow_Color(Color_Type::White, 0);
-
-    Log_Trace();
 }
 
 void Dialog_Class::Create(Object_Class Parent_Object)

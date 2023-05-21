@@ -63,14 +63,18 @@ void Object_Class::Create(Object_Class Parent_Object)
     }
 }
 
-void Object_Class::Delete()
+void Object_Class::Delete(bool Asynchronous)
 {
     if (!this->Is_Valid())
-    {
         return;
-    }
+    
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_del_async(Get_Pointer());
+    
+    if (Asynchronous)
+        lv_obj_del_async(Get_Pointer());
+    else
+        lv_obj_del(Get_Pointer());
+    
     this->Clear_Pointer();
 }
 

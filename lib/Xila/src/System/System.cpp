@@ -28,7 +28,7 @@ using namespace Xila_Namespace::System_Types;
 System_Type Xila_Namespace::System;
 
 /// @brief Construct a new System_Class::System_Class object
-System_Class::System_Class() : Task(this)
+System_Class::System_Class() : Task(this), NTP_Server(Default_NTP_Server), UTC_Offset(Default_UTC_Offset), Daylight_Offset(Default_Daylight_Offset)
 {
 }
 
@@ -47,8 +47,6 @@ void System_Class::Task_Start_Function(void *Instance_Pointer)
 /// @brief System task.
 void System_Class::Task_Function()
 {
-  uint32_t Next_Refresh = 0;
-
   this->Load();
 
   while (1)
@@ -56,28 +54,21 @@ void System_Class::Task_Function()
 
     // -- Check if drive is not disconnected.
     if (!Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
-    {
       System.Panic_Handler(Panic_Type::Drive_Failure);
-    }
 
     // -- Check if running software is not frozen.
     Task_Class::Check_Watchdogs();
 
-    // -- Check WiFi is connected
-    // if (WiFi.Get_Status() != WiFi_Type::Status_Type::Connected)
-    //{
-    //  WiFi.Load_Registry();
-    //}
     // - Check available memory (prevent stack / heap collision)
 
     // Log_Information("System", "Memory usage : %u | PSRAM usage : %u %", Memory.Get_Free_Heap(), Memory.Get_PSRAM_Size() - Memory.Get_Free_PSRAM());
-
+    
     if (Memory.Get_Free_Heap() < Low_Memory_Threshold)
     {
       System.Panic_Handler(Panic_Type::Low_Memory);
     }
 
-    Task.Delay(500);
+    Task.Delay(1000);
   }
 }
 
@@ -326,12 +317,6 @@ void System_Class::Load()
     }
   }
 
-  {
-    Static_String_Type<64> Device_Name;
-    System.Get_Device_Name(Device_Name);
-    Log_Verbose("System", "Device name : %s", (const char *)Device_Name);
-  }
-
   // - Sound
 
   if (Sound.Start() != Result_Type::Success)
@@ -361,7 +346,6 @@ void System_Class::Load()
   }
 
   this->Stop_Load_Animation(&Logo, Animation);
-
 
   if (Softwares.Start() != Result_Type::Success)
   {

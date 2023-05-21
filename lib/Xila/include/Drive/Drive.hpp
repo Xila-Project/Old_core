@@ -94,8 +94,9 @@ namespace Xila_Namespace
         /// @param Path Path of the file / folder.
         /// @param Write Open the file in write mode.
         /// @param Append Open the file in append mode.
+        /// @param Create_Parent_Folders Create parent folders if they don't exist.
         /// @return `File_Class` object of the file / folder.
-        Drive_Types::File_Type Open(const char *Path, bool Write = false, bool Append = false, bool Create = true);
+        Drive_Types::File_Type Open(const char *Path, bool Write = false, bool Append = false, bool Create_Parent_Folders = false);
 
         /// @brief Remove a file / folder.
         /// @param Path Path of the file / folder.

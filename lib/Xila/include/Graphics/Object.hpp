@@ -77,7 +77,7 @@ namespace Xila_Namespace
 
             // - - Manipulation
             virtual void Create(Object_Class Parent_Object);
-            virtual void Delete();
+            virtual void Delete(bool Asynchronous = false);
             void Clean();
             // - - Flags
             void Add_Flag(Flag_Type Flag);

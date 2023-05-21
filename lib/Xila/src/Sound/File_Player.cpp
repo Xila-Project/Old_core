@@ -18,11 +18,6 @@ File_Player_Class::File_Player_Class(Sound_Types::Stream_Type& Output_Stream, Dr
       Input_File(Input_File),
       Stream_Copier(Encoded_Stream, this->Input_File)
 {
-    Log_Verbose("Sound", "File player created : %p", this);
-    Log_Verbose("Sound", "File player output stream : %p", &Output_Stream);
-    Log_Verbose("Sound", "File player input file : %p", &Input_File);
-    Log_Verbose("Sound", "File player decoder : %p", &Decoder);
-
     Encoded_Stream.setNotifyAudioChange(Output_Stream);
 }
 

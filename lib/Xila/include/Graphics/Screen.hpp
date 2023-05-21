@@ -38,7 +38,7 @@ namespace Xila_Namespace
             // - - Manipulation
             virtual void Create(Object_Class Parent_Object) override{};
             virtual void Create(const Softwares_Types::Software_Type *Owner_Software);
-            virtual void Delete() override;
+            virtual void Delete(bool Asynchronous = false) override;
 
             // - -
             void Load();

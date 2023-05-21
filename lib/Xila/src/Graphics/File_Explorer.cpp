@@ -69,13 +69,18 @@ void File_Explorer_Class::Create(Object_Type Parent_Object)
     Data->Selection_State = false;
 }
 
-void File_Explorer_Class::Delete()
+void File_Explorer_Class::Delete(bool Asynchronous)
 {
     if (!this->Is_Valid())
         return;
 
     auto Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_del_async(this->Get_Pointer());
+    
+    if (Asynchronous)
+        lv_obj_del_async(this->Get_Pointer());
+    else
+        lv_obj_del(this->Get_Pointer());
+    
     this->Clear_Pointer();
     delete Data;
     Data = NULL;
