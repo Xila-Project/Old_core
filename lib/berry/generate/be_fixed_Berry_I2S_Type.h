@@ -1,10 +1,10 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_I2S_Type_map) {
-    { be_const_key(init, -1), be_const_ctype_func(Berry_I2S_Class_Initialize_9BD16465_1883_4047_9360_A09E8003AAD4) },
-    { be_const_key(Begin, -1), be_const_ctype_func(Berry_I2S_Class_Begin_81BA7E4E_0CE4_4727_8714_640908D9782F) },
-    { be_const_key(deinit, 4), be_const_ctype_func(Berry_I2S_Class_Deinitialize_26397371_31DD_4E14_B06E_D5C1F91F0422) },
-    { be_const_key(Get_Default_Configuration, 1), be_const_ctype_func(Berry_I2S_Class_Get_Default_Configuration_F79F6529_0BCE_4DD1_99EB_9B5A7A3B17BC) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_I2S_Class_Initialize_C072FC21_8C3A_46CE_8885_3278400C3181) },
+    { be_const_key(Begin, -1), be_const_ctype_func(Berry_I2S_Class_Begin_3ED90EBC_B026_41E3_B8AF_803A08FE74EE) },
+    { be_const_key(deinit, 4), be_const_ctype_func(Berry_I2S_Class_Deinitialize_D1ED6441_879A_4296_A764_5A9791179746) },
+    { be_const_key(Get_Default_Configuration, 1), be_const_ctype_func(Berry_I2S_Class_Get_Default_Configuration_53157193_5074_4404_AB4D_36FE9CE58C09) },
     { be_const_key(_p, -1), be_const_var(0) },
 };
 

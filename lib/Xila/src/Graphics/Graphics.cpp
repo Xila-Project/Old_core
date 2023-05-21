@@ -358,6 +358,22 @@ Object_Type Graphics_Class::Get_Top_Layer()
     return Object_Type(lv_layer_top());
 }
 
+const Font_Type& Graphics_Class::Get_Font(uint16_t Size)
+{
+    switch (Size)
+    {
+    case 14:
+        return lv_font_montserrat_14;
+    case 20:
+        return lv_font_montserrat_20;
+    case 24:
+        return lv_font_montserrat_24;
+    case 34:
+        return lv_font_montserrat_34;
+    }
+    return lv_font_montserrat_14;
+}
+
 Color_Type Graphics_Class::Get_Theme_Primary_Color()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();

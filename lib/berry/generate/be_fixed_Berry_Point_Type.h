@@ -1,14 +1,14 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Point_Type_map) {
-    { be_const_key(Get_X_, 6), be_const_ctype_func(Berry_Point_Class_Get_X_A9A7ADDB_B523_4F54_801D_9F437E09CC19) },
-    { be_const_key(Set, -1), be_const_ctype_func(Berry_Point_Class_Set_67D0A0C6_5013_4D41_9FC6_1DACB5E213B9) },
+    { be_const_key(Get_X_, 6), be_const_ctype_func(Berry_Point_Class_Get_X_A4C4D231_4FE0_4663_9FA8_DCCFBCB064BD) },
+    { be_const_key(Set, -1), be_const_ctype_func(Berry_Point_Class_Set_75FC0FC0_905F_4D72_B146_2E71D9D31602) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(init, 5), be_const_ctype_func(Berry_Point_Class_Initialize_A6F291E1_E6D6_4C29_A0CC_F2301AD421A9) },
-    { be_const_key(Set_X_, -1), be_const_ctype_func(Berry_Point_Class_Set_X_08AA2736_D34E_4E8E_A7E7_35EB4B92F578) },
-    { be_const_key(Get_Y, 1), be_const_ctype_func(Berry_Point_Class_Get_Y_6D601869_D1CA_40B4_8734_90567BDB8476) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Point_Class_Deinitialize_80FA9224_167F_4F29_BFA3_98DB7ACEE1B7) },
-    { be_const_key(Set_Y, -1), be_const_ctype_func(Berry_Point_Class_Set_Y_1B502DBF_C1AA_4B66_840E_EF69BAAC0987) },
+    { be_const_key(init, 5), be_const_ctype_func(Berry_Point_Class_Initialize_8A3F45C4_F47C_48F8_9022_5793C2674E3C) },
+    { be_const_key(Set_X_, -1), be_const_ctype_func(Berry_Point_Class_Set_X_566C3D73_FCC1_456F_BD63_47F0E3A82AC6) },
+    { be_const_key(Get_Y, 1), be_const_ctype_func(Berry_Point_Class_Get_Y_9C23F0C3_D02F_4489_8671_526A56488B26) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Point_Class_Deinitialize_2CB46E3D_5779_4950_AD0A_DB25103A4DD5) },
+    { be_const_key(Set_Y, -1), be_const_ctype_func(Berry_Point_Class_Set_Y_D8DB3C5D_3017_46B0_8C1E_957E20E079A0) },
 };
 
 static be_define_const_map(

@@ -1,21 +1,21 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_File_Explorer_Type_map) {
-    { be_const_key(init, 5), be_const_ctype_func(Berry_File_Explorer_Class_Initialize_939D3A1B_18F0_4768_8939_72EE8D4EB70F) },
-    { be_const_key(Get_Path, 14), be_const_ctype_func(Berry_File_Explorer_Class_Get_Path_B398B648_C276_4E7C_9110_6FE593AF01ED) },
+    { be_const_key(init, 5), be_const_ctype_func(Berry_File_Explorer_Class_Initialize_2326D7B5_AE77_4680_87B1_D28330C5E3D8) },
+    { be_const_key(Get_Path, 14), be_const_ctype_func(Berry_File_Explorer_Class_Get_Path_5197D147_7DF8_4E4D_B3A9_CD461C8D59F5) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Go_Parent_Folder, -1), be_const_ctype_func(Berry_File_Explorer_Class_Go_Parent_Folder_D395CBF8_BCC0_4882_B3F5_3FFA79FD4333) },
-    { be_const_key(Get_Selected_Count, -1), be_const_ctype_func(Berry_File_Explorer_Class_Get_Selected_Count_67FE0B31_3CBE_4C15_B858_152D6947D492) },
-    { be_const_key(Get_Selection_State, -1), be_const_ctype_func(Berry_File_Explorer_Class_Get_Selection_State_C0B280A0_D650_4AF2_A116_AAC82F3B4561) },
-    { be_const_key(Refresh, 13), be_const_ctype_func(Berry_File_Explorer_Class_Refresh_33680F14_C60C_4ADB_B24A_E54B645888CA) },
-    { be_const_key(Get_Selected_Name, 11), be_const_ctype_func(Berry_File_Explorer_Class_Get_Selected_Name_C2AD5EB5_D727_45D4_9C0E_4F65998A165A) },
-    { be_const_key(Delete, -1), be_const_ctype_func(Berry_File_Explorer_Class_Delete_9DA62CF5_F1BC_4F7D_9539_9A8B40181F22) },
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_File_Explorer_Class_Create_8C952754_B1F7_4868_BB83_E473BD8762D2) },
-    { be_const_key(Set_Selection_State, 1), be_const_ctype_func(Berry_File_Explorer_Class_Set_Selection_State_7E9D28E3_453F_480D_AF8F_83F5F0A53725) },
-    { be_const_key(Get_Focused_Name, 12), be_const_ctype_func(Berry_File_Explorer_Class_Get_Focused_Name_6319705D_1FC4_48FE_AAE1_F7B7AC143A72) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_File_Explorer_Class_Deinitialize_9961D805_7A5E_43F3_B958_AC006CC25A07) },
-    { be_const_key(Set_Path, -1), be_const_ctype_func(Berry_File_Explorer_Class_Set_Path_E6C453F3_140B_4E79_9061_EA0338271A01) },
-    { be_const_key(Clear_Selection, -1), be_const_ctype_func(Berry_File_Explorer_Class_Clear_Selection_22215417_CE60_42E2_9A7C_CCB2FC28CAE9) },
+    { be_const_key(Go_Parent_Folder, -1), be_const_ctype_func(Berry_File_Explorer_Class_Go_Parent_Folder_12E00230_9D36_4CF6_BD48_9605F7BE38B9) },
+    { be_const_key(Get_Selected_Count, -1), be_const_ctype_func(Berry_File_Explorer_Class_Get_Selected_Count_579A243B_E7EA_4EDA_B73B_E00B917C2520) },
+    { be_const_key(Get_Selection_State, -1), be_const_ctype_func(Berry_File_Explorer_Class_Get_Selection_State_12069B59_83E7_48B6_B3A8_7A45DEEA050F) },
+    { be_const_key(Refresh, 13), be_const_ctype_func(Berry_File_Explorer_Class_Refresh_E77A12B6_C219_4FBF_AA9C_616E35353671) },
+    { be_const_key(Get_Selected_Name, 11), be_const_ctype_func(Berry_File_Explorer_Class_Get_Selected_Name_3BAA0C77_923D_4734_A709_134C0BEC3560) },
+    { be_const_key(Delete, -1), be_const_ctype_func(Berry_File_Explorer_Class_Delete_41CCBE87_1698_4BA0_A564_9FEE7DC2DE47) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_File_Explorer_Class_Create_A6274570_AF91_4694_9EAC_E5967F706ED7) },
+    { be_const_key(Set_Selection_State, 1), be_const_ctype_func(Berry_File_Explorer_Class_Set_Selection_State_9DD38CF3_4D0E_44D8_B7C8_17976D7F386F) },
+    { be_const_key(Get_Focused_Name, 12), be_const_ctype_func(Berry_File_Explorer_Class_Get_Focused_Name_3A4E63E6_D9D4_46C4_8462_E8D3705736F5) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_File_Explorer_Class_Deinitialize_60AC6392_FEF6_494F_BB85_0C26243626AC) },
+    { be_const_key(Set_Path, -1), be_const_ctype_func(Berry_File_Explorer_Class_Set_Path_DFED1D09_89AA_4E3C_A78C_3CB0EDC17DEE) },
+    { be_const_key(Clear_Selection, -1), be_const_ctype_func(Berry_File_Explorer_Class_Clear_Selection_9B2DA7B7_82E8_476F_AA5C_DE5A8E69BA51) },
 };
 
 static be_define_const_map(

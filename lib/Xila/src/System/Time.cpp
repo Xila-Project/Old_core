@@ -36,7 +36,7 @@ Date_Type System_Class::Get_Date()
   {
     return Date_Type();
   }
-  return Date_Type(Time_Info.tm_year + 1900, Time_Info.tm_mon + 1, Time_Info.tm_mday);
+  return Date_Type(Time_Info.tm_mday, Time_Info.tm_mon + 1, Time_Info.tm_year + 1900);
 }
 
 Time_Type System_Class::Get_Up_Time()

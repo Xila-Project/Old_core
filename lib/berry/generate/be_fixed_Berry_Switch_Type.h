@@ -1,10 +1,10 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Switch_Type_map) {
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Switch_Class_Deinitialize_7332BB76_39AF_4ADF_87E2_35E22DFF05A2) },
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Switch_Class_Create_739C1B3D_E42C_48C2_867A_85D4F580ABD4) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Switch_Class_Deinitialize_14CF6BCB_293D_4892_A208_8009BD300812) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Switch_Class_Create_AC00058C_5756_4E38_AE03_1258B1672364) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Switch_Class_Initialize_E1BDDE11_E149_4E50_BEC6_138E32A54C64) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Switch_Class_Initialize_8F983881_1957_4802_B810_F3144B35D08F) },
 };
 
 static be_define_const_map(

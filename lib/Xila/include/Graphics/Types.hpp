@@ -8,8 +8,8 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#ifndef Types_Hpp_Included
-#define Types_Hpp_Included
+#ifndef Xila_Graphics_Types_Hpp_Included
+#define Xila_Graphics_Types_Hpp_Included
 
 #include "../Module/Base_Types.hpp"
 #include "lvgl.h"
@@ -408,9 +408,9 @@ namespace Xila_Namespace
             Custom_4 = LV_STATE_USER_4,
             Any = LV_STATE_ANY
         };
-    }
 
-    typedef lv_font_t Font_Type;
+        typedef lv_font_t Font_Type;
+    }
 
     enum class Base_Direction_Type : lv_base_dir_t
     {

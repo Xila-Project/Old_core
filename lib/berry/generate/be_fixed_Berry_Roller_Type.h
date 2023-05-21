@@ -1,17 +1,17 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Roller_Type_map) {
-    { be_const_key(Get_Selected_String, 3), be_const_ctype_func(Berry_Roller_Class_Get_Selected_String_87772B39_89BB_4B48_8D9D_3B15F899291A) },
-    { be_const_key(Get_Options, 7), be_const_ctype_func(Berry_Roller_Class_Get_Options_D287390C_7B1F_4C44_AEA3_FF0C8CF85849) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Roller_Class_Deinitialize_D0080FE3_C377_4EA6_86AB_28219DEE5D31) },
-    { be_const_key(Get_Selected, -1), be_const_ctype_func(Berry_Roller_Class_Get_Selected_C24B8455_FFF4_4B94_808D_7D654F8F3F33) },
-    { be_const_key(Create, 5), be_const_ctype_func(Berry_Roller_Class_Create_DCD177B9_62D5_495E_9701_9FABFA8B6389) },
-    { be_const_key(Set_Selected, -1), be_const_ctype_func(Berry_Roller_Class_Set_Selected_5EE1825E_ABD3_40CF_A295_EE81B5CC7E50) },
-    { be_const_key(Set_Visible_Row_Count, -1), be_const_ctype_func(Berry_Roller_Class_Set_Visible_Row_Count_845FC1B4_6E97_4833_B4BB_30B0B906FC59) },
+    { be_const_key(Get_Selected_String, 3), be_const_ctype_func(Berry_Roller_Class_Get_Selected_String_AF27D37F_B9B7_4E40_8923_5CB81EFD1846) },
+    { be_const_key(Get_Options, 7), be_const_ctype_func(Berry_Roller_Class_Get_Options_28334545_0D1F_45FC_99CF_59FFF17023FA) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Roller_Class_Deinitialize_651F194A_2735_4A43_81EC_962CB6145D44) },
+    { be_const_key(Get_Selected, -1), be_const_ctype_func(Berry_Roller_Class_Get_Selected_23DE9C02_28D5_446B_84D1_08293FBA4478) },
+    { be_const_key(Create, 5), be_const_ctype_func(Berry_Roller_Class_Create_E08C9BAC_ED6D_4A53_BB6D_24C346287E5A) },
+    { be_const_key(Set_Selected, -1), be_const_ctype_func(Berry_Roller_Class_Set_Selected_D0304E23_0A4D_4163_A12E_D1C945B11757) },
+    { be_const_key(Set_Visible_Row_Count, -1), be_const_ctype_func(Berry_Roller_Class_Set_Visible_Row_Count_11B5601F_3AAA_440C_9A6A_84E204E550E0) },
     { be_const_key(_p, 10), be_const_var(0) },
-    { be_const_key(Get_Option_Count, 4), be_const_ctype_func(Berry_Roller_Class_Get_Option_Count_1AB525CC_3419_4CA1_89EE_A719844AF21D) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Roller_Class_Initialize_BECC4391_CC4D_429F_92FA_0E0DBBA0560D) },
-    { be_const_key(Set_Options, -1), be_const_ctype_func(Berry_Roller_Class_Set_Options_E42652EF_CF3C_4E3D_963E_FFA47D28FD5A) },
+    { be_const_key(Get_Option_Count, 4), be_const_ctype_func(Berry_Roller_Class_Get_Option_Count_B47BDD17_5ED0_4D2E_8E8A_E8AED97550AE) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Roller_Class_Initialize_8838E944_6A04_418F_914A_6B12324070E5) },
+    { be_const_key(Set_Options, -1), be_const_ctype_func(Berry_Roller_Class_Set_Options_B559F449_6191_4DFC_AF7B_8802E4B174D7) },
 };
 
 static be_define_const_map(

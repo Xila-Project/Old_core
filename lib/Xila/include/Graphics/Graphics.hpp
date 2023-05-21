@@ -110,6 +110,8 @@ namespace Xila_Namespace
 
         // - - Getters
 
+        const Graphics_Types::Font_Type& Get_Font(uint16_t Size);
+
         // - - - Theme
 
         Graphics_Types::Color_Type Get_Theme_Primary_Color();
