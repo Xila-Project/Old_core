@@ -20,5 +20,8 @@ jobs:
       - name: Install PlatformIO Core
         run: pip install --upgrade platformio
 
+      - name: Clone submodules
+        run: git submodule update --init --recursive
+
       - name: Build PlatformIO Project
         run: pio run --project-dir="./"
