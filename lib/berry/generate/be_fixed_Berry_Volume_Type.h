@@ -1,12 +1,12 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Volume_Type_map) {
-    { be_const_key(Get_Volume, -1), be_const_ctype_func(Berry_Volume_Class_Get_Volume_4CA44407_2169_4F5F_914C_AF33094CAC0F) },
-    { be_const_key(Begin, -1), be_const_ctype_func(Berry_Volume_Class_Begin_F2AE16F8_813C_44E7_8CFE_6368E1461B03) },
-    { be_const_key(Set_Volume, -1), be_const_ctype_func(Berry_Volume_Class_Set_Volume_E4E1B650_83FB_446B_BA55_86DD4FB9941E) },
-    { be_const_key(Get_Default_Configuration, 1), be_const_ctype_func(Berry_Volume_Class_Get_Default_Configuration_9C856D57_23CE_4271_AC4B_EE3F733E5249) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Volume_Class_Initialize_36892B45_8616_4448_967E_34563A26078E) },
-    { be_const_key(deinit, 4), be_const_ctype_func(Berry_Volume_Class_Deinitialize_EA3C2C23_5A07_4A91_B5E6_A24AA041E7BB) },
+    { be_const_key(Get_Volume, -1), be_const_ctype_func(Berry_Volume_Class_Get_Volume_FC394608_89C1_4497_8D5D_313589D5AAB0) },
+    { be_const_key(Begin, -1), be_const_ctype_func(Berry_Volume_Class_Begin_738D9DAA_C2A8_44A7_AF64_11BFF56A3B0B) },
+    { be_const_key(Set_Volume, -1), be_const_ctype_func(Berry_Volume_Class_Set_Volume_02DC0D76_D6E3_418D_B64D_F487DF49A9D8) },
+    { be_const_key(Get_Default_Configuration, 1), be_const_ctype_func(Berry_Volume_Class_Get_Default_Configuration_E444C993_7ACB_4287_9982_EC923DDECCC7) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Volume_Class_Initialize_DA0C7A1D_254D_4174_BABB_E9B0F5FA00C7) },
+    { be_const_key(deinit, 4), be_const_ctype_func(Berry_Volume_Class_Deinitialize_89C41D84_17BA_4508_B1BB_3DD5E6FA57D1) },
     { be_const_key(_p, 2), be_const_var(0) },
 };
 

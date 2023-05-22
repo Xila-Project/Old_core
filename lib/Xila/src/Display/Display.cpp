@@ -10,7 +10,7 @@
 #define Default_Display_Brightness 100
 #endif
 #ifndef Default_Display_Standby_Time
-#define Default_Display_Standby_Time 30000
+#define Default_Display_Standby_Time 30
 #endif
 
 #include "Display/Display.hpp"

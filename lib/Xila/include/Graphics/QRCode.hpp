@@ -24,34 +24,19 @@ namespace Xila_Namespace
 
             // - - Constructor / destructor
             QRCode_Class();
-            QRCode_Class(const Object_Type &Object)
+            QRCode_Class(const Object_Type &Object);
             ~QRCode_Class();
 
             // - - Manipulation
             virtual void Create(Object_Type Parent_Object) override;
-            void Create(Object_Type Parent_Object, const void* Data, uint32_t Length, Coordinate_Type Size = 0, Color_Type Dark_Color = Color_Type::Black, Color_Type Light_Color = Color_Type::White);
+            void Create(Object_Type Parent_Object, const void* Data, uint32_t Length, Coordinate_Type Size, Color_Type Dark_Color = Color_Type::Black, Color_Type Light_Color = Color_Type::White);
 
             void Update(const void* Data, uint32_t Length);
-
-            // - - Setters
-
-            /// @brief Set the size of the QRCode.
-            /// @param Size Size of the QRCode.
-            void Set_Size(Coordinate_Type Size);
-
-            /// @brief Set the color of the dark part of the QRCode.
-            /// @param Color Color of the dark modules.
-            void Set_Dark_Color(Color_Type Color);
-
-            /// @brief Set the color of the light part of the QRCode.
-            /// @param Color Color of the light modules.
-            void Set_Light_Color(Color_Type Color);
 
             // - Attributes
 
             /// @brief QRCode class type.
             static const Class_Type &Class;
-
         } QRCode_Type;
     } // namespace Graphics_Namespace
 

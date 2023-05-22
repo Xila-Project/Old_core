@@ -55,6 +55,7 @@
 #include "Window.hpp"
 #include "Button.hpp"
 #include "Label.hpp"
+#include "QRCode.hpp"
 
 #include "File_Explorer.hpp"
 
@@ -89,7 +90,6 @@ namespace Xila_Namespace
         const char* Get_Symbol(Graphics_Types::Symbol_Code_Type Symbol);
 
         // - - Instruction
-        void Execute_Instruction(Instruction_Class Instruction);
         static void Event_Handler(lv_event_t *Event);
 
         // - - Semaphore
@@ -109,6 +109,7 @@ namespace Xila_Namespace
         };
 
         // - - Getters
+
 
         const Graphics_Types::Font_Type& Get_Font(uint16_t Size);
 

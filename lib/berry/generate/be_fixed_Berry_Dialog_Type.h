@@ -1,12 +1,12 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Dialog_Type_map) {
-    { be_const_key(Is_Overlay, -1), be_const_ctype_func(Berry_Dialog_Class_Is_Overlay_D5243F66_C1F9_4C15_83BC_87B4FA6F1AE6) },
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Dialog_Class_Create_D07A7D2A_732A_49A8_8CED_DFF6E6218751) },
+    { be_const_key(Is_Overlay, -1), be_const_ctype_func(Berry_Dialog_Class_Is_Overlay_D426631C_F634_49B5_844E_880CA0A38615) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Dialog_Class_Create_265E90E7_E6C5_417D_9256_C32B4AA5090A) },
     { be_const_key(_p, 5), be_const_var(0) },
-    { be_const_key(init, 1), be_const_ctype_func(Berry_Dialog_Class_Initialize_CD424472_598D_470D_AA72_9DA7DE9E2237) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Dialog_Class_Deinitialize_42E8E89E_8CE7_4904_8702_18804D2C2E2F) },
-    { be_const_key(Set_Overlay, -1), be_const_ctype_func(Berry_Dialog_Class_Set_Overlay_513686AC_94C7_49F8_9E32_490B200AFCEE) },
+    { be_const_key(init, 1), be_const_ctype_func(Berry_Dialog_Class_Initialize_F2177437_5F90_4D79_BADF_B1A74351F76C) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Dialog_Class_Deinitialize_28C89551_C790_4CC4_BDA3_8DEB5B25035B) },
+    { be_const_key(Set_Overlay, -1), be_const_ctype_func(Berry_Dialog_Class_Set_Overlay_47B909E9_FE2B_4C6D_8385_D086ABA74D21) },
 };
 
 static be_define_const_map(

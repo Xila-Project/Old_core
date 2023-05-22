@@ -49,9 +49,9 @@ namespace Xila_Namespace
 
             // -- Constructors
 
-            Object_Class();
             Object_Class(lv_obj_t *LVGL_Object_Pointer);
             Object_Class(const Object_Class &Object_To_Copy);
+            Object_Class(); // ! : Last declared for Berry.
 
             // - - Operators
 

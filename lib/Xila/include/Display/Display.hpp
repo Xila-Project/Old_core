@@ -72,12 +72,16 @@ namespace Xila_Namespace
         /// @param Data LVGL input data written by the callback.
         static IRAM_ATTR void Input_Read(lv_indev_drv_t *Input_Device_Driver_Interface, lv_indev_data_t *Data);
         
+        /// @brief Sleep the display.
+        void Sleep();
+        
+        /// @brief Wake up the display.
+        void Wake_Up();
+
     private:
 
         // - Methods
         Result_Type Initialize();
-        void Sleep();
-        void Wake_Up();
         
         // - - Registry
 

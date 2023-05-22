@@ -1,21 +1,21 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Window_Type_map) {
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Window_Class_Initialize_1DB91F2E_6A47_408C_9066_D31FF884C025) },
-    { be_const_key(Get_State, -1), be_const_ctype_func(Berry_Window_Class_Get_State_26074BE9_F15C_445C_A88E_7972BFC43D75) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Window_Class_Initialize_BB053CF5_2B65_4EC4_BA73_4A639C526A04) },
+    { be_const_key(Get_State, -1), be_const_ctype_func(Berry_Window_Class_Get_State_FFC452D7_C3CE_4EA0_8E92_50F59F6680D8) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Set_Minimize_Button_Hidden, -1), be_const_ctype_func(Berry_Window_Class_Set_Minimize_Button_Hidden_04F6DB9D_4DD1_4705_A17D_792A79A3B4EF) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Window_Class_Deinitialize_1F1E2175_5602_46FE_9560_33845BD883F4) },
-    { be_const_key(Get_Header, -1), be_const_ctype_func(Berry_Window_Class_Get_Header_4A1CC6F9_EB48_450F_868D_16480DE3888E) },
-    { be_const_key(Set_State, 5), be_const_ctype_func(Berry_Window_Class_Set_State_D4DA22AC_063C_4C8D_84D3_55F30F711A38) },
-    { be_const_key(Get_Minimize_Button, 4), be_const_ctype_func(Berry_Window_Class_Get_Minimize_Button_E2B74863_9C9F_41C8_A19F_42E08575CF28) },
-    { be_const_key(Get_Owner_Software, 12), be_const_ctype_func(Berry_Window_Class_Get_Owner_Software_4BD884DF_7D29_4035_98A8_9C01C262D3C9) },
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Window_Class_Create_BE304FA6_C0EC_49C4_B744_814912FD1F96) },
-    { be_const_key(Set_Title, -1), be_const_ctype_func(Berry_Window_Class_Set_Title_6976C032_9DF8_48DD_BB18_451D2BB703F1) },
-    { be_const_key(Set_Close_Button_Hidden, -1), be_const_ctype_func(Berry_Window_Class_Set_Close_Button_Hidden_89E396D4_BF24_43D9_A389_0EC15694C06A) },
-    { be_const_key(Delete, -1), be_const_ctype_func(Berry_Window_Class_Delete_136B21C2_B21E_4751_B20B_3FF21C558C56) },
-    { be_const_key(Get_Body, -1), be_const_ctype_func(Berry_Window_Class_Get_Body_49BE085A_18B1_4A64_A306_675FBEEE75CC) },
-    { be_const_key(Get_Close_Button, -1), be_const_ctype_func(Berry_Window_Class_Get_Close_Button_5DA97FF0_EE19_4F16_9E14_28252552C682) },
+    { be_const_key(Set_Minimize_Button_Hidden, -1), be_const_ctype_func(Berry_Window_Class_Set_Minimize_Button_Hidden_6F4DD80B_9B2E_4B5C_9CA8_376ED177D79E) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Window_Class_Deinitialize_8D9599E8_AD42_4109_80BE_58D56E206D62) },
+    { be_const_key(Get_Header, -1), be_const_ctype_func(Berry_Window_Class_Get_Header_E564DCB4_08E9_449E_B429_BBB2DAE156F1) },
+    { be_const_key(Set_State, 5), be_const_ctype_func(Berry_Window_Class_Set_State_B8655956_4D65_46CD_A5D9_AE906A248FA0) },
+    { be_const_key(Get_Minimize_Button, 4), be_const_ctype_func(Berry_Window_Class_Get_Minimize_Button_71596B5E_FD16_4CC0_8A2F_DE3E02A39131) },
+    { be_const_key(Get_Owner_Software, 12), be_const_ctype_func(Berry_Window_Class_Get_Owner_Software_1E95BEB4_4820_435D_8521_8518F32DB3FD) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Window_Class_Create_6906C568_87A7_4C15_BB3B_DC09832C9AD2) },
+    { be_const_key(Set_Title, -1), be_const_ctype_func(Berry_Window_Class_Set_Title_4AADC2AD_60DE_4062_ACAC_8D317B3A022F) },
+    { be_const_key(Set_Close_Button_Hidden, -1), be_const_ctype_func(Berry_Window_Class_Set_Close_Button_Hidden_946EDD92_1566_43F3_A001_14C52C783C38) },
+    { be_const_key(Delete, -1), be_const_ctype_func(Berry_Window_Class_Delete_D9F17AB1_DE7A_428D_BD38_1C3FAFBAAAB1) },
+    { be_const_key(Get_Body, -1), be_const_ctype_func(Berry_Window_Class_Get_Body_247C5AEB_CB35_4316_B85B_0A45F9F10D0A) },
+    { be_const_key(Get_Close_Button, -1), be_const_ctype_func(Berry_Window_Class_Get_Close_Button_DE8B3B8F_F65C_4A28_9C12_D1654B97A232) },
 };
 
 static be_define_const_map(

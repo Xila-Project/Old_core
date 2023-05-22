@@ -1,20 +1,20 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_File_Player_Type_map) {
-    { be_const_key(Set_Output_Stream, -1), be_const_ctype_func(Berry_File_Player_Class_Set_Output_Stream_C1E4FF4F_B824_443D_BFEE_AA34F6DFCD49) },
-    { be_const_key(Begin, -1), be_const_ctype_func(Berry_File_Player_Class_Begin_11CA83DE_D61B_4B79_B954_B3D8139A9CC0) },
-    { be_const_key(Get_Total_Time, -1), be_const_ctype_func(Berry_File_Player_Class_Get_Total_Time_C9FAA84E_CEEA_408D_B5BF_1F761C7C447C) },
-    { be_const_key(Set_Input_File, -1), be_const_ctype_func(Berry_File_Player_Class_Set_Input_File_01FF4F65_B1A8_44DB_8305_B91720AFB9A7) },
-    { be_const_key(Set_Time, -1), be_const_ctype_func(Berry_File_Player_Class_Set_Time_49FA698B_9967_4049_AB07_65CAC86F46D1) },
-    { be_const_key(init, 7), be_const_ctype_func(Berry_File_Player_Class_Initialize_7D8A0F95_A169_4ACA_9CF6_FCE35759B7BC) },
+    { be_const_key(Set_Output_Stream, -1), be_const_ctype_func(Berry_File_Player_Class_Set_Output_Stream_0E7D3C1D_866C_4A70_BC11_3C27C9019763) },
+    { be_const_key(Begin, -1), be_const_ctype_func(Berry_File_Player_Class_Begin_FABA5086_227C_4CC9_B9F9_D95E96D2C509) },
+    { be_const_key(Get_Total_Time, -1), be_const_ctype_func(Berry_File_Player_Class_Get_Total_Time_F781273E_2414_496A_857C_18AAB85B1F37) },
+    { be_const_key(Set_Input_File, -1), be_const_ctype_func(Berry_File_Player_Class_Set_Input_File_695B2019_92D3_41D0_BC35_BC8A04F3E915) },
+    { be_const_key(Set_Time, -1), be_const_ctype_func(Berry_File_Player_Class_Set_Time_C4C58EBC_CD83_44C2_8177_0A7B70BCE2DF) },
+    { be_const_key(init, 7), be_const_ctype_func(Berry_File_Player_Class_Initialize_5F36FF8E_7AAF_4AF3_B8BF_97B68F75F2BA) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Stop, 8), be_const_ctype_func(Berry_File_Player_Class_Stop_7AAF11E7_27CD_4C9A_BE07_C8C0AA004897) },
-    { be_const_key(Loop, -1), be_const_ctype_func(Berry_File_Player_Class_Loop_2BF7DB12_7180_448B_AD9D_9E0BD32BCC5C) },
-    { be_const_key(Get_Time, 4), be_const_ctype_func(Berry_File_Player_Class_Get_Time_3AE80B29_4A50_4206_AEBF_FD6D20EB0B1E) },
-    { be_const_key(Get_Channels, 1), be_const_ctype_func(Berry_File_Player_Class_Get_Channels_960FC879_3543_42BA_B039_90179B8A7E31) },
-    { be_const_key(Get_Sample_Rate, -1), be_const_ctype_func(Berry_File_Player_Class_Get_Sample_Rate_D74D65CE_CF5C_4F31_9D61_D7712ADCA932) },
-    { be_const_key(deinit, 0), be_const_ctype_func(Berry_File_Player_Class_Deinitialize_DF37C48C_06DA_4024_AD57_4ACADC803032) },
-    { be_const_key(Get_Bits_Per_Sample, -1), be_const_ctype_func(Berry_File_Player_Class_Get_Bits_Per_Sample_8BBD43E4_1148_4DAC_A25E_2733E8CAB85A) },
+    { be_const_key(Stop, 8), be_const_ctype_func(Berry_File_Player_Class_Stop_0B9FADD0_345A_43C4_A6D7_866A7EA87BE0) },
+    { be_const_key(Loop, -1), be_const_ctype_func(Berry_File_Player_Class_Loop_5ED5249C_4C8C_45E6_942F_B8455B30A9CF) },
+    { be_const_key(Get_Time, 4), be_const_ctype_func(Berry_File_Player_Class_Get_Time_C23732F0_85CD_45B4_8D89_B1911C30EDDD) },
+    { be_const_key(Get_Channels, 1), be_const_ctype_func(Berry_File_Player_Class_Get_Channels_7ADB33EE_2725_4979_A398_BD78D4E83191) },
+    { be_const_key(Get_Sample_Rate, -1), be_const_ctype_func(Berry_File_Player_Class_Get_Sample_Rate_9399DB12_2148_42F5_A1C4_6DA4BFFCDBE3) },
+    { be_const_key(deinit, 0), be_const_ctype_func(Berry_File_Player_Class_Deinitialize_61582872_106C_4A59_B978_3AAFA9092ACF) },
+    { be_const_key(Get_Bits_Per_Sample, -1), be_const_ctype_func(Berry_File_Player_Class_Get_Bits_Per_Sample_05531832_8FC2_402D_B3D2_A9D5153D7384) },
 };
 
 static be_define_const_map(

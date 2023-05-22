@@ -163,42 +163,24 @@ void Graphics_Class::Task_Start_Function(void *Instance_Pointer)
 
 void Graphics_Class::Task_Function()
 {
+    bool Sleep = false;
+
     while (true)
     {
         this->Take_Semaphore();
         lv_timer_handler();
+        if (lv_disp_get_inactive_time(NULL) >= Display.Get_Standby_Time() * 1000)
+        {
+            Display.Sleep();
+            Sleep = true;
+        }
+        else if (Sleep)
+            Display.Wake_Up();
         this->Give_Semaphore();
+
         lv_tick_inc(6);
-        while (Instruction_Available())
-            Execute_Instruction(Get_Instruction());
 
         Task.Delay(6);
-    }
-}
-
-void Graphics_Class::Execute_Instruction(Instruction_Type Instruction)
-{
-    // TODO : Move this in shell instead
-    if (Instruction.Get_Sender() == this)
-    {
-        switch (Instruction.Graphics.Get_Code())
-        {
-        case Event_Code_Type::Minimize:
-        {
-
-            Window_Type Window = Instruction.Graphics.Get_Target();
-            if (Window.Is_Valid())
-                Window.Set_State(Window_State_Type::Minimized);
-            break;
-        }
-        case Event_Code_Type::Close:
-        {
-            Window_Type Window = Instruction.Graphics.Get_Target();
-            if (Window.Is_Valid())
-                Softwares.Close(const_cast<Softwares_Types::Software_Type *>(Window.Get_Owner_Software()));
-            break;
-        }
-        }
     }
 }
 

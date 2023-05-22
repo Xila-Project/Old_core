@@ -25,4 +25,13 @@
 
 #include <memory>
 
+#define Stringize_Helper(x) #x
+#define Stringize(x) Stringize_Helper(x)
+
+#define Xila_Version_Major_String Stringize(Xila_Version_Major)
+#define Xila_Version_Minor_String Stringize(Xila_Version_Minor)
+#define Xila_Version_Revision_String Stringize(Xila_Version_Revision)
+
+#define Xila_Version_String Xila_Version_Major_String "." Xila_Version_Minor_String "." Xila_Version_Revision_String
+
 #endif

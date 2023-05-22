@@ -33,7 +33,6 @@
 
 #include "../Configuration/Path.hpp"
 
-#define Stringizing(x) #x
 
 namespace Xila_Namespace
 {
