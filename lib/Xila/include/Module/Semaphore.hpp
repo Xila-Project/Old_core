@@ -22,12 +22,13 @@ namespace Xila_Namespace
 
     typedef class Auto_Semaphore_Class Auto_Semaphore_Type;
 
+    /// @brief Semaphore type.
     enum class Semaphore_Type_Type
     {
-        Binary,
-        Counting,
-        Mutex,
-        Recursive_Mutex
+        Binary,         ///< Binary semaphore.
+        Counting,       ///< Counting semaphore.
+        Mutex,          ///< Mutex.
+        Recursive_Mutex ///< Recursive mutex (can be taken multiple times by the same task).
     };
     
     /// @brief Xila Semaphore type.
@@ -111,13 +112,12 @@ namespace Xila_Namespace
         // - - Constructors / destructors
 
         /// @brief Construct a new Auto Semaphore object and take the Semaphore.
-
-        // Auto_Semaphore_Class(Semaphore_Type Semaphore, uint32_t Timeout = 0xFFFFFFFF);
         Auto_Semaphore_Class(Semaphore_Type &Semaphore, uint32_t Timeout = 0xFFFFFFFF);
 
         /// @brief Copy constructor.
         Auto_Semaphore_Class(const Auto_Semaphore_Class &);
 
+        /// @brief Destroy the Auto Semaphore object and give the Semaphore.
         ~Auto_Semaphore_Class();
 
     private:

@@ -1,4 +1,3 @@
-///
 /// @file Account.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief Account management source file.
@@ -6,7 +5,6 @@
 /// @date 08-04-2021
 ///
 /// @copyright Copyright (c) 2021
-///
 
 #include "Account/Accounts.hpp"
 #include "Core.hpp"
@@ -59,9 +57,6 @@ Result_Type Accounts_Class::Create_Registry()
   return Result_Type::Success;
 }
 
-/// @brief Load account registry.
-///
-/// @return Result_Type
 Result_Type Accounts_Class::Load_Registry()
 {
   Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Account"));
@@ -118,10 +113,6 @@ Result_Type Accounts_Class::Save_Registry()
   return Result_Type::Success;
 }
 
-/// @brief A method that set autologin and save account registry.
-///
-/// @param Enable true to enable and false to disable autologin.
-/// @return Result_Type
 Result_Type Accounts_Class::Set_Autologin(bool Enable, const char *Name, const char *Password)
 {
   Drive_Types::File_Type Temporary_File = Drive.Open(Registry("Account"), true);
@@ -157,9 +148,6 @@ Result_Type Accounts_Class::Set_Autologin(bool Enable, const char *Name, const c
   return Result_Type::Success;
 }
 
-/// @brief
-///
-/// @return  const char* Logged username (empty if there's no logged user).
 const User_Type *Accounts_Class::Get_Logged_User()
 {
   for (auto &User : User_List)
@@ -189,12 +177,6 @@ const Accounts_Types::User_Type *Accounts_Class::Get_User(uint8_t Index)
   return &(*User_Iterator);
 }
 
-///
-/// @brief Create a new user (create necessary folder structure and registries).
-///
-/// @param Username Username of the new user.
-/// @param Password Password of the new user.
-/// @return Result_Type
 Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
 {
   Static_String_Type<64> Temporary_String;
@@ -331,10 +313,6 @@ Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
   return Result_Type::Success;
 }
 
-/// @brief Delete a user account.
-///
-/// @param Target_User User to delete.
-/// @return Result_Type
 Result_Type Accounts_Class::Delete(const char *User_Name, const char *Password)
 {
   if (Check_Credentials(User_Name, Password) != Result_Type::Success)
@@ -365,11 +343,6 @@ Result_Type Accounts_Class::Delete(const char *User_Name, const char *Password)
   return Result_Type::Success;
 }
 
-/// @brief Change user account name.
-///
-/// @param Target_User User to rename.
-/// @param New_Username New account name.
-/// @return Result_Type
 Result_Type Accounts_Class::Change_Name(const char *Current_Name, const char *New_Name, const char *Password)
 {
   if (Check_Credentials(Current_Name, Password) == Result_Type::Error)
@@ -413,12 +386,6 @@ Result_Type Accounts_Class::Change_Name(const char *Current_Name, const char *Ne
   return Result_Type::Success;
 }
 
-///
-/// @brief Change user password.
-///
-/// @param Target_User User to change password.
-/// @param Password_To_Set New password.
-/// @return Result_Type
 Result_Type Accounts_Class::Change_Password(const char *Name, const char *Current_Password, const char *New_Password)
 {
   using namespace Xila_Namespace::Mathematics_Types;
@@ -460,11 +427,6 @@ Result_Type Accounts_Class::Change_Password(const char *Name, const char *Curren
   return Result_Type::Success;
 }
 
-/// @brief Check user credentials.
-///
-/// @param Username_To_Check User account name.
-/// @param Password_To_Check User account password.
-/// @return Result_Type
 Result_Type Accounts_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   using namespace Xila_Namespace::Mathematics_Types;
@@ -546,12 +508,6 @@ Result_Type Accounts_Class::Check_Credentials(const char *Username_To_Check, con
   return Result_Type::Error;
 }
 
-///
-/// @brief Login into user account.
-///
-/// @param Username_To_Check User account name.
-/// @param Password_To_Check User account password.
-/// @return Result_Type
 Result_Type Accounts_Class::Login(const char *Name, const char *Password, bool Lock_Other_User)
 {
   // - Check if user is already logged.
