@@ -23,15 +23,6 @@ Software_Handle_Class::~Software_Handle_Class()
 {
 }
 
-bool Software_Handle_Class::Is_Equal(const Software_Handle_Class &Software_Handle) const
-{
-  if (Software_Handle.Name == this->Name)
-  {
-    return true;
-  }
-  return false;
-}
-
 String_Type& Software_Handle_Class::Get_Name(String_Type& Name) const
 {
   Name = this->Name;
