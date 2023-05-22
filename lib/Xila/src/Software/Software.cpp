@@ -21,18 +21,18 @@ std::vector<Software_Class *> Software_Class::List;
 ///
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
-Software_Class::Software_Class(const Software_Handle_Type& Handle_Pointer, const Accounts_Types::User_Type* Owner_User, Size_Type Main_Task_Stack_Size, Size_Type Queue_Size)
+Software_Class::Software_Class(const Software_Handle_Type &Handle_Pointer, const Accounts_Types::User_Type *Owner_User, Size_Type Main_Task_Stack_Size, Size_Type Queue_Size)
     : Module_Class(Queue_Size),
-      Main_Task(this, Start_Main_Task_Function, (const char*)Handle_Pointer.Name, Main_Task_Stack_Size, this),
+      Main_Task(this, Start_Main_Task_Function, (const char *)Handle_Pointer.Name, Main_Task_Stack_Size, this),
       Handle_Pointer(Handle_Pointer),
       Owner_User(Owner_User)
 {
-  if (Handle_Pointer == NULL || Owner_User == NULL)
+  if (!Owner_User)
   {
     delete this;
     return;
   }
-  
+
   List.reserve(10);
   List.push_back(this); // Add software to the list.
 }
@@ -53,23 +53,23 @@ Software_Class::~Software_Class() // Destructor : close
 void Software_Class::Start_Main_Task_Function(void *Instance_Pointer)
 {
   // TODO : Find another way to wait for the constructor to initialize virtual functions -> not safe
-  static_cast<Software_Class*>(Instance_Pointer)->Main_Task.Delay(50);  // Wait for the constructor to initialize virtual functions.
-  static_cast<Software_Class*>(Instance_Pointer)->Main_Task_Function();
+  static_cast<Software_Class *>(Instance_Pointer)->Main_Task.Delay(50); // Wait for the constructor to initialize virtual functions.
+  static_cast<Software_Class *>(Instance_Pointer)->Main_Task_Function();
 }
 
-/// @brief 
+/// @brief
 void Software_Class::Main_Task_Function()
 {
   // If no function is defined, the software will be closed.
   delete this;
 }
 
-const Software_Handle_Type* Software_Class::Get_Handle() const
+const Software_Handle_Type *Software_Class::Get_Handle() const
 {
   return &this->Handle_Pointer;
 }
 
-const Accounts_Types::User_Type* Software_Class::Get_Owner_User() const
+const Accounts_Types::User_Type *Software_Class::Get_Owner_User() const
 {
   return this->Owner_User;
 }
