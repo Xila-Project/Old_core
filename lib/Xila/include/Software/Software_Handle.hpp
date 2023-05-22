@@ -37,22 +37,32 @@ namespace Xila_Namespace
             // - Methods
 
             // - - Constructors / destructor
+
+            Software_Handle_Class() = delete;
+
+            /// @brief Construct a new Software_Handle_Class object
+            /// @param Name 
             Software_Handle_Class(const char *Name);
+
+             /// @brief Destroy the Software_Handle_Class object
             ~Software_Handle_Class();
 
             // - - Getters
+
+            /// @brief Get the software name.
+            /// @param Name 
+            /// @return String_Type String
             String_Type &Get_Name(String_Type &Name) const;
 
+            /// @brief Create a new instance of software.
+            /// @details This function is called by the Accounts module to open a software.
+            /// @param Owner_User 
             virtual void Create_Instance(const Accounts_Types::User_Type *Owner_User) const;
-            bool Is_Equal(const Software_Handle_Class &Software_Handle_To_Compare) const;
-
-            // - - Operators
-            bool operator==(const Software_Handle_Class &Software_Handle_To_Compare) const;
-            bool operator!=(const Software_Handle_Class &Software_Handle) const;
 
         private:
             // - Attributes
 
+            /// @brief A linked list that contains all of the registered softwares handle.
             static std::list<Software_Handle_Class*> List;
 
             /// @brief Software string name.
