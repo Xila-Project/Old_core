@@ -36,7 +36,7 @@ namespace Xila_Namespace
         using Output_Mixer_Type = OutputMixer<Type>;
     }
 
-    /// @brief Sound class API
+    /// @brief Sound class.
     typedef class Sound_Class : public Module_Class
     {
     public:
@@ -106,6 +106,7 @@ namespace Xila_Namespace
         friend class Unit_Test_Class;
     } Sound_Type;
 
+    /// @brief Sound module instance.
     extern Sound_Type Sound;
 };
 

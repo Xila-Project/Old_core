@@ -17,6 +17,7 @@
 
 namespace Xila_Namespace
 {
+    /// @brief Display module class.
     typedef class Display_Class : Module_Class
     {
     public:
@@ -107,6 +108,7 @@ namespace Xila_Namespace
 
     } Display_Type;
 
+    /// @brief Display module instance.
     extern Display_Type Display;
 }
 

@@ -19,11 +19,12 @@ namespace Xila_Namespace
 {
     namespace Drive_Types
     {
+        /// @brief File seek mode type.
         enum class Seek_Mode_Type
         {
-            Set,
-            Current,
-            End
+            Set,        ///< Set the cursor to the given position.
+            Current,    ///< Set the cursor to the current position + the given position.
+            End         ///< Set the cursor to the end of the file - the given position.
         };
 
         typedef class File_Class : public Stream

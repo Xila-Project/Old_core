@@ -1,4 +1,3 @@
-///
 /// @file Pin.hpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
@@ -6,18 +5,15 @@
 /// @date 05-04-2021
 ///
 /// @copyright Copyright (c) 2021
-///
+
 
 #ifndef Pin_Hpp_Included
 #define Pin_Hpp_Included
 
 #include "../Module/Module.hpp"
 #include "Serial.hpp"
+#include "Two_Wire_Interface.hpp"
 
-//==============================================================================//
-///
-/// @brief Pin management class
-///
 
 namespace Xila_Namespace
 {
@@ -60,12 +56,15 @@ namespace Xila_Namespace
 
     };
 
+    /// @brief Pin module class
     typedef class Pin_Class : public Module_Class
     {
     public:
+        // - Methods
+
         // TODO : Transform into a full Object Oriented Object.
 
-        // -- Pin mode
+        // - - Pin mode
 
         /// @brief Set pin mode.
         /// @param Pin Pin to set.
@@ -94,10 +93,14 @@ namespace Xila_Namespace
         /// @return `Result_Type::Success` if the pin is valid, `Result_Type::Error` otherwise.
         Result_Type Valid_Digital_Pin(uint8_t Pin);
 
-
+        /// @brief Get the pulse in time.
+        /// @param Pin Pin to read.
+        /// @param State State to wait for.
+        /// @param Timeout Time to wait for the pulse in milliseconds.
+        /// @return Pulse in time in microseconds.
         uint32_t Get_Pulse_In(uint8_t Pin, Pin_Types::Digital_State_Type State, uint32_t Timeout = 1000000);
 
-        // -- Analog
+        // - - Analog
 
         /// @brief Set a analog value to a pin.
         /// @param Pin Pin to set.
@@ -134,7 +137,7 @@ namespace Xila_Namespace
         /// @param Pin Pin to set.
         void Set_Attenuation(uint8_t Pin, uint8_t Attenuation);
 
-        // -- Interrupts
+        // - - Interrupts
 
         /// @brief Attach an interrupt to a pin.
         /// @param Pin Pin to attach.
@@ -156,6 +159,7 @@ namespace Xila_Namespace
     private:
     } Pin_Type;
 
+    /// @brief Pin module instance.
     extern Pin_Type Pin;
 
 }

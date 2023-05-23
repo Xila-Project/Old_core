@@ -20,22 +20,22 @@ namespace Xila_Namespace
         /// @brief I2S Mode enumeration.
         enum class Mode_Type
         {
-            Undefined = UNDEFINED_MODE,     ///< Undefined mode.
-            Transmit = TX_MODE,             ///< Transmit mode.
-            Receive = RX_MODE,              ///< Receive mode.
-            Receive_Transmit = RXTX_MODE    ///< Receive and transmit mode.
+            Undefined = UNDEFINED_MODE,  ///< Undefined mode.
+            Transmit = TX_MODE,          ///< Transmit mode.
+            Receive = RX_MODE,           ///< Receive mode.
+            Receive_Transmit = RXTX_MODE ///< Receive and transmit mode.
         };
 
         /// @brief I2S Format enumeration.
         enum class Format_Type
         {
-            Standard = I2S_STD_FORMAT,
-            Least_Significant_Bit = I2S_LSB_FORMAT,
-            Most_Significant_Bit = I2S_MSB_FORMAT,
-            Philips = I2S_PHILIPS_FORMAT,
-            Right_Justified = I2S_RIGHT_JUSTIFIED_FORMAT,
-            Left_Justified = I2S_LEFT_JUSTIFIED_FORMAT,
-            Pulse_Code_Modulation = I2S_PCM
+            Standard = I2S_STD_FORMAT,                    ///< Standard format.
+            Least_Significant_Bit = I2S_LSB_FORMAT,       ///< Least significant bit format.
+            Most_Significant_Bit = I2S_MSB_FORMAT,        ///< Most significant bit format.
+            Philips = I2S_PHILIPS_FORMAT,                 ///< Philips format.
+            Right_Justified = I2S_RIGHT_JUSTIFIED_FORMAT, ///< Right justified format.
+            Left_Justified = I2S_LEFT_JUSTIFIED_FORMAT,   ///< Left justified format.
+            Pulse_Code_Modulation = I2S_PCM               ///< Pulse code modulation format.
         };
 
         /// @brief I2S configuration class.
@@ -81,7 +81,6 @@ namespace Xila_Namespace
             {
                 return I2S_Configuration.pin_ws;
             }
-
 
             /// @brief Get I2S bit clock pin.
             /// @return  int I2S bit clock pin.

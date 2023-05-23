@@ -21,13 +21,16 @@ namespace Xila_Namespace
         {
         public:
             // - Methods
-
+            
+            /// @brief Construct a new Volume_Configuration_Class object from a VolumeStreamConfig (legacy).
+            /// @param Volume_Configuration Volume stream configuration to copy.
             Volume_Configuration_Class(const VolumeStreamConfig &Volume_Configuration)
                 : Configuration_Type(&this->Volume_Configuration),
                   Volume_Configuration(Volume_Configuration)
             {
             }
 
+            /// @brief Default constructor.
             Volume_Configuration_Class()
                 : Configuration_Type(&Volume_Configuration),
                   Volume_Configuration()
@@ -36,11 +39,15 @@ namespace Xila_Namespace
 
             // - - Getters
 
+            /// @brief Get
+            /// @return 
             bool Get_Allow_Boost()
             {
                 return Volume_Configuration.allow_boost;
             }
 
+            /// @brief Get the volume value.
+            /// @return Byte_Type Volume value (0-255)
             float Get_Volume()
             {
                 return Volume_Configuration.volume;
@@ -48,11 +55,15 @@ namespace Xila_Namespace
 
             // - - Setters
 
+            /// @brief Set the volume boost.
+            /// @param Allow_Boost Allow boost.
             void Set_Allow_Boost(bool Allow_Boost)
             {
                 Volume_Configuration.allow_boost = Allow_Boost;
             }
 
+            /// @brief Set the volume value.
+            /// @param Volume Volume value (0-255)
             void Set_Volume(float Volume)
             {
                 Volume_Configuration.volume = Volume;
@@ -85,11 +96,17 @@ namespace Xila_Namespace
 
             // - - Operations
 
+            /// @brief Begin the volume stream.
+            /// @param Configuration Volume stream configuration.
+            /// @return Result_Type
             Result_Type Begin(Volume_Configuration_Type Configuration)
             {
                 return (Result_Type)Volume_Stream.begin((audio_tools::I2SConfig &)Configuration);
             }
             
+            /// @brief Begin the volume stream.
+            /// @param Configuration Volume stream configuration.
+            /// @return Result_Type
             Result_Type Begin(Configuration_Type Configuration)
             {
                 return (Result_Type)Volume_Stream.begin((audio_tools::AudioInfo &)Configuration);
@@ -98,11 +115,16 @@ namespace Xila_Namespace
 
             // - - Getters
 
+            /// @brief Get the default volume stream configuration.
+            /// @return Volume_Configuration_Type
             Volume_Configuration_Type Get_Default_Configuration()
             {
                 return Volume_Stream.defaultConfig();
             }
 
+            /// @brief Get the volume stream volume.
+            /// @param Channel Channel to get the volume from (-1 for all channels).
+            /// @return Byte_Type Volume (0-255).
             float Get_Volume(int8_t Channel = -1)
             {
                 if (Channel != -1)
@@ -112,6 +134,9 @@ namespace Xila_Namespace
 
             // - - Setters
 
+            /// @brief Set the volume stream volume.
+            /// @param Volume Volume (0-255).
+            /// @param Channel Channel to set the volume to (-1 for all channels).
             void Set_Volume(float Volume, int8_t Channel = -1)
             {
                 if (Channel != -1)
