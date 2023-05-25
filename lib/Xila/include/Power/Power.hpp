@@ -30,7 +30,7 @@ namespace Xila_Namespace
         };
     }
 
-    typedef class Power_Class : public Module_Class, public Battery_Class
+    typedef class Power_Class : public Module_Class
     {
 
     public:
@@ -61,16 +61,12 @@ namespace Xila_Namespace
         Result_Type Save_Registry();
         Result_Type Load_Registry();
 
-        // - - Task
-        static void Task_Start_Function(void* Instance_Pointer);
-        void Task_Function();
-
        // - Attributes
 
         Task_Type Task;
 
         /// @brief Button press counter.
-        volatile uint8_t Button_Counter;
+        volatile uint8_t Button_Clicked;
 
 
         /// @brief Button press timer, used to differentiate a short press from a long press.

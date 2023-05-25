@@ -30,8 +30,14 @@ namespace Xila_Namespace
         public:
             // - Methods
             // - - Constructors / Destructor
-            File_Player_Class(Sound_Types::Stream_Type& Output_Stream, Drive_Types::File_Type &Input_File, Decoder_Type &Decoder);
 
+            /// @brief File player constructor.
+            /// @param Output_Stream 
+            /// @param Input_File 
+            /// @param Decoder 
+            File_Player_Class(Drive_Types::File_Type &Input_File, Sound_Types::Stream_Type& Output_Stream, Decoder_Type &Decoder);
+
+            File_Player_Class();
 
             // - - Operations
 
@@ -66,20 +72,24 @@ namespace Xila_Namespace
 
             // - - Setters
 
-            /// @brief Set the player time.
-            /// @param Time Time in seconds.
-            void Set_Time(uint32_t Time);
+            void Set(Drive_Types::File_Type &Input_File, Sound_Types::Stream_Type& Output_Stream, Decoder_Type &Decoder);
+
+            void Set_Decoder(Decoder_Type &Decoder);
 
             /// @brief Set the player time.
             /// @param Time Time
             void Set_Time(Time_Type Time);
 
-            void Set_Input_File(Drive_Types::File_Type &Input_Stream);
+            /// @brief Set the player time.
+            /// @param Time Time in seconds.
+            void Set_Time(uint32_t Time);   // ! : Last for Berry
+
+            void Set_File(Drive_Types::File_Type &Input_Stream);
 
             void Set_Output_Stream(Sound_Types::Stream_Type& Output_Stream);
 
         private:
-            Decoder_Type& Decoder;
+            Decoder_Type* Decoder;
             Drive_Types::File_Type Input_File;
             Encoded_Stream_Type Encoded_Stream;
             Stream_Copier_Type Stream_Copier;

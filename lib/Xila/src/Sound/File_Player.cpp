@@ -11,21 +11,60 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Sound_Types;
 
-File_Player_Class::File_Player_Class(Sound_Types::Stream_Type& Output_Stream, Drive_Types::File_Type &Input_File, Decoder_Type &Decoder)
+File_Player_Class::File_Player_Class(Drive_Types::File_Type &Input_File, Sound_Types::Stream_Type &Output_Stream, Decoder_Type &Decoder)
     : Stream_Type(Encoded_Stream),
-    Encoded_Stream(&(AudioStream&)Output_Stream, &(AudioDecoder&)Decoder),
-      Decoder(Decoder),
+      Encoded_Stream(&(AudioStream &)Output_Stream, &(AudioDecoder &)Decoder),
+      Decoder(&Decoder),
       Input_File(Input_File),
       Stream_Copier(Encoded_Stream, this->Input_File)
 {
     Encoded_Stream.setNotifyAudioChange(Output_Stream);
 }
 
+File_Player_Class::File_Player_Class()
+    : Stream_Type(Encoded_Stream),
+    Decoder(NULL)
+{
+
+}
+
+void File_Player_Class::Set_Decoder(Decoder_Type &Decoder)
+{
+    this->Decoder = &Decoder;
+    Encoded_Stream.setDecoder(&(AudioDecoder &)Decoder);
+}
+
+void File_Player_Class::Set_Output_Stream(Sound_Types::Stream_Type &Output_Stream)
+{
+    Encoded_Stream.setOutput(&(AudioStream &)Output_Stream);
+    Encoded_Stream.setNotifyAudioChange(Output_Stream);
+}
+
+void File_Player_Class::Set(Drive_Types::File_Type &Input_File, Sound_Types::Stream_Type &Output_Stream, Decoder_Type &Decoder)
+{
+    Encoded_Stream.setOutput(&(AudioStream &)Output_Stream);
+    Encoded_Stream.setDecoder(&(AudioDecoder &)Decoder);
+    this->Decoder = &Decoder;
+    this->Input_File = Input_File;
+    Encoded_Stream.setNotifyAudioChange(Output_Stream);
+    Stream_Copier.end();
+    Stream_Copier.begin(Encoded_Stream, this->Input_File);
+}
+
+void File_Player_Class::Set_File(Drive_Types::File_Type &Input_File)
+{
+    if (!Input_File.Is_Valid())
+        return;
+    this->Input_File = Input_File;
+    Stream_Copier.end();
+    Stream_Copier.begin(Encoded_Stream, this->Input_File);
+}
+
 /// @brief Set the player time.
 /// @param Time Time in seconds.
 void File_Player_Class::Set_Time(uint32_t Time)
 {
-    Input_File.Seek((30 * Get_Sample_Rate() * Get_Channels() * (Get_Bits_Per_Sample() / 8)) + 44);
+    Input_File.Seek((Time * Get_Sample_Rate() * Get_Channels() * (Get_Bits_Per_Sample() / 8)) + 44);
 }
 
 /// @brief Set the player time.
@@ -69,26 +108,17 @@ Size_Type File_Player_Class::Loop()
     return Stream_Copier.copy();
 }
 
-void File_Player_Class::Set_Input_File(Drive_Types::File_Type &Input_Stream)
-{
-
-}
-
-void File_Player_Class::Set_Output_Stream(Sound_Types::Stream_Type& Output_Stream)
-{
-}
-
 int File_Player_Class::Get_Sample_Rate()
 {
-    return Decoder.Get_Configuration().Get_Sample_Rate();
+    return Decoder->Get_Configuration().Get_Sample_Rate();
 }
 
 int File_Player_Class::Get_Bits_Per_Sample()
 {
-    return Decoder.Get_Configuration().Get_Bits_Per_Sample();
+    return Decoder->Get_Configuration().Get_Bits_Per_Sample();
 }
 
 int File_Player_Class::Get_Channels()
 {
-    return Decoder.Get_Configuration().Get_Channel_Count();
+    return Decoder->Get_Configuration().Get_Channel_Count();
 }

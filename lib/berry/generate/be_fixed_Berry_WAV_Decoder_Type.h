@@ -1,8 +1,8 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_WAV_Decoder_Type_map) {
-    { be_const_key(init, -1), be_const_ctype_func(Berry_WAV_Decoder_Class_Initialize_6ED44695_855A_44DB_B446_C839B9B7F35C) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_WAV_Decoder_Class_Deinitialize_9667D83F_B169_41DA_A9EC_4D3A1BC54F74) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_WAV_Decoder_Class_Initialize_FA1036E2_52BB_42F9_875F_D766E803D2A5) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_WAV_Decoder_Class_Deinitialize_40BFC597_C0F4_4DAB_A573_AF15F5634087) },
     { be_const_key(_p, -1), be_const_var(0) },
 };
 

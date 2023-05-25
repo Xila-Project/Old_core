@@ -34,12 +34,12 @@ namespace Xila_Namespace
 
             // - - Constructors / destructor
 
-            /// @brief Default constructor.
-            File_Class();
-
             /// @brief Constructor from a `fs::File` object.
             /// @param File `fs::File` object.
             File_Class(fs::File File);
+
+            /// @brief Default constructor.
+            File_Class();
 
             // - - Stream methods override
 

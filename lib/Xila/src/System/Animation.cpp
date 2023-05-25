@@ -86,26 +86,31 @@ void System_Class::Start_Load_Animation(Object_Type *Logo, Graphics_Types::Anima
 
 void System_Class::Stop_Load_Animation(Object_Type *Logo, Graphics_Types::Animation_Type *Animation)
 {
-  // - Play startup sound
-  Drive_Types::File_Type Startup_Sound = Drive.Open("/Xila/Sounds/Startup.wav");
+  {
+    // - Play startup sound
+    Drive_Types::File_Type Startup_Sound = Drive.Open("/Xila/Sounds/Startup.wav");
 
-  auto Output_Stream = Sound.Get_Current_Output_Stream();
+    auto Output_Stream = Sound.Get_Current_Output_Stream();
 
+    Log_Verbose("System", "Output stream : %p", Output_Stream);
 
-  Sound_Types::WAV_Decoder_Type WAV_Decoder;
-  Sound_Types::File_Player_Type File_Player(Output_Stream, Startup_Sound, WAV_Decoder);
+    Sound_Types::WAV_Decoder_Type WAV_Decoder;
+    // Sound_Types::File_Player_Type File_Player(Startup_Sound, Output_Stream, WAV_Decoder);
+    Sound_Types::File_Player_Class File_Player;
 
+    File_Player.Set(Startup_Sound, Output_Stream, WAV_Decoder);
 
+    File_Player.Begin();
 
+    File_Player.Loop();
 
-  File_Player.Begin();
+    while (File_Player.Loop() != 0)
+    {
+      Task.Delay(1);
+    }
 
- File_Player.Loop();
-
- while (File_Player.Loop() != 0)
- {
-   Task.Delay(1);
- }
+    File_Player.End();
+  }
 
   if (Animation != NULL)
   {

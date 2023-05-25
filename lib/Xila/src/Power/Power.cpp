@@ -13,28 +13,27 @@
 #include "Power/Power.hpp"
 #include "Log/Log.hpp"
 
-
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Power_Types;
 
 Power_Type Xila_Namespace::Power;
 
 /// @brief Construct a new Xila_Class::Power_Class::Power_Class object
-Power_Class::Power_Class() : Button_Counter(0), Button_Timer(0), Task(this)
+Power_Class::Power_Class() : Button_Clicked(0), Button_Timer(0), Task(this)
 {
 }
 
 Power_Class::~Power_Class()
 {
-
-    
 }
 
 Result_Type Power_Class::Start()
 {
     Log_Information("Power", "Start power module...");
-    Pin.Set_Mode(Power_Button_Pin, Pin_Types::Mode_Type::Input);
-    Pin.Attach_Interrupt(Power_Button_Pin, Button_Interrupt_Handler,  Pin_Types::Interrupt_Mode_Type::Change);
+#ifdef Xila_Power_Button_Default_Pin
+    Pin.Set_Mode(Xila_Power_Button_Default_Pin, Pin_Types::Mode_Type::Input);
+    Pin.Attach_Interrupt(Xila_Power_Button_Default_Pin, Button_Interrupt_Handler, Pin_Types::Interrupt_Mode_Type::Change);
+#endif
 
     if (Task.Get_State() == Task_Type::State_Type::Running)
     {
@@ -43,31 +42,14 @@ Result_Type Power_Class::Start()
 
     if (Load_Registry() != Result_Type::Success)
     {
-        if (Create_Registry() != Result_Type::Success)
-        {
-            return Result_Type::Error;
-        }
+        // if (Create_Registry() != Result_Type::Success)
+        //{
+        // return Result_Type::Error;
+        //}
+        Create_Registry();
     }
 
     return Result_Type::Success;
-
-    return Task.Create(Task_Start_Function, "Power module", 8 * 1024, this, Task_Priority_Type::System);;
-}
-
-void Power_Class::Task_Start_Function(void* Instance_Pointer)
-{
-    static_cast<Power_Class*>(Instance_Pointer)->Task_Function();
-}
-
-void Power_Class::Task_Function()
-{
-    while (true)
-    {
-        Log_Verbose("Power", "Check button...");
-        Check_Button();
-        Log_Verbose("Power", "Check button 2...");
-        Task.Delay(40);
-    }
 }
 
 Result_Type Power_Class::Stop()
@@ -76,7 +58,6 @@ Result_Type Power_Class::Stop()
     {
         Task.Delete();
     }
-
 
     if (Save_Registry() != Result_Type::Success)
     {
@@ -104,11 +85,13 @@ Result_Type Power_Class::Load_Registry()
     }
     Registry_File.Close();
 
-    // - Get values from registry
-    Set_Sessing_Pin(Power_Registry["Sensing Pin"] | Default_Battery_Sensing_Pin);
-    Set_Voltages(Power_Registry["Minimum Voltage"] | Default_Battery_Minimum_Voltage, Power_Registry["Maximum Voltage"] | Default_Battery_Maximum_Voltage);
-    Set_Conversion_Factor(Power_Registry["Conversion Factor"] | Default_Battery_Conversion_Factor);
-    
+// - Get values from registry
+//#ifdef Xila_Power_Default_Battery_Sensing_Pin
+//    Set_Sessing_Pin(Power_Registry["Sensing Pin"] | Xila_Power_Battery_Default_Sensing_Pin);
+//    Set_Voltages(Power_Registry["Minimum Voltage"] | Xila_Power_Default_Battery_Minimum_Voltage, Power_Registry["Maximum Voltage"] | Xila_Power_Default_Battery_Maximum_Voltage);
+//    Set_Conversion_Factor(Power_Registry["Conversion Factor"] | Xila_Power_Default_Battery_Conversion_Factor);
+//#endif
+
     return Result_Type::Success;
 }
 
@@ -126,7 +109,7 @@ Result_Type Power_Class::Create_Registry()
 
     // - Open registry file
     Drive_Types::File_Type Registry_File = Drive.Open(Registry("Power"), true);
-    
+
     // - Write registry
     if (!Registry_File || (serializeJson(Power_Registry, Registry_File) == 0))
     {
@@ -154,10 +137,12 @@ Result_Type Power_Class::Save_Registry()
     Registry_File.Close();
 
     // - Set values in registry
+    /*
     Power_Registry["Minimum Voltage"] = Get_Minimum_Voltage();
     Power_Registry["Maximum Voltage"] = Get_Maximum_Voltage();
     Power_Registry["Sensing Pin"] = Get_Sensing_Pin();
     Power_Registry["Conversion Factor"] = Get_Conversion_Factor();
+    */
 
     // - Write registry
     if (serializeJson(Power_Registry, Registry_File) == 0)
@@ -173,34 +158,36 @@ Result_Type Power_Class::Save_Registry()
 
 void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
 {
+#ifdef Xila_Power_Button_Default_Pin
     using namespace Xila_Namespace::Pin_Types;
-    
-    //vTaskEnterCritical(&Power.Button_Mutex);
 
-    // - Rising edge
-    if (Pin.Digital_Read(Power_Button_Pin) == Digital_State_Type::High) // rise
+    // vTaskEnterCritical(&Power.Button_Mutex);
+
+    // - Released button (Falling edge )
+    if (Pin.Digital_Read(Xila_Power_Button_Default_Pin) == Digital_State_Type::Low) // rise
     {
         // - If button is long pressed.
-        if (Power.Button_Timer != 0 && Power.Button_Timer < System.Get_Up_Time_Milliseconds())
+        if (Power.Button_Timer != 0 && Power.Button_Timer <= System.Get_Up_Time_Milliseconds())
         {
-            Power.Button_Counter = 0;
-            Power.Deep_Sleep();
+            Power.Button_Clicked = 0;
+            Power.Restart();
         }
         // - If button is pressed.
         else
         {
             Power.Button_Timer = 0;
-            Power.Button_Counter = 1;
+            Power.Button_Clicked = 1;
         }
     }
-    // - Released button (Falling edge )
+    // - Rising edge
     else
     {
-        Power.Button_Timer = System.Get_Up_Time_Milliseconds() + Default_Button_Long_Press;
-        Power.Button_Counter = 0;
+        Power.Button_Timer = System.Get_Up_Time_Milliseconds() + Xila_Power_Button_Default_Long_Press_Time;
+        Power.Button_Clicked = 0;
     }
 
-    //vTaskExitCritical(&Power.Button_Mutex);
+    // vTaskExitCritical(&Power.Button_Mutex);
+#endif
 }
 
 ///
@@ -208,14 +195,14 @@ void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
 ///
 void Power_Class::Check_Button()
 {
-    if (Button_Counter != 0)
+    if (Button_Clicked != 0)
     {
         Log_Verbose("Power", "Button pressed.");
         Instruction_Type Instruction(this, NULL);
         Instruction.Power.Set_Code(Event_Code_Type::Power_Button_Pressed);
         Softwares.Send_Instruction_User_Softwares(Accounts.Get_Logged_User(), Instruction);
-    
-        Button_Counter = 0;
+
+        Button_Clicked = 0;
     }
 }
 
@@ -223,7 +210,7 @@ void Power_Class::Check_Button()
 void Power_Class::Deep_Sleep()
 {
     Log_Information("Power", "Going into deep-sleep.");
-    
+
     /*Display.Set_Serial_Wake_Up(true);
     Display.Set_Touch_Wake_Up(false);
     Display.Set_Current_Page(F("Core_Load"));
@@ -233,7 +220,9 @@ void Power_Class::Deep_Sleep()
     Drive.End();
 
     Task_Type::Delay_Static(10);
-    esp_sleep_enable_ext0_wakeup((gpio_num_t)Power_Button_Pin, LOW);
+#ifdef Xila_Power_Button_Default_Pin
+    esp_sleep_enable_ext0_wakeup((gpio_num_t)Xila_Power_Button_Default_Pin, LOW);
+#endif
     esp_deep_sleep_start();
 }
 

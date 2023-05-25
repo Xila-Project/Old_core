@@ -1,16 +1,16 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Color_Wheel_Type_map) {
-    { be_const_key(Get_Color, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Get_Color_DF72FB66_65E4_4289_9302_5CC48C3F8159) },
-    { be_const_key(Set_Color, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Set_Color_DC6CAF10_53FB_4974_A492_801B89AC4C8B) },
-    { be_const_key(deinit, 8), be_const_ctype_func(Berry_Color_Wheel_Class_Deinitialize_EBC3E288_1654_4271_A435_95936FC22549) },
-    { be_const_key(Set_Mode, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Set_Mode_27C9F0B0_CDFA_42FB_8BF6_9C2E51BFE769) },
-    { be_const_key(Get_Mode_Fixed, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Get_Mode_Fixed_C15BE72D_937E_4E0B_9954_E50BF5DA2651) },
-    { be_const_key(init, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Initialize_AB8D07F7_66B7_4E52_A20C_F350E59F8168) },
-    { be_const_key(Set_Mode_Fixed, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Set_Mode_Fixed_628E2B20_5B5E_426D_A1C0_B7ED484E4B9B) },
-    { be_const_key(Get_Mode, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Get_Mode_7E41E3B2_3C28_4758_BB90_A853BD5F44BE) },
+    { be_const_key(Get_Color, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Get_Color_5BD9300D_1A5A_4819_B1EB_3D2AD1453E74) },
+    { be_const_key(Set_Color, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Set_Color_A3ED7E77_3205_4ACB_BCB7_DF3BCFF0E6FB) },
+    { be_const_key(deinit, 8), be_const_ctype_func(Berry_Color_Wheel_Class_Deinitialize_6009E1CF_926D_4563_AABD_C7EDDFF98C28) },
+    { be_const_key(Set_Mode, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Set_Mode_0234F6CA_C029_467D_BF91_41604A764D20) },
+    { be_const_key(Get_Mode_Fixed, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Get_Mode_Fixed_0A7DA18C_E909_4830_A592_30195B8EEA7F) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Initialize_46ADA395_374C_4639_B6D6_DD3ED5064F46) },
+    { be_const_key(Set_Mode_Fixed, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Set_Mode_Fixed_FF113907_11B8_4A6B_8540_D3FE45DB862D) },
+    { be_const_key(Get_Mode, -1), be_const_ctype_func(Berry_Color_Wheel_Class_Get_Mode_181922DF_B18D_4D5E_BAEE_8999D735B0F0) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Create, 0), be_const_ctype_func(Berry_Color_Wheel_Class_Create_D4B77EA2_54CB_464C_AD92_D66ACAA265A3) },
+    { be_const_key(Create, 0), be_const_ctype_func(Berry_Color_Wheel_Class_Create_E83E5B2B_6A64_4513_BF98_B9C71DBA6D0F) },
 };
 
 static be_define_const_map(

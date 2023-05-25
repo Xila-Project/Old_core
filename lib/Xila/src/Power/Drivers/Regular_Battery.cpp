@@ -8,26 +8,30 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#if Power_Hardware == Regular_Battery
-
 #include "Power/Power.hpp"
 
 #include "Battery_Library.hpp"
 
-//Battery_Class Battery(Default_Battery_Sensing_Pin, Default_Battery_Minimum_Voltage, Default_Battery_Maximum_Voltage, Default_Battery_Conversion_Factor);
+#ifdef Xila_Power_Battery_Default_Sensing_Pin
+Battery_Class Battery(Xila_Power_Battery_Default_Sensing_Pin, Xila_Power_Battery_Default_Minimum_Voltage, Xila_Power_Battery_Default_Maximum_Voltage, Xila_Power_Battery_Default_Conversion_Factor);
+#endif
 
 using namespace Xila_Namespace;
 
 uint8_t Power_Class::Get_Battery_Charge_Level()
 {
-    //return Battery.Get_Charge_Level();
-    return 0;
+#ifdef Xila_Power_Battery_Default_Sensing_Pin
+    return Battery.Get_Charge_Level();
+#else
+    return 100;
+#endif
 }
 
 uint16_t Power_Class::Get_Battery_Voltage()
 {
-    //return Battery.Get_Voltage();
+#ifdef Xila_Power_Battery_Default_Sensing_Pin
+    return Battery.Get_Voltage();
+#else
     return 0;
-}
-
 #endif
+}

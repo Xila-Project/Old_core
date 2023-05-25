@@ -63,12 +63,14 @@ void System_Class::Task_Function()
 
     // Log_Information("System", "Memory usage : %u | PSRAM usage : %u %", Memory.Get_Free_Heap(), Memory.Get_PSRAM_Size() - Memory.Get_Free_PSRAM());
     
+    Power.Check_Button();
+
     if (Memory.Get_Free_Heap() < Low_Memory_Threshold)
     {
       System.Panic_Handler(Panic_Type::Low_Memory);
     }
 
-    Task.Delay(1000);
+    Task.Delay(500);
   }
 }
 
@@ -216,7 +218,9 @@ void System_Class::Start()
   Log_Information("System", "Starting Xila ...");
 
   // Enable the power button.
-  esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(Power_Button_Pin), LOW);
+#ifdef Xila_Power_Button_Default_Pin
+  esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(Xila_Power_Button_Default_Pin), LOW);
+#endif
 
   if (Task.Get_State() != Task_Class::State_Type::Invalid) // Already started
   {

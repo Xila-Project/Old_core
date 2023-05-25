@@ -1,18 +1,18 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Configuration_Type_map) {
-    { be_const_key(Set_Bits_Per_Sample, 8), be_const_ctype_func(Berry_Configuration_Class_Set_Bits_Per_Sample_6DF93316_7B7A_4633_8BC0_0CB107CF1238) },
-    { be_const_key(Get_Sample_Rate, -1), be_const_ctype_func(Berry_Configuration_Class_Get_Sample_Rate_216A92FB_DAAD_41A3_AC25_2B185D2C8CD8) },
+    { be_const_key(Set_Bits_Per_Sample, 8), be_const_ctype_func(Berry_Configuration_Class_Set_Bits_Per_Sample_8DB89FEF_9634_4027_931B_E2E21A66A058) },
+    { be_const_key(Get_Sample_Rate, -1), be_const_ctype_func(Berry_Configuration_Class_Get_Sample_Rate_B7A52A6A_AA4F_49A0_865B_8B437A3DDD3C) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(init, 5), be_const_ctype_func(Berry_Configuration_Class_Initialize_E31ADF48_4510_4F21_B2B2_3717B0CEFA02) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Configuration_Class_Deinitialize_6035A0C6_8DDA_40A0_A708_AE378FE57D38) },
-    { be_const_key(Get_Bits_Per_Sample, 10), be_const_ctype_func(Berry_Configuration_Class_Get_Bits_Per_Sample_5D708B48_04B6_43F0_AFF0_F32DEA44FD26) },
-    { be_const_key(_X21_X3D, -1), be_const_ctype_func(Berry_Configuration_Class_Operator_5AD9E2FE_569C_4243_AF6D_1FA6364751A7) },
-    { be_const_key(Set, 6), be_const_ctype_func(Berry_Configuration_Class_Set_45781474_4651_47EF_A3CE_9C8E086BFC38) },
-    { be_const_key(_X3D_X3D, -1), be_const_ctype_func(Berry_Configuration_Class_Operator_A264477F_041B_40C2_A75B_4F45EC94DB09) },
-    { be_const_key(Set_Sample_Rate, -1), be_const_ctype_func(Berry_Configuration_Class_Set_Sample_Rate_33764F5D_E3BB_46CC_B45B_317096EC91BA) },
-    { be_const_key(Get_Channel_Count, -1), be_const_ctype_func(Berry_Configuration_Class_Get_Channel_Count_9A719E4C_E47C_4EB0_AB30_AE749F520759) },
-    { be_const_key(Set_Channel_Count, 0), be_const_ctype_func(Berry_Configuration_Class_Set_Channel_Count_67252603_3D04_40A5_A347_4FBF2CC2E6B8) },
+    { be_const_key(init, 5), be_const_ctype_func(Berry_Configuration_Class_Initialize_27627F23_1D2B_4479_971A_45DA4F190F2C) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Configuration_Class_Deinitialize_F8D8B33B_075C_441E_A4B2_8A945E3B2EC9) },
+    { be_const_key(Get_Bits_Per_Sample, 10), be_const_ctype_func(Berry_Configuration_Class_Get_Bits_Per_Sample_4AA9CE2D_1509_4418_A038_3EC1C758CCD6) },
+    { be_const_key(_X21_X3D, -1), be_const_ctype_func(Berry_Configuration_Class_Operator_94275D30_7C50_47D6_A42B_92F1F606DD95) },
+    { be_const_key(Set, 6), be_const_ctype_func(Berry_Configuration_Class_Set_D8FC70D1_71FA_47E6_9DCD_9E49550AA154) },
+    { be_const_key(_X3D_X3D, -1), be_const_ctype_func(Berry_Configuration_Class_Operator_BB74E7B3_4F37_4352_9FD0_AE73818CD88D) },
+    { be_const_key(Set_Sample_Rate, -1), be_const_ctype_func(Berry_Configuration_Class_Set_Sample_Rate_8BD4936B_118D_48F6_A677_EA2906519792) },
+    { be_const_key(Get_Channel_Count, -1), be_const_ctype_func(Berry_Configuration_Class_Get_Channel_Count_BAA54565_638D_4E72_90B4_111558DB9881) },
+    { be_const_key(Set_Channel_Count, 0), be_const_ctype_func(Berry_Configuration_Class_Set_Channel_Count_9A95558D_E900_443E_999B_5ABD9A0025E8) },
 };
 
 static be_define_const_map(

@@ -1,18 +1,18 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Keyboard_Type_map) {
-    { be_const_key(Remove_Text_Area, -1), be_const_ctype_func(Berry_Keyboard_Class_Remove_Text_Area_00635D78_D811_4285_BF61_9F95B4997C9E) },
-    { be_const_key(Set_Text_Area, -1), be_const_ctype_func(Berry_Keyboard_Class_Set_Text_Area_96AC0C11_EE74_411D_848D_1916E8EED99B) },
+    { be_const_key(Remove_Text_Area, -1), be_const_ctype_func(Berry_Keyboard_Class_Remove_Text_Area_E1FB0495_8787_4291_8014_9967A2505B73) },
+    { be_const_key(Set_Text_Area, -1), be_const_ctype_func(Berry_Keyboard_Class_Set_Text_Area_71A259BD_2F94_4A62_8FA2_469F4003B54D) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(init, 5), be_const_ctype_func(Berry_Keyboard_Class_Initialize_80CAC7B3_D014_4C27_9BC2_729AC2F7DB6A) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Keyboard_Class_Deinitialize_016E6F20_772B_4D30_8991_BB04D4C2335F) },
-    { be_const_key(Set_Pop_Overs, -1), be_const_ctype_func(Berry_Keyboard_Class_Set_Pop_Overs_E1B7FE0E_E405_4FE9_8DD7_9ABE1013EB65) },
-    { be_const_key(Get_Button_Text, -1), be_const_ctype_func(Berry_Keyboard_Class_Get_Button_Text_D38287B0_038F_468B_A62B_84C95B17241B) },
-    { be_const_key(Get_Mode, -1), be_const_ctype_func(Berry_Keyboard_Class_Get_Mode_E380C554_E31C_4932_89FB_60241E4FC663) },
-    { be_const_key(Create, -1), be_const_ctype_func(Berry_Keyboard_Class_Create_1A8F35D3_3BEB_40E4_A24B_C86B8E55608E) },
-    { be_const_key(Get_Text_Area, 8), be_const_ctype_func(Berry_Keyboard_Class_Get_Text_Area_21EF4C9B_E0BC_4943_874B_73C727B6AC8C) },
-    { be_const_key(Get_Selected_Button, -1), be_const_ctype_func(Berry_Keyboard_Class_Get_Selected_Button_FB9C338D_3893_419F_8216_7932CC0FDA12) },
-    { be_const_key(Set_Mode, 0), be_const_ctype_func(Berry_Keyboard_Class_Set_Mode_6023AABF_339B_4FD2_AC44_574B8471A327) },
+    { be_const_key(init, 5), be_const_ctype_func(Berry_Keyboard_Class_Initialize_17A89D76_6C3D_4BC5_8D3A_AA5BF4E4D620) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Keyboard_Class_Deinitialize_626641DC_C301_4C4C_8117_81AE5CBB067E) },
+    { be_const_key(Set_Pop_Overs, -1), be_const_ctype_func(Berry_Keyboard_Class_Set_Pop_Overs_E8BF26CF_1817_4F82_AA2E_2B8442558E38) },
+    { be_const_key(Get_Button_Text, -1), be_const_ctype_func(Berry_Keyboard_Class_Get_Button_Text_8AF608FD_D0EC_4A74_B25E_EB3EE6CEDE6F) },
+    { be_const_key(Get_Mode, -1), be_const_ctype_func(Berry_Keyboard_Class_Get_Mode_52439F3C_3D3C_4C49_A51F_0C3441A9373A) },
+    { be_const_key(Create, -1), be_const_ctype_func(Berry_Keyboard_Class_Create_D6ACC44D_5110_47D4_B2EC_A78712FB209B) },
+    { be_const_key(Get_Text_Area, 8), be_const_ctype_func(Berry_Keyboard_Class_Get_Text_Area_C410E2C7_8E36_43FD_91C9_5A4D896313E1) },
+    { be_const_key(Get_Selected_Button, -1), be_const_ctype_func(Berry_Keyboard_Class_Get_Selected_Button_96EC0964_45BC_4D06_882F_B2F726A8D9DA) },
+    { be_const_key(Set_Mode, 0), be_const_ctype_func(Berry_Keyboard_Class_Set_Mode_1D48E840_9011_4114_A9D7_9907EAF4E87C) },
 };
 
 static be_define_const_map(
