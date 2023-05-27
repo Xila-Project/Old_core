@@ -17,7 +17,8 @@ namespace Xila_Namespace
 
     // - Forward declarations
 
-    class Module_Class;
+    typedef class Module_Class Module_Type;
+
 
     namespace Graphics_Types { typedef class Object_Class Object_Type; };
 

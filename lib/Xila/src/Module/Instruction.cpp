@@ -18,7 +18,7 @@ using namespace Xila_Namespace;
 
 // - Instruction class
 
-Instruction_Class::Instruction_Class(Module_Class *Sender, Module_Class *Receiver)
+Instruction_Class::Instruction_Class(Module_Type *Sender, Module_Type *Receiver)
     : Sender(Sender),
       Receiver(Receiver)
 {
@@ -33,22 +33,22 @@ Instruction_Class::Instruction_Class()
 Instruction_Class::~Instruction_Class()
 {}
 
-Module_Class *Instruction_Class::Get_Sender() const
+Module_Type *Instruction_Class::Get_Sender() const
 {
     return Sender;
 }
 
-Module_Class *Instruction_Class::Get_Receiver() const
+Module_Type *Instruction_Class::Get_Receiver() const
 {
     return Receiver;
 }
 
-void Instruction_Class::Set_Sender(Module_Class *Sender)
+void Instruction_Class::Set_Sender(Module_Type *Sender)
 {
     this->Sender = Sender;
 }
 
-void Instruction_Class::Set_Receiver(Module_Class *Receiver)
+void Instruction_Class::Set_Receiver(Module_Type *Receiver)
 {
     this->Receiver = Receiver;
 }
