@@ -1,4 +1,3 @@
-///
 /// @file Task.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
@@ -6,7 +5,6 @@
 /// @date 19-07-2022
 ///
 /// @copyright Copyright (c) 2022
-///
 
 // - Includes
 
@@ -52,9 +50,6 @@ Size_Type Module_Class::Instruction_Available()
     return uxQueueMessagesWaiting(Instruction_Queue_Handle);
 }
 
-/// @brief Return last instruction from the instructions queue.
-///
-/// @return Xila_Class::Instruction Software instruction.
 Instruction_Type Module_Class::Get_Instruction()
 {
     static Instruction_Type Current_Instruction;

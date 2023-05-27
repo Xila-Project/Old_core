@@ -34,6 +34,9 @@ namespace Xila_Namespace
 
         // - - Operations
 
+        /// @brief Send an item to the queue.
+        /// @param Item_To_Send Item to send.
+        /// @param Time Timeout to send the item in milliseconds.
         void Send(const void* Item_To_Send, uint32_t Time = 0xFFFFFFFF);
         void Send_To_Back(const void* Item_To_Send, uint32_t Time = 0xFFFFFFFF);
         void Send_To_Front(const void* Item_To_Send, uint32_t Time = 0xFFFFFFFF);

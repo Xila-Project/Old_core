@@ -22,6 +22,9 @@ namespace Xila_Namespace
     public:
         Log_Class();
 
+        /// @brief Print a message to the log.
+        /// @param Format Format of the message.
+        /// @param  Arguments Arguments of the message.
         void Print(const char *Format, ...)
         {
            // if (!Semaphore.Is_Valid())
@@ -41,6 +44,9 @@ namespace Xila_Namespace
             //xSemaphoreGive(Semaphore_Handle);
         };
 
+        /// @brief Print a message to the log.
+        /// @param Format Format of the message.
+        /// @param  Arguments Arguments of the message.
         static inline void Print_Static(const char *Format, ...)
         {
             va_list Arguments;

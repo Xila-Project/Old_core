@@ -23,12 +23,13 @@ namespace Xila_Namespace
 
     namespace Graphics_Types
     {
+        /// @brief Window event codes.
         enum class Window_State_Type
         {
-            Minimized,
-            Windowed,
-            Maximized,
-            Full_screen
+            Minimized,  ///< Window is minimized.
+            Windowed,   ///< Window is windowed.
+            Maximized,  ///< Window is maximized.
+            Full_screen ///< Window is full screen.
         };
 
         typedef class Window_Class : public Object_Class
@@ -49,9 +50,11 @@ namespace Xila_Namespace
             virtual void Create(Object_Class Parent_Object) override;
 
             /// @brief Create a new parent window for software.
+            /// @param Owner_Module Pointer to the software that owns the window (usually `this`).
             virtual void Create(const Softwares_Types::Software_Type *Owner_Module);
 
-
+            /// @brief Delete the window.
+            /// @param Asynchronous If true, the deletion will be asynchronous.
             virtual void Delete(bool Asynchronous = false) override;
 
             // - - Setters
@@ -71,8 +74,12 @@ namespace Xila_Namespace
 
             // - - Getters
 
+            /// @brief Set the state of the minimize button.
+            /// @param Hidden State of the minimize button.
             void Set_Minimize_Button_Hidden(bool Hidden);
 
+            /// @brief Set the state of the close button.
+            /// @param Hidden State of the close button.
             void Set_Close_Button_Hidden(bool Hidden);
 
             /// @brief Get the state of the window.
@@ -94,24 +101,29 @@ namespace Xila_Namespace
             /// @brief Get the minimize button of the window.
             /// @return Minimize button of the window.
             Button_Type Get_Minimize_Button();
-    
+
             /// @brief Get the title label of the window.
             /// @return Title label of the window.
             const Softwares_Types::Software_Type *Get_Owner_Software() const;
 
-            static void Event_Callback(lv_event_t* Event);
+            /// @brief Window event callback.
+            /// @param Event Pointer to the event.
+            static void Event_Callback(lv_event_t *Event);
 
             // - Attributes
 
             /// @brief Custom LVGL class for Window (almost identical to object class).
             static const Class_Type Class;
 
-
         protected:
             // - Methods
             // - - Setters
+
+            /// @brief Set the interface of the object.
             void Set_Interface();
 
+            /// @brief Custom data structure for window that contains all the data.
+            /// @note This structure is registered in the LVGL user data.
             typedef struct Data_Structure
             {
                 Object_Type Header;
@@ -122,8 +134,8 @@ namespace Xila_Namespace
                 const Softwares_Types::Software_Type *Owner_Software;
             } Data_Type;
 
-            Data_Type* Data;
-
+            /// @brief Pointer to the data structure.
+            Data_Type *Data;
         } Window_Type;
 
     };

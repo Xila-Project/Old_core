@@ -63,7 +63,7 @@ namespace Xila_Namespace
         // - - Getters
 
         /// @brief Return last instruction from the instructions queue.
-        /// @return Instruction Software instruction.
+        /// @return Instruction_Type.
         Instruction_Type Get_Instruction();
 
     private:

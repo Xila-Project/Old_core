@@ -53,7 +53,7 @@ namespace Xila_Namespace
             // - - Getters
 
             /// @brief Get the code of a graphics event.
-            /// @return `Graphics_Types::Event_Code_Type` Code of the instruction.
+            /// @return `Graphics_Types::Event_Code_Type`.
             Graphics_Types::Event_Code_Type Get_Code() const;
 
             /// @brief Get the original target of a graphics event.
@@ -65,8 +65,17 @@ namespace Xila_Namespace
             Graphics_Types::Object_Type Get_Current_Target() const;
         private:
             // - - Setters
+
+            /// @brief Set the code of a graphics event.
+            /// @param Code Code to set.
             void Set_Code(Graphics_Types::Event_Code_Type Code);
+
+            /// @brief Set the original target of a graphics event.
+            /// @param Object Target to set.
             void Set_Target_Pointer(Graphics_Types::Object_Type Object);
+
+            /// @brief Set the current target of a graphics event.
+            /// @param Object Current target to set.
             void Set_Current_Target_Pointer(Graphics_Types::Object_Type Object);
 
             // - Attributes
@@ -86,8 +95,12 @@ namespace Xila_Namespace
             // - - Constructors
             inline Softwares_Class() {}
             // - - Setter
+            /// @brief Set the code of a software event.
+            /// @param Code Code to set.
             inline void Set_Code(Softwares_Types::Event_Code_Type Code) { this->Code = Code; }
             // - - Getter
+            /// @brief Get the code of a software event.
+            /// @return `Softwares_Types::Event_Code_Type`.
             inline Softwares_Types::Event_Code_Type Get_Code() const { return Code; }
 
         private:
@@ -100,8 +113,12 @@ namespace Xila_Namespace
         public:
             inline Power_Class() {}
             // - - Setter
+            /// @brief Set the code of a power event.
+            /// @param Code Code to set.
             inline void Set_Code(Power_Types::Event_Code_Type Code) { this->Code = Code; }
             // - - Getter
+            /// @brief Get the code of a power event.
+            /// @return `Power_Types::Event_Code_Type`.
             inline Power_Types::Event_Code_Type Get_Code() const { return Code; }
 
         private:
@@ -112,10 +129,15 @@ namespace Xila_Namespace
         typedef class Custom_Class
         {
         public:
-            inline Custom_Class() : Code(0) {}
+            inline Custom_Class() : Code(0) {} 
             inline Custom_Class(uint8_t Code) : Code(Code) {}
             // - - Setter
+            /// @brief Set the code of a custom event.
+            /// @param Code Code to set.
             inline void Set_Code(uint16_t Code) { this->Code = Code; }
+            
+            /// @brief Set the data of a custom event.
+            /// @param Data Data to set.
             inline void Set_Data(void *Data) { this->Data = Data; }
             // - - Getter
             inline uint16_t Get_Code() const { return Code; }
@@ -132,9 +154,16 @@ namespace Xila_Namespace
         /// @brief Instruction union of arguments (according to the sender)
         union
         {
+            /// @brief Graphics instruction arguments.
             Graphics_Type Graphics;
+
+            /// @brief Software instruction arguments.
             Softwares_Type Softwares;
+
+            /// @brief Power instruction arguments.
             Power_Type Power;
+
+            /// @brief Custom instruction arguments.
             Custom_Type Custom;
         };
 
@@ -146,17 +175,29 @@ namespace Xila_Namespace
         ~Instruction_Class();
 
         // - - Getters
-        Module_Class *Get_Sender() const;
-        Module_Class *Get_Receiver() const;
+
+        /// @brief Get the sender of the instruction.
+        /// @return `Module_Type` pointer.
+        Module_Type *Get_Sender() const;
+
+        /// @brief Get the receiver of the instruction.
+        /// @return `Module_Type` pointer.
+        Module_Type *Get_Receiver() const;
 
         // - - Setters
-        void Set_Sender(Module_Class *Sender);
-        void Set_Receiver(Module_Class *Receiver);
+
+        /// @brief Set the sender of the instruction.
+        /// @param Sender Sender to set.
+        void Set_Sender(Module_Type *Sender);
+
+        /// @brief Set the receiver of the instruction.
+        /// @param Receiver Receiver to set.
+        void Set_Receiver(Module_Type *Receiver);
 
     private:
         // - Attributes
-        Xila_Namespace::Module_Class *Sender;
-        Xila_Namespace::Module_Class *Receiver;
+        Module_Type *Sender;
+        Module_Type *Receiver;
 
     } Instruction_Type;
 }

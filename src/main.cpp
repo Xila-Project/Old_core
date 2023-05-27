@@ -5,13 +5,15 @@
 #include "File_Manager.hpp"
 #include "Berry.hpp"
 
+using namespace Xila;
+
 void setup()
 {
-  Xila::Softwares.Register_Handle(Shell_Class::Handle);
-  Xila::Softwares.Register_Handle(Preferences_Class::Handle);
-  Xila::Softwares.Register_Handle(File_Manager_Class::Handle);
+  Softwares.Register_Handle(Shell_Class::Handle);
+  Softwares.Register_Handle(Preferences_Class::Handle);
+  Softwares.Register_Handle(File_Manager_Class::Handle);
   
-  Xila::System.Start();
+  System.Start();
   
   Berry_Class::Load_Softwares_Handles();
 }

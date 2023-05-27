@@ -21,15 +21,21 @@ namespace Xila_Namespace
             Dialog_Class();
             Dialog_Class(const Object_Class &Object_To_Copy);
 
+            /// @brief Create a new dialog with a parent object.
+            /// @param Owner_Software Pointer to the software that owns the dialog (usually `this`).
             virtual void Create(const Softwares_Types::Software_Type* Owner_Software) override;
             virtual void Create(Object_Class Parent_Object) override;
 
             // - - Getters
 
+            /// @brief Check if the dialog has an overlay.
+            /// @return true if the dialog has an overlay, false otherwise.
             bool Is_Overlay();
 
             // - - Setters
 
+            /// @brief Set the dialog overlay.
+            /// @param Enable true to enable the overlay, false to disable it.
             void Set_Overlay(bool Enable);
 
         private:

@@ -24,9 +24,10 @@ namespace Xila_Namespace
 {
     namespace Power_Types
     {
+        /// @brief Power module event codes.
         enum class Event_Code_Type : Byte_Type
         {
-            Power_Button_Pressed
+            Power_Button_Pressed    ///< Power button pressed.
         };
     }
 
@@ -40,16 +41,33 @@ namespace Xila_Namespace
         Power_Class();
         ~Power_Class();
 
+        /// @brief Start the module.
+        /// @return `Result_Type::Success` if the module has been started successfully, `Result_Type::Error` otherwise.
         Result_Type Start();
+
+        /// @brief Stop the module.
+        /// @return `Result_Type::Success` if the module has been stopped successfully, `Result_Type::Error` otherwise.
         Result_Type Stop();
 
+        /// @brief Get the battery charge level.
+        /// @return Battery charge level in percent.
         uint8_t Get_Battery_Charge_Level();
+
+        /// @brief Get the battery voltage.
+        /// @return Battery voltage in millivolts.
         uint16_t Get_Battery_Voltage();
 
+        /// @brief Power button interrupt callback function.
+        /// @return `Result_Type::Success` if the callback function has been called successfully, `Result_Type::Error` otherwise.
         static void IRAM_ATTR Button_Interrupt_Handler();
 
+        /// @brief Check if the power button has been pressed and send instruction if needed.
         void Check_Button();
+
+        /// @brief Go to deep sleep mode.
         void Deep_Sleep();
+
+        /// @brief Restart the system.
         void Restart();
 
 
