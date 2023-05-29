@@ -23,8 +23,8 @@ namespace Xila_Namespace
             // - Methods
 
             // - - Constructor / destructor
-            QRCode_Class();
             QRCode_Class(const Object_Type &Object);
+            QRCode_Class();
             ~QRCode_Class();
 
             // - - Manipulation

@@ -26,70 +26,17 @@ using namespace Xila_Namespace;
 
 static class WT32_SC01_Driver_Class : public lgfx::LGFX_Device
 {
-    /*
-     クラス名は"LGFX"から別の名前に変更しても構いません。
-     AUTODETECTと併用する場合は"LGFX"は使用されているため、LGFX以外の名前に変更してください。
-     また、複数枚のパネルを同時使用する場合もそれぞれに異なる名前を付けてください。
-     ※ クラス名を変更する場合はコンストラクタの名前も併せて同じ名前に変更が必要です。
-
-     名前の付け方は自由に決めて構いませんが、設定が増えた場合を想定し、
-     例えばESP32 DevKit-CでSPI接続のILI9341の設定を行った場合、
-      LGFX_DevKitC_SPI_ILI9341
-     のような名前にし、ファイル名とクラス名を一致させておくことで、利用時に迷いにくくなります。
-    //*/
-
-    // 接続するパネルの型にあったインスタンスを用意します。
-    // lgfx::Panel_GC9A01      _panel_instance;
-    // lgfx::Panel_GDEW0154M09 _panel_instance;
-    // lgfx::Panel_HX8357B     _panel_instance;
-    // lgfx::Panel_HX8357D     _panel_instance;
-    // lgfx::Panel_ILI9163     _panel_instance;
-    // lgfx::Panel_ILI9341     _panel_instance;
-    // lgfx::Panel_ILI9342     _panel_instance;
-    // lgfx::Panel_ILI9481     _panel_instance;
-    // lgfx::Panel_ILI9486     _panel_instance;
-    // lgfx::Panel_ILI9488     _panel_instance;
-    // lgfx::Panel_IT8951      _panel_instance;
-    // lgfx::Panel_RA8875      _panel_instance;
-    // lgfx::Panel_SH110x      _panel_instance; // SH1106, SH1107
-    // lgfx::Panel_SSD1306     _panel_instance;
-    // lgfx::Panel_SSD1327     _panel_instance;
-    // lgfx::Panel_SSD1331     _panel_instance;
-    // lgfx::Panel_SSD1351     _panel_instance; // SSD1351, SSD1357
-    // lgfx::Panel_SSD1963     _panel_instance;
-    // lgfx::Panel_ST7735      _panel_instance;
-    // lgfx::Panel_ST7735S     _panel_instance;
-    // lgfx::Panel_ST7789      _panel_instance;
     lgfx::Panel_ST7796 _panel_instance;
-
-    // パネルを接続するバスの種類にあったインスタンスを用意します。
-    lgfx::Bus_SPI _bus_instance; // SPIバスのインスタンス
-                                 // lgfx::Bus_I2C       _bus_instance;   // I2Cバスのインスタンス (ESP32のみ)
-    // lgfx::Bus_Parallel8 _bus_instance;   // 8ビットパラレルバスのインスタンス (ESP32のみ)
-
-    // バックライト制御が可能な場合はインスタンスを用意します。(必要なければ削除)
+    lgfx::Bus_SPI _bus_instance; 
     lgfx::Light_PWM _light_instance;
-
-    // タッチスクリーンの型にあったインスタンスを用意します。(必要なければ削除)
     lgfx::Touch_FT5x06 _touch_instance; // FT5206, FT5306, FT5406, FT6206, FT6236, FT6336, FT6436
-    // lgfx::Touch_GSL1680E_800x480 _touch_instance; // GSL_1680E, 1688E, 2681B, 2682B
-    // lgfx::Touch_GSL1680F_800x480 _touch_instance;
-    // lgfx::Touch_GSL1680F_480x272 _touch_instance;
-    // lgfx::Touch_GSLx680_320x320  _touch_instance;
-    // lgfx::Touch_GT911            _touch_instance;
-    // lgfx::Touch_STMPE610         _touch_instance;
-    // lgfx::Touch_TT21xxx          _touch_instance; // TT21100
-    // lgfx::Touch_XPT2046          _touch_instance;
+   
 
 public:
-    // コンストラクタを作成し、ここで各種設定を行います。
-    // クラス名を変更した場合はコンストラクタも同じ名前を指定してください。
     WT32_SC01_Driver_Class(void)
     {
         {                                      // バス制御の設定を行います。
             auto cfg = _bus_instance.config(); // バス設定用の構造体を取得します。
-
-            // SPIバスの設定
             cfg.spi_host = HSPI_HOST; // 使用するSPIを選択  ES P32-S2,C3 : SPI2_HOST or SPI3_HOST / ESP32 : VSPI_HOST or HSPI_HOST
             // ※ ESP-IDFバージョンアップに伴い、VSPI_HOST , HSPI_HOSTの記述は非推奨になるため、エラーが出る場合は代わりにSPI2_HOST , SPI3_HOSTを使用してください。
             cfg.spi_mode = 3;                  // SPI通信モードを設定 (0 ~ 3)

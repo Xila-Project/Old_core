@@ -57,8 +57,8 @@ namespace Xila_Namespace
         // - - Getters
 
         /// @brief Get the general volume.
-        /// @return Byte_Type Volume (0-255).
-        Byte_Type Get_Volume();
+        /// @return Byte_Type Volume.
+        Real_Type Get_Volume();
 
         /// @brief Get the stream of the current output.
         /// @return Sound_Types::Stream_Type& Stream of the current output.
@@ -67,8 +67,8 @@ namespace Xila_Namespace
         // - - Setters
 
         /// @brief Set the general volume.
-        /// @param Volume Volume (0-255).
-        void Set_Volume(Byte_Type Volume);
+        /// @param Volume Volume (0 - 1 for no boost).
+        void Set_Volume(Real_Type Volume);
 
         // - - Operation
 

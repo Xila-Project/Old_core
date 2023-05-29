@@ -259,7 +259,6 @@ void WiFi_Class::Station_Class::Connect(const char *SSID, const char *Password, 
     }
 
     ESP32_WiFi.begin(SSID, Temporary_Password, Temporary_Channel, BSSID, true);
-    Log_Trace();
 }
 
 Result_Type WiFi_Class::Station_Class::Disconnect()

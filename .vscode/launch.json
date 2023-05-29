@@ -12,31 +12,31 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "/home/alix_anneraud/Git/Xila/Code/.pio/build/WT32-SC01/firmware.elf",
-            "projectEnvName": "WT32-SC01",
-            "toolchainBinDir": "/home/alix_anneraud/.platformio/packages/toolchain-xtensa-esp32/bin",
+            "executable": "/home/alix_anneraud/Git/Xila/Code/.pio/build/Hardware_Development_Kit/firmware.elf",
+            "projectEnvName": "Hardware_Development_Kit",
+            "toolchainBinDir": "/home/alix_anneraud/.platformio/packages/toolchain-xtensa-esp32s3/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": {
                 "type": "PlatformIO",
-                "task": "Pre-Debug (WT32-SC01)"
+                "task": "Pre-Debug (Hardware_Development_Kit)"
             }
         },
         {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "/home/alix_anneraud/Git/Xila/Code/.pio/build/WT32-SC01/firmware.elf",
-            "projectEnvName": "WT32-SC01",
-            "toolchainBinDir": "/home/alix_anneraud/.platformio/packages/toolchain-xtensa-esp32/bin",
+            "executable": "/home/alix_anneraud/Git/Xila/Code/.pio/build/Hardware_Development_Kit/firmware.elf",
+            "projectEnvName": "Hardware_Development_Kit",
+            "toolchainBinDir": "/home/alix_anneraud/.platformio/packages/toolchain-xtensa-esp32s3/bin",
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
-            "executable": "/home/alix_anneraud/Git/Xila/Code/.pio/build/WT32-SC01/firmware.elf",
-            "projectEnvName": "WT32-SC01",
-            "toolchainBinDir": "/home/alix_anneraud/.platformio/packages/toolchain-xtensa-esp32/bin",
+            "executable": "/home/alix_anneraud/Git/Xila/Code/.pio/build/Hardware_Development_Kit/firmware.elf",
+            "projectEnvName": "Hardware_Development_Kit",
+            "toolchainBinDir": "/home/alix_anneraud/.platformio/packages/toolchain-xtensa-esp32s3/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "loadMode": "manual"
         }

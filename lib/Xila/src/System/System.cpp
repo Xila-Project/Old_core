@@ -54,14 +54,16 @@ void System_Class::Task_Function()
 
     // -- Check if drive is not disconnected.
     if (!Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
+    {
       System.Panic_Handler(Panic_Type::Drive_Failure);
+    }
 
     // -- Check if running software is not frozen.
     Task_Class::Check_Watchdogs();
 
     // - Check available memory (prevent stack / heap collision)
 
-    // Log_Information("System", "Memory usage : %u | PSRAM usage : %u %", Memory.Get_Free_Heap(), Memory.Get_PSRAM_Size() - Memory.Get_Free_PSRAM());
+     Log_Information("System", "Memory usage : %u | PSRAM usage : %u %", Memory.Get_Free_Heap(), Memory.Get_PSRAM_Size() - Memory.Get_Free_PSRAM());
     
     Power.Check_Button();
 
@@ -231,10 +233,9 @@ void System_Class::Start()
   // -- Check if the power button was press or the power supply plugged.;
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
 
+  Log_Information("System", "Wakeup cause : %X.", Wakeup_Cause);
   if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
   {
-    Log_Information("System", "Wakeup cause : %X. Go into deep sleep", Wakeup_Cause);
-    Task_Class::Delay_Static(10000);
     Power.Deep_Sleep();
   }
 
@@ -368,12 +369,14 @@ void System_Class::Shutdown()
 
   // Sound.Play(Sounds("Shutdown.wav"));
 
+//  Task.Delete();
+//  Softwares.Stop();
+//  Display.Stop();
+//  Power.Stop();
+//  Sound.Stop();
+//  Communication.Stop();
+
   Task.Delete();
-  Softwares.Stop();
-  Display.Stop();
-  Power.Stop();
-  Sound.Stop();
-  Communication.Stop();
 
   this->Stop_Load_Animation(&Logo, Animation);
 

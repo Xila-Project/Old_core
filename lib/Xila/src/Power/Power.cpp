@@ -221,7 +221,7 @@ void Power_Class::Deep_Sleep()
 
     Task_Type::Delay_Static(10);
 #ifdef Xila_Power_Button_Default_Pin
-    esp_sleep_enable_ext0_wakeup((gpio_num_t)Xila_Power_Button_Default_Pin, LOW);
+    esp_sleep_enable_ext0_wakeup((gpio_num_t)Xila_Power_Button_Default_Pin, HIGH);
 #endif
     esp_deep_sleep_start();
 }

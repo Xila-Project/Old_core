@@ -1,13 +1,13 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_IP_Address_Type_map) {
-    { be_const_key(init, -1), be_const_ctype_func(Berry_IP_Address_Class_Initialize_56337033_C868_4526_888A_783923ADF17E) },
+    { be_const_key(init, -1), be_const_ctype_func(Berry_IP_Address_Class_Initialize_EA495F1B_E003_4913_8391_9DDBD11FEC6A) },
     { be_const_key(_p, -1), be_const_var(0) },
-    { be_const_key(Is_IP_v4, -1), be_const_ctype_func(Berry_IP_Address_Class_Is_IP_v4_AF9FE2DF_19DB_42F5_B33A_73C98CF980E0) },
-    { be_const_key(To, 0), be_const_ctype_func(Berry_IP_Address_Class_To_99515416_7617_4900_BC12_42DD70A939DD) },
-    { be_const_key(_X3D_X3D, -1), be_const_ctype_func(Berry_IP_Address_Class_Operator_82F803FD_F943_4FBF_BA33_A8C1148736D2) },
-    { be_const_key(deinit, 3), be_const_ctype_func(Berry_IP_Address_Class_Deinitialize_65E1CAF0_3E9A_4B09_9F74_FB41310B4CEC) },
-    { be_const_key(Set_IP_Version, 1), be_const_ctype_func(Berry_IP_Address_Class_Set_IP_Version_2CE8B007_7E9A_442C_B54E_9A041328AF51) },
+    { be_const_key(Is_IP_v4, -1), be_const_ctype_func(Berry_IP_Address_Class_Is_IP_v4_0B94DB72_BE0E_42B5_9CBD_533386CEC2BC) },
+    { be_const_key(To, 0), be_const_ctype_func(Berry_IP_Address_Class_To_21485721_A70C_44B3_A330_CB7C543D4DD4) },
+    { be_const_key(_X3D_X3D, -1), be_const_ctype_func(Berry_IP_Address_Class_Operator_7E33A206_3A8F_4762_B48C_0310DD88B350) },
+    { be_const_key(deinit, 3), be_const_ctype_func(Berry_IP_Address_Class_Deinitialize_273B492A_82B9_41A1_9F58_BF5DC0F0765B) },
+    { be_const_key(Set_IP_Version, 1), be_const_ctype_func(Berry_IP_Address_Class_Set_IP_Version_CAA36ECA_1513_482B_9A78_4881C02C0BE0) },
 };
 
 static be_define_const_map(

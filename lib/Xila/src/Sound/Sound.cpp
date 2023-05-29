@@ -9,7 +9,11 @@
 ///
 
 #ifndef Xila_Default_Sound_Volume
-#define Xila_Default_Sound_Volume 255
+#define Xila_Default_Sound_Volume 1
+#endif
+
+#ifndef Xila_Sound_Default_Maximum_Volume
+#define Xila_Sound_Default_Maximum_Volume 1
 #endif
 
 #include "AudioTools.h"
@@ -37,29 +41,24 @@ Result_Type Sound_Class::Start()
         return this->Create_Registry();
     }
 
+#if defined(Xila_Sound_Default_I2S_Word_Select_Pin) && defined(Xila_Sound_Default_I2S_Clock_Pin) && defined(Xila_Sound_Default_I2S_Data_Pin)
     {
         auto Configuration = I2S_Output_Stream.Get_Default_Configuration();
-        Configuration.Set_Word_Select_Clock_Pin(35);
-        Configuration.Set_Bit_Clock_Pin(36);
-        Configuration.Set_Data_Pin(37);
+        Configuration.Set_Word_Select_Clock_Pin(Xila_Sound_Default_I2S_Word_Select_Pin);
+        Configuration.Set_Bit_Clock_Pin(Xila_Sound_Default_I2S_Clock_Pin);
+        Configuration.Set_Data_Pin(Xila_Sound_Default_I2S_Data_Pin);
 
         Configuration.Set_Sample_Rate(44100);
         Configuration.Set_Channel_Count(1);
         Configuration.Set_Bits_Per_Sample(16);
 
-        //  Configuration.sample_rate = 44100;
-        //  Configuration.channels = 1;
-        //  Configuration.bits_per_sample = 16;
-
         if (I2S_Output_Stream.Begin(Configuration) != Result_Type::Success)
             return Result_Type::Error;
 
         Volume_Stream.Begin(Configuration);
-        Volume_Stream.Set_Volume(0.5);
+        Set_Volume(Xila_Default_Sound_Volume);
     }
-    //  Mixer.begin();
-
-    //    Set_Volume(Xila_Default_Sound_Volume);
+#endif
 
     return Result_Type::Success;
 }
@@ -142,10 +141,10 @@ Result_Type Sound_Class::Save_Registry()
 
 // - - Getters
 
-Byte_Type Sound_Class::Get_Volume()
+Real_Type Sound_Class::Get_Volume()
 {
     // return 0;
-    return static_cast<Byte_Type>(Volume_Stream.Get_Volume() * 255);
+    return Volume_Stream.Get_Volume() / 0.5;
 }
 
 Sound_Types::Stream_Type& Sound_Class::Get_Current_Output_Stream()
@@ -156,9 +155,9 @@ Sound_Types::Stream_Type& Sound_Class::Get_Current_Output_Stream()
 
 // - - Setters
 
-void Sound_Class::Set_Volume(Byte_Type Volume)
+void Sound_Class::Set_Volume(Real_Type Volume)
 {
     //  Log_Verbose("Sound", "Set volume: %d", Volume);
     //  Log_Verbose("Sound", "Set volume res: %f", static_cast<float>(Volume) / 255);
-    Volume_Stream.Set_Volume(static_cast<float>(Volume) / 255);
+    Volume_Stream.Set_Volume(Volume * Xila_Sound_Default_Maximum_Volume);
 }

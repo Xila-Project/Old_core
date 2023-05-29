@@ -1,8 +1,8 @@
 #include "be_constobj.h"
 
 static be_define_const_map_slots(Berry_Decoder_Type_map) {
-    { be_const_key(Get_Configuration, -1), be_const_ctype_func(Berry_Decoder_Class_Get_Configuration_52F938BC_F531_4414_8EA2_78653FE20274) },
-    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Decoder_Class_Deinitialize_88551F04_2F48_423A_B965_5B6D1D0A48D8) },
+    { be_const_key(Get_Configuration, -1), be_const_ctype_func(Berry_Decoder_Class_Get_Configuration_9BF7B632_80E2_4C09_AFAD_ECB7400A9BC5) },
+    { be_const_key(deinit, -1), be_const_ctype_func(Berry_Decoder_Class_Deinitialize_A2D69403_A8A9_4D86_9669_3AE11156D477) },
     { be_const_key(_p, -1), be_const_var(0) },
 };
 

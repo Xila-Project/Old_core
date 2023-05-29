@@ -17,6 +17,11 @@ using namespace Xila_Namespace::Mathematics_Types;
 
 // - - Constructor
 
+Rational_Class::Rational_Class() : Numerator(0), Denominator(1)
+{
+
+}
+
 Rational_Class::Rational_Class(Long_Real_Type Value)
 {
     {

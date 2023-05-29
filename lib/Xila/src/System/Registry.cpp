@@ -63,10 +63,6 @@ Result_Type System_Class::Load_Registry()
   this->Set_NTP_Server(System_Registry["NTP Server"] | Default_NTP_Server);
   this->Set_Time_Zone(System_Registry["UTC Offset"] | Default_UTC_Offset, System_Registry["Daylight Offset"] | Default_Daylight_Offset);
 
-  Log_Verbose("System", "NTF Server : %s", (const char*)this->NTP_Server);
-  Log_Verbose("System", "UTC Offset : %u", this->UTC_Offset);
-  Log_Verbose("System", "Daylight Offset : %u", this->Daylight_Offset);
-
   return Result_Type::Success;
 }
 

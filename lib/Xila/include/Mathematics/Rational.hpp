@@ -23,6 +23,9 @@ namespace Xila_Namespace
             // - - Constructor
 
             /// @brief Construct a new Rational_Class object.
+            Rational_Class();
+
+            /// @brief Construct a new Rational_Class object.
             /// @param Numerator
             /// @param Denominator
             Rational_Class(Long_Integer_Type, Long_Integer_Type);
