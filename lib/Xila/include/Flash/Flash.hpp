@@ -37,6 +37,7 @@ namespace Xila_Namespace
 {
     namespace Flash_Types
     {
+        /// @brief Flash partition type.
         typedef enum Partition_Subtype_Enumeration
         {
             Bootloader_Partition = ESP_PARTITION_SUBTYPE_APP_FACTORY, //!< Factory application partition
@@ -88,6 +89,7 @@ namespace Xila_Namespace
         };
     }
 
+    /// @brief Flash module class.
     typedef class Flash_Class : public Module_Class
     {
     public:   
@@ -152,6 +154,8 @@ namespace Xila_Namespace
         friend class System_Class;
     } Flash_Type;
 
+
+    /// @brief Flash module instance.
     extern Flash_Type Flash;
 
 }

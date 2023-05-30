@@ -63,6 +63,7 @@ namespace Xila_Namespace
         // - - LVGL interface
 
         /// @brief Display output flush callback function for Graphics module.
+        /// @note D.M.A. is used to transfer the data from the internal buffer to the display (if possible).
         /// @param Display_Driver_Interface LVGL display driver interface.
         /// @param Area LVGL area to flush.
         /// @param Buffer LVGL buffer to flush.
@@ -91,7 +92,6 @@ namespace Xila_Namespace
         Result_Type Create_Registry();
 
          /// @brief Load the registry of the display module. 
-         /// 
          /// @return Result_Type 
         Result_Type Load_Registry();
 
@@ -104,6 +104,8 @@ namespace Xila_Namespace
 
         /// @brief Display standy time in seconds.
         uint16_t Standby_Time;
+
+        /// @brief Display brightness (0-255).
         uint8_t Brightness;
 
     } Display_Type;

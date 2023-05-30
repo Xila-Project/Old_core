@@ -25,6 +25,7 @@ namespace Xila_Namespace
         using Encoded_Stream_Type = EncodedAudioStream;                 
         using Stream_Copier_Type = StreamCopy;
 
+        /// @brief File player class.
         typedef class File_Player_Class : public Stream_Type
         {
         public:
@@ -32,27 +33,35 @@ namespace Xila_Namespace
             // - - Constructors / Destructor
 
             /// @brief File player constructor.
-            /// @param Output_Stream 
-            /// @param Input_File 
-            /// @param Decoder 
+            /// @param Input_File Input file to play.
+            /// @param Output_Stream Output stream to play the file.
+            /// @param Decoder Decoder to use to decode the file.
             File_Player_Class(Drive_Types::File_Type &Input_File, Sound_Types::Stream_Type& Output_Stream, Decoder_Type &Decoder);
 
+            /// @brief Default destructor.
             File_Player_Class();
 
             // - - Operations
 
+            /// @brief Begin the player.
+            /// @return `Result_Type`.
             Result_Type Begin() override;
 
+            /// @brief Stop the player.
             void Stop();
 
+            /// @brief Execute the player.
+            /// @return `Size_Type` number of bytes played.
             Size_Type Loop();
 
             // - - Getters
 
             /// @brief Get the player current time.
-            /// @return Time_Type Current time in seconds.
+            /// @return `uint32_t` Current time in seconds.
             uint32_t Get_Time();
 
+            /// @brief Get the player total time.
+            /// @return `uint32_t` Total time in seconds.
             uint32_t Get_Total_Time();
 
             /// @brief Get the sample rate of the current playing file.
@@ -72,8 +81,14 @@ namespace Xila_Namespace
 
             // - - Setters
 
+            /// @brief Set the input file, output stream and decoder.
+            /// @param Input_File Input file to play.
+            /// @param Output_Stream Output stream to play the file.
+            /// @param Decoder Decoder to use to decode the file.
             void Set(Drive_Types::File_Type &Input_File, Sound_Types::Stream_Type& Output_Stream, Decoder_Type &Decoder);
 
+            /// @brief Set the decoder.
+            /// @param Decoder Decoder to use to decode the file.
             void Set_Decoder(Decoder_Type &Decoder);
 
             /// @brief Set the player time.
@@ -84,8 +99,12 @@ namespace Xila_Namespace
             /// @param Time Time in seconds.
             void Set_Time(uint32_t Time);   // ! : Last for Berry
 
-            void Set_File(Drive_Types::File_Type &Input_Stream);
+            /// @brief Set the input file.
+            /// @param Input_Stream Input file to play.
+            void Set_File(Drive_Types::File_Type &Input_File);
 
+            /// @brief Set the output stream.
+            /// @param Output_Stream Output stream to play the file.
             void Set_Output_Stream(Sound_Types::Stream_Type& Output_Stream);
 
         private:

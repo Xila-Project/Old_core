@@ -8,8 +8,8 @@
 /// @copyright Copyright (c) 2023
 ///
 
-#ifndef Date_Hpp_Included
-#define Date_Hpp_Included
+#ifndef Xila_Date_Hpp_Included
+#define Xila_Date_Hpp_Included
 
 #include "Base_Types.hpp"
 
@@ -132,7 +132,14 @@ namespace Xila_Namespace
 
     protected:
         // - Attributes
-        Byte_Type Day, Month;
+        
+        /// @brief Day of the date (1 - 31).
+        Byte_Type Day;
+
+        /// @brief Month of the date (1 - 12).
+        Byte_Type Month;
+
+        /// @brief Year of the date (0 - 65 535).
         Word_Type Year;
     } Date_Type;
 

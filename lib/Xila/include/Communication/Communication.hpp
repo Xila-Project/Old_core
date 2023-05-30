@@ -22,17 +22,25 @@ namespace Xila_Namespace
 
    }
 
+   /// @brief Communication module class.
    typedef class Communication_Class
    {
    public:
 
+      /// @brief Start the communication module and sub-modules.
+      /// @return `Result_Type`
       Result_Type Start();
+
+      /// @brief Stop the communication module and sub-modules.
+      /// @return `Result_Type`
       Result_Type Stop();
 
+      /// @brief WiFi sub-module instance.
       Communication_Types::WiFi_Type WiFi;
       
    } Communication_Type;
 
+   /// @brief Communication module instance.
    extern Communication_Type Communication;
 }
 

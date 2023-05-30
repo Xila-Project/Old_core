@@ -17,6 +17,7 @@ namespace Xila_Namespace
 {
     typedef class Stream_Class : public Stream
     {
+    public:
         // - Methods
 
         // - Virtual

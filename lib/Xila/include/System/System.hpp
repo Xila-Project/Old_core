@@ -58,6 +58,7 @@ namespace Xila_Namespace
         };
     };
 
+    /// @brief System module class.
     typedef class System_Class : public Module_Class
     {
     public:
@@ -219,8 +220,8 @@ namespace Xila_Namespace
 
     } System_Type;
 
+    /// @brief System module instance.
     extern System_Type System;
-
 }
 
 #endif

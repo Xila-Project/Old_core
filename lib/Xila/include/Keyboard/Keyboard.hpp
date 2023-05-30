@@ -174,14 +174,24 @@ namespace Xila_Namespace
     public:
         // -- Keyboard constructor / destructor
 
+        /// @brief Default constructor.
         Keyboard_Class();
 
         // -- Methods
+
+        /// @brief Read a key from the keyboard.
+        /// @return uint8_t Key read from the keyboard.
         uint8_t Read();
+
+        /// @brief Read a raw key from the keyboard.
+        /// @return uint8_t Raw key read from the keyboard.
         uint8_t Read_Raw();
 
+        /// @brief Read a special key from the keyboard.
+        /// @return uint8_t Special key read from the keyboard.
         uint8_t Available();
 
+        /// @brief Clear the keyboard buffer.
         void Clear();
 
         // protected:

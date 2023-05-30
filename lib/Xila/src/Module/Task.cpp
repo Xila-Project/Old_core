@@ -46,7 +46,7 @@ Task_Class::~Task_Class()
 Result_Type Task_Class::Create(Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Task_Priority_Type Priority)
 {
     // Not ideal but it's the only way to allocate static vector.
-    List.reserve(40);
+    List.reserve(20);
 
     if (Priority > Task_Priority_Type::Driver)
         return Result_Type::Error;
@@ -55,9 +55,7 @@ Result_Type Task_Class::Create(Function_Type Task_Function, const char *Name, Si
         return Result_Type::Error;
 
     if (xTaskCreatePinnedToCore(Task_Function, Name, Stack_Size, Data, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY) != pdPASS)
-    {
         return Result_Type::Error;
-    }
 
     Feed_Watchdog();
     List.push_back(this);
@@ -73,14 +71,7 @@ void Task_Class::Delete()
 
     vTaskDelete(Task_Handle);
 
-    for (auto Task_Pointer = List.begin(); Task_Pointer != List.end(); Task_Pointer++)
-    {
-        if (*Task_Pointer == this)
-        {
-            List.erase(Task_Pointer);
-            break;
-        }
-    }
+    List.erase(std::remove(List.begin(), List.end(), this), List.end());
 }
 
 void Task_Class::Feed_Watchdog()

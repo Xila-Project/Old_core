@@ -31,9 +31,9 @@ namespace Xila_Namespace
         };
     }
 
+    /// @brief Power module class.
     typedef class Power_Class : public Module_Class
     {
-
     public:
         // - Methods
 
@@ -91,6 +91,7 @@ namespace Xila_Namespace
         volatile uint32_t Button_Timer;
     } Power_Type;
 
+    /// @brief Power module instance.
     extern Power_Type Power;
 }
 

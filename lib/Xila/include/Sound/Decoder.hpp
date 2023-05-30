@@ -17,6 +17,7 @@ namespace Xila_Namespace
 {
     namespace Sound_Types
     {
+        /// @brief Decoder class.
         typedef class Decoder_Class
         {
         private:
@@ -39,17 +40,16 @@ namespace Xila_Namespace
             }
         } Decoder_Type;
 
+        /// @brief WAV decoder class.
         typedef class WAV_Decoder_Class : public Decoder_Class
         {
         private:
             audio_tools::WAVDecoder WAV_Decoder;
 
         public:
+            /// @brief Default constructor.
             WAV_Decoder_Class() : Decoder_Class(WAV_Decoder)
-            {
-
-                Log_Verbose("Sound", "WAV decoder created : %p", this);
-            }
+            {}
         } WAV_Decoder_Type;
 
 
