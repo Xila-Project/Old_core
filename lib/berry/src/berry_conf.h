@@ -214,9 +214,9 @@
  **/
 #define BE_EXPLICIT_ABORT               abort
 #define BE_EXPLICIT_EXIT                exit
-#define BE_EXPLICIT_MALLOC              malloc
+#define BE_EXPLICIT_MALLOC              ps_malloc
 #define BE_EXPLICIT_FREE                free
-#define BE_EXPLICIT_REALLOC             realloc
+#define BE_EXPLICIT_REALLOC             ps_realloc
 
 /* Macro: be_assert
  * Berry debug assertion. Only enabled when BE_DEBUG is active.

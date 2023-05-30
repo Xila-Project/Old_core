@@ -89,9 +89,7 @@ public:
             auto cfg = _light_instance.config(); // バックライト設定用の構造体を取得します。
 
             cfg.pin_bl = 23;     // バックライトが接続されているピン番号
-            cfg.invert = false;  // バックライトの輝度を反転させる場合 true
-            cfg.freq = 44100;    // バックライトのPWM周波数
-            cfg.pwm_channel = 7; // 使用するPWMのチャンネル番号
+      
 
             _light_instance.config(cfg);
             _panel_instance.setLight(&_light_instance); // バックライトをパネルにセットします。
