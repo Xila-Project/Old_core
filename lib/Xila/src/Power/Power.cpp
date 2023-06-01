@@ -197,7 +197,6 @@ void Power_Class::Check_Button()
 {
     if (Button_Clicked != 0)
     {
-        Log_Verbose("Power", "Button pressed.");
         Instruction_Type Instruction(this, NULL);
         Instruction.Power.Set_Code(Event_Code_Type::Power_Button_Pressed);
         Softwares.Send_Instruction_User_Softwares(Accounts.Get_Logged_User(), Instruction);

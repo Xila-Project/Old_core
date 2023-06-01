@@ -37,7 +37,6 @@ namespace Xila_Namespace
                 : Configuration_Reference(Configuration)
             {
                 Set(Sample_Rate, Channel_Count, Bits_Per_Sample);
-                Log_Verbose("Sound", "Sound configuration created.");
             }
 
             // - - Getters

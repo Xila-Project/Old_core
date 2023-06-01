@@ -35,7 +35,6 @@ namespace Xila_Namespace
             /// @param Stream Audio stream to use.
             Stream_Class(AudioStream &Stream) : Sound_Stream(Stream)
             {
-                Log_Verbose("Stream", "Sound stream created : %p", &Stream);
             }
 
             /// @brief Destroy the stream object.

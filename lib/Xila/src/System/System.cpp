@@ -198,8 +198,6 @@ void System_Class::Panic_Handler(Panic_Type Panic_Code)
 
   Background.Move_Foreground();
 
-  Log_Verbose("System", "Panic handler started.");
-
   Task_Type::Delay_Static(50); // Small delay to let the system refresh the screen.
 
   Task_Type::Suspend_All();

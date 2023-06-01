@@ -82,7 +82,6 @@ Result_Type WiFi_Class::Station_Class::Add(const char *SSID, const char *Passwor
         //  - Save registry
         if (serializeJson(WiFi_Registry, Registry_File) == 0)
         {
-            Log_Verbose("WiFi", "Failed to save registry.");
             Registry_File.Close();
             return Result_Type::Error;
         }
@@ -99,7 +98,6 @@ Result_Type WiFi_Class::Station_Class::Add(const char *SSID, const char *Passwor
 /// @return Result_Type::Success if the access point has been removed from the registry, Result_Type::Error otherwise (not found, failed to open the registry or save it ...).
 Result_Type WiFi_Class::Station_Class::Remove(const char *SSID, int32_t Channel)
 {
-    Log_Verbose("WiFi", "Removing access point : %s from registry.", SSID);
     // - Open registry
     DynamicJsonDocument Network_Registry(8 * 128);
     {
@@ -122,7 +120,6 @@ Result_Type WiFi_Class::Station_Class::Remove(const char *SSID, int32_t Channel)
         {
             if (strcmp(SSID, Access_Points[i]["SSID"]) == 0)
             {
-                Log_Verbose("WiFi", "Removing access point from registry.");
                 Access_Points.remove(i);
                 //            if (Channel == 0)
                 //            {
@@ -164,7 +161,6 @@ bool WiFi_Class::Station_Class::Is_Known(const char *SSID, const char *Password,
     Drive_Types::File_Type Registry_File = Drive.Open(Registry("WiFi"));
     DynamicJsonDocument WiFi_Registry(8 * 128);
 
-    Log_Verbose("Is Known ", "Registry file content :");
     while (Registry_File.available() > 0)
     {
         log_printf("%c", Registry_File.Read());
@@ -173,7 +169,6 @@ bool WiFi_Class::Station_Class::Is_Known(const char *SSID, const char *Password,
 
     if (!Registry_File || deserializeJson(WiFi_Registry, Registry_File, DeserializationOption::Filter(Filter)) || (strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0))
     {
-        Log_Verbose("Is Known ", "Failed to open registry.");
         Registry_File.Close();
         return false;
     }
@@ -207,7 +202,6 @@ bool WiFi_Class::Station_Class::Is_Known(const char *SSID, const char *Password,
         //          break;
         //      }
     }
-    Log_Verbose("Is Known ", "Match : %d", Match);
     return Match;
 }
 
@@ -224,7 +218,6 @@ Result_Type WiFi_Class::Station_Class::Get_Informations(const char *SSID, String
     Drive_Types::File_Type Registry_File = Drive.Open(Registry("WiFi"));
     DynamicJsonDocument WiFi_Registry(8 * 128);
 
-    Log_Verbose("Get info ", "Registry file content :");
     while (Registry_File.available() > 0)
     {
         log_printf("%c", Registry_File.Read());
@@ -233,7 +226,6 @@ Result_Type WiFi_Class::Station_Class::Get_Informations(const char *SSID, String
 
     if (!Registry_File || deserializeJson(WiFi_Registry, Registry_File, DeserializationOption::Filter(Filter)) || (strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0))
     {
-        Log_Verbose("Is Known ", "Failed to open registry.");
         Registry_File.Close();
         return Result_Type::Error;
     }
@@ -252,8 +244,6 @@ Result_Type WiFi_Class::Station_Class::Get_Informations(const char *SSID, String
         if (strcmp(SSID, Access_Point["SSID"] | "") == 0)
         {
             Match = true;
-
-            Log_Verbose("Get info ", "Pas : %s", Access_Point["Password"] | "");
 
             Password = Access_Point["Password"] | "";
             Channel = Access_Point["Channel"] | 0;
@@ -273,10 +263,6 @@ Result_Type WiFi_Class::Station_Class::Get_Informations(const char *SSID, String
         //          break;
         //      }
     }
-    Log_Verbose("Get info ", "Match : %d", Match);
-
-    Log_Verbose("Get info ", "Password : %s", (const char *)Password);
-    Log_Verbose("Get info ", "Channel : %d", Channel);
 
     if (!Match)
         return Result_Type::Error;

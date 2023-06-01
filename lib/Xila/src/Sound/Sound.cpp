@@ -149,7 +149,6 @@ Real_Type Sound_Class::Get_Volume()
 
 Sound_Types::Stream_Type& Sound_Class::Get_Current_Output_Stream()
 {
-    Log_Verbose("Sound", "Get current output stream : %p", &Volume_Stream);
     return Volume_Stream;
 }
 
@@ -157,7 +156,5 @@ Sound_Types::Stream_Type& Sound_Class::Get_Current_Output_Stream()
 
 void Sound_Class::Set_Volume(Real_Type Volume)
 {
-    //  Log_Verbose("Sound", "Set volume: %d", Volume);
-    //  Log_Verbose("Sound", "Set volume res: %f", static_cast<float>(Volume) / 255);
     Volume_Stream.Set_Volume(Volume * Xila_Sound_Default_Maximum_Volume);
 }

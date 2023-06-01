@@ -92,8 +92,6 @@ void System_Class::Stop_Load_Animation(Object_Type *Logo, Graphics_Types::Animat
 
     auto Output_Stream = Sound.Get_Current_Output_Stream();
 
-    Log_Verbose("System", "Output stream : %p", Output_Stream);
-
     Sound_Types::WAV_Decoder_Type WAV_Decoder;
     // Sound_Types::File_Player_Type File_Player(Startup_Sound, Output_Stream, WAV_Decoder);
     Sound_Types::File_Player_Class File_Player;
@@ -126,8 +124,6 @@ void System_Class::Stop_Load_Animation(Object_Type *Logo, Graphics_Types::Animat
 void System_Class::Load_Animation_Callback(void *Object, int32_t Value)
 {
   static uint8_t Animated_Part = 2;
-
-  // Log_Verbose("System", "Load animation callback from : %s", Task_Type(xTaskGetCurrentTaskHandle()).Get_Name());
 
   if ((Value == 255) || (Value == 64))
   {

@@ -184,13 +184,8 @@ Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
   Temporary_String += "/";
   Temporary_String += User_Name;
 
-  Log_Verbose("Accounts", "Creating user %s with password %s", (const char *)User_Name, (const char *)Password);
-
-  Log_Verbose("Accounts", "Temporary string is %s", (const char *)Temporary_String);
-
   if (Drive.Exists(Temporary_String))
   {
-    Log_Verbose("Accounts", "User %s already exists", (const char *)User_Name);
     return Result_Type::Error;
   }
 
@@ -199,7 +194,6 @@ Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
   //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s", User_Name);
   if (Drive.Make_Directory(Temporary_String) != Result_Type::Success)
   {
-    Log_Verbose("Accounts", "Failed to create user %s", (const char *)User_Name);
     return Result_Type::Error;
   }
 
@@ -208,13 +202,10 @@ Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
   //  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry", User_Name);
   if (Drive.Make_Directory(Temporary_String) != Result_Type::Success)
   {
-    Log_Verbose("Accounts", "Failed to create user dir !");
     return Result_Type::Error;
   }
 
   Temporary_String.Remove(Temporary_String.Get_Length() - sizeof("/Registry") + 1, sizeof("/Registry") - 1);
-
-  Log_Verbose("Accounts", "Temporary string is %s", (const char *)Temporary_String);
 
   Temporary_String += "/Desk";
   if (Drive.Make_Directory(Temporary_String) != Result_Type::Success)
@@ -246,14 +237,9 @@ Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
     // - Create a salted and peppered password.
     Static_String_Type<69> Salted_Password = Password;
 
-    Log_Verbose("Accounts", "Password : %s", (const char *)Salted_Password);
-
     // char Salt = static_cast<char>(Mathematics.Random(0x000000FF));
-    // Log_Verbose("Accounts", "Salt : %X", Salt);
 
     this->Salt_Password(Salted_Password, static_cast<char>(Mathematics.Random(' ', '~')));
-
-    Log_Verbose("Accounts", "Salted password : %s", (const char *)Salted_Password);
 
     // Hash the salted and peppered password.
     if (this->Hash_Password(Salted_Password, Hashed_Password) != Result_Type::Success)
@@ -261,13 +247,11 @@ Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
       return Result_Type::Error;
     }
 
-    Log_Verbose("Accounts", "Hashed password : ");
-
-    for (uint8_t i = 0; i < 64; i++)
-    {
-      log_printf("%02X ", Hashed_Password[i]);
-    }
-    log_printf("\n");
+  //  for (uint8_t i = 0; i < 64; i++)
+  //  {
+  //    log_printf("%02X ", Hashed_Password[i]);
+  //  }
+  //  log_printf("\n");
   }
 
   Temporary_String += "/Registry/User.xrf";
@@ -290,8 +274,6 @@ Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
 
   Hashed_Password_Characters[sizeof(Hashed_Password_Characters) - 1] = '\0';
 
-  Log_Verbose("Accounts", "Hashed password : %s", Hashed_Password_Characters);
-
   User_Registry["Password"] = (const char *)Hashed_Password_Characters;
 
   //  JsonArray Password_Array = User_Registry.createNestedArray("Password");
@@ -303,13 +285,11 @@ Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
 
   if (serializeJson(User_Registry, Temporary_File) == 0)
   {
-    Log_Verbose("Accounts", "Failed to serialize user registry");
     Temporary_File.Close();
     return Result_Type::Error;
   }
   Temporary_File.Close();
 
-  Log_Verbose("Accounts", "User %s created", (const char *)User_Name);
   return Result_Type::Success;
 }
 
@@ -448,7 +428,6 @@ Result_Type Accounts_Class::Check_Credentials(const char *Username_To_Check, con
 
     if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
     {
-      Log_Verbose("Accounts", "deserializeJson failed");
       Temporary_File.Close();
       return Result_Type::Error;
     }
@@ -456,7 +435,6 @@ Result_Type Accounts_Class::Check_Credentials(const char *Username_To_Check, con
 
     if (strcmp("User", User_Registry["Registry"] | "") != 0)
     {
-      Log_Verbose("Accounts", "Registry is not a user registry");
       return Result_Type::Error;
     }
 
@@ -464,7 +442,6 @@ Result_Type Accounts_Class::Check_Credentials(const char *Username_To_Check, con
 
     if (Password_Hash_Characters == NULL)
     {
-      Log_Verbose("Accounts", "Password_Hash_Characters is null");
       return Result_Type::Error;
     }
 
@@ -489,8 +466,6 @@ Result_Type Accounts_Class::Check_Credentials(const char *Username_To_Check, con
     // Hash password
     this->Hash_Password(Salted_Password, Test_Hash);
 
-    Log_Verbose("Accounts", "%c : Test hash : ", Salt);
-
     for (uint8_t i = 0; i < 64; i++)
     {
       log_printf("%02X ", Test_Hash[i]);
@@ -500,7 +475,6 @@ Result_Type Accounts_Class::Check_Credentials(const char *Username_To_Check, con
     // - Compare expected hash with test hash.
     if (memcmp(Expected_Hash, Test_Hash, sizeof(Expected_Hash)) == 0)
     {
-      Log_Verbose("Accounts", "Password is correct");
       return Result_Type::Success;
     }
   }
@@ -575,7 +549,6 @@ Result_Type Accounts_Type::Hash_Password(const char *Password, uint8_t *Hash_Buf
   // In order to make the password more secure, we hash it 3 times.
   for (uint8_t i = 0; i < 3; i++)
   {
-    //    Log_Verbose("Accounts", "Hash_Buffer : ");
     //    for (uint8_t i = 0; i < 64; i++)
     //    {
     //      log_printf("%02X ", Hash_Buffer[i]);
@@ -587,8 +560,6 @@ Result_Type Accounts_Type::Hash_Password(const char *Password, uint8_t *Hash_Buf
       Hash.Delete();
       return Result_Type::Error;
     }
-
-    //    Log_Verbose("Accounts", "Hash size : %u", Hash.Get_Size());
 
     if (Hash.Add(Password) != Result_Type::Success)
     {

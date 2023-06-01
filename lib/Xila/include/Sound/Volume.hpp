@@ -91,7 +91,6 @@ namespace Xila_Namespace
                 : Stream_Type(Volume_Stream),
                   Volume_Stream(Output)
             {
-                Log_Verbose("Sound", "Volume stream created : %p / %p", &Output, &Volume_Stream);
             }
 
             // - - Operations

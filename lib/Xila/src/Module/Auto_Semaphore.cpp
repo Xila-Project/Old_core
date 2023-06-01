@@ -22,7 +22,6 @@ Auto_Semaphore_Class::Auto_Semaphore_Class(const Auto_Semaphore_Type &Auto_Semap
 Semaphore_Handle(Auto_Semaphore.Semaphore_Handle)
 {
     xSemaphoreTakeRecursive(Semaphore_Handle, portMAX_DELAY);
-    Log_Verbose("Auto_Semaphore", "Auto_Semaphore copied");
     // Do take the semaphore since it's supposed to be already taken since an Auto_Semaphore_Class is invoked.
 }
 

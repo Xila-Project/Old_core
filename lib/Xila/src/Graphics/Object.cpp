@@ -221,10 +221,7 @@ bool Object_Class::Has_Class(const Class_Type *Class_To_Check) const
 bool Object_Class::Check_Class(const Class_Type *Class_To_Check) const
 {
     if (Class_To_Check == NULL)
-    {
-        Log_Verbose("Object", "Class to check is NULL");
         return false;
-    }
 
     return (this->Get_Class() == Class_To_Check);
 }

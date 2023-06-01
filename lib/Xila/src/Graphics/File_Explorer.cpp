@@ -180,21 +180,15 @@ void File_Explorer_Class::Refresh()
 
 void File_Explorer_Class::Go_Parent_Folder()
 {
-    Log_Verbose("Shell", "Going to parent folder.");
-
     if (!this->Is_Valid() || !Data)
         return;
 
     for (uint8_t i = Data->Path.Get_Length() - 1; i > 0; i--)
     {
-        Log_Verbose("Shell", "Character: %s", (const char *)Data->Path);
-        Log_Verbose("Shell", "Index: %d", i);
-
         if (Data->Path.Get_Character(i) == '/')
         {
             Data->Path.Set_Character(i, '\0');
 
-            Log_Verbose("Shell", "New path: %s", (const char *)Data->Path);
             break;
         }
         else
@@ -223,8 +217,6 @@ void File_Explorer_Class::Event_Callback(lv_event_t *Event)
 
     if (!Current_Target.Is_Valid())
         return;
-
-    Log_Verbose("File explo", "Code : %d", lv_event_get_code(Event));
 
     switch (lv_event_get_code(Event))
     {
@@ -273,7 +265,6 @@ void File_Explorer_Class::Event_Callback(lv_event_t *Event)
     case LV_EVENT_LONG_PRESSED:
         if (Current_Target.Get_Parent() == *File_Explorer)
         {
-            Log_Verbose("File explorer", "Long pressed");
             if (!File_Explorer->Get_Selection_State())
                 File_Explorer->Set_Selection_State(true);
 

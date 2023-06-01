@@ -163,7 +163,6 @@ namespace Xila_Namespace
             I2S_Class(int Mute_Pin = -1) : Stream_Type(I2S_Stream),
                                            I2S_Stream()
             {
-                Log_Verbose("Sound", "I2S class has been constructed.");
             }
 
             /// @brief Start I2S stream.
