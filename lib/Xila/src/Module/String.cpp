@@ -204,7 +204,7 @@ bool String_Class::Is_Empty() const
 /// @return true if the string is valid, false otherwise.
 bool String_Class::Is_Valid() const
 {
-    return (Characters_Pointer != NULL) && (Size > 0);
+    return Characters_Pointer && (Size > 0);
 }
 
 Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_Size)
@@ -257,15 +257,15 @@ Result_Type String_Class::Copy(char Character, bool Change_Size)
 
 Result_Type String_Class::Copy_Format(const char *Format, ...)
 {
-    if (Format == NULL || !Is_Valid())
-    {
+    if (!Format || !Is_Valid())
         return Result_Type::Error;
-    }
 
     va_list Arguments;
     va_start(Arguments, Format);
     vsnprintf(Characters_Pointer, Get_Size(), Format, Arguments);
     va_end(Arguments);
+
+    return Result_Type::Success;
 }
 
 Result_Type String_Class::Concatenate(const char *String, Size_Type Size, bool Increase_Size)
