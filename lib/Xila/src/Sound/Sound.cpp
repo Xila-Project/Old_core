@@ -47,6 +47,7 @@ Result_Type Sound_Class::Start()
         Configuration.Set_Word_Select_Clock_Pin(Xila_Sound_Default_I2S_Word_Select_Pin);
         Configuration.Set_Bit_Clock_Pin(Xila_Sound_Default_I2S_Clock_Pin);
         Configuration.Set_Data_Pin(Xila_Sound_Default_I2S_Data_Pin);
+        Configuration.Set_Master_Clock_Pin(-1); // ! : Temporary fix for arduino-audio-tools (commit 69a0e5a).
 
         Configuration.Set_Sample_Rate(44100);
         Configuration.Set_Channel_Count(1);
@@ -55,7 +56,7 @@ Result_Type Sound_Class::Start()
         if (I2S_Output_Stream.Begin(Configuration) != Result_Type::Success)
             return Result_Type::Error;
 
-        Volume_Stream.Begin(Configuration);
+       Volume_Stream.Begin(Configuration);
         Set_Volume(Xila_Default_Sound_Volume);
     }
 #endif
@@ -143,8 +144,7 @@ Result_Type Sound_Class::Save_Registry()
 
 Real_Type Sound_Class::Get_Volume()
 {
-    // return 0;
-    return Volume_Stream.Get_Volume() / 0.5;
+    return Volume_Stream.Get_Volume() / Xila_Sound_Default_Maximum_Volume;
 }
 
 Sound_Types::Stream_Type& Sound_Class::Get_Current_Output_Stream()

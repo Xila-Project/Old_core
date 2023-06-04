@@ -96,6 +96,11 @@ namespace Xila_Namespace
                 return I2S_Configuration.pin_data;
             }
 
+            int Get_Master_Clock_Pin()
+            {
+                return I2S_Configuration.pin_mck;
+            }
+
             /// @brief Get I2S bits per sample.
             /// @return  int I2S bits per sample.
             Format_Type Get_Format()
@@ -131,6 +136,11 @@ namespace Xila_Namespace
             void Set_Data_Pin(int Pin)
             {
                 I2S_Configuration.pin_data = Pin;
+            }
+
+            void Set_Master_Clock_Pin(int Pin)
+            {
+                I2S_Configuration.pin_mck = Pin;
             }
 
             /// @brief Set I2S bits per sample.
