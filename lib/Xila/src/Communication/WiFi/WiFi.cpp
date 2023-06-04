@@ -218,12 +218,6 @@ Result_Type WiFi_Class::Station_Class::Get_Informations(const char *SSID, String
     Drive_Types::File_Type Registry_File = Drive.Open(Registry("WiFi"));
     DynamicJsonDocument WiFi_Registry(8 * 128);
 
-    while (Registry_File.available() > 0)
-    {
-        log_printf("%c", Registry_File.Read());
-    }
-    Registry_File.Seek(0);
-
     if (!Registry_File || deserializeJson(WiFi_Registry, Registry_File, DeserializationOption::Filter(Filter)) || (strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0))
     {
         Registry_File.Close();
