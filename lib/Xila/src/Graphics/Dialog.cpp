@@ -126,3 +126,33 @@ void Dialog_Class::Set_Overlay(bool Enable)
         Overlay.Delete();
     }
 }
+
+bool Dialog_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
+{
+    if (Get_Pointer() != NULL)
+        return false;
+    
+
+    Object_Type Object(LVGL_Object_Pointer);
+
+    if (!Object.Check_Class(&Dialog_Class::Class))
+        return false;
+
+    this->LVGL_Object_Pointer = LVGL_Object_Pointer;
+    return true;
+
+}
+
+void Dialog_Class::Set_State(Window_State_Type State)
+{
+    switch (State)
+    {
+    case Window_State_Type::Maximized:
+        Clear_Flag(Flag_Type::Hidden);
+        Move_Foreground();
+        break;
+    case Window_State_Type::Minimized:
+        Add_Flag(Flag_Type::Hidden);
+        break;
+    }
+}

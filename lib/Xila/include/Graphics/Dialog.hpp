@@ -34,6 +34,10 @@ namespace Xila_Namespace
 
             // - - Setters
 
+            virtual bool Set_Pointer(lv_obj_t* LVGL_Object_Pointer) override;
+
+            virtual void Set_State(Window_State_Type State) override;
+
             /// @brief Set the dialog overlay.
             /// @param Enable true to enable the overlay, false to disable it.
             void Set_Overlay(bool Enable);

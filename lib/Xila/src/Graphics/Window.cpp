@@ -229,9 +229,8 @@ bool Window_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     Object_Type Object(LVGL_Object_Pointer);
 
     if (!Object.Check_Class(&Window_Class::Class))
-    {
         return false;
-    }
+    
     this->LVGL_Object_Pointer = LVGL_Object_Pointer;
     return true;
 }

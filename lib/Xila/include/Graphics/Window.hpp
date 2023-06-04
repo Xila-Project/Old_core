@@ -70,7 +70,7 @@ namespace Xila_Namespace
 
             /// @brief Set the state of the window.
             /// @param State State of the window.
-            void Set_State(Window_State_Type State);
+            virtual void Set_State(Window_State_Type State);
 
             // - - Getters
 
