@@ -87,7 +87,7 @@ Result_Type Power_Class::Load_Registry()
 
 // - Get values from registry
 //#ifdef Xila_Power_Default_Battery_Sensing_Pin
-//    Set_Sessing_Pin(Power_Registry["Sensing Pin"] | Xila_Power_Battery_Default_Sensing_Pin);
+//    Set_Sensing_Pin(Power_Registry["Sensing Pin"] | Xila_Power_Battery_Default_Sensing_Pin);
 //    Set_Voltages(Power_Registry["Minimum Voltage"] | Xila_Power_Default_Battery_Minimum_Voltage, Power_Registry["Maximum Voltage"] | Xila_Power_Default_Battery_Maximum_Voltage);
 //    Set_Conversion_Factor(Power_Registry["Conversion Factor"] | Xila_Power_Default_Battery_Conversion_Factor);
 //#endif
