@@ -42,7 +42,7 @@ void Label_Class::Create(Object_Class Parent_Object)
     }
 }
 
-void Label_Class::Create(Object_Class Parent_Object, const char*Text, Coordinate_Type Width, Coordinate_Type Height)
+void Label_Class::Create(Object_Class Parent_Object, const char* Text, Coordinate_Type Width, Coordinate_Type Height)
 {
     if (Parent_Object)
     {
@@ -92,8 +92,23 @@ void Label_Class::Set_Text_Format(const char *Format, ...)
 {
     va_list Arguments;
     va_start(Arguments, Format);
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_label_set_text_fmt(Get_Pointer(), Format, Arguments);
+
+    va_list Arguments_Copy;
+    va_copy(Arguments_Copy, Arguments);
+
+    Size_Type Text_Length = vsniprintf(NULL, 0, Format, Arguments_Copy);
+
+    va_end(Arguments_Copy);
+
+    char* Buffer = static_cast<char*>(lv_mem_alloc(Text_Length + 1));
+
+    vsnprintf(Buffer, Text_Length + 1, Format, Arguments);
+
+    auto Semaphore = Graphics.Take_Semaphore_Auto();
+    lv_label_set_text(Get_Pointer(), Buffer);
+
+    lv_mem_free(Buffer);
+
     va_end(Arguments);
 }
 
