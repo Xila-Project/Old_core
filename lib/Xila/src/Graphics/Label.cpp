@@ -42,7 +42,7 @@ void Label_Class::Create(Object_Class Parent_Object)
     }
 }
 
-void Label_Class::Create(Object_Class Parent_Object, const char* Text, Coordinate_Type Width, Coordinate_Type Height)
+void Label_Class::Create(Object_Class Parent_Object, const char* Text, bool Static, Coordinate_Type Width, Coordinate_Type Height)
 {
     if (Parent_Object)
     {
@@ -53,8 +53,11 @@ void Label_Class::Create(Object_Class Parent_Object, const char* Text, Coordinat
         if (Height != 0)
             this->Set_Height(Height);
 
-        if (Text != "")
-            this->Set_Text(Text);
+        if (Text)
+            if (Static)
+                this->Set_Text_Static(Text);
+            else
+                this->Set_Text(Text);
     }
 }
 
