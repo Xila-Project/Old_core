@@ -34,5 +34,5 @@
        
     },
     "frameworks": "arduino",
-    "platforms": ["espressif32", "linux_x86_64"]
+    "platforms": ["espressif32"]
 }
