@@ -60,8 +60,7 @@ void Button_Class::Create(Object_Class Parent_Object, const char*Label_Text, Coo
         if (Label_Text != "")
         {
             Label_Type Label;
-            Label.Create(*this);
-            Label.Set_Text(Label_Text);
+            Label.Create(*this, Label_Text, true);
             Label.Set_Alignment(Alignment_Type::Center);
         }
     }
