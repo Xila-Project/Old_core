@@ -12,7 +12,7 @@
 
 #include "Battery_Library.hpp"
 
-#ifdef Xila_Power_Battery_Default_Sensing_Pin
+#if defined(Xila_Power_Battery_Default_Sensing_Pin) && defined(Xila_Power_Battery_Default_Minimum_Voltage) && defined(Xila_Power_Battery_Default_Maximum_Voltage) && defined(Xila_Power_Battery_Default_Conversion_Factor)
 Battery_Class Battery(Xila_Power_Battery_Default_Sensing_Pin, Xila_Power_Battery_Default_Minimum_Voltage, Xila_Power_Battery_Default_Maximum_Voltage, Xila_Power_Battery_Default_Conversion_Factor);
 #endif
 
