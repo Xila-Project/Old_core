@@ -138,13 +138,10 @@ IP_Address_Class& IP_Address_Class::operator=(const uint32_t Address)
 String_Type& IP_Address_Class::To(String_Class& String) const
 {
     if (Is_IPv4)
-    {
-        String.Copy_Format("%d.%d.%d.%d", Address.Bytes[0], Address.Bytes[1], Address.Bytes[2], Address.Bytes[3]);
-    }
+        String.Copy_Format("%u.%u.%u.%u", Address.Bytes[0], Address.Bytes[1], Address.Bytes[2], Address.Bytes[3]);
     else
-    {
-        String.Copy_Format("%x%x:%x%x:%x%x:%x%x:%x%x:%x%x:%x%x:%x%x", Address.Bytes[0], Address.Bytes[1], Address.Bytes[2], Address.Bytes[3], Address.Bytes[4], Address.Bytes[5], Address.Bytes[6], Address.Bytes[7], Address.Bytes[8], Address.Bytes[9], Address.Bytes[10], Address.Bytes[11], Address.Bytes[12], Address.Bytes[13], Address.Bytes[14], Address.Bytes[15]);
-    }
+        String.Copy_Format("%x:%x:%x:%x:%x:%x:%x:%x", Address.Bytes[0], Address.Bytes[1], Address.Bytes[2], Address.Bytes[3], Address.Bytes[4], Address.Bytes[5], Address.Bytes[6], Address.Bytes[7], Address.Bytes[8], Address.Bytes[9], Address.Bytes[10], Address.Bytes[11], Address.Bytes[12], Address.Bytes[13], Address.Bytes[14], Address.Bytes[15]);
+
     return String;
 }
 
