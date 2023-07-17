@@ -1,4 +1,3 @@
-///
 /// @file WT32-SC01-Plus.cpp
 /// @author Alix ANNERAUD (alix@anneraud.fr)
 /// @brief 
@@ -6,7 +5,6 @@
 /// @date 02-02-2023
 ///
 /// @copyright Copyright (c) 2023
-///
 
 #ifdef Xila_Display_Hardware_Wireless_Tag_WT32_SC01_Plus
 

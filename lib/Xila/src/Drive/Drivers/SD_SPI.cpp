@@ -19,6 +19,9 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Drive_Types;
 
+#ifdef Xila_Board_Hardware_ESP32_8048S070
+SPIClass &SD_SPI = SPI;
+#endif
 #ifdef Xila_Board_Hardware_Wireless_Tag_WT32_SC01_Plus
 SPIClass &SD_SPI = SPI;
 #endif
