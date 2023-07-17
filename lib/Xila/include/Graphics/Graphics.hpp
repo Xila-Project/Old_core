@@ -144,7 +144,7 @@ namespace Xila_Namespace
         Task_Class Task;
 
         // - - Buffers
-        lv_color_t Draw_Buffer[480 * 10];
+        lv_color_t* Draw_Buffer;
 
         // - - Drivers
         lv_disp_draw_buf_t Draw_Buffer_Descriptor;
