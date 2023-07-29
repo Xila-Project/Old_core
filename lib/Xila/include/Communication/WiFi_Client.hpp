@@ -9,7 +9,10 @@
 #ifndef Communication_WiFi_Client_Hpp_Included
 #define Communication_WiFi_Client_Hpp_Included
 
-#include <WiFiClientSecure.h>
+#ifdef Xila_WiFi_Hardware_ESP32
+    #include <WiFiClientSecure.h>
+#endif
+
 #include "Module/Module.hpp"
 
 namespace Xila_Namespace
@@ -27,23 +30,21 @@ namespace Xila_Namespace
 
             // - - Operations
 
-            Result_Type Connect(const char* Host, uint16_t Port, int32_t Timeout = 30000);
+            Result_Type Connect(const char *Host, uint16_t Port, int32_t Timeout = 30000);
 
             void Stop();
 
             bool Connected();
-            String_Type& Last_Error(String_Type& Error_Buffer);
-            
+            String_Type &Last_Error(String_Type &Error_Buffer);
+
             // - - Getters
 
             // - - Setters
 
             void Set_Insecure();
-          
+
             void Set_Handshake_Timeout(uint32_t Timeout);
             void Set_Timeout(uint32_t Timeout);
-
-
 
             // - - - Overrided Stream_Type methods
 
@@ -56,7 +57,7 @@ namespace Xila_Namespace
             void Flush() override;
             Size_Type Write(Byte_Type Byte) override;
             Size_Type Write_Bytes(const Byte_Type *Buffer, Size_Type Length) override;
-            Size_Type Write_String(const char* String) override;
+            Size_Type Write_String(const char *String) override;
 
             // - - Operators
 
@@ -65,19 +66,18 @@ namespace Xila_Namespace
             bool operator==(WiFi_Client_Class &Client);
             bool operator!=(WiFi_Client_Class &Client);
 
-
             /// @brief Cast operator to WiFiClientSecure (compatibility purpose)
-            operator WiFiClientSecure&()
+            operator WiFiClientSecure &()
             {
                 return Client;
             }
 
         private:
-
+#if defined(Xila_WiFi_Hardware_ESP32)
             WiFiClientSecure Client;
+#endif
         } WiFi_Client_Type;
 
-        
     }
 }
 

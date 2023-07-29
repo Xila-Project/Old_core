@@ -13,8 +13,6 @@
 
 #include "Base_Types.hpp"
 
-#include <mutex>
-
 namespace Xila_Namespace
 {
     // - Forward declarations

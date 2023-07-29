@@ -9,8 +9,10 @@
 #ifndef Communication_HTTP_Client_Hpp_Included
 #define Communication_HTTP_Client_Hpp_Included
 
-#include "HTTPClient.h"
-#include "WiFi_Client.hpp"
+#ifdef Xila_WiFi_Hardware_ESP32
+    #include "HTTPClient.h"
+    #include "WiFi_Client.hpp"
+#endif
 
 namespace Xila_Namespace
 {
@@ -89,54 +91,53 @@ namespace Xila_Namespace
 
             // - - Operations
 
-            Result_Type Begin(WiFi_Client_Type &Client, const char* Host, uint16_t Port, const char* URI = NULL, bool HTTPS = false);
+            Result_Type Begin(WiFi_Client_Type &Client, const char *Host, uint16_t Port, const char *URI = NULL, bool HTTPS = false);
 
             void End();
 
             bool Connected();
 
             int Get();
-            int Patch(const char* Payload);
-            int Post(const char* Payload);
-            int Put(const char* Payload);
+            int Patch(const char *Payload);
+            int Post(const char *Payload);
+            int Put(const char *Payload);
 
-            int Send_Request(const char* Method, const char* Payload = NULL);
-            void Add_Header(const char* Header, const char* Value, bool First =false, bool Replace = true);
-            void Collect_Headers(const char* Header_Keys[], Size_Type Header_Keys_Count);
-            bool Has_Header(const char* Name);
+            int Send_Request(const char *Method, const char *Payload = NULL);
+            void Add_Header(const char *Header, const char *Value, bool First = false, bool Replace = true);
+            void Collect_Headers(const char *Header_Keys[], Size_Type Header_Keys_Count);
+            bool Has_Header(const char *Name);
 
             void Use_HTTP_1_0(bool Use_HTTP_1_0);
-            
-            //void Set_Cookie_Jar(Cookie_Jar_Type* Cookie_Jar);
+
+            // void Set_Cookie_Jar(Cookie_Jar_Type* Cookie_Jar);
             void Reset_Cookie_Jar();
             void Clear_All_Cookies();
 
             // - - Setters
 
             void Set_Reuse(bool Reuse);
-            void Set_User_Agent(const char* User_Agent);
-            void Set_Authorization(const char* User, const char* Password = NULL);
-            void Set_Authorization_Type(const char* Authorization_Type);
+            void Set_User_Agent(const char *User_Agent);
+            void Set_Authorization(const char *User, const char *Password = NULL);
+            void Set_Authorization_Type(const char *Authorization_Type);
             void Set_Connect_Timeout(uint32_t Timeout);
             void Set_Timeout(uint32_t Timeout);
 
             void Set_Follow_Redirects(bool Follow_Redirects, bool Force = false);
             void Set_Redirect_Limit(uint16_t Limit);
-            Result_Type Set_URL(const char* URL);
+            Result_Type Set_URL(const char *URL);
 
             // - - Getters
 
-            String_Type& Get_Header(String_Type& Header_Buffer, const char* Name);
-            String_Type& Get_Header_Name(String_Type& Header_Buffer, Size_Type Index);
+            String_Type &Get_Header(String_Type &Header_Buffer, const char *Name);
+            String_Type &Get_Header_Name(String_Type &Header_Buffer, Size_Type Index);
             Size_Type Get_Header_Count();
-            
-            Size_Type Get_Size();
-            const char* Get_Location();
-            
-            String_Type& Get_String(String_Type& String);
-            
-        private:
 
+            Size_Type Get_Size();
+            const char *Get_Location();
+
+            String_Type &Get_String(String_Type &String);
+
+        private:
             HTTPClient Client;
         } HTTPS_Client_Type;
     }
