@@ -13,8 +13,6 @@
 
 #include "../Module/Module.hpp"
 
-#include "Battery_Library.hpp"
-
 //==============================================================================//
 ///
 /// @brief Power management module.
