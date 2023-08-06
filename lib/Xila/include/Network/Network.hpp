@@ -15,15 +15,17 @@
 #include "WiFi.hpp"
 #include "HTTP_Client.hpp"
 
+#include "Interface.hpp"
+
 namespace Xila_Namespace
 {
-   namespace Communication_Types
+   namespace Network_Types
    {
 
    }
 
    /// @brief Communication module class.
-   typedef class Communication_Class
+   typedef class Network_Class
    {
    public:
 
@@ -35,13 +37,21 @@ namespace Xila_Namespace
       /// @return `Result_Type`
       Result_Type Stop();
 
-      /// @brief WiFi sub-module instance.
-      Communication_Types::WiFi_Type WiFi;
+      /// @brief 
+      /// @param Index 
+      /// @return 
+      Network_Types::Interface_Type* Get_Interface(Natural_Type Index = 0);
+
+      /// @brief 
+      /// @param Index 
+      /// @return 
+      Network_Types::Interface_Type* Get_Connected_Interface(Natural_Type Index = 0);
+
       
-   } Communication_Type;
+   } Network_Type;
 
    /// @brief Communication module instance.
-   extern Communication_Type Communication;
+   extern Network_Type Network;
 }
 
 #endif

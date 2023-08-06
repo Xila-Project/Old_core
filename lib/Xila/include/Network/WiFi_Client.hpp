@@ -9,6 +9,8 @@
 #ifndef Communication_WiFi_Client_Hpp_Included
 #define Communication_WiFi_Client_Hpp_Included
 
+
+
 #ifdef Xila_WiFi_Hardware_ESP32
     #include <WiFiClientSecure.h>
 #endif

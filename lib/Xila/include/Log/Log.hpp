@@ -13,7 +13,9 @@
 
 #include "../Module/Module.hpp"
 
+#if defined(Xila_Processor_Hardware_ESP32_S3) || defined(Xila_Processor_Hardware_ESP32)
 #include "esp_log.h"
+#endif
 
 namespace Xila_Namespace
 {
@@ -27,21 +29,21 @@ namespace Xila_Namespace
         /// @param  Arguments Arguments of the message.
         void Print(const char *Format, ...)
         {
-           // if (!Semaphore.Is_Valid())
-           // {
-           //     Print_Static("Semaphore is not valid !\r\n");
-           //     return;
-           // }
-           // Print_Static("Wait semaphore...\r\n");
+            // if (!Semaphore.Is_Valid())
+            // {
+            //     Print_Static("Semaphore is not valid !\r\n");
+            //     return;
+            // }
+            // Print_Static("Wait semaphore...\r\n");
 
-           //xSemaphoreTake(Semaphore_Handle, portMAX_DELAY);
-           //Semaphore.Take();
+            // xSemaphoreTake(Semaphore_Handle, portMAX_DELAY);
+            // Semaphore.Take();
             va_list Arguments;
             va_start(Arguments, Format);
             log_printf(Format, Arguments);
             va_end(Arguments);
-            //Semaphore.Give();
-            //xSemaphoreGive(Semaphore_Handle);
+            // Semaphore.Give();
+            // xSemaphoreGive(Semaphore_Handle);
         };
 
         /// @brief Print a message to the log.
@@ -54,7 +56,6 @@ namespace Xila_Namespace
             log_printf(Format, Arguments);
             va_end(Arguments);
         };
-
 
     private:
         xSemaphoreHandle Semaphore_Handle;
@@ -77,8 +78,8 @@ namespace Xila_Namespace
 
 #if Log_Level > 0
 
-#define Log_Raw(Format, ...)        log_printf(Format, ##__VA_ARGS__);
-#define Log_Raw_Line(Format, ...)   Log_Raw(Format "\r\n", ##__VA_ARGS__)
+#define Log_Raw(Format, ...) log_printf(Format, ##__VA_ARGS__);
+#define Log_Raw_Line(Format, ...) Log_Raw(Format "\r\n", ##__VA_ARGS__)
 #define Log_Format(Module_Name, Type, Format) "| %6u ms | %s.%s() | (%s:%u) |  %s | " Format "\r\n", (unsigned long)(esp_timer_get_time() / 1000ULL), Module_Name, __FUNCTION__, pathToFileName(__FILE__), __LINE__, Type
 #define Log_All(Module_Name, Type, Format, ...) Log_Raw(Log_Format(Module_Name, Type, Format), ##__VA_ARGS__)
 #else
@@ -121,4 +122,4 @@ namespace Xila_Namespace
 #define Log_Verbose(Module_Name, Format, ...)
 #endif
 
-#endif  // Xila_Log_Hpp
+#endif // Xila_Log_Hpp
