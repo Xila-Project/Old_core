@@ -1,23 +1,28 @@
- /// @file WiFi_Client.cpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 16-05-2023
- /// 
- /// @copyright Copyright (c) 2023
- 
+/// @file Client.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 16-05-2023
+///
+/// @copyright Copyright (c) 2023
 
-#include "Communication/WiFi_Client.hpp"
+#ifdef Xila_WiFi_Hardware_ESP32
+
+#include <WiFiClientSecure.h>
+
+#include "Network/WiFi/Client.hpp"
 
 using namespace Xila_Namespace;
-using namespace Communication_Types;
+using namespace Network_Types;
 
 WiFi_Client_Class::WiFi_Client_Class()
 {
+    Data = new 
 }
 
-Result_Type WiFi_Client_Class::Connect(const char* Host, uint16_t Port, int32_t Timeout)
+Result_Type WiFi_Client_Class::Connect(const char *Host, uint16_t Port, int32_t Timeout)
 {
+
     return (Result_Type)Client.connect(Host, Port, Timeout);
 }
 
@@ -31,17 +36,16 @@ bool WiFi_Client_Class::Connected()
     return Client.connected();
 }
 
-String_Type& WiFi_Client_Class::Last_Error(String_Type& Error_Buffer)
+String_Type &WiFi_Client_Class::Last_Error(String_Type &Error_Buffer)
 {
     if (!Error_Buffer)
         return Error_Buffer;
 
-    if (Client.lastError((char*)Error_Buffer, Error_Buffer.Get_Size()) == 0)
+    if (Client.lastError((char *)Error_Buffer, Error_Buffer.Get_Size()) == 0)
         Error_Buffer = "";
-  
+
     return Error_Buffer;
 }
-
 
 void WiFi_Client_Class::Set_Insecure()
 {
@@ -83,7 +87,7 @@ String_Type &WiFi_Client_Class::Read_String(String_Type &String)
     if (!String)
         return String;
 
-    Client.read((uint8_t*)(char*)String, String.Get_Size());
+    Client.read((uint8_t *)(char *)String, String.Get_Size());
     return String;
 }
 
@@ -102,9 +106,9 @@ Size_Type WiFi_Client_Class::Write_Bytes(const Byte_Type *Buffer, Size_Type Leng
     return Client.write(Buffer, Length);
 }
 
-Size_Type WiFi_Client_Class::Write_String(const char* String)
+Size_Type WiFi_Client_Class::Write_String(const char *String)
 {
-    return Client.write((uint8_t*)String, strlen(String));
+    return Client.write((uint8_t *)String, strlen(String));
 }
 
 WiFi_Client_Class::operator bool()
@@ -122,4 +126,4 @@ bool WiFi_Client_Class::operator!=(WiFi_Client_Class &Client)
     return Client != Client;
 }
 
-
+#endif

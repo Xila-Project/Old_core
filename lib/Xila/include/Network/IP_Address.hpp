@@ -1,5 +1,5 @@
-#ifndef IP_Address_Hpp_Included
-#define IP_Address_Hpp_Included
+#ifndef Xila_Network_IP_Address_Hpp_Included
+#define Xila_Network_IP_Address_Hpp_Included
 
 #include "../Module/String.hpp"
 

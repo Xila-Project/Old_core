@@ -8,11 +8,11 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#ifndef Communication_Hpp_Included
-#define Communication_Hpp_Included
+#ifndef Xila_Network_Hpp_Included
+#define Xila_Network_Hpp_Included
 
 #include "IP_Address.hpp"
-#include "WiFi.hpp"
+#include "WiFi/WiFi.hpp"
 #include "HTTP_Client.hpp"
 
 #include "Interface.hpp"

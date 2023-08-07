@@ -6,7 +6,7 @@
 ///
 /// @copyright Copyright (c) 2023
 
-#if Xila_WiFi_Hardware_ESP32
+#ifdef Xila_WiFi_Hardware_ESP32
 
 #include <WiFi.h>
 

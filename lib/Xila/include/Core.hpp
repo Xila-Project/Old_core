@@ -34,7 +34,7 @@
 // - Xila's modules
 #include "Account/Accounts.hpp"
 #include "Clipboard/Clipboard.hpp"
-#include "Communication/Communication.hpp"
+#include "Network/Network.hpp"
 #include "Display/Display.hpp"
 #include "Drive/Drive.hpp"
 #include "Flash/Flash.hpp"

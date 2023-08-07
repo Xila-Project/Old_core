@@ -20,7 +20,7 @@ namespace Xila_Namespace
 {
 
     /// @brief WiFi types
-    namespace Communication_Types
+    namespace Network_Types
     {
         /// @brief WiFi status type
         enum class Status_Type

@@ -6,8 +6,8 @@
 ///
 /// @copyright Copyright (c) 2023
 
-#ifndef Xila_Interface_Hpp_Included
-#define Xila_Interface_Hpp_Included
+#ifndef Xila_Network_Interface_Hpp_Included
+#define Xila_Network_Interface_Hpp_Included
 
 #include "IP_Address.hpp"
 #include "Client.hpp"

@@ -10,7 +10,7 @@
 
 // - Includes
 
-#include "Communication/WiFi.hpp"
+#include "Network/WiFi.hpp"
 #include "Drive/Drive.hpp"
 #include "Log/Log.hpp"
 #include "HTTPClient.h"
