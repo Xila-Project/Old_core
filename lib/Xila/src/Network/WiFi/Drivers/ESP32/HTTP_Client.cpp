@@ -6,21 +6,25 @@
 ///
 /// @copyright Copyright (c) 2023
 
-#include "Communication/HTTP_Client.hpp"
+#ifdef Xila_WiFi_Hardware_ESP32
+
+#include "Network/HTTP_Client.hpp"
+#include "Network/WiFi/Client.hpp"
 
 using namespace Xila_Namespace;
-using namespace Communication_Types;
+using namespace Network_Types;
 
 HTTPS_Client_Class::HTTPS_Client_Class()
 {
 }
 
-Result_Type HTTPS_Client_Class::Begin(WiFi_Client_Type &Client, const char *Host, uint16_t Port, const char *URI, bool HTTPS)
+Result_Type HTTPS_Client_Class::Begin(Client_Type &Client, const char *Host, uint16_t Port, const char *URI, bool HTTPS)
 {
-    if (URI == NULL)
-        return (Result_Type)this->Client.begin((WiFiClient &)Client, Host, Port);
 
-    return (Result_Type)this->Client.begin((WiFiClient &)Client, Host, Port, URI, HTTPS);
+    if (!URI)
+        return (Result_Type)this->Client.begin(((WiFi_Client_Type&)Client).Client, Host, Port);
+
+    return (Result_Type)this->Client.begin(((WiFi_Client_Type&)Client).Client, Host, Port, URI, HTTPS);
 }
 
 void HTTPS_Client_Class::End()
@@ -179,4 +183,4 @@ String_Type& HTTPS_Client_Class::Get_String(String_Type& String)
 }
 
 
-
+#endif

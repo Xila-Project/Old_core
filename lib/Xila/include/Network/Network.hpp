@@ -12,7 +12,8 @@
 #define Xila_Network_Hpp_Included
 
 #include "IP_Address.hpp"
-#include "WiFi/WiFi.hpp"
+#include "./WiFi/Client.hpp"
+#include "./WiFi/Interface.hpp"
 #include "HTTP_Client.hpp"
 
 #include "Interface.hpp"
@@ -42,10 +43,18 @@ namespace Xila_Namespace
       /// @return 
       Network_Types::Interface_Type* Get_Interface(Natural_Type Index = 0);
 
-      /// @brief 
+       /// @brief 
+       /// 
+      Natural_Type Get_Interface_Count();
+
+      /// @brief Get interface from the connected one's.
       /// @param Index 
       /// @return 
       Network_Types::Interface_Type* Get_Connected_Interface(Natural_Type Index = 0);
+
+      /// @brief Get the count of the connected interfaces.
+      /// @return Count of the connected interface.
+      Natural_Type Get_Connected_Interface_Count();
 
       
    } Network_Type;

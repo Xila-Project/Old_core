@@ -24,53 +24,87 @@ Result_Type Network_Class::Start()
 {
     Log_Information("WiFi", "Start Communication module...");
 
+    Result_Type Result = Result_Type::Success;
+
     Interface_Type* Interface_Pointer = Interface_Type::First_Instance_Pointer;
 
     while (Interface_Pointer)
     {
-        Interface_Pointer->Start(); 
+        if (Interface_Pointer->Start() != Result_Type::Success)
+            Result = Result_Type::Error;
 
         Interface_Pointer = Interface_Pointer->Next_Instance_Pointer;
     }
 
-
-    if (WiFi.Start() == Result_Type::Success)
-        return Result_Type::Success;
-
-    return Result_Type::Error;
+    return Result;
 }
 
 Result_Type Network_Class::Stop()
 {
-    if (WiFi.Stop() == Result_Type::Success)
-        return Result_Type::Success;
+    Result_Type Result = Result_Type::Success;
 
-    return Result_Type::Error;
+    Interface_Type* Interface_Pointer = Interface_Type::First_Instance_Pointer;
+
+    while (Interface_Pointer)
+    {
+        if (Interface_Pointer->Start() != Result_Type::Success)
+            Result = Result_Type::Error;
+        
+        Interface_Pointer = Interface_Pointer->Next_Instance_Pointer;
+    }
+
+    return Result;
 }
 
 Interface_Type* Network_Class::Get_Interface(Natural_Type Index)
 {
     Interface_Type* Interface_Pointer = Interface_Class::First_Instance_Pointer;
-    while (Index--)
+    while (Index-- && Interface_Pointer)
     {
         Interface_Pointer = Interface_Pointer->Next_Instance_Pointer;
     }
     return Interface_Pointer;
+}
+
+Natural_Type Network_Class::Get_Interface_Count()
+{
+    Natural_Type Count = 0;
+    Interface_Type* Interface_Pointer = Interface_Class::First_Instance_Pointer;
+    while (Interface_Pointer)
+    {
+        Count++;
+        Interface_Pointer = Interface_Pointer->Next_Instance_Pointer;
+    }
+    return Count;
 }
 
 Interface_Type* Network_Class::Get_Connected_Interface(Natural_Type Index)
 {
     Interface_Type* Interface_Pointer = Interface_Class::First_Instance_Pointer;
 
-    for (Natural_Type i = 0; i < Index; i++)
+    while (Index-- && Interface_Pointer)
     {
         Interface_Pointer = Interface_Pointer->Next_Instance_Pointer;
-        // Skip if not connected
-        while (Interface_Pointer->Get_Status() != Interface_Status::Connected)
+
+        while (Interface_Pointer->Get_State() != State_Type::Connected && Interface_Pointer)
         {
             Interface_Pointer = Interface_Pointer->Next_Instance_Pointer;
         }
     }
 
     return Interface_Pointer;
+}
+
+Natural_Type Network_Class::Get_Connected_Interface_Count()
+{
+    Natural_Type Count = 0;
+    Interface_Type* Interface_Pointer = Interface_Class::First_Instance_Pointer;
+    while (Interface_Pointer)
+    {
+        if (Interface_Pointer->Get_State() == State_Type::Connected)
+            Count++;
+
+        Interface_Pointer = Interface_Pointer->Next_Instance_Pointer;
+    }
+    return Count;
 }

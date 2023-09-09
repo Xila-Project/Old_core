@@ -22,7 +22,7 @@ namespace Xila_Namespace
 
             // - - Constructors / destructors
 
-            Client_Class();
+            Client_Class() = default;
         
             virtual Result_Type Connect(const char* Host, Word_Type Port, int32_t Timeout = 30000) = 0;
 
@@ -52,12 +52,6 @@ namespace Xila_Namespace
 
             virtual operator bool() = 0;
 
-            virtual bool operator==(Client_Class& Client) = 0;
-            virtual bool operator!=(Client_Class& Client) = 0;
-        
-        protected:
-
-            void* Data;
         } Client_Type;
     }
 

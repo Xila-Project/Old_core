@@ -8,13 +8,12 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#ifndef WiFi_Hpp_Included
-#define WiFi_Hpp_Included
+#ifndef Xila_Network_WiFi_Interface_Hpp_Included
+#define Xila_Network_WiFi_Interface_Hpp_Included
 
-#include "../Module/Module.hpp"
-
-#include "IP_Address.hpp"
-#include "WiFi_Client.hpp"
+#include "../Interface.hpp"
+#include "./Client.hpp"
+#include "../IP_Address.hpp"
 
 namespace Xila_Namespace
 {
@@ -68,22 +67,38 @@ namespace Xila_Namespace
         };
 
         /// @brief WiFi class
-        typedef class WiFi_Class : public Module_Class
+        typedef class WiFi_Interface_Class : Interface_Type
         {
         public:
             // - Methods
             // - - Constructors / destructors
 
             /// @brief Default constructor.
-            WiFi_Class();
+            WiFi_Interface_Class();
+
+            // - - Override base class methods
 
             /// @brief Start the WiFi module.
             /// @return `Result_Type::Success` if the module has been started, `Result_Type::Error` otherwise.
-            Result_Type Start();
+            Result_Type Start() override;
 
             /// @brief Stop (and turn off) the WiFi module.
             /// @return `Result_Type::Success` if the module has been stopped, `Result_Type::Error` otherwise.
-            Result_Type Stop();
+            Result_Type Stop() override;
+
+            State_Type Get_State() override;
+
+            IP_Address_Type Get_IP_Address(bool IPv6 = false) override;
+            IP_Address_Type Get_Gateway_IP_Address() override;
+            IP_Address_Type Get_Subnet_Mask() override;
+            IP_Address_Type Get_DNS_IP_Address(Natural_Type Index) override;
+            Byte_Type Get_Subnet_CIDR() override;
+
+            Client_Type& Create_Client() override;
+            
+            void Set_State(State_Type State) override;
+
+            Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = static_cast<uint32_t>(0x00000000), IP_Address_Type DNS_2_IP_Address = static_cast<uint32_t>(0x00000000)) override;
 
             // - - Managment
 
@@ -473,7 +488,7 @@ namespace Xila_Namespace
 
             bool Long_Range;
 
-        } WiFi_Type;
+        } WiFi_Interface_Type;
 
     }
 }

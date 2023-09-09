@@ -11,12 +11,13 @@
 
 #ifdef Xila_WiFi_Hardware_ESP32
     #include "HTTPClient.h"
-    #include "WiFi_Client.hpp"
 #endif
+
+#include "Client.hpp"
 
 namespace Xila_Namespace
 {
-    namespace Communication_Types
+    namespace Network_Types
     {
         enum class HTTP_Code_Type
         {
@@ -91,7 +92,7 @@ namespace Xila_Namespace
 
             // - - Operations
 
-            Result_Type Begin(WiFi_Client_Type &Client, const char *Host, uint16_t Port, const char *URI = NULL, bool HTTPS = false);
+            Result_Type Begin(Client_Type &Client, const char *Host, uint16_t Port, const char *URI = NULL, bool HTTPS = false);
 
             void End();
 
@@ -139,7 +140,10 @@ namespace Xila_Namespace
 
         protected:
 
-            void* Data;
+#ifdef Xila_WiFi_Hardware_ESP32
+            HTTPClient Client;
+#endif
+
         } HTTPS_Client_Type;
     }
 }

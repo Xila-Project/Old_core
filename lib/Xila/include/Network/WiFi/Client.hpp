@@ -11,6 +11,10 @@
 
 #include "../Client.hpp"
 
+#ifdef Xila_WiFi_Hardware_ESP32
+    #include "WiFiClientSecure.h"
+#endif
+
 namespace Xila_Namespace
 {
     namespace Network_Types
@@ -23,6 +27,7 @@ namespace Xila_Namespace
             // - - Constructors / Destructors
 
             WiFi_Client_Class();
+            ~WiFi_Client_Class();
 
             // - - Operations
 
@@ -59,8 +64,14 @@ namespace Xila_Namespace
 
             operator bool() override;
 
-            bool operator==(WiFi_Client_Class &Client) override;
-            bool operator!=(WiFi_Client_Class &Client) override;
+        private:
+            
+#ifdef Xila_WiFi_Hardware_ESP32
+            WiFiClientSecure Client;
+#endif
+
+        friend class HTTPS_Client_Class;
+
         } WiFi_Client_Type;
 
     }

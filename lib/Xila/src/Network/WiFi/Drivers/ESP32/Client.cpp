@@ -15,14 +15,16 @@
 using namespace Xila_Namespace;
 using namespace Network_Types;
 
-WiFi_Client_Class::WiFi_Client_Class()
+WiFi_Client_Class::WiFi_Client_Class() : Client()
 {
-    Data = new 
+}
+
+WiFi_Client_Class::~WiFi_Client_Class()
+{
 }
 
 Result_Type WiFi_Client_Class::Connect(const char *Host, uint16_t Port, int32_t Timeout)
 {
-
     return (Result_Type)Client.connect(Host, Port, Timeout);
 }
 
@@ -114,16 +116,6 @@ Size_Type WiFi_Client_Class::Write_String(const char *String)
 WiFi_Client_Class::operator bool()
 {
     return Client;
-}
-
-bool WiFi_Client_Class::operator==(WiFi_Client_Class &Client)
-{
-    return Client == Client;
-}
-
-bool WiFi_Client_Class::operator!=(WiFi_Client_Class &Client)
-{
-    return Client != Client;
 }
 
 #endif
