@@ -32,6 +32,10 @@ namespace Xila_Namespace
             /// @param Address : Pointer to an array of 4 or 16 bytes representing the IP address.
             IP_Address_Class(const uint8_t *Address, bool Is_IPv4 = true);
 
+            /// @brief Constructor to create an IP v4 or v6 address from a char array.
+            /// @param Address : Pointer to a char array representing the IP address.
+            IP_Address_Class(const char *Address);
+
             /// @brief Constructor to create an IP v4 address.
             /// @param Byte_1 First byte of the IP address.
             /// @param Byte_2 Second byte of the IP address.

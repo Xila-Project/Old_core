@@ -323,24 +323,21 @@ void System_Class::Load()
   // - Sound
 
   if (Sound.Start() != Result_Type::Success)
-  {
     Panic_Handler(Panic_Type::Failed_To_Start_Sound);
-  }
+  
 
   // - Power
 
   if (Power.Start() != Result_Type::Success)
-  {
     Panic_Handler(Panic_Type::Failed_To_Start_Power);
-  }
+  
 
   // - WiFi
 
-  if (Communication.Start() != Result_Type::Success)
-  {
+  if (Network.Start() != Result_Type::Success)
     Panic_Handler(Panic_Type::Failed_To_Start_Communication);
-  }
-  Communication.WiFi.Set_Host_Name(this->Device_Name); // Set hostname
+  
+  Network.Set_Host_Name(this->Device_Name); // Set hostname
 
   // - Account
   if (Accounts.Start() != Result_Type::Success)

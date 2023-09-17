@@ -93,12 +93,16 @@ namespace Xila_Namespace
             IP_Address_Type Get_Subnet_Mask() override;
             IP_Address_Type Get_DNS_IP_Address(Natural_Type Index) override;
             Byte_Type Get_Subnet_CIDR() override;
+            bool Is_IPv6() override;
 
             Client_Type& Create_Client() override;
             
             void Set_State(State_Type State) override;
 
             Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = static_cast<uint32_t>(0x00000000), IP_Address_Type DNS_2_IP_Address = static_cast<uint32_t>(0x00000000)) override;
+
+            String_Type &Get_Host_Name(String_Type &Host_Name) override;
+            Result_Type Set_Host_Name(const char *Host_Name);
 
             // - - Managment
 
@@ -119,9 +123,6 @@ namespace Xila_Namespace
             /// @return Current WiFi transmission power in dBm.
             int16_t Get_Transmission_Power();
 
-            /// @brief Get the host name.
-            /// @param Host_Name Reference to a `String_Type` where the host name will be stored.
-            String_Type &Get_Host_Name(String_Type &Host_Name);
 
             // - - Setters
 
@@ -133,11 +134,6 @@ namespace Xila_Namespace
             /// @param Power Transmission power in dBm.
             /// @return `Result_Type::Success` if the transmission power has been set, `Result_Type::Error` otherwise.
             Result_Type Set_Transmission_Power(int16_t Power);
-
-            /// @brief Set the host name.
-            /// @param Host_Name Host name.
-            /// @return `Result_Type::Success` if the host name has been set, `Result_Type::Error` otherwise.
-            Result_Type Set_Host_Name(const char *Host_Name);
 
             // Result_Type Set_Antennas(uint8_t GPIO_1, uint8_t GPIO_2);
             // - -

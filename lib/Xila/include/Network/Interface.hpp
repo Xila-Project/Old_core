@@ -65,6 +65,7 @@ namespace Xila_Namespace
             virtual IP_Address_Type Get_Subnet_Mask() = 0;
             virtual IP_Address_Type Get_DNS_IP_Address(Natural_Type Index) = 0;
             virtual Byte_Type Get_Subnet_CIDR() = 0;
+            virtual bool Is_IPv6() = 0;
 
             virtual Client_Type& Create_Client() = 0;
 
@@ -83,6 +84,15 @@ namespace Xila_Namespace
             /// @return `Result_Type::Success` if the network configuration has been set, `Result_Type::Error` otherwise.
             virtual Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = static_cast<uint32_t>(0x00000000), IP_Address_Type DNS_2_IP_Address = static_cast<uint32_t>(0x00000000)) = 0;
 
+             /// @brief Set the host name of the device over the interface.
+             /// @param Host_Name 
+             /// @return Result_Type `Result_Type::Success` if the host name has been setted successfully. 
+            virtual Result_Type Set_Host_Name(const char* Host_Name) = 0;
+
+             /// @brief Get the host name of the device over the interface. 
+             /// @param Host_Name String to store the host name.
+             /// @return String_Type& Host name. 
+            virtual String_Type& Get_Host_Name(String_Type& Host_Name) = 0;
 
             friend class Xila_Namespace::Network_Class;
         } Interface_Type;       

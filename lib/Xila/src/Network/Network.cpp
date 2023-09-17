@@ -108,3 +108,25 @@ Natural_Type Network_Class::Get_Connected_Interface_Count()
     }
     return Count;
 }
+
+Result_Type Network_Class::Set_Host_Name(const char* Host_Name)
+{
+    Result_Type Result = Result_Type::Success;
+    Interface_Type* Interface_Pointer = Interface_Class::First_Instance_Pointer;
+    while (Interface_Pointer)
+    {
+        if (Interface_Pointer->Set_Host_Name(Host_Name) != Result_Type::Success)
+            Result = Result_Type::Error;
+
+        Interface_Pointer = Interface_Pointer->Next_Instance_Pointer;
+    }
+    return Result;
+}
+
+String_Type& Network_Class::Get_Host_Name(String_Type& Host_Name)
+{
+    if (Interface_Class::First_Instance_Pointer)
+        return Interface_Class::First_Instance_Pointer->Get_Host_Name(Host_Name);
+    
+    return Host_Name;
+}

@@ -56,6 +56,16 @@ namespace Xila_Namespace
       /// @return Count of the connected interface.
       Natural_Type Get_Connected_Interface_Count();
 
+      /// @brief Set host name of the device over all interfaces.
+      /// @param Host_Name
+      /// @return `Result_Type::Success` if the host name has been setted successfully.
+      Result_Type Set_Host_Name(const char* Host_Name);
+
+      /// @brief Get host name of the device over all interfaces.
+      /// @param Host_Name 
+      /// @return `Result_Type::Success` if the host name has been getted successfully.
+      String_Type& Get_Host_Name(String_Type& Host_Name);
+
       
    } Network_Type;
 
