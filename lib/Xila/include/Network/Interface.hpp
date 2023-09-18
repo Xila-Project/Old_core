@@ -64,8 +64,9 @@ namespace Xila_Namespace
             virtual IP_Address_Type Get_Gateway_IP_Address() = 0;
             virtual IP_Address_Type Get_Subnet_Mask() = 0;
             virtual IP_Address_Type Get_DNS_IP_Address(Natural_Type Index) = 0;
+            virtual IP_Address_Type Get_Broadcast_IP_Address() = 0;
             virtual Byte_Type Get_Subnet_CIDR() = 0;
-            virtual bool Is_IPv6() = 0;
+            virtual bool Is_IP_v6() = 0;
 
             virtual Client_Type& Create_Client() = 0;
 
@@ -83,6 +84,8 @@ namespace Xila_Namespace
             /// @param DNS_2_IP_Address Second DNS IP address.
             /// @return `Result_Type::Success` if the network configuration has been set, `Result_Type::Error` otherwise.
             virtual Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = static_cast<uint32_t>(0x00000000), IP_Address_Type DNS_2_IP_Address = static_cast<uint32_t>(0x00000000)) = 0;
+
+            virtual Result_Type Set_IP_v6(bool IP_v6) = 0;
 
              /// @brief Set the host name of the device over the interface.
              /// @param Host_Name 

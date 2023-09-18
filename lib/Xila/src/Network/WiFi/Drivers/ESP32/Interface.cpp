@@ -320,35 +320,35 @@ uint8_t *WiFi_Interface_Class::Station_Class::Get_MAC_Address(uint8_t *MAC_Addre
 IP_Address_Type WiFi_Interface_Class::Get_IP_Address(bool IPv6)
 {
     if (this->Get_Mode() == Mode_Type::Access_Point)
-    {
-        return static_cast<uint32_t>(ESP32_WiFi.softAPIP());
-    }
-    
+        return IP_Address_Type((uint32_t)ESP32_WiFi.softAPIP());
+
     if (IPv6)
-    {
-        return ESP32_WiFi.localIPv6();
-    }
-    return IP_Address_Type(ESP32_WiFi.localIP());
+        return IP_Address_Class(ESP32_WiFi.localIPv6().toString().c_str());
+
+    return IP_Address_Type((uint32_t)ESP32_WiFi.localIP());
 }
 
-IP_Address_Type WiFi_Interface_Class::Station_Class::Get_Subnet_Mask()
+IP_Address_Type WiFi_Interface_Class::Get_Subnet_Mask()
 {
-    return IP_Address_Type(ESP32_WiFi.subnetMask());
+    return IP_Address_Type((uint32_t)ESP32_WiFi.subnetMask());
 }
 
-IP_Address_Type WiFi_Interface_Class::Station_Class::Get_Gateway_IP_Address()
+IP_Address_Type WiFi_Interface_Class::Get_Gateway_IP_Address()
 {
-    return IP_Address_Type(ESP32_WiFi.gatewayIP());
+    return IP_Address_Type((uint32_t)ESP32_WiFi.gatewayIP());
 }
 
-IP_Address_Type WiFi_Interface_Class::Station_Class::Get_DNS_IP_Address(uint8_t Index)
+IP_Address_Type WiFi_Interface_Class::Get_DNS_IP_Address(Natural_Type Index)
 {
-    return IP_Address_Type(ESP32_WiFi.dnsIP(Index));
+    return IP_Address_Type((uint32_t)ESP32_WiFi.dnsIP(Index));
 }
 
-IP_Address_Type WiFi_Interface_Class::Station_Class::Get_Broadcast_IP_Address()
+IP_Address_Type WiFi_Interface_Class::Get_Broadcast_IP_Address()
 {
-    return IP_Address_Type(ESP32_WiFi.broadcastIP());
+    if (this->Get_Mode() == Mode_Type::Access_Point)
+        return IP_Address_Type((uint32_t)ESP32_WiFi.softAPBroadcastIP());
+    else if (this->Get_Mode() == Mode_Type::Station)
+        return IP_Address_Type((uint32_t)ESP32_WiFi.broadcastIP());
 }
 
 IP_Address_Type WiFi_Interface_Class::Station_Class::Get_Network_ID()
@@ -356,21 +356,38 @@ IP_Address_Type WiFi_Interface_Class::Station_Class::Get_Network_ID()
     return IP_Address_Type(ESP32_WiFi.networkID());
 }
 
-uint8_t WiFi_Interface_Class::Station_Class::Get_Subnet_CIDR()
+Byte_Type WiFi_Interface_Class::Get_Subnet_CIDR()
 {
-    return ESP32_WiFi.subnetCIDR();
+    if (this->Get_Mode() == Mode_Type::Access_Point)
+        return ESP32_WiFi.softAPSubnetCIDR();
+    else if (this->Get_Mode() == Mode_Type::Station)
+        return ESP32_WiFi.subnetCIDR();
+    return 0;
 }
 
-Result_Type WiFi_Interface_Class::Station_Class::Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway_IP_Address, IP_Address_Type DNS_1_IP_Address, IP_Address_Type DNS_2_IP_Address)
+Result_Type WiFi_Interface_Class::Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway_IP_Address, IP_Address_Type DNS_1_IP_Address, IP_Address_Type DNS_2_IP_Address)
 {
-    if (ESP32_WiFi.config(IP_Address, Gateway_IP_Address, Subnet_Mask, DNS_1_IP_Address, DNS_2_IP_Address))
+    if (this->Get_Mode() == Mode_Type::Access_Point)
     {
-        this->IP_Address = IP_Address;
-        this->Subnet_Mask = Subnet_Mask;
-        this->Gateway_IP_Address = Gateway_IP_Address;
-        this->DNS_1_IP_Address = DNS_1_IP_Address;
-        this->DNS_2_IP_Address = DNS_2_IP_Address;
-        return Result_Type::Success;
+        if (ESP32_WiFi.softAPConfig((IPAddress)IP_Address, (IPAddress)Gateway_IP_Address, (IPAddress)Subnet_Mask))
+        {
+            this->IP_Address = IP_Address;
+            this->Subnet_Mask = Subnet_Mask;
+            this->Gateway_IP_Address = Gateway_IP_Address;
+            return Result_Type::Success;
+        }
+    }
+    else if (this->Get_Mode() == Mode_Type::Station)
+    {
+        if (ESP32_WiFi.config((IPAddress)IP_Address, (IPAddress)Gateway_IP_Address, (IPAddress)Subnet_Mask, (IPAddress)DNS_1_IP_Address, (IPAddress)DNS_2_IP_Address))
+        {
+            this->IP_Address = IP_Address;
+            this->Subnet_Mask = Subnet_Mask;
+            this->Gateway_IP_Address = Gateway_IP_Address;
+            this->DNS_IP_Address[0] = DNS_1_IP_Address;
+            this->DNS_IP_Address[1] = DNS_2_IP_Address;
+            return Result_Type::Success;
+        }
     }
     return Result_Type::Error;
 }
@@ -384,25 +401,17 @@ bool WiFi_Interface_Class::Station_Class::Set_Automatic_Reconnection(bool Enable
 void WiFi_Interface_Class::Station_Class::Set_Scan_Method(bool Fast)
 {
     if (Fast)
-    {
         ESP32_WiFi.setScanMethod(WIFI_FAST_SCAN);
-    }
     else
-    {
         ESP32_WiFi.setScanMethod(WIFI_ALL_CHANNEL_SCAN);
-    }
 }
 
 void WiFi_Interface_Class::Station_Class::Set_Sort_Method(bool Signal)
 {
     if (Signal)
-    {
         ESP32_WiFi.setSortMethod(WIFI_CONNECT_AP_BY_SIGNAL);
-    }
     else
-    {
         ESP32_WiFi.setSortMethod(WIFI_CONNECT_AP_BY_SECURITY);
-    }
 }
 
 // - Access point
@@ -455,39 +464,14 @@ uint8_t WiFi_Interface_Class::Access_Point_Class::Get_Station_Number()
     return ESP32_WiFi.softAPgetStationNum();
 }
 
-IP_Address_Type WiFi_Interface_Class::Access_Point_Class::Get_IP_Address()
-{
-    return IP_Address_Type(ESP32_WiFi.softAPIP());
-}
-
-IP_Address_Type WiFi_Interface_Class::Access_Point_Class::Get_Subnet_Mask()
-{
-    return Subnet_Mask;
-}
-
-IP_Address_Type WiFi_Interface_Class::Access_Point_Class::Get_Gateway_IP_Address()
-{
-    return Gateway_IP_Address;
-}
-
 IP_Address_Type WiFi_Interface_Class::Access_Point_Class::Get_DHCP_Start_IP_Address()
 {
     return DHCP_Lease_Start_IP_Address;
 }
 
-IP_Address_Type WiFi_Interface_Class::Access_Point_Class::Get_Broadcast_IP_Address()
-{
-    return IP_Address_Type(ESP32_WiFi.softAPBroadcastIP());
-}
-
 IP_Address_Type WiFi_Interface_Class::Access_Point_Class::Get_Network_ID()
 {
     return IP_Address_Type(ESP32_WiFi.softAPNetworkID());
-}
-
-uint8_t WiFi_Interface_Class::Access_Point_Class::Get_Subnet_CIDR()
-{
-    return ESP32_WiFi.softAPSubnetCIDR();
 }
 
 Result_Type WiFi_Interface_Class::Access_Point_Class::Set_IP_v6(bool Enable)
@@ -584,11 +568,10 @@ int32_t WiFi_Interface_Class::Scan_Class::Get_Channel(uint8_t Index)
     return ESP32_WiFi.channel(Index);
 }
 
-Client_Type& WiFi_Interface_Class::Create_Client()
+Client_Type &WiFi_Interface_Class::Create_Client()
 {
     return *(new WiFi_Client_Type());
 }
-
 
 WiFi_Interface_Class::WiFi_Interface_Class() : Station(), Access_Point(), Scan()
 {
@@ -892,18 +875,19 @@ Result_Type WiFi_Interface_Class::Save_Registry()
     // - WiFi
 
     WiFi_Registry["Mode"] = static_cast<uint8_t>(Get_Mode());
-    WiFi_Registry["Transmission power"] = Get_Transmission_Power();
+    WiFi_Registry["Transmission power"] = this->Get_Transmission_Power();
     WiFi_Registry["Long range"] = Long_Range;
+    WiFi_Registry["Is_IP_v6"] = this->Is_IP_v6();
+    WiFi_Registry["IP Address"] = static_cast<uint32_t>(this->Get_IP_Address());
+    WiFi_Registry["Subnet Mask"] = static_cast<uint32_t>(this->Get_Subnet_Mask());
+    WiFi_Registry["Gateway"] = static_cast<uint32_t>(this->Get_Gateway_IP_Address());
+    WiFi_Registry["DNS_1"] = static_cast<uint32_t>(this->Get_DNS_IP_Address(0));
+    WiFi_Registry["DNS_2"] = static_cast<uint32_t>(this->Get_DNS_IP_Address(1));
 
     // - Station
 
     JsonObject Station = WiFi_Registry["Station"];
 
-    Station["IP Address"] = static_cast<uint32_t>(this->Get_IP_Address());
-    Station["Subnet Mask"] = static_cast<uint32_t>(this->Get_Subnet_Mask());
-    Station["Gateway"] = static_cast<uint32_t>(this->Get_Gateway_IP_Address());
-    Station["DNS_1"] = static_cast<uint32_t>(this->Get_DNS_IP_Address(0));
-    Station["DNS_2"] = static_cast<uint32_t>(this->Get_DNS_IP_Address(1));
     Station["IP v6"] = this->Station.IP_v6;
     Station["Automatic Reconnection"] = this->Station.Get_Automatic_Reconnection();
 

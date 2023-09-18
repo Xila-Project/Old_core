@@ -86,23 +86,24 @@ namespace Xila_Namespace
             /// @return `Result_Type::Success` if the module has been stopped, `Result_Type::Error` otherwise.
             Result_Type Stop() override;
 
-            State_Type Get_State() override;
+            Client_Type& Create_Client() override;
 
+            State_Type Get_State() override;
             IP_Address_Type Get_IP_Address(bool IPv6 = false) override;
             IP_Address_Type Get_Gateway_IP_Address() override;
             IP_Address_Type Get_Subnet_Mask() override;
             IP_Address_Type Get_DNS_IP_Address(Natural_Type Index) override;
+            IP_Address_Type Get_Broadcast_IP_Address() override;
             Byte_Type Get_Subnet_CIDR() override;
-            bool Is_IPv6() override;
+            bool Is_IP_v6() override;
+            String_Type &Get_Host_Name(String_Type &Host_Name) override;
 
-            Client_Type& Create_Client() override;
             
             void Set_State(State_Type State) override;
-
             Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = static_cast<uint32_t>(0x00000000), IP_Address_Type DNS_2_IP_Address = static_cast<uint32_t>(0x00000000)) override;
+            Result_Type Set_Host_Name(const char *Host_Name) override;
+            Result_Type Set_IP_v6(bool IP_v6) override;
 
-            String_Type &Get_Host_Name(String_Type &Host_Name) override;
-            Result_Type Set_Host_Name(const char *Host_Name);
 
             // - - Managment
 
@@ -233,45 +234,10 @@ namespace Xila_Namespace
                 /// @param MAC_Address Pointer to a `uint8_t` array of 6 bytes where the MAC address will be stored.
                 uint8_t *Get_MAC_Address(uint8_t *MAC_Address);
 
-                /// @brief Get the IP address.
-                /// @param IPv6 `true` to get the IPv6 address, `false` to get the IPv4 address.
-                IP_Address_Type Get_IP_Address(bool IPv6 = false);
-
-                /// @brief Get the subnet mask.
-                /// @return Subnet mask.
-                IP_Address_Type Get_Subnet_Mask();
-
-                /// @brief Get the gateway IP address.
-                /// @return Gateway IP address.
-                IP_Address_Type Get_Gateway_IP_Address();
-
-                /// @brief Get the DNS IP address.
-                /// @param Index Index of the DNS IP address to get.
-                /// @return DNS IP address.
-                IP_Address_Type Get_DNS_IP_Address(uint8_t Index);
-
-                /// @brief Get the broadcast IP address.
-                /// @return Broadcast IP address.
-                IP_Address_Type Get_Broadcast_IP_Address();
-
                 IP_Address_Type Get_Network_ID();
 
-                /// @brief Get the subnet CIDR.
-                /// @return Subnet CIDR.
-                uint8_t Get_Subnet_CIDR();
-
+             
                 // - - Setters
-
-                // - - - Network configuration
-
-                /// @brief Set the network configuration.
-                /// @param IP_Address IP address.
-                /// @param Subnet_Mask Subnet mask.
-                /// @param Gateway Gateway IP address.
-                /// @param DNS_1_IP_Address First DNS IP address.
-                /// @param DNS_2_IP_Address Second DNS IP address.
-                /// @return `Result_Type::Success` if the network configuration has been set, `Result_Type::Error` otherwise.
-                Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = static_cast<uint32_t>(0x00000000), IP_Address_Type DNS_2_IP_Address = static_cast<uint32_t>(0x00000000));
 
                 /// @brief Set the automatic reconnection mode.
                 /// @param Enable `true` to enable the automatic reconnection mode, `false` to disable it.
@@ -288,11 +254,6 @@ namespace Xila_Namespace
 
             private:
                 // - Attributes
-
-                /// @brief Network IP version.
-                bool IP_v6;
-
-                IP_Address_Type IP_Address, Subnet_Mask, Gateway_IP_Address, DNS_1_IP_Address, DNS_2_IP_Address;
 
                 friend class WiFi_Class;
             } Station;
@@ -345,61 +306,30 @@ namespace Xila_Namespace
                 /// @return Current number of stations connected to the access point.
                 uint8_t Get_Station_Number();
 
-                /// @brief Get the IP address of the access point.
-                /// @return IP address of the access point.
-                IP_Address_Type Get_IP_Address();
-
-                /// @brief Get the subnet mask of the access point.
-                /// @return Subnet mask of the access point.
-                IP_Address_Type Get_Subnet_Mask();
-
-                /// @brief Get the gateway IP address of the access point.
-                /// @return Gateway IP address of the access point.
-                IP_Address_Type Get_Gateway_IP_Address();
-
                 /// @brief Get the DHCP lease start IP address.
                 /// @return DHCP lease start IP address.
                 IP_Address_Type Get_DHCP_Start_IP_Address();
-
-                /// @brief Get the broadcast IP address.
-                /// @return Broadcast IP address.
-                IP_Address_Type Get_Broadcast_IP_Address();
 
                 /// @brief Get the network ID.
                 /// @return Network ID.
                 IP_Address_Type Get_Network_ID();
 
-                /// @brief Get the subnet CIDR.
-                /// @return Subnet CIDR.
-                uint8_t Get_Subnet_CIDR();
 
                 // - - Setters
-
-                /// @brief Set the use of the IP v6 protocol.
-                /// @param Enable `true` to enable IP v6 protocol, `false` to disable it.
-                Result_Type Set_IP_v6(bool Enable = true);
 
                 /// @brief Get the MAC address of the access point.
                 /// @param MAC_Address A pointer to an array of 6 byte where the MAC address will be stored.
                 /// @return Pointer to the `uint8_t` array containing the MAC address.
                 uint8_t *Get_MAC_Address(uint8_t *MAC_Address);
 
-                /// @brief Set the network configuration of the access point.
-                /// @param Local_IP Local IP address.
-                /// @param Gateway Gateway IP address.
-                /// @param Subnet Subnet mask.
-                /// @param DHCP_Lease_Start_IP_Address DHCP lease start IP address.
-                /// @return `Result_Type::Success` if the network configuration has been set, `Result_Type::Error` otherwise.
-                Result_Type Set_Configuration(IP_Address_Type Local_IP, IP_Address_Type Gateway, IP_Address_Type Subnet, IP_Address_Type DHCP_Lease_Start_IP_Address = static_cast<uint32_t>(0));
-
+    
             private:
-                bool IP_v6;
                 Static_String_Type<64> Password;
                 int32_t Channel;
                 bool Hidden;
                 uint8_t Maximum_Stations;
 
-                IP_Address_Type IP_Address, Subnet_Mask, Gateway_IP_Address, DHCP_Lease_Start_IP_Address;
+                IP_Address_Type DHCP_Lease_Start_IP_Address;
 
                 friend class WiFi_Class;
 
@@ -483,6 +413,8 @@ namespace Xila_Namespace
             Result_Type Save_Registry();
 
             bool Long_Range;
+            bool Is_IP_v6;
+            IP_Address_Type IP_Address, Subnet_Mask, Gateway_IP_Address, DNS_IP_Address[2];
 
         } WiFi_Interface_Type;
 

@@ -22,45 +22,45 @@ namespace Xila_Namespace
 
             /// @brief Constructor to choose between IPv4 or IPv6 address.
             /// @param Is_IPv4 : true for IPv4, false for IPv6.
-            IP_Address_Class(bool Is_IPv4);
+            explicit IP_Address_Class(bool Is_IPv4);
 
             /// @brief Constructor to create an IP v4 address.
             /// @param Address : 32 bits integer representing the IP address.
-            IP_Address_Class(uint32_t Address);
+            explicit IP_Address_Class(uint32_t Address);
 
             /// @brief Constructor to create an IP v4 or v6 address.
             /// @param Address : Pointer to an array of 4 or 16 bytes representing the IP address.
-            IP_Address_Class(const uint8_t *Address, bool Is_IPv4 = true);
+            explicit IP_Address_Class(const uint8_t *Address, bool Is_IPv4 = true);
 
             /// @brief Constructor to create an IP v4 or v6 address from a char array.
             /// @param Address : Pointer to a char array representing the IP address.
-            IP_Address_Class(const char *Address);
+            explicit IP_Address_Class(const String_Type& Address);
 
             /// @brief Constructor to create an IP v4 address.
             /// @param Byte_1 First byte of the IP address.
             /// @param Byte_2 Second byte of the IP address.
             /// @param Byte_3 Third byte of the IP address.
             /// @param Byte_4 Fourth byte of the IP address.
-            IP_Address_Class(uint8_t Byte_1, uint8_t Byte_2, uint8_t Byte_3, uint8_t Byte_4);
+            explicit IP_Address_Class(uint8_t Byte_1, uint8_t Byte_2, uint8_t Byte_3, uint8_t Byte_4);
 
             /// @brief Constructor to create from an Arduino IPAddress object.
             /// @param IP_Address : IPAddress object.
-            IP_Address_Class(const IPAddress &IP_Address);
+            explicit IP_Address_Class(const IPAddress &IP_Address);
 
             /// @brief Constructor to create from an Arduino IPv6Address object.
             /// @param IP_Address : IPv6Address object.
-            IP_Address_Class(const IPv6Address &IP_Address);
+            explicit IP_Address_Class(const IPv6Address &IP_Address);
 
             // - - Operators
 
             /// @brief Conversion operator to a 32 bits integer.
-            operator uint32_t() const;
+            explicit operator uint32_t() const;
 
             /// @brief Conversion operator to an Arduino IPAddress object.
-            operator IPAddress() const;
+            explicit operator IPAddress() const;
 
             /// @brief Conversion operator to an Arduino IPv6Address object.
-            operator IPv6Address() const;
+            explicit operator IPv6Address() const;
 
             /// @brief Comparison operator.
             /// @param IP_Address : IP address to compare to.

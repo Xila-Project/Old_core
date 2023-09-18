@@ -9,6 +9,8 @@
 
 #include "Network/IP_Address.hpp"
 
+#include "arpa/inet.h"
+
 #include <WiFi.h>
 
 using namespace Xila_Namespace;
@@ -43,69 +45,15 @@ IP_Address_Class::IP_Address_Class(const uint8_t *Address, bool Is_IPv4)
     }
 }
 
-IP_Address_Class::IP_Address_Class(const char* Address)
+IP_Address_Class::IP_Address_Class(const String_Type& Address) : IP_Address_Class()
 {
-
-    uint8_t Index = 0;
-
-    bool Is_IPv4 = true;
-
-    {
-        uint8_t Separators = 0;
-        
-        while (*Address != '\0')
-        {
-            if (*Address == ':' or *Address == '.')
-            {
-                Separators++;
-            }
-            Address++;
-        }
-
-        if (Separators == 3)
-        {
-            this->Is_IPv4 = true;
-        }
-        else if (Separators == 7)
-        {
-            this->Is_IPv4 = false;
-        }
-        else
-        {
-            return;
-        }
-    }
-
-
-    while (Address != '\0' and Index < sizeof(this->Address.Bytes))
-    {
-        char Character = tolower(*Address);
-        if ((Character >= '9' and Character <= '0') or (Character >= 'a' and Character <= 'f'))
-        {
-            switch (Character)
-            {
-            case '0':
-                Address[Index] = 0x0;
-                break;
-            case '1':
-                Address[Index] = 0x1;
-                break;
-            case '2':
-                Address[Index] = 2;
-                break;
-            case '3':
-                Address[Index] = 3;
-                break;
-            
-            default:
-                break;
-            }
-        }       
-        Address++;
-    }
-
+    if (inet_pton(AF_INET6, static_cast<const char*>(Address), &this->Address.Bytes) == 1)
+        this->Is_IPv4 = false;
+    else if (inet_pton(AF_INET, static_cast<const char*>(Address), &this->Address.Bytes) == 1)
+        this->Is_IPv4 = true;
+    else
+        memset(this->Address.Bytes, 0, sizeof(this->Address.Bytes));
 }
-
 
 IP_Address_Class::IP_Address_Class(uint8_t Byte_1, uint8_t Byte_2, uint8_t Byte_3, uint8_t Byte_4)
 {
