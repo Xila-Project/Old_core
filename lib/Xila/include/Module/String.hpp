@@ -322,6 +322,12 @@ namespace Xila_Namespace
         /// @return Result_Type::Success if the string was converted, Result_Type::Error otherwise.
         Result_Type To_Upper_Case();
 
+        /// @brief Read formatted data from the string.
+        /// @param Format Format of the string.
+        /// @param Arguments Arguments of the format.
+        /// @return Number of arguments successfully filled.
+        Integer_Type Scan(const char *Format, ...) const;
+
         // - - Operators
 
         // - - - Casting

@@ -215,6 +215,11 @@ String_Type &WiFi_Interface_Class::Get_Host_Name(String_Type &Host_Name)
     return Host_Name;
 }
 
+Interface_Type_Type WiFi_Interface_Class::Get_Type()
+{
+    return Interface_Type_Type::WiFi;
+}
+
 void WiFi_Interface_Class::Set_Long_Range(bool Enable)
 {
     ESP32_WiFi.enableLongRange(Enable);
@@ -233,13 +238,19 @@ Result_Type WiFi_Interface_Class::Set_Transmission_Power(int16_t Power)
 Result_Type WiFi_Interface_Class::Set_Host_Name(const char *Host_Name)
 {
     if (Host_Name)
-    {
         if (ESP32_WiFi.setHostname(Host_Name))
-        {
             return Result_Type::Success;
-        }
-    }
+        
     return Result_Type::Error;
+}
+
+Result_Type WiFi_Interface_Class::Set_IP_v6(bool Enable)
+{
+    if (Enable)
+        if (!ESP32_WiFi.enableIpV6())
+            return Result_Type::Error;
+        
+    return Result_Type::Success;
 }
 
 // - - Station
@@ -323,7 +334,7 @@ IP_Address_Type WiFi_Interface_Class::Get_IP_Address(bool IPv6)
         return IP_Address_Type((uint32_t)ESP32_WiFi.softAPIP());
 
     if (IPv6)
-        return IP_Address_Class(ESP32_WiFi.localIPv6().toString().c_str());
+        return IP_Address_Class(ESP32_WiFi.localIPv6());
 
     return IP_Address_Type((uint32_t)ESP32_WiFi.localIP());
 }
@@ -474,35 +485,11 @@ IP_Address_Type WiFi_Interface_Class::Access_Point_Class::Get_Network_ID()
     return IP_Address_Type(ESP32_WiFi.softAPNetworkID());
 }
 
-Result_Type WiFi_Interface_Class::Access_Point_Class::Set_IP_v6(bool Enable)
-{
-    if (Enable)
-    {
-        if (!ESP32_WiFi.enableIpV6())
-        {
-            return Result_Type::Error;
-        }
-    }
-    return Result_Type::Success;
-}
+
 
 uint8_t *WiFi_Interface_Class::Access_Point_Class::Get_MAC_Address(uint8_t *MAC_Address)
 {
     return ESP32_WiFi.softAPmacAddress(MAC_Address);
-}
-
-Result_Type WiFi_Interface_Class::Access_Point_Class::Set_Configuration(IP_Address_Type Local_IP, IP_Address_Type Gateway, IP_Address_Type Subnet, IP_Address_Type DHCP_Lease_Start_IP_Address)
-{
-    this->IP_Address = IP_Address;
-    this->Subnet_Mask = Subnet_Mask;
-    this->Gateway_IP_Address = Gateway_IP_Address;
-    this->DHCP_Lease_Start_IP_Address = DHCP_Lease_Start_IP_Address;
-
-    if (ESP32_WiFi.softAPConfig(IP_Address, Gateway_IP_Address, Subnet_Mask, DHCP_Lease_Start_IP_Address))
-    {
-        return Result_Type::Success;
-    }
-    return Result_Type::Error;
 }
 
 // - - Scan
@@ -887,15 +874,11 @@ Result_Type WiFi_Interface_Class::Save_Registry()
     // - Station
 
     JsonObject Station = WiFi_Registry["Station"];
-
-    Station["IP v6"] = this->Station.IP_v6;
     Station["Automatic Reconnection"] = this->Station.Get_Automatic_Reconnection();
 
     // - Access Point
 
     JsonObject Access_Point = WiFi_Registry["Access Point"];
-
-    Access_Point["IP v6"] = this->Access_Point.IP_v6;
     Static_String_Type<32> SSID;
     this->Access_Point.Get_SSID(SSID);
     Access_Point["SSID"] = SSID;
@@ -903,9 +886,6 @@ Result_Type WiFi_Interface_Class::Save_Registry()
     Access_Point["Channel"] = this->Access_Point.Channel;
     Access_Point["Hidden"] = this->Access_Point.Hidden;
     Access_Point["Maximum Stations"] = this->Access_Point.Maximum_Stations;
-    Access_Point["IP Address"] = static_cast<uint32_t>(this->Access_Point.IP_Address);
-    Access_Point["Subnet Mask"] = static_cast<uint32_t>(this->Access_Point.Subnet_Mask);
-    Access_Point["Gateway"] = static_cast<uint32_t>(this->Access_Point.Gateway_IP_Address);
     Access_Point["DHCP Lease Start IP Address"] = static_cast<uint32_t>(this->Access_Point.DHCP_Lease_Start_IP_Address);
 
     if (serializeJson(WiFi_Registry, Regisitry_File) == 0)
@@ -918,11 +898,7 @@ Result_Type WiFi_Interface_Class::Save_Registry()
     return Result_Type::Success;
 }
 
-WiFi_Interface_Class::Station_Class::Station_Class() : IP_v6(true), IP_Address(), Subnet_Mask(), Gateway_IP_Address(), DNS_1_IP_Address(), DNS_2_IP_Address()
-{
-}
-
-WiFi_Interface_Class::Access_Point_Class::Access_Point_Class() : IP_v6(true), Channel(1), Hidden(false), Password(""), Maximum_Stations(4), IP_Address(), Subnet_Mask(), Gateway_IP_Address(), DHCP_Lease_Start_IP_Address()
+WiFi_Interface_Class::Access_Point_Class::Access_Point_Class() : Channel(1), Hidden(false), Password(""), Maximum_Stations(4), DHCP_Lease_Start_IP_Address()
 {
 }
 

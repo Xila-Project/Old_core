@@ -97,10 +97,11 @@ namespace Xila_Namespace
             Byte_Type Get_Subnet_CIDR() override;
             bool Is_IP_v6() override;
             String_Type &Get_Host_Name(String_Type &Host_Name) override;
+            Interface_Type_Type Get_Type() override;
 
             
             void Set_State(State_Type State) override;
-            Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = static_cast<uint32_t>(0x00000000), IP_Address_Type DNS_2_IP_Address = static_cast<uint32_t>(0x00000000)) override;
+            Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = IP_Address_Type((uint32_t)0), IP_Address_Type DNS_2_IP_Address = IP_Address_Type((uint32_t)0)) override;
             Result_Type Set_Host_Name(const char *Host_Name) override;
             Result_Type Set_IP_v6(bool IP_v6) override;
 
@@ -331,7 +332,7 @@ namespace Xila_Namespace
 
                 IP_Address_Type DHCP_Lease_Start_IP_Address;
 
-                friend class WiFi_Class;
+                friend class WiFi_Interface_Class;
 
             } Access_Point;
 
@@ -413,7 +414,7 @@ namespace Xila_Namespace
             Result_Type Save_Registry();
 
             bool Long_Range;
-            bool Is_IP_v6;
+            bool IP_v6;
             IP_Address_Type IP_Address, Subnet_Mask, Gateway_IP_Address, DNS_IP_Address[2];
 
         } WiFi_Interface_Type;

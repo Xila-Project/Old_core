@@ -20,21 +20,17 @@ namespace Xila_Namespace
             /// @brief Default constructor.
             IP_Address_Class();
 
-            /// @brief Constructor to choose between IPv4 or IPv6 address.
-            /// @param Is_IPv4 : true for IPv4, false for IPv6.
-            explicit IP_Address_Class(bool Is_IPv4);
-
             /// @brief Constructor to create an IP v4 address.
             /// @param Address : 32 bits integer representing the IP address.
-            explicit IP_Address_Class(uint32_t Address);
+            explicit IP_Address_Class(DWord_Type Address);
 
             /// @brief Constructor to create an IP v4 or v6 address.
             /// @param Address : Pointer to an array of 4 or 16 bytes representing the IP address.
-            explicit IP_Address_Class(const uint8_t *Address, bool Is_IPv4 = true);
+            explicit IP_Address_Class(const uint8_t *Address, bool Is_IPv4);
 
             /// @brief Constructor to create an IP v4 or v6 address from a char array.
             /// @param Address : Pointer to a char array representing the IP address.
-            explicit IP_Address_Class(const String_Type& Address);
+            explicit IP_Address_Class(const String_Type& String);
 
             /// @brief Constructor to create an IP v4 address.
             /// @param Byte_1 First byte of the IP address.
@@ -110,6 +106,18 @@ namespace Xila_Namespace
             /// @param Is_IPv4 : `true` for IPv4, `false` for IPv6.
             void Set_IP_Version(bool Is_IPv4);
 
+            /// @brief Parse a string to an IP v4 address.
+            /// @param String String to parse.
+            /// @param Address Pointer to an array of 4 bytes to store the IP address. 
+            /// @return `Result_Type::Success` if the string has been parsed successfully, `Result_Type::Error` otherwise.
+            static Result_Type Parse_IP_v4(const String_Type& String, uint32_t& Address);
+
+            /// @brief Parse a string to an IP v6 address.
+            /// @param String String to parse.
+            /// @param Address Pointer to an array of 16 bytes to store the IP address.
+            /// @return `Result_Type::Success` if the string has been parsed successfully, `Result_Type::Error` otherwise.
+            static Result_Type Parse_IP_v6(const String_Type& String, uint16_t& Address);
+
         private:
             // - Attributes
 
@@ -119,9 +127,10 @@ namespace Xila_Namespace
             /// @brief A union to store the IP address.
             union
             {
-                uint32_t DWord;
-                uint8_t Bytes[16];
-            } Address;
+                DWord_Type DWord;
+                Word_Type Words[8];
+                Byte_Type Bytes[16];
+            };
 
         } IP_Address_Type;
     }

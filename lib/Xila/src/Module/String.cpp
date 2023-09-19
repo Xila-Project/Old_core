@@ -443,6 +443,20 @@ Result_Type String_Class::To_Upper_Case()
     return Result_Type::Success;
 }
 
+Integer_Type String_Class::Scan(const char *Format, ...) const
+{
+    if (!Format || !Is_Valid())
+        return 0;
+    
+
+    va_list Arguments;
+    va_start(Arguments, Format);
+    Integer_Type Result = vsscanf(this->Characters_Pointer, Format, Arguments);
+    va_end(Arguments);
+
+    return Result;
+}
+
 Result_Type String_Class::To_Lower_Case()
 {
     if (!Is_Valid())

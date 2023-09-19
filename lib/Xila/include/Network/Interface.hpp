@@ -37,24 +37,27 @@ namespace Xila_Namespace
         typedef class Interface_Class
         {
         protected:
+            static Interface_Class *First_Instance_Pointer;
+            Interface_Class *Next_Instance_Pointer;
 
-            static Interface_Class* First_Instance_Pointer;
-            Interface_Class* Next_Instance_Pointer;
-            
         public:
             // - Methods
 
             // - - Constructor / Destructor
-            
+
             Interface_Class();
             virtual ~Interface_Class();
 
-            // - - 
+            // - -
 
             virtual Result_Type Start() = 0;
             virtual Result_Type Stop() = 0;
 
+            virtual Client_Type &Create_Client() = 0;
+       
             // - - Getters
+
+            virtual Interface_Type_Type Get_Type() = 0;
 
             virtual State_Type Get_State() = 0;
 
@@ -68,8 +71,10 @@ namespace Xila_Namespace
             virtual Byte_Type Get_Subnet_CIDR() = 0;
             virtual bool Is_IP_v6() = 0;
 
-            virtual Client_Type& Create_Client() = 0;
-
+            /// @brief Get the host name of the device over the interface.
+            /// @param Host_Name String to store the host name.
+            /// @return String_Type& Host name.
+            virtual String_Type &Get_Host_Name(String_Type &Host_Name) = 0;
 
 
             // - - Setters
@@ -83,22 +88,17 @@ namespace Xila_Namespace
             /// @param DNS_1_IP_Address First DNS IP address.
             /// @param DNS_2_IP_Address Second DNS IP address.
             /// @return `Result_Type::Success` if the network configuration has been set, `Result_Type::Error` otherwise.
-            virtual Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = static_cast<uint32_t>(0x00000000), IP_Address_Type DNS_2_IP_Address = static_cast<uint32_t>(0x00000000)) = 0;
+            virtual Result_Type Set_Configuration(IP_Address_Type IP_Address, IP_Address_Type Subnet_Mask, IP_Address_Type Gateway, IP_Address_Type DNS_1_IP_Address = IP_Address_Type((uint32_t)0), IP_Address_Type DNS_2_IP_Address = IP_Address_Type((uint32_t)0)) = 0;
 
             virtual Result_Type Set_IP_v6(bool IP_v6) = 0;
 
-             /// @brief Set the host name of the device over the interface.
-             /// @param Host_Name 
-             /// @return Result_Type `Result_Type::Success` if the host name has been setted successfully. 
-            virtual Result_Type Set_Host_Name(const char* Host_Name) = 0;
-
-             /// @brief Get the host name of the device over the interface. 
-             /// @param Host_Name String to store the host name.
-             /// @return String_Type& Host name. 
-            virtual String_Type& Get_Host_Name(String_Type& Host_Name) = 0;
+            /// @brief Set the host name of the device over the interface.
+            /// @param Host_Name
+            /// @return Result_Type `Result_Type::Success` if the host name has been setted successfully.
+            virtual Result_Type Set_Host_Name(const char *Host_Name) = 0;
 
             friend class Xila_Namespace::Network_Class;
-        } Interface_Type;       
+        } Interface_Type;
     }
 }
 
