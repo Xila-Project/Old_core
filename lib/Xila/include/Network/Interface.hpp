@@ -63,11 +63,13 @@ namespace Xila_Namespace
 
             // - - - IP
 
+            virtual Byte_Type& Get_MAC_Address(Byte_Type& MAC_Address) = 0;
             virtual IP_Address_Type Get_IP_Address(bool IPv6 = false) = 0;
             virtual IP_Address_Type Get_Gateway_IP_Address() = 0;
             virtual IP_Address_Type Get_Subnet_Mask() = 0;
             virtual IP_Address_Type Get_DNS_IP_Address(Natural_Type Index) = 0;
             virtual IP_Address_Type Get_Broadcast_IP_Address() = 0;
+            virtual IP_Address_Type Get_Network_ID() = 0;
             virtual Byte_Type Get_Subnet_CIDR() = 0;
             virtual bool Is_IP_v6() = 0;
 

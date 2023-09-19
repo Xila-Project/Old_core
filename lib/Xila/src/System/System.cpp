@@ -395,7 +395,7 @@ void System_Class::Restart()
   Display.Stop();
   Power.Stop();
   Sound.Stop();
-  Communication.Stop();
+  Network.Stop();
 
   this->Stop_Load_Animation(&Logo, Animation);
 

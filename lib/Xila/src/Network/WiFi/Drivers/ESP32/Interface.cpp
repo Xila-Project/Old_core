@@ -23,7 +23,7 @@ WiFi_Interface_Type WiFi_Interface;
 
 // - Methods
 
-WiFi_Interface_Class::WiFi_Interface_Class()
+WiFi_Interface_Class::WiFi_Interface_Class() : Station(), Access_Point(), Scan()
 {
 }
 
@@ -238,18 +238,37 @@ Result_Type WiFi_Interface_Class::Set_Transmission_Power(int16_t Power)
 Result_Type WiFi_Interface_Class::Set_Host_Name(const char *Host_Name)
 {
     if (Host_Name)
-        if (ESP32_WiFi.setHostname(Host_Name))
+        if (ESP32_WiFi.setHostname(Host_Name) && ESP32_WiFi.softAPsetHostname(Host_Name))
             return Result_Type::Success;
-        
+
     return Result_Type::Error;
+}
+
+Boolean_Type WiFi_Interface_Class::Is_IP_v6()
+{
+    return IP_v6;
 }
 
 Result_Type WiFi_Interface_Class::Set_IP_v6(bool Enable)
 {
-    if (Enable)
+    if (!Enable)
+        return Result_Type::Success;
+
+    this->IP_v6 = Enable;
+
+    if (this->Get_Mode() == Mode_Type::Access_Point)
+    {
+        if (!ESP32_WiFi.softAPenableIpV6())
+            return Result_Type::Error;
+    }
+    else if (this->Get_Mode() == Mode_Type::Station)
+    {
         if (!ESP32_WiFi.enableIpV6())
             return Result_Type::Error;
-        
+    }
+    else
+        return Result_Type::Error;
+
     return Result_Type::Success;
 }
 
@@ -323,20 +342,32 @@ int8_t WiFi_Interface_Class::Station_Class::Get_RSSI()
     return ESP32_WiFi.RSSI();
 }
 
-uint8_t *WiFi_Interface_Class::Station_Class::Get_MAC_Address(uint8_t *MAC_Address)
+Byte_Type& WiFi_Interface_Class::Get_MAC_Address(Byte_Type& MAC_Address)
 {
-    return ESP32_WiFi.macAddress(MAC_Address);
+    if (this->Get_Mode() == Mode_Type::Access_Point)
+        return *ESP32_WiFi.softAPmacAddress(&MAC_Address);
+    else if (this->Get_Mode() == Mode_Type::Station)
+        return *ESP32_WiFi.macAddress(&MAC_Address);
+    return MAC_Address;
 }
 
 IP_Address_Type WiFi_Interface_Class::Get_IP_Address(bool IPv6)
 {
     if (this->Get_Mode() == Mode_Type::Access_Point)
-        return IP_Address_Type((uint32_t)ESP32_WiFi.softAPIP());
-
-    if (IPv6)
-        return IP_Address_Class(ESP32_WiFi.localIPv6());
-
-    return IP_Address_Type((uint32_t)ESP32_WiFi.localIP());
+    {
+        if (IPv6)
+            return IP_Address_Class(ESP32_WiFi.softAPIPv6());
+        else
+            return IP_Address_Type((uint32_t)ESP32_WiFi.softAPIP());
+    }
+    else if (this->Get_Mode() == Mode_Type::Station)
+    {
+        if (IPv6)
+            return IP_Address_Class(ESP32_WiFi.localIPv6());
+        else
+            return IP_Address_Type((uint32_t)ESP32_WiFi.localIP());
+    }
+    return IP_Address_Type();
 }
 
 IP_Address_Type WiFi_Interface_Class::Get_Subnet_Mask()
@@ -360,11 +391,16 @@ IP_Address_Type WiFi_Interface_Class::Get_Broadcast_IP_Address()
         return IP_Address_Type((uint32_t)ESP32_WiFi.softAPBroadcastIP());
     else if (this->Get_Mode() == Mode_Type::Station)
         return IP_Address_Type((uint32_t)ESP32_WiFi.broadcastIP());
+    return IP_Address_Type();
 }
 
-IP_Address_Type WiFi_Interface_Class::Station_Class::Get_Network_ID()
+IP_Address_Type WiFi_Interface_Class::Get_Network_ID()
 {
-    return IP_Address_Type(ESP32_WiFi.networkID());
+    if (this->Get_Mode() == Mode_Type::Access_Point)
+        return IP_Address_Type(ESP32_WiFi.softAPNetworkID());
+    else if (this->Get_Mode() == Mode_Type::Station)
+        return IP_Address_Type(ESP32_WiFi.networkID());
+    return IP_Address_Type();
 }
 
 Byte_Type WiFi_Interface_Class::Get_Subnet_CIDR()
@@ -485,8 +521,6 @@ IP_Address_Type WiFi_Interface_Class::Access_Point_Class::Get_Network_ID()
     return IP_Address_Type(ESP32_WiFi.softAPNetworkID());
 }
 
-
-
 uint8_t *WiFi_Interface_Class::Access_Point_Class::Get_MAC_Address(uint8_t *MAC_Address)
 {
     return ESP32_WiFi.softAPmacAddress(MAC_Address);
@@ -558,10 +592,6 @@ int32_t WiFi_Interface_Class::Scan_Class::Get_Channel(uint8_t Index)
 Client_Type &WiFi_Interface_Class::Create_Client()
 {
     return *(new WiFi_Client_Type());
-}
-
-WiFi_Interface_Class::WiFi_Interface_Class() : Station(), Access_Point(), Scan()
-{
 }
 
 Result_Type WiFi_Interface_Class::Start()

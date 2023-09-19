@@ -89,13 +89,15 @@ namespace Xila_Namespace
             Client_Type& Create_Client() override;
 
             State_Type Get_State() override;
+            Byte_Type& Get_MAC_Address(Byte_Type& MAC_Address) override;
             IP_Address_Type Get_IP_Address(bool IPv6 = false) override;
             IP_Address_Type Get_Gateway_IP_Address() override;
             IP_Address_Type Get_Subnet_Mask() override;
             IP_Address_Type Get_DNS_IP_Address(Natural_Type Index) override;
             IP_Address_Type Get_Broadcast_IP_Address() override;
+            IP_Address_Type Get_Network_ID() override;
             Byte_Type Get_Subnet_CIDR() override;
-            bool Is_IP_v6() override;
+            Boolean_Type Is_IP_v6() override;
             String_Type &Get_Host_Name(String_Type &Host_Name) override;
             Interface_Type_Type Get_Type() override;
 
